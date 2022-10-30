@@ -6,7 +6,18 @@ import java.io.IOException;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.*;
+
+/**
+ * Implementing the Portfolio Interface and coded the implementation.
+ */
 public class PortfolioImpl implements Portfolio{
+
+  /**
+   * Method for creating new portfolio by the user.
+   *
+   * @param fileName with filename of the string
+   * @param ListObj  with list of objects if type StocksObj
+   */
   public void createPortfolio(String fileName, ArrayList<StocksObj> ListObj){
     // go through all the elements in the ListObj.
     JSONObject portfolio = new JSONObject();
@@ -26,6 +37,11 @@ public class PortfolioImpl implements Portfolio{
     }
   }
 
+  /**
+   * Method for displaying the portfolio.
+   *
+   * @param fileName for which portfolio needs to be displayed
+   */
   public ArrayList<PortfolioObj> viewPortfolio(String fileName){
     // load the portfolio of the given input file name.
     JSONParser parserPortfolio = new JSONParser();
@@ -52,6 +68,13 @@ public class PortfolioImpl implements Portfolio{
     }
     return null;
   }
+
+  /**
+   * Get portfolio value for a given date
+   *
+   * @param fileName for which portfolio needs to be displayed
+   * @param date     for which portfolio value needs to be displayed
+   */
   public float portfolioValueDate(String fileName, String date){
     float finalSum = 0;
     // load the portfolio of the given input file name.
