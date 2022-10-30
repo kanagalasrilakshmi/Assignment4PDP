@@ -14,18 +14,11 @@ public interface Portfolio {
   public void createPortfolio(String fileName, ArrayList<StocksObj> ListObj);
 
   /**
-   * Load portfolio.
-   *
-   * @param fileName with filename of the string
-   */
-  public void loadPortfolio(String fileName);
-
-  /**
    * Method for displaying the portfolio.
    *
    * @param fileName for which portfolio needs to be displayed
    */
-  public PortfolioObj viewPortfolio(String fileName);
+  public ArrayList<PortfolioObj> viewPortfolio(String fileName);
 
   /**
    * Get portfolio value for a given date

@@ -1,8 +1,11 @@
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.util.ArrayList;
 import java.io.FileWriter;
 import java.io.IOException;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import org.json.simple.parser.*;
 public class PortfolioImpl implements Portfolio{
   public void createPortfolio(String fileName, ArrayList<StocksObj> ListObj){
     // go through all the elements in the ListObj.
@@ -13,6 +16,7 @@ public class PortfolioImpl implements Portfolio{
     }
     JSONArray StocksObjList = new JSONArray();
     StocksObjList.add(portfolio);
+    // create a json type file.
     try (FileWriter file = new FileWriter(fileName+".json")){
       file.write(StocksObjList.toJSONString());
       file.flush();
@@ -21,11 +25,31 @@ public class PortfolioImpl implements Portfolio{
       e.printStackTrace();
     }
   }
-  public void loadPortfolio(String fileName){
 
-  }
-
-  public PortfolioObj viewPortfolio(String fileName){
+  public ArrayList<PortfolioObj> viewPortfolio(String fileName){
+    // load the portfolio of the given input file name.
+    JSONParser parserPortfolio = new JSONParser();
+    try (FileReader reader = new FileReader(fileName+".json")){
+      Object parseObj = parserPortfolio.parse(reader);
+      JSONArray portfolioValues = (JSONArray) parseObj;
+      ArrayList<PortfolioObj> viewPortfolioObj = new ArrayList<>();
+      for (StocksObj obj : (ArrayList<StocksObj>)portfolioValues){
+        // return present day stock price for the particular stock.
+        // call api key function that returns the present the stock value.
+        
+        viewPortfolioObj.add(new PortfolioObj(obj.getTickr(), obj.getNumStocks(),0));
+      }
+      return viewPortfolioObj;
+    }
+    catch (FileNotFoundException e){
+      e.printStackTrace();
+    }
+    catch(IOException e){
+      e.printStackTrace();
+    }
+    catch(ParseException e){
+      e.printStackTrace();
+    }
     return null;
   }
   public float portfolioValueDate(String fileName, String date){
