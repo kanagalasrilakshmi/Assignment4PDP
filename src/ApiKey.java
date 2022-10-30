@@ -3,6 +3,11 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
 public class ApiKey {
   private String tickrsymbol;
@@ -42,6 +47,25 @@ public class ApiKey {
         String currentDate = String.valueOf(java.time.LocalDate.now());
         String h1 = String.valueOf(java.time.LocalDate.now());
         String h2 = inputLine.split(",")[0];
+        SimpleDateFormat formatDate = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
+
+        try {
+          Date date = formatDate.parse(h1);
+          Calendar cal = Calendar.getInstance();
+          cal.setTime(date);
+          int weekday = cal.get(Calendar.DAY_OF_WEEK);
+          if (weekday == Calendar.SATURDAY) {
+            // set one day back i.e. friday date.
+            LocalDate fridayDate = LocalDate.now().minusDays(1);
+            h1 = String.valueOf(fridayDate);
+          } else if (weekday == Calendar.SUNDAY) {
+            // set 2 days back date i.e. friday date.
+            LocalDate fridayDate = LocalDate.now().minusDays(2);
+            h1 = String.valueOf(fridayDate);
+          }
+        } catch (Exception e) {
+          e.printStackTrace();
+        }
         if (h1.equals(h2)) {
           num = Float.valueOf(inputLine.split(",")[4]);
           break;
@@ -78,6 +102,26 @@ public class ApiKey {
       String inputLine;
       while ((inputLine = in.readLine()) != null) {
         String dateSheet = inputLine.split(",")[0];
+        // check if the given date falls on sat or sun.
+        SimpleDateFormat formatDate = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
+
+        try {
+          Date dateCheck = formatDate.parse(date);
+          Calendar cal = Calendar.getInstance();
+          cal.setTime(dateCheck);
+          int weekday = cal.get(Calendar.DAY_OF_WEEK);
+          if (weekday == Calendar.SATURDAY) {
+            // set one day back i.e. friday date.
+            LocalDate fridayDate = LocalDate.parse(formatDate.format(date)).minusDays(1);
+            dateSheet = String.valueOf(fridayDate);
+          } else if (weekday == Calendar.SUNDAY) {
+            // set 2 days back date i.e. friday date.
+            LocalDate fridayDate = LocalDate.parse(formatDate.format(date)).minusDays(2);
+            dateSheet = String.valueOf(fridayDate);
+          }
+        } catch (Exception e) {
+          e.printStackTrace();
+        }
         if (date.equals(dateSheet)) {
           num = Float.valueOf(inputLine.split(",")[4]);
           break;
