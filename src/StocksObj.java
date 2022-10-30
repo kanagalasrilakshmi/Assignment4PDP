@@ -4,7 +4,8 @@
 public class StocksObj {
   private String tickr;
   private float numStocks;
-  public StocksObj(String tickr, float numStocks){
+
+  public StocksObj(String tickr, float numStocks) {
     this.tickr = tickr;
     this.numStocks = numStocks;
   }
