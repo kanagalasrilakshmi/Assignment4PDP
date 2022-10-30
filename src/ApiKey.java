@@ -3,11 +3,11 @@ import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-public class AlphaVantageDemo {
+public class ApiKey {
+  private String tickrsymbol;
+  // constructor
   public static void main(String []args) {
-    //the API key needed to use this web service.
-    //Please get your own free API key here: https://www.alphavantage.co/
-    //Please look at documentation here: https://www.alphavantage.co/documentation/
+    // change to our own one.
     String apiKey = "W0M1JOKC82EZEQA8";
     String stockSymbol = "GOOG"; //ticker symbol for Google
     URL url = null;
