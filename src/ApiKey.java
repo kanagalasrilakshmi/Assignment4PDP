@@ -38,6 +38,7 @@ public class ApiKey {
         String h2 = inputLine.split(",")[0];
         if(h1.equals(h2)){
           num = Float.valueOf(inputLine.split(",")[4]);
+          break;
         }
       }
     }
