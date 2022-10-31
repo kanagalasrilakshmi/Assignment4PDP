@@ -13,24 +13,39 @@ import java.util.ArrayList;
  * Implementing the Portfolio Interface and coded the implementation.
  */
 public class PortfolioImpl implements Portfolio {
+  private ArrayList<StocksObj> ListObj;
+  private String fileName;
+  private String date;
 
+  public PortfolioImpl(){
+
+  }
+  public PortfolioImpl(ArrayList<StocksObj> ListObj,String fileName){
+    this.fileName = fileName;
+    this.ListObj = ListObj;
+  }
+  public PortfolioImpl(String fileName){
+    this.fileName = fileName;
+  }
+  public PortfolioImpl(String fileName,String date){
+    this.fileName = fileName;
+    this.date = date;
+  }
   /**
    * Method for creating new portfolio by the user.
    *
-   * @param fileName with filename of the string
-   * @param ListObj  with list of objects if type StocksObj
    */
-  public void createPortfolio(String fileName, ArrayList<StocksObj> ListObj) {
+  public void createPortfolio() {
     // go through all the elements in the ListObj.
     JSONObject portfolio = new JSONObject();
-    for (StocksObj Object : ListObj) {
+    for (StocksObj Object : this.ListObj) {
       portfolio.put("Stock Name", Object.getTickr());
       portfolio.put("Number of Stocks", Object.getNumStocks());
     }
     JSONArray StocksObjList = new JSONArray();
     StocksObjList.add(portfolio);
     // create a json type file.
-    try (FileWriter file = new FileWriter(fileName + ".json")) {
+    try (FileWriter file = new FileWriter(this.fileName + ".json")) {
       file.write(StocksObjList.toJSONString());
       file.flush();
     } catch (IOException e) {
@@ -41,12 +56,11 @@ public class PortfolioImpl implements Portfolio {
   /**
    * Method for displaying the portfolio.
    *
-   * @param fileName for which portfolio needs to be displayed
    */
-  public ArrayList<PortfolioObj> viewPortfolio(String fileName) {
+  public ArrayList<PortfolioObj> viewPortfolio() {
     // load the portfolio of the given input file name.
     JSONParser parserPortfolio = new JSONParser();
-    try (FileReader reader = new FileReader(fileName + ".json")) {
+    try (FileReader reader = new FileReader(this.fileName + ".json")) {
       Object parseObj = parserPortfolio.parse(reader);
       JSONArray portfolioValues = (JSONArray) parseObj;
       ArrayList<PortfolioObj> viewPortfolioObj = new ArrayList<>();
@@ -70,14 +84,12 @@ public class PortfolioImpl implements Portfolio {
   /**
    * Get portfolio value for a given date
    *
-   * @param fileName for which portfolio needs to be displayed
-   * @param date     for which portfolio value needs to be displayed
    */
-  public float portfolioValueDate(String fileName, String date) {
+  public float portfolioValueDate() {
     float finalSum = 0;
     // load the portfolio of the given input file name.
     JSONParser parserPortfolio = new JSONParser();
-    try (FileReader reader = new FileReader(fileName + ".json")) {
+    try (FileReader reader = new FileReader(this.fileName + ".json")) {
       Object parseObj = parserPortfolio.parse(reader);
       JSONArray portfolioValues = (JSONArray) parseObj;
       ArrayList<PortfolioObj> viewPortfolioObj = new ArrayList<>();
@@ -85,7 +97,7 @@ public class PortfolioImpl implements Portfolio {
         // return stock price for the particular stock on the give input date.
         // call api key function that returns the stock value.
         ApiKey apiObj = new ApiKey(obj.getTickr());
-        finalSum += obj.getNumStocks() * apiObj.callPriceDate(date);
+        finalSum += obj.getNumStocks() * apiObj.callPriceDate(this.date);
       }
     } catch (FileNotFoundException e) {
       e.printStackTrace();
