@@ -1,3 +1,4 @@
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -42,15 +43,46 @@ public class StocksMain {
       }
       // Type 2 to view portfolio.
       else if(category == 2){
+        // list the portfolios.
+        File curDir = new File(".");
+        File[] filesList = curDir.listFiles();
+        for(File f : filesList){
+          if(f.isFile()){
+            // list only .json files.
+            if(f.getName().contains(".json")){
+              System.out.println(f.getName());
+            }
+          }
+        }
         // type the name of the portfolio from the given list of portfolios.
+        System.out.println("Enter the name of the portfolio");
+        String filename = scan.next();
         // choose one of the portfolio.
+        Portfolio viewObj = new PortfolioImpl(filename);
         // view the portfolio.
+        ArrayList<PortfolioObj>  PortfolioView = viewObj.viewPortfolio();
       }
       // Type 3 to access portfolio value on a particular date.
       else if(category == 3){
+        // list the portfolios.
+        File curDir = new File(".");
+        File[] filesList = curDir.listFiles();
+        for(File f : filesList){
+          if(f.isFile()){
+            // list only .json files.
+            if(f.getName().contains(".json")){
+              System.out.println(f.getName());
+            }
+          }
+        }
         // type the name of the portfolio from the given list of portfolios.
-        // choose one of the portfolio.
+        System.out.println("Enter the name of the portfolio");
+        String filename = scan.next();
         // Enter the date on which you want to get value for.
+        String date = scan.next();
+        // choose one of the portfolio.
+        Portfolio valueDateObj = new PortfolioImpl(filename,date);
+        float finalVal = valueDateObj.portfolioValueDate();
       }
       else{
         System.out.println("Wrong option is chosen please chose right option");
