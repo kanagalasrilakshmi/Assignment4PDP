@@ -8,6 +8,8 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Dictionary;
+import java.util.Hashtable;
 
 /**
  * Implementing the Portfolio Interface and coded the implementation.
@@ -37,13 +39,13 @@ public class PortfolioImpl implements Portfolio {
    */
   public void createPortfolio() {
     // go through all the elements in the ListObj.
-    JSONObject portfolio = new JSONObject();
-    for (StocksObj Object : this.ListObj) {
-      portfolio.put("Stock Name", Object.getTickr());
-      portfolio.put("Number of Stocks", Object.getNumStocks());
-    }
     JSONArray StocksObjList = new JSONArray();
-    StocksObjList.add(portfolio);
+    System.out.println(this.ListObj);
+    Dictionary<String, Float>dict = new Hashtable<>();
+    for (StocksObj Object : this.ListObj) {
+      dict.put(Object.getTickr(),Object.getNumStocks());
+    }
+    StocksObjList.add(dict);
     // create a json type file.
     try (FileWriter file = new FileWriter(this.fileName + ".json")) {
       file.write(StocksObjList.toJSONString());
