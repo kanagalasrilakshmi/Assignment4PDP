@@ -82,6 +82,7 @@ public class ControllerImpl implements Controller {
                   Portfolio ObjImpl = new PortfolioImpl(objList, pfName);
                   ObjImpl.createPortfolio(this.rootDir);
                   done = true;
+                  theView.showString("Sucessfully created the portfolio "+pfName);
                 }
                 break;
               case "Y":
@@ -95,6 +96,7 @@ public class ControllerImpl implements Controller {
                 theView.showString("Please Enter Either S/Y only!!");
             }
           }
+          break;
         default:
           theView.showOptionError();
       }
