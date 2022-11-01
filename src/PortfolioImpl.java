@@ -122,4 +122,22 @@ public class PortfolioImpl implements Portfolio {
     File tempFile = new File(pfNamePath);
     return tempFile.exists();
   }
+
+  /**
+   * Check if the given output folder has any portfolios.
+   * @param rootDir is the path
+   * @return true if there are any portfolios else false
+   */
+  public boolean checkOutputFolder(String rootDir){
+    File curDir = new File(rootDir);
+    File[] filesList = curDir.listFiles();
+    for(File file:filesList){
+      if(file.isFile()){
+        if (file.getName().contains(".json")){
+          return true;
+        }
+      }
+    }
+    return false;
+  }
 }

@@ -13,7 +13,7 @@ public class ControllerImpl implements Controller {
     this.theView = theView;
     this.thePortfolio = thePortfolio;
     this.in = new Scanner(in);
-    this.rootDir = "/Users/PortfolioBucket/";
+    rootDir = "/Users/PortfolioBucket/";
   }
 
   public void go() {
@@ -25,32 +25,58 @@ public class ControllerImpl implements Controller {
           quit = true;
           break;
         case "V":
+          // check if the output folder has .json files or not.
+          // if no portfolio exists say no portfolio has been added.
+          if (!thePortfolio.checkOutputFolder(rootDir)) {
+            theView.showString("No portfolios are present!");
+            break;
+          }
           // list the portfolios.
           theView.showString("Choose from the list of portfolios");
           theView.listJsonFiles();
-          // if no portfolio exists say no portfolio has been added.
+          theView.showString("Enter the name of the portfolio from the displayed list");
+          // check if user enters valid file name.
+          // enters a portfolio name that does not exist.
           // type the name of the portfolio from the given list of portfolios.
-          theView.showString("Enter the name of the portfolio from the list");
           String pfNameChosen = in.next();
+          while (!thePortfolio.checkExists(rootDir + pfNameChosen + ".json")) {
+            theView.showString("Please enter a valid Portfolio name from the displayed list only!!");
+            pfNameChosen = in.next();
+          }
           Portfolio viewObj = new PortfolioImpl(pfNameChosen);
-          ArrayList<PortfolioObj> PortfolioView = viewObj.viewPortfolio(this.rootDir);
+          ArrayList<PortfolioObj> PortfolioView = viewObj.viewPortfolio(rootDir);
           // print the value.
           theView.showString("Company Tickr Symbol" + " " + "Num Stocks Purchased" + " " + "Stock Price");
           for (PortfolioObj obj : PortfolioView) {
-            theView.showString(obj.getTickr() + " " + obj.getNumStocks() + " " + obj.getStockPrice());
+            theView.showString(obj.getTickr() + "       " + obj.getNumStocks() + "     " + obj.getStockPrice());
           }
           break;
         case "D":
           // list the portfolios.
           theView.showString("Choose from the list of portfolios");
+          // check if the output folder has .json files or not.
+          // if no portfolio exists say no portfolio has been added.
+          if (!thePortfolio.checkOutputFolder(rootDir)) {
+            theView.showString("No portfolios are present!");
+            break;
+          }
           theView.listJsonFiles();
           // type the name of the portfolio from the given list of portfolios.
           theView.showString("Enter the name of the portfolio from the list");
+          // check if user enters valid file name.
+          // enters a portfolio name that does not exist.
+          // type the name of the portfolio from the given list of portfolios.
           String pFileName = in.next();
-          theView.showString("Enter the date on which you want to extract the portfolio");
+          while (!thePortfolio.checkExists(rootDir + pFileName + ".json")) {
+            theView.showString("Please enter a valid Portfolio name from the displayed list only!!");
+            pFileName = in.next();
+          }
+          theView.showString("Enter the date on which you want to extract the portfolio in YYYY-MM-DD format only!");
           String date = in.next();
+          // check date format.
+          // if not correct ask user to enter again.
           Portfolio valueDateObj = new PortfolioImpl(pFileName, date);
-          float finalVal = valueDateObj.portfolioValueDate(this.rootDir);
+          float finalVal = valueDateObj.portfolioValueDate(rootDir);
           // print the value
           theView.showString("The total value of the portfolio " + pFileName + " is " + finalVal);
           break;
@@ -82,7 +108,7 @@ public class ControllerImpl implements Controller {
                   Portfolio ObjImpl = new PortfolioImpl(objList, pfName);
                   ObjImpl.createPortfolio(this.rootDir);
                   done = true;
-                  theView.showString("Sucessfully created the portfolio "+pfName);
+                  theView.showString("Sucessfully created the portfolio " + pfName);
                 }
                 break;
               case "Y":

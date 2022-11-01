@@ -27,4 +27,11 @@ public interface Portfolio {
    * @return true if exists else false
    */
   public boolean checkExists(String pfNamePath);
+
+  /**
+   * Check if the given output folder has any portfolios.
+   * @param rootDir is the path
+   * @return true if there are any portfolios else false
+   */
+  public boolean checkOutputFolder(String rootDir);
 }
