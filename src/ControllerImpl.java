@@ -1,13 +1,14 @@
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.io.InputStream;
-public class ControllerImpl implements Controller{
+
+public class ControllerImpl implements Controller {
 
   private View theView;
   private Portfolio thePortfolio;
   private Scanner in;
 
-  public ControllerImpl( Portfolio thePortfolio, View theView, InputStream in) {
+  public ControllerImpl(Portfolio thePortfolio, View theView, InputStream in) {
     this.theView = theView;
     this.thePortfolio = thePortfolio;
     this.in = new Scanner(in);
@@ -38,7 +39,7 @@ public class ControllerImpl implements Controller{
             // validate tickr symbol in model.
             // check if tickr symbol is already in the list.
             // backup for api key failure.
-            theView.showString("Press Y to add to add stocks to the " + pfName+" portfolio.");
+            theView.showString("Press Y to add to add stocks to the " + pfName + " portfolio.");
             switch (in.next()) {
               case "S":
                 //check if object list is empty nothing to save
