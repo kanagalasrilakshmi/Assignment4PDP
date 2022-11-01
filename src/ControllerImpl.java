@@ -32,7 +32,7 @@ public class ControllerImpl implements Controller {
           String pfNameChosen = in.next();
           Portfolio viewObj = new PortfolioImpl(pfNameChosen);
           ArrayList<PortfolioObj>  PortfolioView = viewObj.viewPortfolio();
-          // need to print it.
+          // print the value.
           theView.showString("Company Tickr Symbol" + " " + "Num Stocks Purchased" + " " + "Stock Price" );
           for(PortfolioObj obj: PortfolioView){
             theView.showString(obj.getTickr() + " " + obj.getNumStocks() + " " + obj.getStockPrice() );
@@ -49,6 +49,7 @@ public class ControllerImpl implements Controller {
           String date = in.next();
           Portfolio valueDateObj = new PortfolioImpl(pFileName,date);
           float finalVal = valueDateObj.portfolioValueDate();
+          // print the value
           theView.showString("The total value of the portfolio "+pFileName+" is "+finalVal);
           break;
         case "C":
