@@ -24,45 +24,32 @@ public class ControllerImpl implements Controller {
           quit = true;
           break;
         case "V":
+          // list the portfolios.
           theView.showString("Choose from the list of portfolios");
-          // need to put this into model function.
-          File curDir = new File(".");
-          File[] filesList = curDir.listFiles();
-          for(File f : filesList){
-            if(f.isFile()){
-              // list only .json files.
-              if(f.getName().contains(".json")){
-                System.out.println(f.getName());
-              }
-            }
-          }
+          theView.listJsonFiles();
           // type the name of the portfolio from the given list of portfolios.
-          theView.showString("Enter the name of the portfolio");
+          theView.showString("Enter the name of the portfolio from the list");
           String pfNameChosen = in.next();
           Portfolio viewObj = new PortfolioImpl(pfNameChosen);
           ArrayList<PortfolioObj>  PortfolioView = viewObj.viewPortfolio();
           // need to print it.
+          theView.showString("Company Tickr Symbol" + " " + "Num Stocks Purchased" + " " + "Stock Price" );
+          for(PortfolioObj obj: PortfolioView){
+            theView.showString(obj.getTickr() + " " + obj.getNumStocks() + " " + obj.getStockPrice() );
+          }
           break;
         case "D":
           // list the portfolios.
-          // need to put this into model function.
-          File curDirDate = new File(".");
-          File[] filesListDate = curDirDate.listFiles();
-          for(File f : filesListDate){
-            if(f.isFile()){
-              // list only .json files.
-              if(f.getName().contains(".json")){
-                System.out.println(f.getName());
-              }
-            }
-          }
-          theView.showString("Enter the name of the portfolio");
+          theView.showString("Choose from the list of portfolios");
+          theView.listJsonFiles();
+          // type the name of the portfolio from the given list of portfolios.
+          theView.showString("Enter the name of the portfolio from the list");
           String pFileName = in.next();
           theView.showString("Enter the date on which you want to extract the portfolio");
           String date = in.next();
           Portfolio valueDateObj = new PortfolioImpl(pFileName,date);
           float finalVal = valueDateObj.portfolioValueDate();
-          // need to print it.
+          theView.showString("The total value of the portfolio "+pFileName+" is "+finalVal);
           break;
         case "C":
           theView.showString("Give a name for the portfolio you want to create:");

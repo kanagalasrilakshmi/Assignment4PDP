@@ -1,3 +1,4 @@
+import java.io.File;
 import java.io.PrintStream;
 
 public class ViewImpl implements View{
@@ -20,6 +21,19 @@ public class ViewImpl implements View{
       out.println("D: View existing Portfolio value for a given date.");
       out.println("Q: Quit the program");
       out.print("Enter your choice: ");
+    }
+
+    public void listJsonFiles(){
+      File curDir = new File(".");
+      File[] filesList = curDir.listFiles();
+      for(File f : filesList){
+        if(f.isFile()){
+          // list only .json files.
+          if(f.getName().contains(".json")){
+            out.println(f.getName());
+          }
+        }
+      }
     }
 
     public void showStringEntry() {
