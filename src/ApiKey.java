@@ -44,29 +44,8 @@ public class ApiKey {
       BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));
       String inputLine;
       while ((inputLine = in.readLine()) != null) {
-        String currentDate = String.valueOf(java.time.LocalDate.now());
-        String h1 = String.valueOf(java.time.LocalDate.now());
         String h2 = inputLine.split(",")[0];
-        SimpleDateFormat formatDate = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
-
-        try {
-          Date date = formatDate.parse(h1);
-          Calendar cal = Calendar.getInstance();
-          cal.setTime(date);
-          int weekday = cal.get(Calendar.DAY_OF_WEEK);
-          if (weekday == Calendar.SATURDAY) {
-            // set one day back i.e. friday date.
-            LocalDate fridayDate = LocalDate.now().minusDays(1);
-            h1 = String.valueOf(fridayDate);
-          } else if (weekday == Calendar.SUNDAY) {
-            // set 2 days back date i.e. friday date.
-            LocalDate fridayDate = LocalDate.now().minusDays(2);
-            h1 = String.valueOf(fridayDate);
-          }
-        } catch (Exception e) {
-          e.printStackTrace();
-        }
-        if (h1.equals(h2)) {
+        if (!h2.equals("timestamp")) {
           num = Float.valueOf(inputLine.split(",")[4]);
           break;
         }
@@ -126,6 +105,7 @@ public class ApiKey {
           num = Float.valueOf(inputLine.split(",")[4]);
           break;
         }
+
       }
     } catch (IOException e) {
       throw new IllegalArgumentException("No price data found for " + this.getTickrSymbol());
