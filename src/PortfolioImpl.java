@@ -8,8 +8,6 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Dictionary;
-import java.util.Hashtable;
 
 /**
  * Implementing the Portfolio Interface and coded the implementation.
@@ -39,13 +37,14 @@ public class PortfolioImpl implements Portfolio {
    */
   public void createPortfolio() {
     // go through all the elements in the ListObj.
-    JSONArray StocksObjList = new JSONArray();
-    System.out.println(this.ListObj);
-    Dictionary<String, Float>dict = new Hashtable<>();
+    JSONObject StocksObjList = new JSONObject();
     for (StocksObj Object : this.ListObj) {
-      dict.put(Object.getTickr(),Object.getNumStocks());
+      //JSONArray temp = new JSONArray();
+      JSONObject StocksObjListTemp = new JSONObject();
+      StocksObjListTemp.put("Num Stocks",Object.getNumStocks());
+      //temp.add(StocksObjListTemp);
+      StocksObjList.put(Object.getTickr(),StocksObjListTemp);
     }
-    StocksObjList.add(dict);
     // create a json type file.
     try (FileWriter file = new FileWriter(this.fileName + ".json")) {
       file.write(StocksObjList.toJSONString());
@@ -64,13 +63,14 @@ public class PortfolioImpl implements Portfolio {
     JSONParser parserPortfolio = new JSONParser();
     try (FileReader reader = new FileReader(this.fileName + ".json")) {
       Object parseObj = parserPortfolio.parse(reader);
-      JSONArray portfolioValues = (JSONArray) parseObj;
+      JSONObject portfolioValues = (JSONObject) parseObj;
       ArrayList<PortfolioObj> viewPortfolioObj = new ArrayList<>();
-      for (StocksObj obj : (ArrayList<StocksObj>) portfolioValues) {
-        // return present day stock price for the particular stock.
-        // call api key function that returns the present the stock value.
-        ApiKey apiObj = new ApiKey(obj.getTickr());
-        viewPortfolioObj.add(new PortfolioObj(obj.getTickr(), obj.getNumStocks(), apiObj.callPresentPrice()));
+      for(Object key : portfolioValues.keySet() ){
+        JSONObject value = (JSONObject)portfolioValues.get(key);
+        Double NumStocks = (Double)value.get("Num Stocks");
+        String tickrSymbol = (String)key;
+        ApiKey apiObj = new ApiKey(tickrSymbol);
+        viewPortfolioObj.add(new PortfolioObj(tickrSymbol, NumStocks.floatValue(), apiObj.callPresentPrice()));
       }
       return viewPortfolioObj;
     } catch (FileNotFoundException e) {
@@ -93,13 +93,14 @@ public class PortfolioImpl implements Portfolio {
     JSONParser parserPortfolio = new JSONParser();
     try (FileReader reader = new FileReader(this.fileName + ".json")) {
       Object parseObj = parserPortfolio.parse(reader);
-      JSONArray portfolioValues = (JSONArray) parseObj;
+      JSONObject portfolioValues = (JSONObject) parseObj;
       ArrayList<PortfolioObj> viewPortfolioObj = new ArrayList<>();
-      for (StocksObj obj : (ArrayList<StocksObj>) portfolioValues) {
-        // return stock price for the particular stock on the give input date.
-        // call api key function that returns the stock value.
-        ApiKey apiObj = new ApiKey(obj.getTickr());
-        finalSum += obj.getNumStocks() * apiObj.callPriceDate(this.date);
+      for(Object key : portfolioValues.keySet() ){
+        JSONObject value = (JSONObject)portfolioValues.get(key);
+        Double NumStocks = (Double)value.get("Num Stocks");
+        String tickrSymbol = (String)key;
+        ApiKey apiObj = new ApiKey(tickrSymbol);
+        finalSum += NumStocks.floatValue() * apiObj.callPriceDate(this.date);
       }
     } catch (FileNotFoundException e) {
       e.printStackTrace();

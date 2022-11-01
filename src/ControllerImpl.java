@@ -27,6 +27,7 @@ public class ControllerImpl implements Controller {
           // list the portfolios.
           theView.showString("Choose from the list of portfolios");
           theView.listJsonFiles();
+          // if no portfolio exists say no portfolio has been added.
           // type the name of the portfolio from the given list of portfolios.
           theView.showString("Enter the name of the portfolio from the list");
           String pfNameChosen = in.next();
