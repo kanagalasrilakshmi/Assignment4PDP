@@ -30,7 +30,7 @@ public class ViewImpl implements View{
         if(f.isFile()){
           // list only .json files.
           if(f.getName().contains(".json")){
-            out.println(f.getName());
+            out.println(f.getName().split("\\.json")[0]);
           }
         }
       }
