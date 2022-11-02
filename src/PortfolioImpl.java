@@ -316,14 +316,21 @@ public class PortfolioImpl implements Portfolio {
   }
 
   /**
-   * Check if there are any spaces or null or empty or length > 100 for the given portfolio name.
+   * Check if there are any spaces or null or empty or length > 25 for the given portfolio name.
    *
    * @param pfName portfolio name of type string
-   * @return true if there are any spaces spaces or null or empty or length > 100 else false
+   * @return true if there are any spaces or null or empty or length > 25 else false
    */
   public boolean checkValidpfName(String pfName) {
-    return (!(pfName == null) || !(pfName.isEmpty()) ||
-            !(pfName.length() > 100) || !(pfName.contains(" ")));
+    if (pfName.length() > 25 || pfName == null || pfName.isEmpty() || pfName.contains(" ")){
+      return false;
+    }
+    for(int i =0;i<pfName.length();i++){
+      if(!Character.isLetter(pfName.charAt(i))){
+        return false;
+      }
+    }
+    return true;
   }
 
   /**
