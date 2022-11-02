@@ -111,6 +111,7 @@ public class ControllerImpl implements Controller {
           break;
         case "C":
           theView.showString("Give a name for the portfolio you want to create:");
+          ArrayList<String> StoringList = thePortfolio.createEmptyArrayList();
           String pfName = in.next();
           // check if this same name portfolio exists.
           String pfNamePath = rootDir + pfName + ".txt";
@@ -127,9 +128,6 @@ public class ControllerImpl implements Controller {
           ArrayList<StocksObj> objList = new ArrayList<>();
           boolean done = false;
           while (!done) {
-            // validate tickr symbol in model.
-            // check if tickr symbol is already in the list.
-            // backup for api key failure.
             theView.showString("Press Y to add to add stocks to the " + pfName + " portfolio.");
             theView.showString("Press S to save the Portfolio.");
             switch (in.next()) {
@@ -147,6 +145,19 @@ public class ControllerImpl implements Controller {
               case "Y":
                 theView.showString("Enter Valid Stock company tickr symbol");
                 String tickr = in.next();
+                // validate tickr symbol in model.
+                while(!thePortfolio.validateTickrSymbol(tickr)){
+                  theView.showString("Invalid Tickr Symbol is entered!");
+                  theView.showString("Enter Valid Stock company tickr symbol");
+                  tickr = in.next();
+                }
+                while(StoringList.contains(tickr)){
+                  theView.showString("The Tickr symbol already exists! Please enter new Symbol");
+                  tickr = in.next();
+                }
+                // check if tickr symbol is already in the list.
+                StoringList.add(tickr);
+                // backup for api key failure.
                 theView.showString("Enter number of stocks purchased");
                 float numberStocks = in.nextFloat();
                 objList.add(new StocksObj(tickr, numberStocks));

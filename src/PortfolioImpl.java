@@ -13,6 +13,7 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Timer;
 
 /**
  * Implementing the Portfolio Interface and coded the implementation.
@@ -81,6 +82,9 @@ public class PortfolioImpl implements Portfolio {
           String tickrSymbol = inputLine.split(",")[0];
           ApiKey apiObj = new ApiKey(tickrSymbol);
           Float numStocks = Float.valueOf(inputLine.split(",")[1]);
+          // set a timer here.
+          // allow api calls for every 25s only.
+
           viewPortfolioObj.add(new PortfolioObj(tickrSymbol, numStocks, apiObj.callPresentPrice()));
         }
       }
@@ -111,6 +115,8 @@ public class PortfolioImpl implements Portfolio {
           String tickrSymbol = inputLine.split(",")[0];
           ApiKey apiObj = new ApiKey(tickrSymbol);
           Float numStocks = Float.valueOf(inputLine.split(",")[1]);
+          // set a timer here.
+          // allow api calls for every 25s only.
           finalSum += numStocks * apiObj.callPriceDate(this.date);
         }
       }
@@ -246,5 +252,51 @@ public class PortfolioImpl implements Portfolio {
     catch (Exception e){
       e.printStackTrace();
     }
+  }
+
+  /**
+   * Convert text file to array list consisting of valid tickr symbols.
+   * @return array list consisting of all valid tickr symbols
+   */
+  public ArrayList<String> convertTXT() throws FileNotFoundException {
+    BufferedReader in = new BufferedReader(new FileReader("tickrlist.txt"));
+    String inputLine;
+    ArrayList<String> TickrSymbolsList = new ArrayList<>();
+    try {
+      while ((inputLine = in.readLine()) != null){
+        String tickrSymbol = inputLine.split(",")[0];
+        TickrSymbolsList.add(tickrSymbol);
+      }
+      return TickrSymbolsList;
+    } catch (FileNotFoundException e) {
+      e.printStackTrace();
+      return null;
+    } catch (IOException e) {
+      e.printStackTrace();
+      return null;
+    }
+  }
+
+  /**
+   * Validate if the given tickr symbol is valid or not.
+   * @param tickrSymbol of type String.
+   * @return true if it is valid else false.
+   */
+  public boolean validateTickrSymbol(String tickrSymbol) throws FileNotFoundException {
+    // open the tickrlist.
+    // check if given symbol is in the text file.
+    ArrayList<String>TickrSymbolsList = this.convertTXT();
+    if(TickrSymbolsList.contains(tickrSymbol)){
+      return true;
+    }
+    return false;
+  }
+
+  /**
+   * Create an empty string list.
+   * @return Array List of type String that is empty
+   */
+  public ArrayList<String> createEmptyArrayList(){
+    return new ArrayList<String>();
   }
 }

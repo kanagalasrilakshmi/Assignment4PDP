@@ -71,4 +71,23 @@ public interface Portfolio {
    * @param rootDir path where the folder needs to be created
    */
   public void createFolder(String rootDir) throws IOException;
+
+  /**
+   * Convert text file to array list consisting of valid tickr symbols.
+   * @return array list consisting of all valid tickr symbols
+   */
+  public ArrayList<String> convertTXT() throws FileNotFoundException;
+
+  /**
+   * Validate if the given tickr symbol is valid or not.
+   * @param tickrSymbol of type String.
+   * @return true if it is valid else false.
+   */
+  public boolean validateTickrSymbol(String tickrSymbol) throws FileNotFoundException;
+
+  /**
+   * Create an empty string list.
+   * @return Array List of type String that is empty
+   */
+  public ArrayList<String> createEmptyArrayList();
 }
