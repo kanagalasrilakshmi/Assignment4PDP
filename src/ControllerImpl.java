@@ -145,6 +145,7 @@ public class ControllerImpl implements Controller {
           break;
         default:
           theView.showOptionError();
+          break;
       }
     }
   }
