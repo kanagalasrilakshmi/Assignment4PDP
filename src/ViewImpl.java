@@ -23,14 +23,14 @@ public class ViewImpl implements View {
     out.print("Enter your choice: ");
   }
 
-  public void listJsonFiles() {
-    File curDir = new File("/Users/PortfolioBucket/");
+  public void listJsonFiles(String rootDir) {
+    File curDir = new File(rootDir);
     File[] filesList = curDir.listFiles();
     for (File f : filesList) {
       if (f.isFile()) {
         // list only .json files.
-        if (f.getName().contains(".json")) {
-          out.println(f.getName().split("\\.json")[0]);
+        if (f.getName().contains(".txt")) {
+          out.println(f.getName().split("\\.txt")[0]);
         }
       }
     }

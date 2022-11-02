@@ -1,18 +1,19 @@
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
-
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Timer;
 
 /**
  * Implementing the Portfolio Interface and coded the implementation.
@@ -43,19 +44,24 @@ public class PortfolioImpl implements Portfolio {
    * Method for creating new portfolio by the user.
    */
   public void createPortfolio(String rootDir) {
-    // go through all the elements in the ListObj.
-    JSONObject StocksObjList = new JSONObject();
-    for (StocksObj Object : this.ListObj) {
-      //JSONArray temp = new JSONArray();
-      JSONObject StocksObjListTemp = new JSONObject();
-      StocksObjListTemp.put("Num Stocks", Object.getNumStocks());
-      //temp.add(StocksObjListTemp);
-      StocksObjList.put(Object.getTickr(), StocksObjListTemp);
-    }
-    // create a json type file.
-    try (FileWriter file = new FileWriter(rootDir + this.fileName + ".json")) {
-      file.write(StocksObjList.toJSONString());
-      file.flush();
+    // create a txt type file.
+    // Create a String type ArrayList.
+    ArrayList<String> listAdded = new ArrayList<>();
+    try (FileWriter file = new FileWriter(rootDir + this.fileName + ".txt")) {
+      listAdded.add("Company Tickr Symbol,Num Of Stocks");
+      for (StocksObj Object : this.ListObj) {
+        // go through all the elements in the ListObj.
+        String toBeAppended = Object.getTickr() + "," + String.valueOf(Object.getNumStocks());
+        listAdded.add(toBeAppended);
+      }
+      for (int i = 0; i < listAdded.size(); i++) {
+        file.write(listAdded.get(i));
+        // add a new line.
+        if (i < listAdded.size() - 1) {
+          file.write("\n");
+        }
+      }
+      file.close();
     } catch (IOException e) {
       e.printStackTrace();
     }
@@ -64,54 +70,59 @@ public class PortfolioImpl implements Portfolio {
   /**
    * Method for displaying the portfolio.
    */
-  public ArrayList<PortfolioObj> viewPortfolio(String rootDir) {
+  public ArrayList<PortfolioObj> viewPortfolio(String rootDir) throws IOException {
     // load the portfolio of the given input file name.
-    JSONParser parserPortfolio = new JSONParser();
-    try (FileReader reader = new FileReader(rootDir + this.fileName + ".json")) {
-      Object parseObj = parserPortfolio.parse(reader);
-      JSONObject portfolioValues = (JSONObject) parseObj;
-      ArrayList<PortfolioObj> viewPortfolioObj = new ArrayList<>();
-      for (Object key : portfolioValues.keySet()) {
-        JSONObject value = (JSONObject) portfolioValues.get(key);
-        Double NumStocks = (Double) value.get("Num Stocks");
-        String tickrSymbol = (String) key;
-        ApiKey apiObj = new ApiKey(tickrSymbol);
-        viewPortfolioObj.add(new PortfolioObj(tickrSymbol, NumStocks.floatValue(), apiObj.callPresentPrice()));
+    BufferedReader in = new BufferedReader(new FileReader(rootDir + this.fileName + ".txt"));
+    String inputLine;
+    ArrayList<PortfolioObj> viewPortfolioObj = new ArrayList<>();
+    try {
+      while ((inputLine = in.readLine()) != null) {
+        if (!(inputLine.split(",")[0].equals("Company Tickr Symbol") &&
+                inputLine.split(",")[1].equals("Num Of Stocks") )){
+          String tickrSymbol = inputLine.split(",")[0];
+          //ApiKey apiObj = new ApiKey(tickrSymbol);
+          Float numStocks = Float.valueOf(inputLine.split(",")[1]);
+          // set a timer here.
+          // allow api calls for every 25s only.
+
+          viewPortfolioObj.add(new PortfolioObj(tickrSymbol, numStocks));
+        }
       }
       return viewPortfolioObj;
     } catch (FileNotFoundException e) {
       e.printStackTrace();
+      return null;
     } catch (IOException e) {
       e.printStackTrace();
-    } catch (ParseException e) {
-      e.printStackTrace();
+      return null;
     }
-    return null;
   }
 
   /**
    * Get portfolio value for a given date
    */
-  public float portfolioValueDate(String rootDir) {
+  public float portfolioValueDate(String rootDir) throws FileNotFoundException {
+    // initialize sum to 0.
     float finalSum = 0;
     // load the portfolio of the given input file name.
-    JSONParser parserPortfolio = new JSONParser();
-    try (FileReader reader = new FileReader(rootDir + this.fileName + ".json")) {
-      Object parseObj = parserPortfolio.parse(reader);
-      JSONObject portfolioValues = (JSONObject) parseObj;
-      ArrayList<PortfolioObj> viewPortfolioObj = new ArrayList<>();
-      for (Object key : portfolioValues.keySet()) {
-        JSONObject value = (JSONObject) portfolioValues.get(key);
-        Double NumStocks = (Double) value.get("Num Stocks");
-        String tickrSymbol = (String) key;
-        ApiKey apiObj = new ApiKey(tickrSymbol);
-        finalSum += NumStocks.floatValue() * apiObj.callPriceDate(this.date);
+    BufferedReader in = new BufferedReader(new FileReader(rootDir + this.fileName + ".txt"));
+    String inputLine;
+    ArrayList<PortfolioObj> viewPortfolioObj = new ArrayList<>();
+    try {
+      while ((inputLine = in.readLine()) != null){
+        if (!(inputLine.split(",")[0].equals("Company Tickr Symbol") &&
+                inputLine.split(",")[1].equals("Num Of Stocks") )) {
+          String tickrSymbol = inputLine.split(",")[0];
+          ApiKey apiObj = new ApiKey(tickrSymbol);
+          Float numStocks = Float.valueOf(inputLine.split(",")[1]);
+          // set a timer here.
+          // allow api calls for every 25s only.
+          finalSum += numStocks * apiObj.callPriceDate(this.date);
+        }
       }
     } catch (FileNotFoundException e) {
       e.printStackTrace();
     } catch (IOException e) {
-      e.printStackTrace();
-    } catch (ParseException e) {
       e.printStackTrace();
     }
     return finalSum;
@@ -130,15 +141,16 @@ public class PortfolioImpl implements Portfolio {
 
   /**
    * Check if the given output folder has any portfolios.
+   *
    * @param rootDir is the path
    * @return true if there are any portfolios else false
    */
-  public boolean checkOutputFolder(String rootDir){
+  public boolean checkOutputFolder(String rootDir) {
     File curDir = new File(rootDir);
     File[] filesList = curDir.listFiles();
-    for(File file:filesList){
-      if(file.isFile()){
-        if (file.getName().contains(".json")){
+    for (File file : filesList) {
+      if (file.isFile()) {
+        if (file.getName().contains(".txt")) {
           return true;
         }
       }
@@ -148,20 +160,20 @@ public class PortfolioImpl implements Portfolio {
 
   /**
    * check for future date.
+   *
    * @param date input string type date
    * @return true if future else return false
    */
-  public boolean checkFutureDate(String date){
+  public boolean checkFutureDate(String date) {
     DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-    try{
-      LocalDate givenDate = LocalDate.parse(date,format);
+    try {
+      LocalDate givenDate = LocalDate.parse(date, format);
       LocalDate todayDate = LocalDate.now();
-      if(givenDate.isAfter(todayDate)){
+      if (givenDate.isAfter(todayDate)) {
         return true;
       }
       return false;
-    }
-    catch (Exception e){
+    } catch (Exception e) {
       e.printStackTrace();
       return false;
     }
@@ -169,6 +181,7 @@ public class PortfolioImpl implements Portfolio {
 
   /**
    * check if date is today's date and time is before 9:30am.
+   *
    * @param date input string type date
    * @return true if date is today's date and time is before 9:30am else false
    */
@@ -195,8 +208,7 @@ public class PortfolioImpl implements Portfolio {
         return false;
       }
       return false;
-    }
-    catch (Exception e){
+    } catch (Exception e) {
       e.printStackTrace();
     }
     return false;
@@ -204,18 +216,87 @@ public class PortfolioImpl implements Portfolio {
 
   /**
    * CHeck if the date given by the user follows the user input.
+   *
    * @param date input string type date
    * @return true if right format is given else false
    */
-  public boolean checkIfRightFormat(String date){
+  public boolean checkIfRightFormat(String date) {
     SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
     format.setLenient(false);
-    try{
+    try {
       format.parse(date);
       return true;
-    }
-    catch (java.text.ParseException e){
+    } catch (java.text.ParseException e) {
       return false;
     }
+  }
+
+  /**
+   * Check if the output folder where .txt needs to be saved exists.
+   * @param rootDir path for the folder
+   * @return true if exists else false
+   */
+  public boolean checkFolderExists(String rootDir){
+    return new File(rootDir).exists();
+  }
+
+  /**
+   * Create the output folder.
+   * @param rootDir path where the folder needs to be created
+   */
+  public void createFolder(String rootDir) throws IOException {
+    try{
+      Path path = Paths.get(rootDir);
+      Files.createDirectories(path);
+    }
+    catch (Exception e){
+      e.printStackTrace();
+    }
+  }
+
+  /**
+   * Convert text file to array list consisting of valid tickr symbols.
+   * @return array list consisting of all valid tickr symbols
+   */
+  public ArrayList<String> convertTXT() throws FileNotFoundException {
+    BufferedReader in = new BufferedReader(new FileReader(new File("tickrlist.txt").getAbsolutePath()));
+    String inputLine;
+    ArrayList<String> TickrSymbolsList = new ArrayList<>();
+    try {
+      while ((inputLine = in.readLine()) != null){
+        String tickrSymbol = inputLine.split(",")[0];
+        TickrSymbolsList.add(tickrSymbol);
+      }
+      return TickrSymbolsList;
+    } catch (FileNotFoundException e) {
+      e.printStackTrace();
+      return null;
+    } catch (IOException e) {
+      e.printStackTrace();
+      return null;
+    }
+  }
+
+  /**
+   * Validate if the given tickr symbol is valid or not.
+   * @param tickrSymbol of type String.
+   * @return true if it is valid else false.
+   */
+  public boolean validateTickrSymbol(String tickrSymbol) throws FileNotFoundException {
+    // open the tickrlist.
+    // check if given symbol is in the text file.
+    ArrayList<String>TickrSymbolsList = this.convertTXT();
+    if(TickrSymbolsList.contains(tickrSymbol)){
+      return true;
+    }
+    return false;
+  }
+
+  /**
+   * Create an empty string list.
+   * @return Array List of type String that is empty
+   */
+  public ArrayList<String> createEmptyArrayList(){
+    return new ArrayList<String>();
   }
 }

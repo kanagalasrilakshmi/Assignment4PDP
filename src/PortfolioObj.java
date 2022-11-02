@@ -9,6 +9,11 @@ public class PortfolioObj {
     this.stockPrice = stockPrice;
   }
 
+  public PortfolioObj(String tickr, float numStocks) {
+    this.tickr = tickr;
+    this.numStocks = numStocks;
+  }
+
   /**
    * Get the tickr symbol of the company.
    *
