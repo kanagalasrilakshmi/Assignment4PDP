@@ -80,12 +80,12 @@ public class PortfolioImpl implements Portfolio {
         if (!(inputLine.split(",")[0].equals("Company Tickr Symbol") &&
                 inputLine.split(",")[1].equals("Num Of Stocks") )){
           String tickrSymbol = inputLine.split(",")[0];
-          ApiKey apiObj = new ApiKey(tickrSymbol);
+          //ApiKey apiObj = new ApiKey(tickrSymbol);
           Float numStocks = Float.valueOf(inputLine.split(",")[1]);
           // set a timer here.
           // allow api calls for every 25s only.
 
-          viewPortfolioObj.add(new PortfolioObj(tickrSymbol, numStocks, apiObj.callPresentPrice()));
+          viewPortfolioObj.add(new PortfolioObj(tickrSymbol, numStocks));
         }
       }
       return viewPortfolioObj;
@@ -259,7 +259,7 @@ public class PortfolioImpl implements Portfolio {
    * @return array list consisting of all valid tickr symbols
    */
   public ArrayList<String> convertTXT() throws FileNotFoundException {
-    BufferedReader in = new BufferedReader(new FileReader("tickrlist.txt"));
+    BufferedReader in = new BufferedReader(new FileReader(new File("tickrlist.txt").getAbsolutePath()));
     String inputLine;
     ArrayList<String> TickrSymbolsList = new ArrayList<>();
     try {

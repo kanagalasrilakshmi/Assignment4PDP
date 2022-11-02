@@ -5,6 +5,7 @@ import org.junit.Test;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintStream;
 import java.text.ParseException;
@@ -14,7 +15,7 @@ import static org.junit.Assert.assertEquals;
 public class ControllerImplTest {
 
   @Test
-  public void testGoCreate() throws ParseException {
+  public void testGoCreate() throws ParseException, IOException {
     InputStream in = new ByteArrayInputStream("Q".getBytes());
     ByteArrayOutputStream bytes = new ByteArrayOutputStream();
     PrintStream out = new PrintStream(bytes);
@@ -43,7 +44,7 @@ public class ControllerImplTest {
             "Enter your choice: ",new String(bytes.toByteArray()));
   }
   @Test
-  public void testGoView() throws ParseException {
+  public void testGoView() throws ParseException, IOException {
     InputStream in = new ByteArrayInputStream("V Baby Q".getBytes());
     ByteArrayOutputStream bytes = new ByteArrayOutputStream();
     PrintStream out = new PrintStream(bytes);
