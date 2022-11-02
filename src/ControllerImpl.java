@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -16,7 +17,7 @@ public class ControllerImpl implements Controller {
     rootDir = "/Users/PortfolioBucket/";
   }
 
-  public void go() {
+  public void go() throws IOException {
     boolean quit = false;
     while (!quit) {
       theView.showOptions();
@@ -25,7 +26,11 @@ public class ControllerImpl implements Controller {
           quit = true;
           break;
         case "V":
-          // check if the output folder has .json files or not.
+          // check if output folder is present. If not present create it.
+          if(!thePortfolio.checkFolderExists(rootDir)){
+            thePortfolio.createFolder(rootDir);
+          }
+          // check if the output folder has .txt files or not.
           // if no portfolio exists say no portfolio has been added.
           if (!thePortfolio.checkOutputFolder(rootDir)) {
             theView.showString("No portfolios are present!");
@@ -39,7 +44,7 @@ public class ControllerImpl implements Controller {
           // enters a portfolio name that does not exist.
           // type the name of the portfolio from the given list of portfolios.
           String pfNameChosen = in.next();
-          while (!thePortfolio.checkExists(rootDir + pfNameChosen + ".json")) {
+          while (!thePortfolio.checkExists(rootDir + pfNameChosen + ".txt")) {
             theView.showString("Please enter a valid Portfolio name from the displayed list only!!");
             pfNameChosen = in.next();
           }
@@ -52,7 +57,11 @@ public class ControllerImpl implements Controller {
           }
           break;
         case "D":
-          // check if the output folder has .json files or not.
+          // check if output folder is present. If not present create it.
+          if(!thePortfolio.checkFolderExists(rootDir)){
+            thePortfolio.createFolder(rootDir);
+          }
+          // check if the output folder has .txt files or not.
           // if no portfolio exists say no portfolio has been added.
           if (!thePortfolio.checkOutputFolder(rootDir)) {
             theView.showString("No portfolios are present!");
@@ -67,7 +76,7 @@ public class ControllerImpl implements Controller {
           // enters a portfolio name that does not exist.
           // type the name of the portfolio from the given list of portfolios.
           String pFileName = in.next();
-          while (!thePortfolio.checkExists(rootDir + pFileName + ".json")) {
+          while (!thePortfolio.checkExists(rootDir + pFileName + ".txt")) {
             theView.showString("Please enter a valid Portfolio name from the displayed list only!!");
             pFileName = in.next();
           }
@@ -104,12 +113,16 @@ public class ControllerImpl implements Controller {
           theView.showString("Give a name for the portfolio you want to create:");
           String pfName = in.next();
           // check if this same name portfolio exists.
-          String pfNamePath = rootDir + pfName + ".json";
+          String pfNamePath = rootDir + pfName + ".txt";
+          // check if output folder is present. If not present create it.
+          if(!thePortfolio.checkFolderExists(rootDir)){
+            thePortfolio.createFolder(rootDir);
+          }
           while (thePortfolio.checkExists(pfNamePath)) {
             theView.showString("Portfolio with this name already exists.! ");
             theView.showString("Give another name for the portfolio you want to create:");
             pfName = in.next();
-            pfNamePath = rootDir + pfName + ".json";
+            pfNamePath = rootDir + pfName + ".txt";
           }
           ArrayList<StocksObj> objList = new ArrayList<>();
           boolean done = false;
