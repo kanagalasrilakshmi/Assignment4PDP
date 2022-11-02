@@ -14,7 +14,7 @@ public class ControllerImpl implements Controller {
     this.theView = theView;
     this.thePortfolio = thePortfolio;
     this.in = new Scanner(in);
-    rootDir = "/Users/PortfolioBucket/";
+    rootDir = System.getProperty("user.home")+"/Desktop/PortfolioBucket/";
   }
 
   public void go() throws IOException {
