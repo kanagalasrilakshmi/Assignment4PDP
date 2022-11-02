@@ -125,11 +125,11 @@ public class ControllerImpl implements Controller {
           break;
         case "C":
           // check valid if not then it uses the default initialized path only for saving the portfolios.
-          theView.showString("Give a name for the portfolio you want to create,(There should be no spaces, must be entered in a single word)");
+          theView.showString("Give a name for the portfolio you want to create,(The string should not have spaces,null,emptystring, must be entered in a single word)");
           ArrayList<String> StoringList = thePortfolio.createEmptyArrayList();
           String pfName = in.nextLine();
           while (!thePortfolio.checkValidpfName(pfName)) {
-            theView.showString("Please enter a valid portfolio name with no spaces:");
+            theView.showString("Please enter a valid portfolio name:");
             pfName = in.nextLine();
           }
           // check if this same name portfolio exists.
