@@ -19,6 +19,20 @@ public class ControllerImpl implements Controller {
 
   public void go() throws IOException {
     boolean quit = false;
+    theView.showString("Give a valid input path where you want to store the created portfolios!");
+
+    // ask the user to give valid input path for storing the portfolio.
+    String rootDirUser = in.nextLine();
+    while (!thePortfolio.checkLastEndingCharacter(rootDirUser)) {
+      theView.showString("Give a valid absolute path that ends with a /:");
+      rootDirUser = in.nextLine();
+    }
+    if (thePortfolio.ValidPath(rootDirUser)) {
+      this.rootDir = rootDirUser;
+    } else {
+      theView.showString("Invalid path is given so by default portfolios are stored in "
+              + this.rootDir + " path.");
+    }
     while (!quit) {
       theView.showOptions();
       switch (in.nextLine()) {
@@ -26,9 +40,10 @@ public class ControllerImpl implements Controller {
           quit = true;
           break;
         case "V":
-          // check if output folder is present. If not present create it.
+          // check if output folder is present. If not present break.
           if (!thePortfolio.checkFolderExists(this.rootDir)) {
-            thePortfolio.createFolder(this.rootDir);
+            theView.showString("No portfolios are created!!");
+            break;
           }
           // check if the output folder has .txt files or not.
           // if no portfolio exists say no portfolio has been added.
@@ -48,7 +63,7 @@ public class ControllerImpl implements Controller {
             theView.showString("Please enter a valid Portfolio name from the displayed list only!!");
             pfNameChosen = in.nextLine();
           }
-          ArrayList<PortfolioObj> PortfolioView = thePortfolio.viewPortfolio(this.rootDir,pfNameChosen);
+          ArrayList<PortfolioObj> PortfolioView = thePortfolio.viewPortfolio(this.rootDir, pfNameChosen);
           // print the value.
           theView.showString("Company Tickr Symbol" + " " + "Num Stocks");
           for (PortfolioObj obj : PortfolioView) {
@@ -58,7 +73,8 @@ public class ControllerImpl implements Controller {
         case "D":
           // check if output folder is present. If not present create it.
           if (!thePortfolio.checkFolderExists(this.rootDir)) {
-            thePortfolio.createFolder(this.rootDir);
+            theView.showString("No portfolios are created!!");
+            break;
           }
           // check if the output folder has .txt files or not.
           // if no portfolio exists say no portfolio has been added.
@@ -103,26 +119,16 @@ public class ControllerImpl implements Controller {
             break;
           }
           // if all the above conditions are not met then it is called for portfolio.
-          float finalVal = thePortfolio.portfolioValueDate(this.rootDir,pFileName, date);
+          float finalVal = thePortfolio.portfolioValueDate(this.rootDir, pFileName, date);
           // print the value.
           theView.showString("The total value of the portfolio " + pFileName + " is " + finalVal);
           break;
         case "C":
-          theView.showString("Please enter a valid input path where you want to save the portfolio.");
-          // ask the user to give valid input path for storing the portfolio.
-          String rootDirUser = in.nextLine();
-          while(!thePortfolio.checkLastEndingCharacter(rootDirUser)){
-            theView.showString("The input path should end with symbol :/");
-            rootDirUser = in.nextLine();
-          }
           // check valid if not then it uses the default initialized path only for saving the portfolios.
-          if(thePortfolio.ValidPath(rootDirUser)){
-            this.rootDir = rootDirUser;
-          }
           theView.showString("Give a name for the portfolio you want to create,(There should be no spaces, must be entered in a single word)");
           ArrayList<String> StoringList = thePortfolio.createEmptyArrayList();
           String pfName = in.nextLine();
-          while(!thePortfolio.checkValidpfName(pfName)){
+          while (!thePortfolio.checkValidpfName(pfName)) {
             theView.showString("Please enter a valid portfolio name with no spaces:");
             pfName = in.nextLine();
           }
@@ -149,7 +155,7 @@ public class ControllerImpl implements Controller {
                 if (objList.size() == 0) {
                   theView.showString("Portfolio must contain at least one entry!! ");
                 } else {
-                  thePortfolio.createPortfolio(this.rootDir,pfName,objList);
+                  thePortfolio.createPortfolio(this.rootDir, pfName, objList);
                   done = true;
                   theView.showString("Successfully created the portfolio " + pfName);
                 }

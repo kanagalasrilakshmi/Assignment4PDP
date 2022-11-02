@@ -56,7 +56,7 @@ public class PortfolioImpl implements Portfolio {
    */
   public ArrayList<PortfolioObj> viewPortfolio(String rootDir, String filename) throws IOException {
     // load the portfolio of the given input file name.
-    BufferedReader in = new BufferedReader(new FileReader(rootDir + fileName + ".txt"));
+    BufferedReader in = new BufferedReader(new FileReader(rootDir + filename + ".txt"));
     String inputLine;
     ArrayList<PortfolioObj> viewPortfolioObj = new ArrayList<>();
     try {
