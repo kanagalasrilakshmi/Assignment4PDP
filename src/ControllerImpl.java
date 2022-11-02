@@ -104,12 +104,18 @@ public class ControllerImpl implements Controller {
             break;
           }
           // if all the above conditions are not met then it is called for portfolio.
+          String rootDirUser = in.next();
+          // check valid if not then it uses the default initialized path only for saving the portfolios.
+          if(thePortfolio.ValidPath(rootDirUser)){
+            this.rootDir = rootDirUser;
+          }
           Portfolio valueDateObj = new PortfolioImpl(pFileName, date);
           float finalVal = valueDateObj.portfolioValueDate(rootDir);
           // print the value.
           theView.showString("The total value of the portfolio " + pFileName + " is " + finalVal);
           break;
         case "C":
+          // ask the user to give valid input path for storing the portfolio.
           theView.showString("Give a name for the portfolio you want to create:");
           ArrayList<String> StoringList = thePortfolio.createEmptyArrayList();
           String pfName = in.next();

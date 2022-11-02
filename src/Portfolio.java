@@ -1,6 +1,5 @@
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.text.ParseException;
 import java.util.ArrayList;
 
 /**
@@ -33,6 +32,7 @@ public interface Portfolio {
 
   /**
    * Check if the given output folder has any portfolios.
+   *
    * @param rootDir is the path
    * @return true if there are any portfolios else false
    */
@@ -40,6 +40,7 @@ public interface Portfolio {
 
   /**
    * check for future date.
+   *
    * @param date input string type date
    * @return true if future else return false
    */
@@ -47,6 +48,7 @@ public interface Portfolio {
 
   /**
    * check if date is today's date and time is before 9:30am.
+   *
    * @param date input string type date
    * @return true if date is today's date and time is before 9:30am else false
    */
@@ -54,6 +56,7 @@ public interface Portfolio {
 
   /**
    * CHeck if the date given by the user follows the user input.
+   *
    * @param date input string type date
    * @return true if right format is given else false
    */
@@ -61,6 +64,7 @@ public interface Portfolio {
 
   /**
    * Check if the output folder where .txt needs to be saved exists.
+   *
    * @param rootDir path for the folder
    * @return true if exists else false
    */
@@ -68,18 +72,21 @@ public interface Portfolio {
 
   /**
    * Create the output folder.
+   *
    * @param rootDir path where the folder needs to be created
    */
   public void createFolder(String rootDir) throws IOException;
 
   /**
    * Convert text file to array list consisting of valid tickr symbols.
+   *
    * @return array list consisting of all valid tickr symbols
    */
-  public ArrayList<String> convertTXT() throws FileNotFoundException;
+  public ArrayListObj convertTXT() throws FileNotFoundException;
 
   /**
    * Validate if the given tickr symbol is valid or not.
+   *
    * @param tickrSymbol of type String.
    * @return true if it is valid else false.
    */
@@ -87,7 +94,15 @@ public interface Portfolio {
 
   /**
    * Create an empty string list.
+   *
    * @return Array List of type String that is empty
    */
   public ArrayList<String> createEmptyArrayList();
+
+  /**
+   * Check if the given user path is valid or not.
+   * @param rootDirUser path given by user to save the file
+   * @return true if path is valid else false
+   */
+  public boolean ValidPath(String rootDirUser);
 }

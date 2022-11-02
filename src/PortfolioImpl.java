@@ -13,7 +13,6 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Timer;
 
 /**
  * Implementing the Portfolio Interface and coded the implementation.
@@ -78,7 +77,7 @@ public class PortfolioImpl implements Portfolio {
     try {
       while ((inputLine = in.readLine()) != null) {
         if (!(inputLine.split(",")[0].equals("Company Tickr Symbol") &&
-                inputLine.split(",")[1].equals("Num Of Stocks") )){
+                inputLine.split(",")[1].equals("Num Of Stocks"))) {
           String tickrSymbol = inputLine.split(",")[0];
           //ApiKey apiObj = new ApiKey(tickrSymbol);
           Float numStocks = Float.valueOf(inputLine.split(",")[1]);
@@ -109,15 +108,28 @@ public class PortfolioImpl implements Portfolio {
     String inputLine;
     ArrayList<PortfolioObj> viewPortfolioObj = new ArrayList<>();
     try {
-      while ((inputLine = in.readLine()) != null){
+      while ((inputLine = in.readLine()) != null) {
         if (!(inputLine.split(",")[0].equals("Company Tickr Symbol") &&
-                inputLine.split(",")[1].equals("Num Of Stocks") )) {
+                inputLine.split(",")[1].equals("Num Of Stocks"))) {
           String tickrSymbol = inputLine.split(",")[0];
           ApiKey apiObj = new ApiKey(tickrSymbol);
           Float numStocks = Float.valueOf(inputLine.split(",")[1]);
+          ArrayListObj TickerSymbolsPrice = this.convertTXT();
+          // initialize it as zero
+          Float price = 0.0f;
+          for (int i = 0; i < TickerSymbolsPrice.getTickrSymbols().size(); i++) {
+            if (TickerSymbolsPrice.getTickrSymbols().get(i).equals(tickrSymbol)) {
+              price = Float.valueOf(TickerSymbolsPrice.getPrices().get(i));
+              break;
+            }
+          }
+          Float apiPrice = apiObj.callPriceDate(this.date);
+          if (apiPrice != 0) {
+            price = apiPrice;
+          }
           // set a timer here.
           // allow api calls for every 25s only.
-          finalSum += numStocks * apiObj.callPriceDate(this.date);
+          finalSum += numStocks * price;
         }
       }
     } catch (FileNotFoundException e) {
@@ -233,41 +245,46 @@ public class PortfolioImpl implements Portfolio {
 
   /**
    * Check if the output folder where .txt needs to be saved exists.
+   *
    * @param rootDir path for the folder
    * @return true if exists else false
    */
-  public boolean checkFolderExists(String rootDir){
+  public boolean checkFolderExists(String rootDir) {
     return new File(rootDir).exists();
   }
 
   /**
    * Create the output folder.
+   *
    * @param rootDir path where the folder needs to be created
    */
   public void createFolder(String rootDir) throws IOException {
-    try{
+    try {
       Path path = Paths.get(rootDir);
       Files.createDirectories(path);
-    }
-    catch (Exception e){
+    } catch (Exception e) {
       e.printStackTrace();
     }
   }
 
   /**
    * Convert text file to array list consisting of valid tickr symbols.
+   *
    * @return array list consisting of all valid tickr symbols
    */
-  public ArrayList<String> convertTXT() throws FileNotFoundException {
-    BufferedReader in = new BufferedReader(new FileReader(new File("tickrlist.txt").getAbsolutePath()));
+  public ArrayListObj convertTXT() throws FileNotFoundException {
+    BufferedReader in = new BufferedReader(new FileReader(new File("tickrData.txt.txt").getAbsolutePath()));
     String inputLine;
     ArrayList<String> TickrSymbolsList = new ArrayList<>();
+    ArrayList<String> pricesList = new ArrayList<>();
     try {
-      while ((inputLine = in.readLine()) != null){
+      while ((inputLine = in.readLine()) != null) {
         String tickrSymbol = inputLine.split(",")[0];
+        String prices = inputLine.split(",")[1];
         TickrSymbolsList.add(tickrSymbol);
+        pricesList.add(prices);
       }
-      return TickrSymbolsList;
+      return new ArrayListObj(TickrSymbolsList, pricesList);
     } catch (FileNotFoundException e) {
       e.printStackTrace();
       return null;
@@ -279,14 +296,15 @@ public class PortfolioImpl implements Portfolio {
 
   /**
    * Validate if the given tickr symbol is valid or not.
+   *
    * @param tickrSymbol of type String.
    * @return true if it is valid else false.
    */
   public boolean validateTickrSymbol(String tickrSymbol) throws FileNotFoundException {
     // open the tickrlist.
     // check if given symbol is in the text file.
-    ArrayList<String>TickrSymbolsList = this.convertTXT();
-    if(TickrSymbolsList.contains(tickrSymbol)){
+    ArrayListObj TickrSymbolsPriceList = this.convertTXT();
+    if (TickrSymbolsPriceList.getTickrSymbols().contains(tickrSymbol)) {
       return true;
     }
     return false;
@@ -294,9 +312,19 @@ public class PortfolioImpl implements Portfolio {
 
   /**
    * Create an empty string list.
+   *
    * @return Array List of type String that is empty
    */
-  public ArrayList<String> createEmptyArrayList(){
+  public ArrayList<String> createEmptyArrayList() {
     return new ArrayList<String>();
+  }
+
+  /**
+   * Check if the given user path is valid or not.
+   * @param rootDirUser path given by user to save the file
+   * @return true if path is valid else false
+   */
+  public boolean ValidPath(String rootDirUser){
+    return new File(rootDirUser).exists();
   }
 }
