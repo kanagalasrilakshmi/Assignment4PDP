@@ -48,8 +48,7 @@ public class ControllerImpl implements Controller {
             theView.showString("Please enter a valid Portfolio name from the displayed list only!!");
             pfNameChosen = in.nextLine();
           }
-          Portfolio viewObj = new PortfolioImpl(pfNameChosen);
-          ArrayList<PortfolioObj> PortfolioView = viewObj.viewPortfolio(this.rootDir);
+          ArrayList<PortfolioObj> PortfolioView = thePortfolio.viewPortfolio(this.rootDir,pfNameChosen);
           // print the value.
           theView.showString("Company Tickr Symbol" + " " + "Num Stocks");
           for (PortfolioObj obj : PortfolioView) {
@@ -104,8 +103,7 @@ public class ControllerImpl implements Controller {
             break;
           }
           // if all the above conditions are not met then it is called for portfolio.
-          Portfolio valueDateObj = new PortfolioImpl(pFileName, date);
-          float finalVal = valueDateObj.portfolioValueDate(this.rootDir);
+          float finalVal = thePortfolio.portfolioValueDate(this.rootDir,pFileName, date);
           // print the value.
           theView.showString("The total value of the portfolio " + pFileName + " is " + finalVal);
           break;
@@ -151,8 +149,7 @@ public class ControllerImpl implements Controller {
                 if (objList.size() == 0) {
                   theView.showString("Portfolio must contain at least one entry!! ");
                 } else {
-                  Portfolio ObjImpl = new PortfolioImpl(objList, pfName);
-                  ObjImpl.createPortfolio(this.rootDir);
+                  thePortfolio.createPortfolio(this.rootDir,pfName,objList);
                   done = true;
                   theView.showString("Successfully created the portfolio " + pfName);
                 }

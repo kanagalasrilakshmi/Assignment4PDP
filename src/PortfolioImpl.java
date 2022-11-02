@@ -24,31 +24,16 @@ public class PortfolioImpl implements Portfolio {
 
   public PortfolioImpl() {
   }
-
-  public PortfolioImpl(ArrayList<StocksObj> ListObj, String fileName) {
-    this.fileName = fileName;
-    this.ListObj = ListObj;
-  }
-
-  public PortfolioImpl(String fileName) {
-    this.fileName = fileName;
-  }
-
-  public PortfolioImpl(String fileName, String date) {
-    this.fileName = fileName;
-    this.date = date;
-  }
-
   /**
    * Method for creating new portfolio by the user.
    */
-  public void createPortfolio(String rootDir) {
+  public void createPortfolio(String rootDir, String fileName, ArrayList<StocksObj> ListObj) {
     // create a txt type file.
     // Create a String type ArrayList.
     ArrayList<String> listAdded = new ArrayList<>();
-    try (FileWriter file = new FileWriter(rootDir + this.fileName + ".txt")) {
+    try (FileWriter file = new FileWriter(rootDir + fileName + ".txt")) {
       listAdded.add("Company Tickr Symbol,Num Of Stocks");
-      for (StocksObj Object : this.ListObj) {
+      for (StocksObj Object : ListObj) {
         // go through all the elements in the ListObj.
         String toBeAppended = Object.getTickr() + "," + String.valueOf(Object.getNumStocks());
         listAdded.add(toBeAppended);
@@ -69,9 +54,9 @@ public class PortfolioImpl implements Portfolio {
   /**
    * Method for displaying the portfolio.
    */
-  public ArrayList<PortfolioObj> viewPortfolio(String rootDir) throws IOException {
+  public ArrayList<PortfolioObj> viewPortfolio(String rootDir, String filename) throws IOException {
     // load the portfolio of the given input file name.
-    BufferedReader in = new BufferedReader(new FileReader(rootDir + this.fileName + ".txt"));
+    BufferedReader in = new BufferedReader(new FileReader(rootDir + fileName + ".txt"));
     String inputLine;
     ArrayList<PortfolioObj> viewPortfolioObj = new ArrayList<>();
     try {
@@ -100,11 +85,11 @@ public class PortfolioImpl implements Portfolio {
   /**
    * Get portfolio value for a given date
    */
-  public float portfolioValueDate(String rootDir) throws FileNotFoundException {
+  public float portfolioValueDate(String rootDir, String fileName,String date) throws FileNotFoundException {
     // initialize sum to 0.
     float finalSum = 0;
     // load the portfolio of the given input file name.
-    BufferedReader in = new BufferedReader(new FileReader(rootDir + this.fileName + ".txt"));
+    BufferedReader in = new BufferedReader(new FileReader(rootDir + fileName + ".txt"));
     String inputLine;
     ArrayList<PortfolioObj> viewPortfolioObj = new ArrayList<>();
     try {
@@ -123,7 +108,7 @@ public class PortfolioImpl implements Portfolio {
               break;
             }
           }
-          Float apiPrice = apiObj.callPriceDate(this.date);
+          Float apiPrice = apiObj.callPriceDate(date);
           if (apiPrice != 0) {
             price = apiPrice;
           }
