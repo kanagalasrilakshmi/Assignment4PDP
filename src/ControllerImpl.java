@@ -18,6 +18,7 @@ public class ControllerImpl implements Controller {
   public void go() {
     boolean quit = false;
     while (!quit) {
+
       theView.showOptions();
       switch (in.next()) {
         case "Q":
@@ -83,6 +84,9 @@ public class ControllerImpl implements Controller {
                 float numberStocks = in.nextFloat();
                 objList.add(new StocksObj(tickr, numberStocks));
                 theView.showString("Press S to save the Portfolio.");
+                break;
+              default:
+                theView.showOptionError();
                 break;
             }
           }
