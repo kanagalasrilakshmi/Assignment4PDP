@@ -26,7 +26,7 @@ public class ApiKey {
    * @return float type price of the stock
    */
   public float callPresentPrice() {
-    String apiKey = "W0M1JOKC82EZEQA8";
+    String apiKey = "QH2XYHVUAHRIBTZ2";
     URL url = null;
     try {
       url = new URL("https://www.alphavantage"
@@ -44,10 +44,16 @@ public class ApiKey {
       BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));
       String inputLine;
       while ((inputLine = in.readLine()) != null) {
-        String h2 = inputLine.split(",")[0];
-        if (!h2.equals("timestamp")) {
-          num = Float.valueOf(inputLine.split(",")[4]);
-          break;
+        // check length.
+        if (inputLine.split(",").length < 5) {
+          num = 0;
+        } else {
+          String h2 = inputLine.split(",")[0];
+          if (!h2.equals("timestamp")) {
+            System.out.println(Float.valueOf(inputLine.split(",")[4]));
+            num = Float.valueOf(inputLine.split(",")[4]);
+            break;
+          }
         }
       }
     } catch (IOException e) {

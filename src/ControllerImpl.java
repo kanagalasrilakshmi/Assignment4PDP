@@ -14,7 +14,7 @@ public class ControllerImpl implements Controller {
     this.theView = theView;
     this.thePortfolio = thePortfolio;
     this.in = new Scanner(in);
-    rootDir = System.getProperty("user.home")+"/Desktop/PortfolioBucket/";
+    rootDir = System.getProperty("user.home") + "/Desktop/PortfolioBucket/";
   }
 
   public void go() throws IOException {
@@ -27,7 +27,7 @@ public class ControllerImpl implements Controller {
           break;
         case "V":
           // check if output folder is present. If not present create it.
-          if(!thePortfolio.checkFolderExists(rootDir)){
+          if (!thePortfolio.checkFolderExists(rootDir)) {
             thePortfolio.createFolder(rootDir);
           }
           // check if the output folder has .txt files or not.
@@ -58,7 +58,7 @@ public class ControllerImpl implements Controller {
           break;
         case "D":
           // check if output folder is present. If not present create it.
-          if(!thePortfolio.checkFolderExists(rootDir)){
+          if (!thePortfolio.checkFolderExists(rootDir)) {
             thePortfolio.createFolder(rootDir);
           }
           // check if the output folder has .txt files or not.
@@ -116,7 +116,7 @@ public class ControllerImpl implements Controller {
           // check if this same name portfolio exists.
           String pfNamePath = rootDir + pfName + ".txt";
           // check if output folder is present. If not present create it.
-          if(!thePortfolio.checkFolderExists(rootDir)){
+          if (!thePortfolio.checkFolderExists(rootDir)) {
             thePortfolio.createFolder(rootDir);
           }
           while (thePortfolio.checkExists(pfNamePath)) {
@@ -146,12 +146,12 @@ public class ControllerImpl implements Controller {
                 theView.showString("Enter Valid Stock company tickr symbol");
                 String tickr = in.next();
                 // validate tickr symbol in model.
-                while(!thePortfolio.validateTickrSymbol(tickr)){
+                while (!thePortfolio.validateTickrSymbol(tickr)) {
                   theView.showString("Invalid Tickr Symbol is entered!");
                   theView.showString("Enter Valid Stock company tickr symbol");
                   tickr = in.next();
                 }
-                while(StoringList.contains(tickr)){
+                while (StoringList.contains(tickr)) {
                   theView.showString("The Tickr symbol already exists! Please enter new Symbol");
                   tickr = in.next();
                 }
