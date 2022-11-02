@@ -1,10 +1,9 @@
-import com.sun.org.apache.xpath.internal.operations.Equals;
 
-import org.junit.Before;
 import org.junit.Test;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintStream;
 import java.text.ParseException;
@@ -14,7 +13,7 @@ import static org.junit.Assert.assertEquals;
 public class ControllerImplTest {
 
   @Test
-  public void testGoQuit() throws ParseException {
+  public void testGoQuit() throws ParseException, IOException {
     InputStream in = new ByteArrayInputStream("Q".getBytes());
     ByteArrayOutputStream bytes = new ByteArrayOutputStream();
     PrintStream out = new PrintStream(bytes);
@@ -28,7 +27,7 @@ public class ControllerImplTest {
             "Enter your choice: ", new String(bytes.toByteArray()));
   }
   @Test
-  public void testViewInvalidInputAtMenu() throws ParseException {
+  public void testViewInvalidInputAtMenu() throws ParseException, IOException {
     InputStream in = new ByteArrayInputStream("A Q".getBytes());
     ByteArrayOutputStream bytes = new ByteArrayOutputStream();
     PrintStream out = new PrintStream(bytes);
@@ -50,7 +49,7 @@ public class ControllerImplTest {
   }
 
   @Test
-  public void testViewCreate() throws ParseException {
+  public void testViewCreate() throws ParseException, IOException {
     InputStream in = new ByteArrayInputStream("C healthpf Y GOOG 100 S Q".getBytes());
     ByteArrayOutputStream bytes = new ByteArrayOutputStream();
     PrintStream out = new PrintStream(bytes);
