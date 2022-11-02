@@ -74,6 +74,7 @@ public class ControllerImpl implements Controller {
           theView.showString("Enter the date on which you want to extract the portfolio in YYYY-MM-DD format only!");
           String date = in.next();
           // check date format.
+          // if not correct ask the user to enter again.
           while (!thePortfolio.checkIfRightFormat(date)) {
             theView.showString("Please enter correct format for date");
             date = in.next();
@@ -93,7 +94,6 @@ public class ControllerImpl implements Controller {
             e.printStackTrace();
             break;
           }
-          // if not correct ask user to enter again.
           // if all the above conditions are not met then it is called for portfolio.
           Portfolio valueDateObj = new PortfolioImpl(pFileName, date);
           float finalVal = valueDateObj.portfolioValueDate(rootDir);
