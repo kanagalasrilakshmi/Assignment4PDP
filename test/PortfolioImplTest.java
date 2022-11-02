@@ -36,6 +36,53 @@ public class PortfolioImplTest {
     assertEquals(false, portfolioObj.checkIfRightFormat("01-02-2020"));
   }
 
+  @Test
+  public void ifPortfolioNameRightFormatValid() {
+    // Without any white spaces
+    Portfolio portfolioObj = new PortfolioImpl();
+    assertEquals(true, portfolioObj.checkValidpfName("healthPortfolio"));
+  }
+
+  @Test
+  public void ifPortfolioNameRightFormatInvalid1() {
+    // With any white spaces is invalid
+    Portfolio portfolioObj = new PortfolioImpl();
+    assertEquals(false, portfolioObj.checkValidpfName("Health Portfolio"));
+  }
+
+  @Test
+  public void ifPortfolioNameRightFormatInvalidEmptyName() {
+    // With any white spaces is invalid
+    Portfolio portfolioObj = new PortfolioImpl();
+    assertEquals(false, portfolioObj.checkValidpfName(""));
+  }
+  @Test
+  public void ifPortfolioNameRightFormatInvalidNullName() {
+    // With any white spaces is invalid
+    Portfolio portfolioObj = new PortfolioImpl();
+    assertEquals(false, portfolioObj.checkValidpfName(null));
+  }
+
+  @Test
+  public void ifPortfolioNameRightFormatInvalidBigName() {
+    // Portfolio name greater than 25 letters not allowed
+    Portfolio portfolioObj = new PortfolioImpl();
+    assertEquals(false, portfolioObj.checkValidpfName("abcdefghijklmnopqrstuvwxyz"));
+  }
+
+  @Test
+  public void ifPortfolioNameRightFormatInvalidSpecialCharacters() {
+    // Name greater than 25 letters not allowed
+    Portfolio portfolioObj = new PortfolioImpl();
+    assertEquals(false, portfolioObj.checkValidpfName("ab*b"));
+  }
+
+  @Test
+  public void ifPortfolioNameRightFormatInvalidNumbers() {
+    // Name greater than 25 letters not allowed
+    Portfolio portfolioObj = new PortfolioImpl();
+    assertEquals(false, portfolioObj.checkValidpfName("2345678"));
+  }
 
 
 }
