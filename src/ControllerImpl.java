@@ -14,79 +14,94 @@ public class ControllerImpl implements Controller {
     this.theView = theView;
     this.thePortfolio = thePortfolio;
     this.in = new Scanner(in);
-    rootDir = System.getProperty("user.home") + "/Desktop/PortfolioBucket/";
+    this.rootDir = System.getProperty("user.home") + "/Desktop/PortfolioBucket/";
   }
 
   public void go() throws IOException {
     boolean quit = false;
+    theView.showString("Give a valid input path where you want to store the created portfolios!");
+
+    // ask the user to give valid input path for storing the portfolio.
+    String rootDirUser = in.nextLine();
+    while (!thePortfolio.checkLastEndingCharacter(rootDirUser)) {
+      theView.showString("Give a valid absolute path that ends with a /:");
+      rootDirUser = in.nextLine();
+    }
+    if (thePortfolio.ValidPath(rootDirUser)) {
+      this.rootDir = rootDirUser;
+    } else {
+      theView.showString("Invalid path is given so by default portfolios are stored in "
+              + this.rootDir + " path.");
+    }
     while (!quit) {
       theView.showOptions();
-      switch (in.next()) {
+      switch (in.nextLine()) {
         case "Q":
           quit = true;
           break;
         case "V":
-          // check if output folder is present. If not present create it.
-          if (!thePortfolio.checkFolderExists(rootDir)) {
-            thePortfolio.createFolder(rootDir);
+          // check if output folder is present. If not present break.
+          if (!thePortfolio.checkFolderExists(this.rootDir)) {
+            theView.showString("No portfolios are created!!");
+            break;
           }
           // check if the output folder has .txt files or not.
           // if no portfolio exists say no portfolio has been added.
-          if (!thePortfolio.checkOutputFolder(rootDir)) {
+          if (!thePortfolio.checkOutputFolder(this.rootDir)) {
             theView.showString("No portfolios are present!");
             break;
           }
           // list the portfolios.
           theView.showString("Choose from the list of portfolios");
-          theView.listJsonFiles(rootDir);
+          theView.listJsonFiles(this.rootDir);
           theView.showString("Enter the name of the portfolio from the displayed list");
           // check if user enters valid file name.
           // enters a portfolio name that does not exist.
           // type the name of the portfolio from the given list of portfolios.
-          String pfNameChosen = in.next();
-          while (!thePortfolio.checkExists(rootDir + pfNameChosen + ".txt")) {
+          String pfNameChosen = in.nextLine();
+          while (!thePortfolio.checkExists(this.rootDir + pfNameChosen + ".txt")) {
             theView.showString("Please enter a valid Portfolio name from the displayed list only!!");
-            pfNameChosen = in.next();
+            pfNameChosen = in.nextLine();
           }
-          Portfolio viewObj = new PortfolioImpl(pfNameChosen);
-          ArrayList<PortfolioObj> PortfolioView = viewObj.viewPortfolio(rootDir);
+          ArrayList<PortfolioObj> PortfolioView = thePortfolio.viewPortfolio(this.rootDir, pfNameChosen);
           // print the value.
-          theView.showString("Company Tickr Symbol" + " " + "Num Stocks" + " " + "Stock Price");
+          theView.showString("Company Tickr Symbol" + " " + "Num Stocks");
           for (PortfolioObj obj : PortfolioView) {
-            theView.showString(obj.getTickr() + "                  " + obj.getNumStocks() + "         " + obj.getStockPrice());
+            theView.showString(obj.getTickr() + "                  " + obj.getNumStocks());
           }
           break;
         case "D":
           // check if output folder is present. If not present create it.
-          if (!thePortfolio.checkFolderExists(rootDir)) {
-            thePortfolio.createFolder(rootDir);
+          if (!thePortfolio.checkFolderExists(this.rootDir)) {
+            theView.showString("No portfolios are created!!");
+            break;
           }
           // check if the output folder has .txt files or not.
           // if no portfolio exists say no portfolio has been added.
-          if (!thePortfolio.checkOutputFolder(rootDir)) {
+          if (!thePortfolio.checkOutputFolder(this.rootDir)) {
             theView.showString("No portfolios are present!");
             break;
           }
           // list the portfolios.
           theView.showString("Choose from the list of portfolios");
-          theView.listJsonFiles(rootDir);
+          theView.listJsonFiles(this.rootDir);
           // type the name of the portfolio from the given list of portfolios.
           theView.showString("Enter the name of the portfolio from the list");
           // check if user enters valid file name.
           // enters a portfolio name that does not exist.
           // type the name of the portfolio from the given list of portfolios.
-          String pFileName = in.next();
-          while (!thePortfolio.checkExists(rootDir + pFileName + ".txt")) {
+          String pFileName = in.nextLine();
+          while (!thePortfolio.checkExists(this.rootDir + pFileName + ".txt")) {
             theView.showString("Please enter a valid Portfolio name from the displayed list only!!");
-            pFileName = in.next();
+            pFileName = in.nextLine();
           }
           theView.showString("Enter the date on which you want to extract the portfolio in YYYY-MM-DD format only!");
-          String date = in.next();
+          String date = in.nextLine();
           // check date format.
 
           while (!thePortfolio.checkIfRightFormat(date)) {
             theView.showString("Please enter correct format for date");
-            date = in.next();
+            date = in.nextLine();
           }
           // check if future date is entered.
           if (thePortfolio.checkFutureDate(date)) {
@@ -104,56 +119,59 @@ public class ControllerImpl implements Controller {
             break;
           }
           // if all the above conditions are not met then it is called for portfolio.
-          Portfolio valueDateObj = new PortfolioImpl(pFileName, date);
-          float finalVal = valueDateObj.portfolioValueDate(rootDir);
+          float finalVal = thePortfolio.portfolioValueDate(this.rootDir, pFileName, date);
           // print the value.
           theView.showString("The total value of the portfolio " + pFileName + " is " + finalVal);
           break;
         case "C":
-          theView.showString("Give a name for the portfolio you want to create:");
+          // check valid if not then it uses the default initialized path only for saving the portfolios.
+          theView.showString("Give a name for the portfolio you want to create,(There should be no spaces, must be entered in a single word)");
           ArrayList<String> StoringList = thePortfolio.createEmptyArrayList();
-          String pfName = in.next();
+          String pfName = in.nextLine();
+          while (!thePortfolio.checkValidpfName(pfName)) {
+            theView.showString("Please enter a valid portfolio name with no spaces:");
+            pfName = in.nextLine();
+          }
           // check if this same name portfolio exists.
-          String pfNamePath = rootDir + pfName + ".txt";
+          String pfNamePath = this.rootDir + pfName + ".txt";
           // check if output folder is present. If not present create it.
-          if (!thePortfolio.checkFolderExists(rootDir)) {
-            thePortfolio.createFolder(rootDir);
+          if (!thePortfolio.checkFolderExists(this.rootDir)) {
+            thePortfolio.createFolder(this.rootDir);
           }
           while (thePortfolio.checkExists(pfNamePath)) {
             theView.showString("Portfolio with this name already exists.! ");
             theView.showString("Give another name for the portfolio you want to create:");
-            pfName = in.next();
-            pfNamePath = rootDir + pfName + ".txt";
+            pfName = in.nextLine();
+            pfNamePath = this.rootDir + pfName + ".txt";
           }
           ArrayList<StocksObj> objList = new ArrayList<>();
           boolean done = false;
           while (!done) {
             theView.showString("Press Y to add to add stocks to the " + pfName + " portfolio.");
             theView.showString("Press S to save the Portfolio.");
-            switch (in.next()) {
+            switch (in.nextLine()) {
               case "S":
                 //check if object list is empty nothing to save
                 if (objList.size() == 0) {
                   theView.showString("Portfolio must contain at least one entry!! ");
                 } else {
-                  Portfolio ObjImpl = new PortfolioImpl(objList, pfName);
-                  ObjImpl.createPortfolio(this.rootDir);
+                  thePortfolio.createPortfolio(this.rootDir, pfName, objList);
                   done = true;
                   theView.showString("Successfully created the portfolio " + pfName);
                 }
                 break;
               case "Y":
                 theView.showString("Enter Valid Stock company tickr symbol");
-                String tickr = in.next();
+                String tickr = in.nextLine();
                 // validate tickr symbol in model.
                 while (!thePortfolio.validateTickrSymbol(tickr)) {
                   theView.showString("Invalid Tickr Symbol is entered!");
                   theView.showString("Enter Valid Stock company tickr symbol");
-                  tickr = in.next();
+                  tickr = in.nextLine();
                 }
                 while (StoringList.contains(tickr)) {
                   theView.showString("The Tickr symbol already exists! Please enter new Symbol");
-                  tickr = in.next();
+                  tickr = in.nextLine();
                 }
                 // check if tickr symbol is already in the list.
                 StoringList.add(tickr);

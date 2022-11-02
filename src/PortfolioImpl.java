@@ -13,7 +13,6 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Timer;
 
 /**
  * Implementing the Portfolio Interface and coded the implementation.
@@ -25,31 +24,16 @@ public class PortfolioImpl implements Portfolio {
 
   public PortfolioImpl() {
   }
-
-  public PortfolioImpl(ArrayList<StocksObj> ListObj, String fileName) {
-    this.fileName = fileName;
-    this.ListObj = ListObj;
-  }
-
-  public PortfolioImpl(String fileName) {
-    this.fileName = fileName;
-  }
-
-  public PortfolioImpl(String fileName, String date) {
-    this.fileName = fileName;
-    this.date = date;
-  }
-
   /**
    * Method for creating new portfolio by the user.
    */
-  public void createPortfolio(String rootDir) {
+  public void createPortfolio(String rootDir, String fileName, ArrayList<StocksObj> ListObj) {
     // create a txt type file.
     // Create a String type ArrayList.
     ArrayList<String> listAdded = new ArrayList<>();
-    try (FileWriter file = new FileWriter(rootDir + this.fileName + ".txt")) {
+    try (FileWriter file = new FileWriter(rootDir + fileName + ".txt")) {
       listAdded.add("Company Tickr Symbol,Num Of Stocks");
-      for (StocksObj Object : this.ListObj) {
+      for (StocksObj Object : ListObj) {
         // go through all the elements in the ListObj.
         String toBeAppended = Object.getTickr() + "," + String.valueOf(Object.getNumStocks());
         listAdded.add(toBeAppended);
@@ -70,15 +54,15 @@ public class PortfolioImpl implements Portfolio {
   /**
    * Method for displaying the portfolio.
    */
-  public ArrayList<PortfolioObj> viewPortfolio(String rootDir) throws IOException {
+  public ArrayList<PortfolioObj> viewPortfolio(String rootDir, String filename) throws IOException {
     // load the portfolio of the given input file name.
-    BufferedReader in = new BufferedReader(new FileReader(rootDir + this.fileName + ".txt"));
+    BufferedReader in = new BufferedReader(new FileReader(rootDir + filename + ".txt"));
     String inputLine;
     ArrayList<PortfolioObj> viewPortfolioObj = new ArrayList<>();
     try {
       while ((inputLine = in.readLine()) != null) {
         if (!(inputLine.split(",")[0].equals("Company Tickr Symbol") &&
-                inputLine.split(",")[1].equals("Num Of Stocks") )){
+                inputLine.split(",")[1].equals("Num Of Stocks"))) {
           String tickrSymbol = inputLine.split(",")[0];
           //ApiKey apiObj = new ApiKey(tickrSymbol);
           Float numStocks = Float.valueOf(inputLine.split(",")[1]);
@@ -101,23 +85,36 @@ public class PortfolioImpl implements Portfolio {
   /**
    * Get portfolio value for a given date
    */
-  public float portfolioValueDate(String rootDir) throws FileNotFoundException {
+  public float portfolioValueDate(String rootDir, String fileName,String date) throws FileNotFoundException {
     // initialize sum to 0.
     float finalSum = 0;
     // load the portfolio of the given input file name.
-    BufferedReader in = new BufferedReader(new FileReader(rootDir + this.fileName + ".txt"));
+    BufferedReader in = new BufferedReader(new FileReader(rootDir + fileName + ".txt"));
     String inputLine;
     ArrayList<PortfolioObj> viewPortfolioObj = new ArrayList<>();
     try {
-      while ((inputLine = in.readLine()) != null){
+      while ((inputLine = in.readLine()) != null) {
         if (!(inputLine.split(",")[0].equals("Company Tickr Symbol") &&
-                inputLine.split(",")[1].equals("Num Of Stocks") )) {
+                inputLine.split(",")[1].equals("Num Of Stocks"))) {
           String tickrSymbol = inputLine.split(",")[0];
           ApiKey apiObj = new ApiKey(tickrSymbol);
           Float numStocks = Float.valueOf(inputLine.split(",")[1]);
+          ArrayListObj TickerSymbolsPrice = this.convertTXT();
+          // initialize it as zero
+          Float price = 0.0f;
+          for (int i = 0; i < TickerSymbolsPrice.getTickrSymbols().size(); i++) {
+            if (TickerSymbolsPrice.getTickrSymbols().get(i).equals(tickrSymbol)) {
+              price = Float.valueOf(TickerSymbolsPrice.getPrices().get(i));
+              break;
+            }
+          }
+          Float apiPrice = apiObj.callPriceDate(date);
+          if (apiPrice != 0) {
+            price = apiPrice;
+          }
           // set a timer here.
           // allow api calls for every 25s only.
-          finalSum += numStocks * apiObj.callPriceDate(this.date);
+          finalSum += numStocks * price;
         }
       }
     } catch (FileNotFoundException e) {
@@ -233,41 +230,46 @@ public class PortfolioImpl implements Portfolio {
 
   /**
    * Check if the output folder where .txt needs to be saved exists.
+   *
    * @param rootDir path for the folder
    * @return true if exists else false
    */
-  public boolean checkFolderExists(String rootDir){
+  public boolean checkFolderExists(String rootDir) {
     return new File(rootDir).exists();
   }
 
   /**
    * Create the output folder.
+   *
    * @param rootDir path where the folder needs to be created
    */
   public void createFolder(String rootDir) throws IOException {
-    try{
+    try {
       Path path = Paths.get(rootDir);
       Files.createDirectories(path);
-    }
-    catch (Exception e){
+    } catch (Exception e) {
       e.printStackTrace();
     }
   }
 
   /**
    * Convert text file to array list consisting of valid tickr symbols.
+   *
    * @return array list consisting of all valid tickr symbols
    */
-  public ArrayList<String> convertTXT() throws FileNotFoundException {
-    BufferedReader in = new BufferedReader(new FileReader(new File("tickrlist.txt").getAbsolutePath()));
+  public ArrayListObj convertTXT() throws FileNotFoundException {
+    BufferedReader in = new BufferedReader(new FileReader(new File("tickrData.txt").getAbsolutePath()));
     String inputLine;
     ArrayList<String> TickrSymbolsList = new ArrayList<>();
+    ArrayList<String> pricesList = new ArrayList<>();
     try {
-      while ((inputLine = in.readLine()) != null){
+      while ((inputLine = in.readLine()) != null) {
         String tickrSymbol = inputLine.split(",")[0];
+        String prices = inputLine.split(",")[1];
         TickrSymbolsList.add(tickrSymbol);
+        pricesList.add(prices);
       }
-      return TickrSymbolsList;
+      return new ArrayListObj(TickrSymbolsList, pricesList);
     } catch (FileNotFoundException e) {
       e.printStackTrace();
       return null;
@@ -279,14 +281,15 @@ public class PortfolioImpl implements Portfolio {
 
   /**
    * Validate if the given tickr symbol is valid or not.
+   *
    * @param tickrSymbol of type String.
    * @return true if it is valid else false.
    */
   public boolean validateTickrSymbol(String tickrSymbol) throws FileNotFoundException {
     // open the tickrlist.
     // check if given symbol is in the text file.
-    ArrayList<String>TickrSymbolsList = this.convertTXT();
-    if(TickrSymbolsList.contains(tickrSymbol)){
+    ArrayListObj TickrSymbolsPriceList = this.convertTXT();
+    if (TickrSymbolsPriceList.getTickrSymbols().contains(tickrSymbol)) {
       return true;
     }
     return false;
@@ -294,9 +297,40 @@ public class PortfolioImpl implements Portfolio {
 
   /**
    * Create an empty string list.
+   *
    * @return Array List of type String that is empty
    */
-  public ArrayList<String> createEmptyArrayList(){
+  public ArrayList<String> createEmptyArrayList() {
     return new ArrayList<String>();
+  }
+
+  /**
+   * Check if the given user path is valid or not.
+   * @param rootDirUser path given by user to save the file
+   * @return true if path is valid else false
+   */
+  public boolean ValidPath(String rootDirUser){
+    return new File(rootDirUser).exists();
+  }
+
+  /**
+   * Check if there are any spaces for the given portfolio name.
+   * @param pfName portfolio name of type string
+   * @return true if there are any spaces else false
+   */
+  public boolean checkValidpfName(String pfName){
+    return !pfName.contains(" ");
+  }
+
+  /**
+   * Check if the last ending character is : /.
+   * @param rootDirUser is the path given by user in string format
+   * @return true if it ends with / else false
+   */
+  public boolean checkLastEndingCharacter(String rootDirUser){
+    if(rootDirUser.charAt(rootDirUser.length()-1)=='/'){
+      return true;
+    }
+    return false;
   }
 }

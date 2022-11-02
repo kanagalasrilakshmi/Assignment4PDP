@@ -3,7 +3,7 @@ import java.io.PrintStream;
 
 public class ViewImpl implements View {
 
-  private PrintStream out;
+  private final PrintStream out;
 
   public ViewImpl(PrintStream out) {
     this.out = out;
