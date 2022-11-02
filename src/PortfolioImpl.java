@@ -24,6 +24,7 @@ public class PortfolioImpl implements Portfolio {
 
   public PortfolioImpl() {
   }
+
   /**
    * Method for creating new portfolio by the user.
    */
@@ -85,7 +86,7 @@ public class PortfolioImpl implements Portfolio {
   /**
    * Get portfolio value for a given date
    */
-  public float portfolioValueDate(String rootDir, String fileName,String date) throws FileNotFoundException {
+  public float portfolioValueDate(String rootDir, String fileName, String date) throws FileNotFoundException {
     // initialize sum to 0.
     float finalSum = 0;
     // load the portfolio of the given input file name.
@@ -306,29 +307,40 @@ public class PortfolioImpl implements Portfolio {
 
   /**
    * Check if the given user path is valid or not.
+   *
    * @param rootDirUser path given by user to save the file
    * @return true if path is valid else false
    */
-  public boolean ValidPath(String rootDirUser){
+  public boolean ValidPath(String rootDirUser) {
     return new File(rootDirUser).exists();
   }
 
   /**
-   * Check if there are any spaces for the given portfolio name.
+   * Check if there are any spaces or null or empty or length > 25 for the given portfolio name.
+   *
    * @param pfName portfolio name of type string
-   * @return true if there are any spaces else false
+   * @return true if there are any spaces or null or empty or length > 25 else false
    */
-  public boolean checkValidpfName(String pfName){
-    return !pfName.contains(" ");
+  public boolean checkValidpfName(String pfName) {
+    if (pfName.length() > 25 || pfName == null || pfName.isEmpty() || pfName.contains(" ")){
+      return false;
+    }
+    for(int i =0;i<pfName.length();i++){
+      if(!Character.isLetter(pfName.charAt(i))){
+        return false;
+      }
+    }
+    return true;
   }
 
   /**
    * Check if the last ending character is : /.
+   *
    * @param rootDirUser is the path given by user in string format
    * @return true if it ends with / else false
    */
-  public boolean checkLastEndingCharacter(String rootDirUser){
-    if(rootDirUser.charAt(rootDirUser.length()-1)=='/'){
+  public boolean checkLastEndingCharacter(String rootDirUser) {
+    if (rootDirUser.charAt(rootDirUser.length() - 1) == '/') {
       return true;
     }
     return false;
