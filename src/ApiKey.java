@@ -92,7 +92,7 @@ public class ApiKey {
           if (weekday == Calendar.SATURDAY) {
             // set one day back i.e. friday date.
             LocalDate fridayDate = LocalDate.parse(formatDate.format(dateCheck)).minusDays(1);
-            date= String.valueOf(fridayDate);
+            date = String.valueOf(fridayDate);
           } else if (weekday == Calendar.SUNDAY) {
             // set 2 days back date i.e. friday date.
             LocalDate fridayDate = LocalDate.parse(formatDate.format(dateCheck)).minusDays(2);
