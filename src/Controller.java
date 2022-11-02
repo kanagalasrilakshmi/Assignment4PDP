@@ -1,4 +1,6 @@
+import java.text.ParseException;
+
 public interface Controller {
-  void go();
+  void go() throws ParseException;
 
 }

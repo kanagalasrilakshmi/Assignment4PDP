@@ -48,18 +48,18 @@ public class ControllerImpl implements Controller {
           // print the value.
           theView.showString("Company Tickr Symbol" + " " + "Num Stocks Purchased" + " " + "Stock Price");
           for (PortfolioObj obj : PortfolioView) {
-            theView.showString(obj.getTickr() + "       " + obj.getNumStocks() + "     " + obj.getStockPrice());
+            theView.showString(obj.getTickr() + "                  " + obj.getNumStocks() + "                    " + obj.getStockPrice());
           }
           break;
         case "D":
-          // list the portfolios.
-          theView.showString("Choose from the list of portfolios");
           // check if the output folder has .json files or not.
           // if no portfolio exists say no portfolio has been added.
           if (!thePortfolio.checkOutputFolder(rootDir)) {
             theView.showString("No portfolios are present!");
             break;
           }
+          // list the portfolios.
+          theView.showString("Choose from the list of portfolios");
           theView.listJsonFiles();
           // type the name of the portfolio from the given list of portfolios.
           theView.showString("Enter the name of the portfolio from the list");
@@ -74,10 +74,30 @@ public class ControllerImpl implements Controller {
           theView.showString("Enter the date on which you want to extract the portfolio in YYYY-MM-DD format only!");
           String date = in.next();
           // check date format.
+          while (!thePortfolio.checkIfRightFormat(date)) {
+            theView.showString("Please enter correct format for date");
+            date = in.next();
+          }
+          // check if future date is entered.
+          if (thePortfolio.checkFutureDate(date)) {
+            theView.showString("Future Date is entered for which portfolio cannot be accessed!!");
+            break;
+          }
+          // check if today's date is entered and stock market is yet to opened.
+          try {
+            if (thePortfolio.checkTodayDateAndTime(date)) {
+              theView.showString("Stock market is yet to be opened!!!");
+              break;
+            }
+          } catch (Exception e) {
+            e.printStackTrace();
+            break;
+          }
           // if not correct ask user to enter again.
+          // if all the above conditions are not met then it is called for portfolio.
           Portfolio valueDateObj = new PortfolioImpl(pFileName, date);
           float finalVal = valueDateObj.portfolioValueDate(rootDir);
-          // print the value
+          // print the value.
           theView.showString("The total value of the portfolio " + pFileName + " is " + finalVal);
           break;
         case "C":
@@ -108,7 +128,7 @@ public class ControllerImpl implements Controller {
                   Portfolio ObjImpl = new PortfolioImpl(objList, pfName);
                   ObjImpl.createPortfolio(this.rootDir);
                   done = true;
-                  theView.showString("Sucessfully created the portfolio " + pfName);
+                  theView.showString("Successfully created the portfolio " + pfName);
                 }
                 break;
               case "Y":
