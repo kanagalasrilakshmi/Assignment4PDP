@@ -3,7 +3,7 @@ public interface View {
 
   void showString(String s);
 
-  void listJsonFiles();
+  void listJsonFiles(String rootDir);
 
   void showOptionError();
 }

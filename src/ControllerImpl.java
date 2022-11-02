@@ -38,7 +38,7 @@ public class ControllerImpl implements Controller {
           }
           // list the portfolios.
           theView.showString("Choose from the list of portfolios");
-          theView.listJsonFiles();
+          theView.listJsonFiles(rootDir);
           theView.showString("Enter the name of the portfolio from the displayed list");
           // check if user enters valid file name.
           // enters a portfolio name that does not exist.
@@ -51,9 +51,9 @@ public class ControllerImpl implements Controller {
           Portfolio viewObj = new PortfolioImpl(pfNameChosen);
           ArrayList<PortfolioObj> PortfolioView = viewObj.viewPortfolio(rootDir);
           // print the value.
-          theView.showString("Company Tickr Symbol" + " " + "Num Stocks Purchased" + " " + "Stock Price");
+          theView.showString("Company Tickr Symbol" + " " + "Num Stocks" + " " + "Stock Price");
           for (PortfolioObj obj : PortfolioView) {
-            theView.showString(obj.getTickr() + "                  " + obj.getNumStocks() + "                    " + obj.getStockPrice());
+            theView.showString(obj.getTickr() + "                  " + obj.getNumStocks() + "         " + obj.getStockPrice());
           }
           break;
         case "D":
@@ -69,7 +69,7 @@ public class ControllerImpl implements Controller {
           }
           // list the portfolios.
           theView.showString("Choose from the list of portfolios");
-          theView.listJsonFiles();
+          theView.listJsonFiles(rootDir);
           // type the name of the portfolio from the given list of portfolios.
           theView.showString("Enter the name of the portfolio from the list");
           // check if user enters valid file name.

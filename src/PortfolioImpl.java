@@ -76,8 +76,8 @@ public class PortfolioImpl implements Portfolio {
     ArrayList<PortfolioObj> viewPortfolioObj = new ArrayList<>();
     try {
       while ((inputLine = in.readLine()) != null) {
-        if (inputLine.split(",")[0] != "Company Tickr Symbol" &&
-                inputLine.split(",")[1] != "Num Of Stocks") {
+        if (!(inputLine.split(",")[0].equals("Company Tickr Symbol") &&
+                inputLine.split(",")[1].equals("Num Of Stocks") )){
           String tickrSymbol = inputLine.split(",")[0];
           ApiKey apiObj = new ApiKey(tickrSymbol);
           Float numStocks = Float.valueOf(inputLine.split(",")[1]);
@@ -106,8 +106,8 @@ public class PortfolioImpl implements Portfolio {
     ArrayList<PortfolioObj> viewPortfolioObj = new ArrayList<>();
     try {
       while ((inputLine = in.readLine()) != null){
-        if (inputLine.split(",")[0] != "Company Tickr Symbol" &&
-                inputLine.split(",")[1] != "Num Of Stocks") {
+        if (!(inputLine.split(",")[0].equals("Company Tickr Symbol") &&
+                inputLine.split(",")[1].equals("Num Of Stocks") )) {
           String tickrSymbol = inputLine.split(",")[0];
           ApiKey apiObj = new ApiKey(tickrSymbol);
           Float numStocks = Float.valueOf(inputLine.split(",")[1]);
