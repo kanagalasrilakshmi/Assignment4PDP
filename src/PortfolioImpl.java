@@ -273,7 +273,7 @@ public class PortfolioImpl implements Portfolio {
    * @return array list consisting of all valid tickr symbols
    */
   public ArrayListObj convertTXT() throws FileNotFoundException {
-    BufferedReader in = new BufferedReader(new FileReader(new File("tickrData.txt.txt").getAbsolutePath()));
+    BufferedReader in = new BufferedReader(new FileReader(new File("tickrData.txt").getAbsolutePath()));
     String inputLine;
     ArrayList<String> TickrSymbolsList = new ArrayList<>();
     ArrayList<String> pricesList = new ArrayList<>();
@@ -326,5 +326,26 @@ public class PortfolioImpl implements Portfolio {
    */
   public boolean ValidPath(String rootDirUser){
     return new File(rootDirUser).exists();
+  }
+
+  /**
+   * Check if there are any spaces for the given portfolio name.
+   * @param pfName portfolio name of type string
+   * @return true if there are any spaces else false
+   */
+  public boolean checkValidpfName(String pfName){
+    return !pfName.contains(" ");
+  }
+
+  /**
+   * Check if the last ending character is : /.
+   * @param rootDirUser is the path given by user in string format
+   * @return true if it ends with / else false
+   */
+  public boolean checkLastEndingCharacter(String rootDirUser){
+    if(rootDirUser.charAt(rootDirUser.length()-1)=='/'){
+      return true;
+    }
+    return false;
   }
 }

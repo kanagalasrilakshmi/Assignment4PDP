@@ -105,4 +105,18 @@ public interface Portfolio {
    * @return true if path is valid else false
    */
   public boolean ValidPath(String rootDirUser);
+
+  /**
+   * Check if there are any spaces for the given portfolio name.
+   * @param pfName portfolio name of type string
+   * @return true if there are any spaces else false
+   */
+  public boolean checkValidpfName(String pfName);
+
+  /**
+   * Check if the last ending character is : /.
+   * @param rootDirUser is the path given by user in string format
+   * @return true if it ends with / else false
+   */
+  public boolean checkLastEndingCharacter(String rootDirUser);
 }

@@ -21,7 +21,7 @@ public class ControllerImpl implements Controller {
     boolean quit = false;
     while (!quit) {
       theView.showOptions();
-      switch (in.next()) {
+      switch (in.nextLine()) {
         case "Q":
           quit = true;
           break;
@@ -43,17 +43,17 @@ public class ControllerImpl implements Controller {
           // check if user enters valid file name.
           // enters a portfolio name that does not exist.
           // type the name of the portfolio from the given list of portfolios.
-          String pfNameChosen = in.next();
+          String pfNameChosen = in.nextLine();
           while (!thePortfolio.checkExists(this.rootDir + pfNameChosen + ".txt")) {
             theView.showString("Please enter a valid Portfolio name from the displayed list only!!");
-            pfNameChosen = in.next();
+            pfNameChosen = in.nextLine();
           }
           Portfolio viewObj = new PortfolioImpl(pfNameChosen);
           ArrayList<PortfolioObj> PortfolioView = viewObj.viewPortfolio(this.rootDir);
           // print the value.
-          theView.showString("Company Tickr Symbol" + " " + "Num Stocks" + " " + "Stock Price");
+          theView.showString("Company Tickr Symbol" + " " + "Num Stocks");
           for (PortfolioObj obj : PortfolioView) {
-            theView.showString(obj.getTickr() + "                  " + obj.getNumStocks() + "         " + obj.getStockPrice());
+            theView.showString(obj.getTickr() + "                  " + obj.getNumStocks());
           }
           break;
         case "D":
@@ -75,18 +75,18 @@ public class ControllerImpl implements Controller {
           // check if user enters valid file name.
           // enters a portfolio name that does not exist.
           // type the name of the portfolio from the given list of portfolios.
-          String pFileName = in.next();
+          String pFileName = in.nextLine();
           while (!thePortfolio.checkExists(this.rootDir + pFileName + ".txt")) {
             theView.showString("Please enter a valid Portfolio name from the displayed list only!!");
-            pFileName = in.next();
+            pFileName = in.nextLine();
           }
           theView.showString("Enter the date on which you want to extract the portfolio in YYYY-MM-DD format only!");
-          String date = in.next();
+          String date = in.nextLine();
           // check date format.
 
           while (!thePortfolio.checkIfRightFormat(date)) {
             theView.showString("Please enter correct format for date");
-            date = in.next();
+            date = in.nextLine();
           }
           // check if future date is entered.
           if (thePortfolio.checkFutureDate(date)) {
@@ -112,14 +112,22 @@ public class ControllerImpl implements Controller {
         case "C":
           theView.showString("Please enter a valid input path where you want to save the portfolio.");
           // ask the user to give valid input path for storing the portfolio.
-          String rootDirUser = in.next();
+          String rootDirUser = in.nextLine();
+          while(!thePortfolio.checkLastEndingCharacter(rootDirUser)){
+            theView.showString("The input path should end with symbol :/");
+            rootDirUser = in.nextLine();
+          }
           // check valid if not then it uses the default initialized path only for saving the portfolios.
           if(thePortfolio.ValidPath(rootDirUser)){
             this.rootDir = rootDirUser;
           }
-          theView.showString("Give a name for the portfolio you want to create:");
+          theView.showString("Give a name for the portfolio you want to create,(There should be no spaces, must be entered in a single word)");
           ArrayList<String> StoringList = thePortfolio.createEmptyArrayList();
-          String pfName = in.next();
+          String pfName = in.nextLine();
+          while(!thePortfolio.checkValidpfName(pfName)){
+            theView.showString("Please enter a valid portfolio name with no spaces:");
+            pfName = in.nextLine();
+          }
           // check if this same name portfolio exists.
           String pfNamePath = this.rootDir + pfName + ".txt";
           // check if output folder is present. If not present create it.
@@ -129,7 +137,7 @@ public class ControllerImpl implements Controller {
           while (thePortfolio.checkExists(pfNamePath)) {
             theView.showString("Portfolio with this name already exists.! ");
             theView.showString("Give another name for the portfolio you want to create:");
-            pfName = in.next();
+            pfName = in.nextLine();
             pfNamePath = this.rootDir + pfName + ".txt";
           }
           ArrayList<StocksObj> objList = new ArrayList<>();
@@ -137,7 +145,7 @@ public class ControllerImpl implements Controller {
           while (!done) {
             theView.showString("Press Y to add to add stocks to the " + pfName + " portfolio.");
             theView.showString("Press S to save the Portfolio.");
-            switch (in.next()) {
+            switch (in.nextLine()) {
               case "S":
                 //check if object list is empty nothing to save
                 if (objList.size() == 0) {
@@ -151,16 +159,16 @@ public class ControllerImpl implements Controller {
                 break;
               case "Y":
                 theView.showString("Enter Valid Stock company tickr symbol");
-                String tickr = in.next();
+                String tickr = in.nextLine();
                 // validate tickr symbol in model.
                 while (!thePortfolio.validateTickrSymbol(tickr)) {
                   theView.showString("Invalid Tickr Symbol is entered!");
                   theView.showString("Enter Valid Stock company tickr symbol");
-                  tickr = in.next();
+                  tickr = in.nextLine();
                 }
                 while (StoringList.contains(tickr)) {
                   theView.showString("The Tickr symbol already exists! Please enter new Symbol");
-                  tickr = in.next();
+                  tickr = in.nextLine();
                 }
                 // check if tickr symbol is already in the list.
                 StoringList.add(tickr);
