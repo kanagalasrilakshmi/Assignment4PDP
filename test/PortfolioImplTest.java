@@ -84,5 +84,18 @@ public class PortfolioImplTest {
     assertEquals(false, portfolioObj.checkValidpfName("2345678"));
   }
 
+  @Test
+  public void checkDirectoryName() {
+    // Name greater than 25 letters not allowed
+    Portfolio portfolioObj = new PortfolioImpl();
+    assertEquals(true, portfolioObj.checkLastEndingCharacter("/Users/"));
+  }
+
+  @Test
+  public void checkDirectoryNameInvalid() {
+    // Name greater than 25 letters not allowed
+    Portfolio portfolioObj = new PortfolioImpl();
+    assertEquals(false, portfolioObj.checkLastEndingCharacter("/Users"));
+  }
 
 }

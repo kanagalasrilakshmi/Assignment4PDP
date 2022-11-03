@@ -322,11 +322,11 @@ public class PortfolioImpl implements Portfolio {
    * @return true if there are any spaces or null or empty or length > 25 else false
    */
   public boolean checkValidpfName(String pfName) {
-    if (pfName.length() > 25 || pfName == null || pfName.isEmpty() || pfName.contains(" ")){
+    if (pfName == null || pfName.length() > 25 || pfName.isEmpty() || pfName.contains(" ")) {
       return false;
     }
-    for(int i =0;i<pfName.length();i++){
-      if(!Character.isLetter(pfName.charAt(i))){
+    for (int i = 0; i < pfName.length(); i++) {
+      if (!Character.isLetter(pfName.charAt(i))) {
         return false;
       }
     }
