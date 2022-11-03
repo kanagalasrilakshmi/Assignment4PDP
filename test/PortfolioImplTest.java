@@ -3,6 +3,7 @@ import org.junit.Test;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintStream;
@@ -13,25 +14,25 @@ import static org.junit.Assert.assertEquals;
 public class PortfolioImplTest {
 
   @Test
-  public void checkIfDateInRightFormat0() {
+  public void checkIfDateInRightFormatCorrect() {
     Portfolio portfolioObj = new PortfolioImpl();
     assertEquals(true, portfolioObj.checkIfRightFormat("2022-02-01"));
   }
 
   @Test
-  public void checkIfDateInRightFormat1() {
+  public void checkIfDateInRightFormatWrong1() {
     Portfolio portfolioObj = new PortfolioImpl();
     assertEquals(false, portfolioObj.checkIfRightFormat("01/02/2020"));
   }
 
   @Test
-  public void checkIfDateInRightFormat2() {
+  public void checkIfDateInRightFormatWrong2() {
     Portfolio portfolioObj = new PortfolioImpl();
     assertEquals(false, portfolioObj.checkIfRightFormat("01022020"));
   }
 
   @Test
-  public void checkIfDateInRightFormat3() {
+  public void checkIfDateInRightFormatWrong3() {
     Portfolio portfolioObj = new PortfolioImpl();
     assertEquals(false, portfolioObj.checkIfRightFormat("01-02-2020"));
   }
@@ -85,17 +86,30 @@ public class PortfolioImplTest {
   }
 
   @Test
-  public void checkDirectoryName() {
-    // Name greater than 25 letters not allowed
+  public void checkDirectoryNameEndingValid() {
     Portfolio portfolioObj = new PortfolioImpl();
     assertEquals(true, portfolioObj.checkLastEndingCharacter("/Users/"));
   }
 
   @Test
-  public void checkDirectoryNameInvalid() {
-    // Name greater than 25 letters not allowed
+  public void checkDirectoryNameEndingInvalid() {
     Portfolio portfolioObj = new PortfolioImpl();
     assertEquals(false, portfolioObj.checkLastEndingCharacter("/Users"));
+  }
+
+  @Test
+  public void checkValidateTickrSymbolValid(){
+    Portfolio portfolioObj = new PortfolioImpl();
+    try {
+      assertEquals(true, portfolioObj.validateTickrSymbol("AAL"));
+    } catch (FileNotFoundException e) {
+      throw new RuntimeException(e);
+    }
+  }
+
+  @Test
+  public void checkValidateTickrSymbolInvalid(){
+
   }
 
 }
