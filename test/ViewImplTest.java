@@ -8,17 +8,21 @@ import java.io.PrintStream;
 import java.text.ParseException;
 
 import static org.junit.Assert.assertEquals;
+import org.junit.Before;
 
 public class ViewImplTest {
-
   @Test
   public void testViewQuitAtStart() throws ParseException, IOException {
-    InputStream in = new ByteArrayInputStream("Q".getBytes());
+    String rootDir = System.getProperty("user.home") + "/Desktop/PortfolioBucket/";
+    String inputStream = rootDir + "\nQ";
+    InputStream in = new ByteArrayInputStream(inputStream.getBytes());
     ByteArrayOutputStream bytes = new ByteArrayOutputStream();
     PrintStream out = new PrintStream(bytes);
     Controller controlObj = new ControllerImpl(new PortfolioImpl(),new ViewImpl(out),in);
     controlObj.go();
-    assertEquals("Menu: \n" +
+    assertEquals("Give a valid input path where you want to store the created portfolios!\n"+
+            "Invalid path is given so by default portfolios are stored in " + rootDir +" path.\n"+
+            "Menu: \n" +
             "C: To create a new Portfolio.\n" +
             "V: View existing Portfolio.\n" +
             "D: View existing Portfolio value for a given date.\n" +
