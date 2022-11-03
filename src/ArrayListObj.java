@@ -1,5 +1,8 @@
 import java.util.ArrayList;
 
+/**
+ * Class for creating an object for creating arraylist objects.
+ */
 public class ArrayListObj {
   private ArrayList<String> tickrSymbols;
   private ArrayList<String> prices;

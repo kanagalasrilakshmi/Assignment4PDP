@@ -17,7 +17,7 @@ public class ControllerImplTest {
     InputStream in = new ByteArrayInputStream("Q".getBytes());
     ByteArrayOutputStream bytes = new ByteArrayOutputStream();
     PrintStream out = new PrintStream(bytes);
-    Controller controlObj = new ControllerImpl(new PortfolioImpl(),new ViewImpl(out),in);
+    Controller controlObj = new ControllerImpl(new PortfolioImpl(), new ViewImpl(out), in);
     controlObj.goStocks();
     assertEquals("Menu: \n" +
             "C: To create a new Portfolio.\n" +
@@ -26,12 +26,13 @@ public class ControllerImplTest {
             "Q: Quit the program\n" +
             "Enter your choice: ", new String(bytes.toByteArray()));
   }
+
   @Test
   public void testViewInvalidInputAtMenu() throws ParseException, IOException {
     InputStream in = new ByteArrayInputStream("A Q".getBytes());
     ByteArrayOutputStream bytes = new ByteArrayOutputStream();
     PrintStream out = new PrintStream(bytes);
-    Controller controlObj = new ControllerImpl(new PortfolioImpl(),new ViewImpl(out),in);
+    Controller controlObj = new ControllerImpl(new PortfolioImpl(), new ViewImpl(out), in);
     controlObj.goStocks();
     assertEquals("Menu: \n" +
             "C: To create a new Portfolio.\n" +
@@ -53,7 +54,7 @@ public class ControllerImplTest {
     InputStream in = new ByteArrayInputStream("C healthpf Y goStocksOG 100 S Q".getBytes());
     ByteArrayOutputStream bytes = new ByteArrayOutputStream();
     PrintStream out = new PrintStream(bytes);
-    Controller controlObj = new ControllerImpl(new PortfolioImpl(),new ViewImpl(out),in);
+    Controller controlObj = new ControllerImpl(new PortfolioImpl(), new ViewImpl(out), in);
     controlObj.goStocks();
     assertEquals("Menu: \n" +
             "C: To create a new Portfolio.\n" +

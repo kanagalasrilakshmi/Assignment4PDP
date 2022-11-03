@@ -9,6 +9,9 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
+/**
+ * Class for implementing api calls.
+ */
 public class ApiKey {
   private String tickrsymbol;
 
