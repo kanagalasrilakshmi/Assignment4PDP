@@ -23,10 +23,13 @@
 
 # GET VALUE FOR A DATE FOR A PORTFOLIO USING "D": If a user uses D, all the portfolios in the given valid user path(if exists) or in the default path saved in .txt format (since all our portfolios saved in .txt format) are listed down. User is given choice to enter the name of the files from the listed files only. If he enters a file not in the list or enters a wrong name then he prompted to enter the portfolio names from the displayed list of files only. Once the user enters a right portfolio name, the values he entered, tickr symbols and num stocks while createing portfolio are displayed. If there are no portfolios in the file then a message specifying that no files exists displays. This feature works perfectly fine.
  # Later he is prompted to enter a valid date on which he wants the total porfolio value. Format for the date should follow this- "YYYY-MM-DD" format only. If he enters a fomat other than this the user is prompted to add a correct format again. 
- # If the user enters a valid format, and the date falls on saturday or sunday then friday date's stock value is used to calculate the value of the porfolio.
- # If the user gives a future date, then the user is notified saying that the date is in future and stock price value for future cannot be available.
- # If the user gives today's date and that falls on mon to friday : If time is before 9:30 am the user is notified with a message saying that stock market is yet to be opened so no price is available. Th the time is after 9:30 am and before midnight 12 the closing price for that day is taken for calculation of portfolio value.
-
+ # If the user enters a valid format, and the date falls on saturday or sunday then friday date's stock value is used to calculate the value of the porfolio.This feature works fine.
+ # If the user gives a future date, then the user is notified saying that the date is in future and stock price value for future cannot be available. This feature works fine.
+ # If the user gives today's date and that falls on mon to friday : If time is before 9:30 am the user is notified with a message saying that stock market is yet to be opened so no price is available. Th the time is after 9:30 am and before midnight 12 the closing price for that day is taken for calculation of portfolio value. This feature works fine.
+ # API Key has a restriction on number of calls to be made. So, a work around was done inorder to overcome this problem. "tickrData.txt" has prices too for every tickr symbol in the porfolio. After an api call if there is no value returned due to number of calls made over an api has exceeded it will use the prices from "tickrData.txt" file for calculating the value. 
+ # This feature does not completely work fine since the stock price values taken here belong to some date that is not specified by the user.
+ # Instead of making immediate api calls, a timer should be setup that limits the api calls at a given time.
+ # If a date when the stock was not even present was given still it takes arbitary values which needs to be taken care of.
 
 
  
