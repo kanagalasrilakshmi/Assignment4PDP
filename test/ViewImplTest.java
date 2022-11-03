@@ -243,7 +243,8 @@ public class ViewImplTest {
     controlObj.goStocks();
     assertEquals("Give a valid input path where you want to store your portfolios. " +
             "For example: /Users/PDP/PortfolioBucket/\n" +
-            "Invalid path given so portfolios will be stored in " + System.getProperty("user.home") +
+            "Invalid path given so portfolios will be stored in " +
+            System.getProperty("user.home") +
             "/Desktop/PortfolioBucket/ by default. To change directory, quit " +
             "and start again.\n" +
             "Menu: \n" +
@@ -424,13 +425,14 @@ public class ViewImplTest {
             "C: To create a new Portfolio.\n" +
             "V: View existing Portfolio.\n" +
             "Q: Quit the program\n" +
-            "Enter your choice: Enter the name of the portfolio you want to view from " +
-            "the list of portfolios displayed below:\n" +
+            "Enter your choice: Enter the name of the portfolio you want to view from the " +
+            "list of portfolios displayed below:\n" +
             "healthpf\n" +
             "Please enter a valid Portfolio name from the displayed list only!\n" +
             "Press D to view portfolio value by date\n" +
             "Press P to view portfolio composition\n" +
-            "Enter the date for which you want to fetch the portfolio in YYYY-MM-DD format only!\n" +
+            "Enter the date for which you want to fetch the portfolio in YYYY-MM-DD " +
+            "format only!\n" +
             "Please enter correct format for date\n" +
             "Please enter correct format for date\n" +
             "Please enter correct format for date\n" +

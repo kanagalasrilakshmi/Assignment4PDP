@@ -33,9 +33,11 @@ public class ControllerImplTest {
       }
     }
     File files = new File(rootDir);
-    for (File file : files.listFiles())
-      if (!file.isDirectory())
+    for (File file : files.listFiles()) {
+      if (!file.isDirectory()) {
         file.delete();
+      }
+    }
   }
 
   @Test

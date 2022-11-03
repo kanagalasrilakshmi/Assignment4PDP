@@ -78,7 +78,8 @@ public class ControllerImpl implements Controller {
             break;
           }
           // list the portfolios.
-          theView.showString("Enter the name of the portfolio you want to view from the list of " +
+          theView.showString("Enter the name of the portfolio you want to view from " +
+                  "the list of " +
                   "portfolios displayed below:");
           theView.listTXTFiles(this.rootDir);
           // check if user enters valid file name.
@@ -124,7 +125,8 @@ public class ControllerImpl implements Controller {
                 // if all the above conditions are not met then it is called for portfolio.
                 float finalVal = thePortfolio.portfolioValueDate(this.rootDir, pfNameChosen, date);
                 // print the value.
-                theView.showString("The total value of the portfolio " + pfNameChosen + " is " + finalVal);
+                theView.showString("The total value of the portfolio " + pfNameChosen + " " +
+                        "is " + finalVal);
                 viewDone = true;
                 break;
               case "P":
