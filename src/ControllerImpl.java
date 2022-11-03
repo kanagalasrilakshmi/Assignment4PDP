@@ -4,9 +4,7 @@ import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
 /**
@@ -38,10 +36,9 @@ public class ControllerImpl implements Controller {
   }
 
   /**
-   * function to run the Stocks implementation.
+   * Function to run the Stocks app implementation.
    *
-   * @throws ParseException when parsing of a date fails.
-   * @throws IOException    when given input is not valid
+   * @throws IOException if invalid file is given
    */
   public void goStocks() throws IOException {
     boolean quit = false;
@@ -58,7 +55,6 @@ public class ControllerImpl implements Controller {
     } else {
       theView.showString("Invalid path given so portfolios will be stored in "
               + this.rootDir + " by default. To change directory, quit and start again.");
-      // create a portfolio bucket if it does not exist.
       if (!new File(this.rootDir).exists()) {
         try {
           Path path = Paths.get(this.rootDir);
@@ -82,7 +78,8 @@ public class ControllerImpl implements Controller {
             break;
           }
           // list the portfolios.
-          theView.showString("Enter the name of the portfolio you want to view from the list of " +
+          theView.showString("Enter the name of the portfolio you want to view from " +
+                  "the list of " +
                   "portfolios displayed below:");
           theView.listTXTFiles(this.rootDir);
           // check if user enters valid file name.
@@ -94,7 +91,7 @@ public class ControllerImpl implements Controller {
           }
 
           boolean viewDone = false;
-          while(!viewDone){
+          while (!viewDone) {
             theView.showString("Press D to view portfolio value by date");
             theView.showString("Press P to view portfolio composition");
             switch (in.next()) {
@@ -128,7 +125,8 @@ public class ControllerImpl implements Controller {
                 // if all the above conditions are not met then it is called for portfolio.
                 float finalVal = thePortfolio.portfolioValueDate(this.rootDir, pfNameChosen, date);
                 // print the value.
-                theView.showString("The total value of the portfolio " + pfNameChosen + " is " + finalVal);
+                theView.showString("The total value of the portfolio " + pfNameChosen + " " +
+                        "is " + finalVal);
                 viewDone = true;
                 break;
               case "P":
@@ -164,7 +162,7 @@ public class ControllerImpl implements Controller {
           // check if this same name portfolio exists.
           String pfNamePath = this.rootDir + pfName + ".txt";
           while (new File(pfNamePath).exists()) {
-            theView.showString("Portfolio with this name already exists.! ");
+            theView.showString("Portfolio with this name already exists! ");
             theView.showString("Give another name for the portfolio you want to create:");
             pfName = in.nextLine();
             pfNamePath = this.rootDir + pfName + ".txt";
@@ -205,21 +203,17 @@ public class ControllerImpl implements Controller {
                 // backup for api key failure.
                 theView.showString("Enter number of stocks purchased " +
                         "(Integer Values are Only Allowed)");
-                int numberStocks = 0;
-                try {
-                  numberStocks = in.nextInt();
-                } catch (InputMismatchException e) {
-                  theView.showString("Enter number of stocks purchased " +
-                          "(Integer Values are Only Allowed)");
+                String numberStocks = in.next();
+                while (!thePortfolio.checkValidInteger(numberStocks)) {
                   theView.showString("Only Integer Stock values " +
-                          "are allowed are allowed!!");
-                  storinglist.remove(tickr);
-                  break;
+                          "are allowed. Please enter a valid Integer number.");
+                  numberStocks = in.next();
                 }
-                objList.add(new StocksObj(tickr, numberStocks));
+                objList.add(new StocksObj(tickr, Integer.valueOf(numberStocks)));
                 break;
               default:
                 theView.showString("Please Enter Either S/Y only!!");
+                break;
             }
           }
           break;

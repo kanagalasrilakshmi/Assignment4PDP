@@ -10,6 +10,7 @@ public class ViewImpl implements View {
 
   /**
    * Constructo for view.
+   *
    * @param out takes in prinstream type object
    */
   public ViewImpl(PrintStream out) {

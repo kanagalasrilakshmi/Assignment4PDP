@@ -21,6 +21,7 @@ public class ApiKey {
 
   /**
    * Gets the tickr symbol.
+   *
    * @return tickr symbol of type string
    */
   public String getTickrSymbol() {
@@ -72,6 +73,7 @@ public class ApiKey {
   /**
    * get the price for a given date.
    *
+   * @param date of type string
    * @return float type price of the stock
    */
   public float callPriceDate(String date) {
