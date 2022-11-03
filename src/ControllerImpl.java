@@ -193,6 +193,7 @@ public class ControllerImpl implements Controller {
                 break;
               default:
                 theView.showString("Please Enter Either S/Y only!!");
+                break;
             }
           }
           break;
