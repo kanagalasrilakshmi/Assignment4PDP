@@ -1,5 +1,9 @@
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -27,7 +31,7 @@ public class ControllerImpl implements Controller {
       theView.showString("Give a valid absolute path that ends with a /:");
       rootDirUser = in.nextLine();
     }
-    if (thePortfolio.ValidPath(rootDirUser)) {
+    if (new File(rootDirUser).exists()) {
       this.rootDir = rootDirUser;
     } else {
       theView.showString("Invalid path is given so by default portfolios are stored in "
@@ -41,7 +45,7 @@ public class ControllerImpl implements Controller {
           break;
         case "V":
           // check if output folder is present. If not present break.
-          if (!thePortfolio.checkFolderExists(this.rootDir)) {
+          if (!new File(this.rootDir).exists()) {
             theView.showString("No portfolios are created!!");
             break;
           }
@@ -59,7 +63,7 @@ public class ControllerImpl implements Controller {
           // enters a portfolio name that does not exist.
           // type the name of the portfolio from the given list of portfolios.
           String pfNameChosen = in.nextLine();
-          while (!thePortfolio.checkExists(this.rootDir + pfNameChosen + ".txt")) {
+          while (!new File(this.rootDir + pfNameChosen + ".txt").exists()){
             theView.showString("Please enter a valid Portfolio name from the displayed list only!!");
             pfNameChosen = in.nextLine();
           }
@@ -72,7 +76,7 @@ public class ControllerImpl implements Controller {
           break;
         case "D":
           // check if output folder is present. If not present create it.
-          if (!thePortfolio.checkFolderExists(this.rootDir)) {
+          if (!new File(this.rootDir).exists()) {
             theView.showString("No portfolios are created!!");
             break;
           }
@@ -91,7 +95,7 @@ public class ControllerImpl implements Controller {
           // enters a portfolio name that does not exist.
           // type the name of the portfolio from the given list of portfolios.
           String pFileName = in.nextLine();
-          while (!thePortfolio.checkExists(this.rootDir + pFileName + ".txt")) {
+          while (! new File (this.rootDir + pFileName + ".txt").exists()) {
             theView.showString("Please enter a valid Portfolio name from the displayed list only!!");
             pFileName = in.nextLine();
           }
@@ -128,7 +132,7 @@ public class ControllerImpl implements Controller {
           theView.showString("Give a name for the portfolio you want to create,(The string " +
                   "should not have spaces,null,emptystring,and length less than 25 " +
                   "must be entered in a single word)");
-          ArrayList<String> StoringList = thePortfolio.createEmptyArrayList();
+          ArrayList<String> StoringList = new ArrayList<>();
           String pfName = in.nextLine();
           while (!thePortfolio.checkValidpfName(pfName)) {
             theView.showString("Please enter a valid portfolio name:");
@@ -137,10 +141,15 @@ public class ControllerImpl implements Controller {
           // check if this same name portfolio exists.
           String pfNamePath = this.rootDir + pfName + ".txt";
           // check if output folder is present. If not present create it.
-          if (!thePortfolio.checkFolderExists(this.rootDir)) {
-            thePortfolio.createFolder(this.rootDir);
+          if (!new File(this.rootDir).exists()) {
+            try {
+              Path path = Paths.get(this.rootDir);
+              Files.createDirectories(path);
+            } catch (Exception e) {
+              e.printStackTrace();
+            }
           }
-          while (thePortfolio.checkExists(pfNamePath)) {
+          while (new File(pfNamePath).exists()) {
             theView.showString("Portfolio with this name already exists.! ");
             theView.showString("Give another name for the portfolio you want to create:");
             pfName = in.nextLine();

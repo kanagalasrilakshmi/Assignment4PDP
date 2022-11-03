@@ -36,10 +36,6 @@ public class ViewImpl implements View {
     }
   }
 
-  public void showStringEntry() {
-    out.print("\nEnter the string to be echoed: ");
-  }
-
   public void showOptionError() {
     out.print("\nInvalid option. Please try again.\n");
   }

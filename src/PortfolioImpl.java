@@ -18,13 +18,6 @@ import java.util.Date;
  * Implementing the Portfolio Interface and coded the implementation.
  */
 public class PortfolioImpl implements Portfolio {
-  private ArrayList<StocksObj> ListObj;
-  private String fileName;
-  private String date;
-
-  public PortfolioImpl() {
-  }
-
   /**
    * Method for creating new portfolio by the user.
    */
@@ -127,17 +120,6 @@ public class PortfolioImpl implements Portfolio {
   }
 
   /**
-   * Check if the file exists in the given directory.
-   *
-   * @param pfNamePath path of the file
-   * @return true if exists else false
-   */
-  public boolean checkExists(String pfNamePath) {
-    File tempFile = new File(pfNamePath);
-    return tempFile.exists();
-  }
-
-  /**
    * Check if the given output folder has any portfolios.
    *
    * @param rootDir is the path
@@ -230,30 +212,6 @@ public class PortfolioImpl implements Portfolio {
   }
 
   /**
-   * Check if the output folder where .txt needs to be saved exists.
-   *
-   * @param rootDir path for the folder
-   * @return true if exists else false
-   */
-  public boolean checkFolderExists(String rootDir) {
-    return new File(rootDir).exists();
-  }
-
-  /**
-   * Create the output folder.
-   *
-   * @param rootDir path where the folder needs to be created
-   */
-  public void createFolder(String rootDir) throws IOException {
-    try {
-      Path path = Paths.get(rootDir);
-      Files.createDirectories(path);
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
-  }
-
-  /**
    * Convert text file to array list consisting of valid tickr symbols.
    *
    * @return array list consisting of all valid tickr symbols
@@ -297,32 +255,13 @@ public class PortfolioImpl implements Portfolio {
   }
 
   /**
-   * Create an empty string list.
-   *
-   * @return Array List of type String that is empty
-   */
-  public ArrayList<String> createEmptyArrayList() {
-    return new ArrayList<String>();
-  }
-
-  /**
-   * Check if the given user path is valid or not.
-   *
-   * @param rootDirUser path given by user to save the file
-   * @return true if path is valid else false
-   */
-  public boolean ValidPath(String rootDirUser) {
-    return new File(rootDirUser).exists();
-  }
-
-  /**
    * Check if there are any spaces or null or empty or length > 25 for the given portfolio name.
    *
    * @param pfName portfolio name of type string
    * @return true if there are any spaces or null or empty or length > 25 else false
    */
   public boolean checkValidpfName(String pfName) {
-    if (pfName.length() > 25 || pfName == null || pfName.isEmpty() || pfName.contains(" ")){
+    if (pfName == null || pfName.length()>25 || pfName.isEmpty() || pfName.contains(" ")){
       return false;
     }
     for(int i =0;i<pfName.length();i++){
