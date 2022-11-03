@@ -23,6 +23,12 @@ public class ControllerImpl implements Controller {
   private Scanner in;
   private String rootDir;
 
+  /**
+   * Constructor for the ControllerImpl.
+   * @param thePortfolio of type Portfolio Object
+   * @param theView of type View Object
+   * @param in of type InputStream
+   */
   public ControllerImpl(Portfolio thePortfolio, View theView, InputStream in) {
     this.theView = theView;
     this.thePortfolio = thePortfolio;
@@ -36,7 +42,7 @@ public class ControllerImpl implements Controller {
    * @throws ParseException when parsing of a date fails.
    * @throws IOException    when given input is not valid
    */
-  public void go() throws IOException {
+  public void goStocks() throws IOException {
     boolean quit = false;
     theView.showString("Give a valid input path where you want to store the created portfolios!");
 
@@ -79,13 +85,15 @@ public class ControllerImpl implements Controller {
           // type the name of the portfolio from the given list of portfolios.
           String pfNameChosen = in.nextLine();
           while (!new File(this.rootDir + pfNameChosen + ".txt").exists()) {
-            theView.showString("Please enter a valid Portfolio name from the displayed list only!!");
+            theView.showString("Please enter a valid Portfolio name from " +
+                    "the displayed list only!!");
             pfNameChosen = in.nextLine();
           }
-          ArrayList<PortfolioObj> PortfolioView = thePortfolio.viewPortfolio(this.rootDir, pfNameChosen);
+          ArrayList<PortfolioObj> portfolioView = thePortfolio.viewPortfolio(
+                  this.rootDir, pfNameChosen);
           // print the value.
           theView.showString("Company Tickr Symbol" + " " + "Num Stocks");
-          for (PortfolioObj obj : PortfolioView) {
+          for (PortfolioObj obj : portfolioView) {
             theView.showString(obj.getTickr() + "                  " + obj.getNumStocks());
           }
           break;
@@ -111,10 +119,12 @@ public class ControllerImpl implements Controller {
           // type the name of the portfolio from the given list of portfolios.
           String pFileName = in.nextLine();
           while (!new File(this.rootDir + pFileName + ".txt").exists()) {
-            theView.showString("Please enter a valid Portfolio name from the displayed list only!!");
+            theView.showString("Please enter a valid Portfolio" +
+                    " name from the displayed list only!!");
             pFileName = in.nextLine();
           }
-          theView.showString("Enter the date on which you want to extract the portfolio in YYYY-MM-DD format only!");
+          theView.showString("Enter the date on which you want to " +
+                  "extract the portfolio in YYYY-MM-DD format only!");
           String date = in.nextLine();
           // check date format.
 
@@ -143,11 +153,13 @@ public class ControllerImpl implements Controller {
           theView.showString("The total value of the portfolio " + pFileName + " is " + finalVal);
           break;
         case "C":
-          // check valid if not then it uses the default initialized path only for saving the portfolios.
-          theView.showString("Give a name for the portfolio you want to create,(The string " +
+          // check valid if not then it uses the default.
+          // initialized path only for saving the portfolios.
+          theView.showString("Give a name for the portfolio you " +
+                  "want to create,(The string " +
                   "should not have spaces,null,emptystring,and length less than 25 " +
                   "must be entered in a single word)");
-          ArrayList<String> StoringList = new ArrayList<>();
+          ArrayList<String> storinglist = new ArrayList<>();
           String pfName = in.nextLine();
           while (!thePortfolio.checkValidpfName(pfName)) {
             theView.showString("Please enter a valid portfolio name:");
@@ -173,7 +185,8 @@ public class ControllerImpl implements Controller {
           ArrayList<StocksObj> objList = new ArrayList<>();
           boolean done = false;
           while (!done) {
-            theView.showString("Press Y to add to add stocks to the " + pfName + " portfolio.");
+            theView.showString("Press Y to add to add stocks " +
+                    "to the " + pfName + " portfolio.");
             theView.showString("Press S to save the Portfolio.");
             switch (in.nextLine()) {
               case "S":
@@ -195,21 +208,25 @@ public class ControllerImpl implements Controller {
                   theView.showString("Enter Valid Stock company tickr symbol");
                   tickr = in.nextLine();
                 }
-                while (StoringList.contains(tickr)) {
-                  theView.showString("The Tickr symbol already exists! Please enter new Symbol");
+                while (storinglist.contains(tickr)) {
+                  theView.showString("The Tickr symbol already " +
+                          "exists! Please enter new Symbol");
                   tickr = in.nextLine();
                 }
                 // check if tickr symbol is already in the list.
-                StoringList.add(tickr);
+                storinglist.add(tickr);
                 // backup for api key failure.
-                theView.showString("Enter number of stocks purchased (Integer Values are Only Allowed)");
+                theView.showString("Enter number of stocks purchased " +
+                        "(Integer Values are Only Allowed)");
                 int numberStocks = 0;
                 try {
                   numberStocks = in.nextInt();
                 } catch (InputMismatchException e) {
-                  theView.showString("Enter number of stocks purchased (Integer Values are Only Allowed)");
-                  theView.showString("Only Integer Stock values are allowed are allowed!!");
-                  StoringList.remove(tickr);
+                  theView.showString("Enter number of stocks purchased " +
+                          "(Integer Values are Only Allowed)");
+                  theView.showString("Only Integer Stock values " +
+                          "are allowed are allowed!!");
+                  storinglist.remove(tickr);
                   break;
                 }
                 objList.add(new StocksObj(tickr, numberStocks));

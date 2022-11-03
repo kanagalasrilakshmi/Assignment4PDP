@@ -18,6 +18,6 @@ public class MVCStocks {
     Portfolio model = new PortfolioImpl();
     View view = new ViewImpl(System.out);
     Controller controller = new ControllerImpl(model, view, System.in);
-    controller.go();
+    controller.goStocks();
   }
 }

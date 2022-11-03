@@ -11,6 +11,6 @@ public interface Controller {
    * @throws ParseException when parsing of a date fails.
    * @throws IOException    when given input is not valid
    */
-  void go() throws ParseException, IOException;
+  void goStocks() throws ParseException, IOException;
 
 }

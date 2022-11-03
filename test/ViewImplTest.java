@@ -17,7 +17,7 @@ public class ViewImplTest {
     ByteArrayOutputStream bytes = new ByteArrayOutputStream();
     PrintStream out = new PrintStream(bytes);
     Controller controlObj = new ControllerImpl(new PortfolioImpl(),new ViewImpl(out),in);
-    controlObj.go();
+    controlObj.goStocks();
     assertEquals("Menu: \n" +
             "C: To create a new Portfolio.\n" +
             "V: View existing Portfolio.\n" +
@@ -31,7 +31,7 @@ public class ViewImplTest {
     ByteArrayOutputStream bytes = new ByteArrayOutputStream();
     PrintStream out = new PrintStream(bytes);
     Controller controlObj = new ControllerImpl(new PortfolioImpl(),new ViewImpl(out),in);
-    controlObj.go();
+    controlObj.goStocks();
     assertEquals("Menu: \n" +
             "C: To create a new Portfolio.\n" +
             "V: View existing Portfolio.\n" +
@@ -49,11 +49,11 @@ public class ViewImplTest {
 
   @Test
   public void testViewCreate() throws ParseException, IOException {
-    InputStream in = new ByteArrayInputStream("C healthpf Y GOOG 100 S Q".getBytes());
+    InputStream in = new ByteArrayInputStream("C healthpf Y goStocksOG 100 S Q".getBytes());
     ByteArrayOutputStream bytes = new ByteArrayOutputStream();
     PrintStream out = new PrintStream(bytes);
     Controller controlObj = new ControllerImpl(new PortfolioImpl(),new ViewImpl(out),in);
-    controlObj.go();
+    controlObj.goStocks();
     assertEquals("Menu: \n" +
             "C: To create a new Portfolio.\n" +
             "V: View existing Portfolio.\n" +
