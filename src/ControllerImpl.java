@@ -4,7 +4,6 @@ import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -39,8 +38,7 @@ public class ControllerImpl implements Controller {
   /**
    * Function to run the Stocks app implementation.
    *
-   * @throws ParseException when parsing of a date fails.
-   * @throws IOException    when given input is not valid
+   * @throws IOException if invalid file is given
    */
   public void goStocks() throws IOException {
     boolean quit = false;

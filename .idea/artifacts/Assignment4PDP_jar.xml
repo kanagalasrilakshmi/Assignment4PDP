@@ -1,5 +1,5 @@
 <component name="ArtifactManager">
-  <artifact type="jar" build-on-make="true" name="Assignment4PDP:jar">
+  <artifact type="jar" name="Assignment4PDP:jar">
     <output-path>$PROJECT_DIR$/out/artifacts/Assignment4PDP_jar</output-path>
     <root id="archive" name="Assignment4PDP.jar">
       <element id="module-output" name="Assignment4PDP" />

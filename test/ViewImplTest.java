@@ -1,3 +1,4 @@
+import org.junit.Before;
 import org.junit.Test;
 
 import java.io.ByteArrayInputStream;
@@ -12,7 +13,6 @@ import java.nio.file.Paths;
 import java.text.ParseException;
 
 import static org.junit.Assert.assertEquals;
-import org.junit.Before;
 
 public class ViewImplTest {
 
@@ -29,7 +29,7 @@ public class ViewImplTest {
       }
     }
     File files = new File(rootDir);
-    for(File file: files.listFiles())
+    for (File file : files.listFiles())
       if (!file.isDirectory())
         file.delete();
   }
@@ -38,7 +38,7 @@ public class ViewImplTest {
   // future view present past and wrong  date format
   // V > other than d or P
   // test for save and load
-  @ Test
+  @Test
   public void testViewSetRootDirectoryDefaulting() throws ParseException, IOException {
     //Checks if user tried to give invalid directory route
     String rootDir = System.getProperty("user.home") + "/Desktop/PortfolioBucket/";
@@ -46,10 +46,10 @@ public class ViewImplTest {
     InputStream in = new ByteArrayInputStream(inputStream.getBytes());
     ByteArrayOutputStream bytes = new ByteArrayOutputStream();
     PrintStream out = new PrintStream(bytes);
-    Controller controlObj = new ControllerImpl(new PortfolioImpl(),new ViewImpl(out),in);
+    Controller controlObj = new ControllerImpl(new PortfolioImpl(), new ViewImpl(out), in);
     controlObj.goStocks();
     assertEquals("Give a valid input path where you want to store your portfolios. For example: /Users/PDP/PortfolioBucket/\n" +
-            "Invalid path given so portfolios will be stored in "+rootDir+" by default. To change directory, quit and start again.\n" +
+            "Invalid path given so portfolios will be stored in " + rootDir + " by default. To change directory, quit and start again.\n" +
             "Menu: \n" +
             "C: To create a new Portfolio.\n" +
             "V: View existing Portfolio.\n" +
@@ -64,7 +64,7 @@ public class ViewImplTest {
     InputStream in = new ByteArrayInputStream(inputStream.getBytes());
     ByteArrayOutputStream bytes = new ByteArrayOutputStream();
     PrintStream out = new PrintStream(bytes);
-    Controller controlObj = new ControllerImpl(new PortfolioImpl(),new ViewImpl(out),in);
+    Controller controlObj = new ControllerImpl(new PortfolioImpl(), new ViewImpl(out), in);
     controlObj.goStocks();
     assertEquals("Give a valid input path where you want to store your portfolios. For example: /Users/PDP/PortfolioBucket/\n" +
             "Menu: \n" +
@@ -73,6 +73,7 @@ public class ViewImplTest {
             "Q: Quit the program\n" +
             "Enter your choice: ", new String(bytes.toByteArray()));
   }
+
   @Test
   public void testViewInvalidInputAtMenu() throws ParseException, IOException {
     String rootDir = System.getProperty("user.home") + "/Desktop/PortfolioBucket/";
@@ -80,7 +81,7 @@ public class ViewImplTest {
     InputStream in = new ByteArrayInputStream(inputStream.getBytes());
     ByteArrayOutputStream bytes = new ByteArrayOutputStream();
     PrintStream out = new PrintStream(bytes);
-    Controller controlObj = new ControllerImpl(new PortfolioImpl(),new ViewImpl(out),in);
+    Controller controlObj = new ControllerImpl(new PortfolioImpl(), new ViewImpl(out), in);
     controlObj.goStocks();
     assertEquals("Give a valid input path where you want to store your portfolios. For example: /Users/PDP/PortfolioBucket/\n" +
             "Menu: \n" +
@@ -103,7 +104,7 @@ public class ViewImplTest {
     InputStream in = new ByteArrayInputStream(inputStream.getBytes());
     ByteArrayOutputStream bytes = new ByteArrayOutputStream();
     PrintStream out = new PrintStream(bytes);
-    Controller controlObj = new ControllerImpl(new PortfolioImpl(),new ViewImpl(out),in);
+    Controller controlObj = new ControllerImpl(new PortfolioImpl(), new ViewImpl(out), in);
     controlObj.goStocks();
     assertEquals("Give a valid input path where you want to store your portfolios. For example: /Users/PDP/PortfolioBucket/\n" +
             "Invalid path given so portfolios will be stored in /Users/vidyaganesh/Desktop/PortfolioBucket/ by default. To change directory, quit and start again.\n" +
@@ -134,7 +135,7 @@ public class ViewImplTest {
     InputStream in = new ByteArrayInputStream(inputStream.getBytes());
     ByteArrayOutputStream bytes = new ByteArrayOutputStream();
     PrintStream out = new PrintStream(bytes);
-    Controller controlObj = new ControllerImpl(new PortfolioImpl(),new ViewImpl(out),in);
+    Controller controlObj = new ControllerImpl(new PortfolioImpl(), new ViewImpl(out), in);
     controlObj.goStocks();
     assertEquals("Give a valid input path where you want to store your portfolios. For example: /Users/PDP/PortfolioBucket/\n" +
             "Invalid path given so portfolios will be stored in /Users/vidyaganesh/Desktop/PortfolioBucket/ by default. To change directory, quit and start again.\n" +
@@ -180,7 +181,7 @@ public class ViewImplTest {
     InputStream in = new ByteArrayInputStream(inputStream.getBytes());
     ByteArrayOutputStream bytes = new ByteArrayOutputStream();
     PrintStream out = new PrintStream(bytes);
-    Controller controlObj = new ControllerImpl(new PortfolioImpl(),new ViewImpl(out),in);
+    Controller controlObj = new ControllerImpl(new PortfolioImpl(), new ViewImpl(out), in);
     controlObj.goStocks();
     assertEquals("Give a valid input path where you want to store your portfolios. For example: /Users/PDP/PortfolioBucket/\n" +
             "Invalid path given so portfolios will be stored in /Users/vidyaganesh/Desktop/PortfolioBucket/ by default. To change directory, quit and start again.\n" +
@@ -206,6 +207,7 @@ public class ViewImplTest {
             "Q: Quit the program\n" +
             "Enter your choice: ", new String(bytes.toByteArray()));
   }
+
   @Test
   public void testViewCreatePfwithInvalidStockTickrInvalidStockProportion() throws ParseException, IOException {
     String rootDir = System.getProperty("user.home") + "/Desktop/PortfolioBucket/";
@@ -213,7 +215,7 @@ public class ViewImplTest {
     InputStream in = new ByteArrayInputStream(inputStream.getBytes());
     ByteArrayOutputStream bytes = new ByteArrayOutputStream();
     PrintStream out = new PrintStream(bytes);
-    Controller controlObj = new ControllerImpl(new PortfolioImpl(),new ViewImpl(out),in);
+    Controller controlObj = new ControllerImpl(new PortfolioImpl(), new ViewImpl(out), in);
     controlObj.goStocks();
     assertEquals("Give a valid input path where you want to store your portfolios. For example: /Users/PDP/PortfolioBucket/\n" +
             "Invalid path given so portfolios will be stored in /Users/vidyaganesh/Desktop/PortfolioBucket/ by default. To change directory, quit and start again.\n" +
@@ -243,6 +245,7 @@ public class ViewImplTest {
             "Q: Quit the program\n" +
             "Enter your choice: ", new String(bytes.toByteArray()));
   }
+
   @Test
   public void testViewPortfolio() throws ParseException, IOException {
     // Create pfOne view create pfTwo view
@@ -252,7 +255,7 @@ public class ViewImplTest {
     InputStream in = new ByteArrayInputStream(inputStream.getBytes());
     ByteArrayOutputStream bytes = new ByteArrayOutputStream();
     PrintStream out = new PrintStream(bytes);
-    Controller controlObj = new ControllerImpl(new PortfolioImpl(),new ViewImpl(out),in);
+    Controller controlObj = new ControllerImpl(new PortfolioImpl(), new ViewImpl(out), in);
     controlObj.goStocks();
     assertEquals("Give a valid input path where you want to store your portfolios. For example: /Users/PDP/PortfolioBucket/\n" +
             "Menu: \n" +
@@ -316,7 +319,7 @@ public class ViewImplTest {
     InputStream in = new ByteArrayInputStream(inputStream.getBytes());
     ByteArrayOutputStream bytes = new ByteArrayOutputStream();
     PrintStream out = new PrintStream(bytes);
-    Controller controlObj = new ControllerImpl(new PortfolioImpl(),new ViewImpl(out),in);
+    Controller controlObj = new ControllerImpl(new PortfolioImpl(), new ViewImpl(out), in);
     controlObj.goStocks();
     assertEquals("Give a valid input path where you want to store your portfolios. For example: /Users/PDP/PortfolioBucket/\n" +
             "Menu: \n" +
@@ -358,7 +361,7 @@ public class ViewImplTest {
     InputStream in = new ByteArrayInputStream(inputStream.getBytes());
     ByteArrayOutputStream bytes = new ByteArrayOutputStream();
     PrintStream out = new PrintStream(bytes);
-    Controller controlObj = new ControllerImpl(new PortfolioImpl(),new ViewImpl(out),in);
+    Controller controlObj = new ControllerImpl(new PortfolioImpl(), new ViewImpl(out), in);
     controlObj.goStocks();
     assertEquals("Give a valid input path where you want to store your portfolios. For example: /Users/PDP/PortfolioBucket/\n" +
             "Menu: \n" +
@@ -409,7 +412,7 @@ public class ViewImplTest {
     InputStream in = new ByteArrayInputStream(inputStream.getBytes());
     ByteArrayOutputStream bytes = new ByteArrayOutputStream();
     PrintStream out = new PrintStream(bytes);
-    Controller controlObj = new ControllerImpl(new PortfolioImpl(),new ViewImpl(out),in);
+    Controller controlObj = new ControllerImpl(new PortfolioImpl(), new ViewImpl(out), in);
     controlObj.goStocks();
     assertEquals("Give a valid input path where you want to store your portfolios. For example: /Users/PDP/PortfolioBucket/\n" +
             "Menu: \n" +
