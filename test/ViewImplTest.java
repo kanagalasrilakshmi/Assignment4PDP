@@ -529,4 +529,75 @@ public class ViewImplTest {
             "Q: Quit the program\n" +
             "Enter your choice: ", bytes.toString());
   }
+
+  public void testViewPortfolioSave() throws ParseException, IOException {
+    String rootDir = System.getProperty("user.home") + "/Desktop/PortfolioBucket/";
+    String inputStream = rootDir + "\nC\nhealthpf\nY\nGOOG\n100\nS\nV\nhealthpf\nP\nC" +
+            "\nhealth\nY\nGOOG\n100\nS\nV\nhealth\nP\nQ";
+    InputStream in = new ByteArrayInputStream(inputStream.getBytes());
+    ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+    PrintStream out = new PrintStream(bytes);
+    Controller controlObj = new ControllerImpl(new PortfolioImpl(), new ViewImpl(out), in);
+    controlObj.goStocks();
+    assertEquals("Give a valid input path where you want to store your portfolios. " +
+            "For example: /Users/PDP/PortfolioBucket/\n" +
+            "Menu: \n" +
+            "C: To create a new Portfolio.\n" +
+            "V: View existing Portfolio.\n" +
+            "Q: Quit the program\n" +
+            "Enter your choice: Give a valid name for the portfolio you want to create. " +
+            "The string should not have spaces or special characters and the length must " +
+            "be less than 25 characters.\n" +
+            "Please enter a valid portfolio name:\n" +
+            "Press Y to add stocks to the healthpf portfolio.\n" +
+            "Press S to save the Portfolio.\n" +
+            "Enter Valid Stock company tickr symbol\n" +
+            "Enter number of stocks purchased (Integer Values are Only Allowed)\n" +
+            "Press Y to add stocks to the healthpf portfolio.\n" +
+            "Press S to save the Portfolio.\n" +
+            "Successfully created the portfolio healthpf\n" +
+            "Menu: \n" +
+            "C: To create a new Portfolio.\n" +
+            "V: View existing Portfolio.\n" +
+            "Q: Quit the program\n" +
+            "Enter your choice: Enter the name of the portfolio you want to view from the " +
+            "list of portfolios displayed below:\n" +
+            "healthpf\n" +
+            "Press D to view portfolio value by date\n" +
+            "Press P to view portfolio composition\n" +
+            "Company Tickr Symbol Num Stocks\n" +
+            "GOOG                  100.0\n" +
+            "Menu: \n" +
+            "C: To create a new Portfolio.\n" +
+            "V: View existing Portfolio.\n" +
+            "Q: Quit the program\n" +
+            "Enter your choice: Give a valid name for the portfolio you want to create. " +
+            "The string should not have spaces or special characters and the length must be " +
+            "less than 25 characters.\n" +
+            "Please enter a valid portfolio name:\n" +
+            "Press Y to add stocks to the health portfolio.\n" +
+            "Press S to save the Portfolio.\n" +
+            "Enter Valid Stock company tickr symbol\n" +
+            "Enter number of stocks purchased (Integer Values are Only Allowed)\n" +
+            "Press Y to add stocks to the health portfolio.\n" +
+            "Press S to save the Portfolio.\n" +
+            "Successfully created the portfolio health\n" +
+            "Menu: \n" +
+            "C: To create a new Portfolio.\n" +
+            "V: View existing Portfolio.\n" +
+            "Q: Quit the program\n" +
+            "Enter your choice: Enter the name of the portfolio you want to view from the " +
+            "list of portfolios displayed below:\n" +
+            "health\n" +
+            "healthpf\n" +
+            "Press D to view portfolio value by date\n" +
+            "Press P to view portfolio composition\n" +
+            "Company Tickr Symbol Num Stocks\n" +
+            "GOOG                  100.0\n" +
+            "Menu: \n" +
+            "C: To create a new Portfolio.\n" +
+            "V: View existing Portfolio.\n" +
+            "Q: Quit the program\n" +
+            "Enter your choice: ", bytes.toString());
+  }
 }

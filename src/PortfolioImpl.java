@@ -229,7 +229,7 @@ public class PortfolioImpl implements Portfolio {
    */
   public ArrayListObj convertTXT() throws FileNotFoundException {
     BufferedReader in = new BufferedReader(new FileReader(new
-            File("./res/tickrData.txt").getAbsolutePath()));
+            File("tickrData.txt").getAbsolutePath()));
     String inputLine;
     ArrayList<String> tickrSymbolsList = new ArrayList<>();
     ArrayList<String> pricesList = new ArrayList<>();
