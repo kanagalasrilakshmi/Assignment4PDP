@@ -1,11 +1,16 @@
 
+import org.junit.Before;
 import org.junit.Test;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.text.ParseException;
 
 import static org.junit.Assert.assertEquals;
@@ -15,89 +20,49 @@ import static org.junit.Assert.assertEquals;
  */
 public class ControllerImplTest {
 
-  @Test
-  public void testgoStocksQuit() throws ParseException, IOException {
-    InputStream in = new ByteArrayInputStream("Q".getBytes());
-    ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-    PrintStream out = new PrintStream(bytes);
-    Controller controlObj = new ControllerImpl(new PortfolioImpl(), new ViewImpl(out), in);
-    controlObj.goStocks();
-    assertEquals("Menu: \n" +
-            "C: To create a new Portfolio.\n" +
-            "V: View existing Portfolio.\n" +
-            "D: View existing Portfolio value for a given date.\n" +
-            "Q: Quit the program\n" +
-            "Enter your choice: ", new String(bytes.toByteArray()));
+  @Before
+  public void setUp() {
+    // Flush contents in directory for every test
+    String rootDir = System.getProperty("user.home") + "/Desktop/PortfolioBucket";
+    if (!new File(rootDir).exists()) {
+      try {
+        Path path = Paths.get(rootDir);
+        Files.createDirectories(path);
+      } catch (Exception e) {
+        e.printStackTrace();
+      }
+    }
+    File files = new File(rootDir);
+    for (File file : files.listFiles())
+      if (!file.isDirectory())
+        file.delete();
   }
 
   @Test
-  public void testViewInvalidInputAtMenu() throws ParseException, IOException {
-    InputStream in = new ByteArrayInputStream("A Q".getBytes());
+  public void testGoQuitAtStart() throws ParseException, IOException {
+    String rootDir = System.getProperty("user.home") + "/Desktop/PortfolioBucket/";
+    String inputStream = rootDir + "\nQ";
+    InputStream in = new ByteArrayInputStream(inputStream.getBytes());
     ByteArrayOutputStream bytes = new ByteArrayOutputStream();
     PrintStream out = new PrintStream(bytes);
     Controller controlObj = new ControllerImpl(new PortfolioImpl(), new ViewImpl(out), in);
     controlObj.goStocks();
-    assertEquals("Menu: \n" +
-            "C: To create a new Portfolio.\n" +
-            "V: View existing Portfolio.\n" +
-            "D: View existing Portfolio value for a given date.\n" +
-            "Q: Quit the program\n" +
-            "Enter your choice: \n" +
-            "Invalid option. Please try again.\n" +
+    assertEquals("Give a valid input path where you want to store your portfolios. For example: /Users/PDP/PortfolioBucket/\n" +
             "Menu: \n" +
             "C: To create a new Portfolio.\n" +
             "V: View existing Portfolio.\n" +
-            "D: View existing Portfolio value for a given date.\n" +
             "Q: Quit the program\n" +
             "Enter your choice: ", new String(bytes.toByteArray()));
   }
 
   @Test
-  public void testViewCreate() throws ParseException, IOException {
-    InputStream in = new ByteArrayInputStream("C healthpf Y goStocksOG 100 S Q".getBytes());
+  public void testGoQuitAtStargt() throws ParseException, IOException {
+    String rootDir = System.getProperty("user.home") + "/Desktop/PortfolioBucket/";
+    String inputStream = rootDir + "\nQ";
+    InputStream in = new ByteArrayInputStream(inputStream.getBytes());
     ByteArrayOutputStream bytes = new ByteArrayOutputStream();
     PrintStream out = new PrintStream(bytes);
     Controller controlObj = new ControllerImpl(new PortfolioImpl(), new ViewImpl(out), in);
     controlObj.goStocks();
-    assertEquals("Menu: \n" +
-            "C: To create a new Portfolio.\n" +
-            "V: View existing Portfolio.\n" +
-            "D: View existing Portfolio value for a given date.\n" +
-            "Q: Quit the program\n" +
-            "Enter your choice: Give a name for the portfolio you want to create:\n" +
-            "Press Y to add to add stocks to the healthpf portfolio.\n" +
-            "Press S to save the Portfolio.\n" +
-            "Enter Valid Stock company tickr symbol\n" +
-            "Enter number of stocks purchased\n" +
-            "Press Y to add to add stocks to the healthpf portfolio.\n" +
-            "Press S to save the Portfolio.\n" +
-            "Successfully created the portfolio healthpf\n" +
-            "Menu: \n" +
-            "C: To create a new Portfolio.\n" +
-            "V: View existing Portfolio.\n" +
-            "D: View existing Portfolio value for a given date.\n" +
-            "Q: Quit the program\n" +
-            "Enter your choice: ", new String(bytes.toByteArray()));
   }
-/*
-  assertEquals("Menu: \n" +
-                       "C: To create a new Portfolio.\n" +
-                       "V: View existing Portfolio.\n" +
-                       "D: View existing Portfolio value for a given date.\n" +
-                       "Q: Quit the program\n" +
-                       "Enter your choice: Give a name for the portfolio you want to create:\n" +
-                       "Press Y to add to add stocks to the Baby portfolio.\n" +
-                       "Press S to save the Portfolio.\n" +
-                       "Enter Valid Stock company tickr symbol\n" +
-                       "Enter number of stocks purchased\n" +
-                       "Press Y to add to add stocks to the Baby portfolio.\n" +
-                       "Press S to save the Portfolio.\n" +
-                       "Successfully created the portfolio Baby\n" +
-                       "Menu: \n" +
-                       "C: To create a new Portfolio.\n" +
-                       "V: View existing Portfolio.\n" +
-                       "D: View existing Portfolio value for a given date.\n" +
-                       "Q: Quit the program\n" +
-                       "Enter your choice: ",new String(bytes.toByteArray()));*/
-
 }

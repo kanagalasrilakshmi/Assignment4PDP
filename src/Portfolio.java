@@ -85,4 +85,12 @@ public interface Portfolio {
    * @return true if it ends with / else false
    */
   public boolean checkLastEndingCharacter(String rootDirUser);
+
+  /**
+   * Check if a given string is an integer.
+   *
+   * @param numberStocks is number of stocks purchased by user in string format
+   * @return true if integer else false
+   */
+  public boolean checkValidInteger(String numberStocks);
 }

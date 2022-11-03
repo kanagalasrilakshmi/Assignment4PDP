@@ -11,12 +11,14 @@ public interface View {
 
   /**
    * Prints the given input string when this function is called.
+   *
    * @param s to be printed
    */
   void showString(String s);
 
   /**
    * Displays the list of .txt file present in the given input directory argument.
+   *
    * @param rootDir is the directory where .txt files needs to be listed down
    */
   void listTXTFiles(String rootDir);

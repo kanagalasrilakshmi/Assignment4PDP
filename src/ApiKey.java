@@ -21,6 +21,7 @@ public class ApiKey {
 
   /**
    * Gets the tickr symbol.
+   *
    * @return tickr symbol of type string
    */
   public String getTickrSymbol() {
