@@ -14,7 +14,7 @@ public class MVCStocks {
    * @throws ParseException if given input parsing fails. Happens if not specified in right format
    * @throws IOException    if given input is not valid
    */
-  public static void main(String args[]) throws ParseException, IOException {
+  public static void main(String[] args) throws ParseException, IOException {
     Portfolio model = new PortfolioImpl();
     View view = new ViewImpl(System.out);
     Controller controller = new ControllerImpl(model, view, System.in);

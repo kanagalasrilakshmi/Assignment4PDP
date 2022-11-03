@@ -16,6 +16,10 @@ public class ApiKey {
     this.tickrsymbol = tickrsymbol;
   }
 
+  /**
+   * Gets the tickr symbol.
+   * @return tickr symbol of type string
+   */
   public String getTickrSymbol() {
     return this.tickrsymbol;
   }

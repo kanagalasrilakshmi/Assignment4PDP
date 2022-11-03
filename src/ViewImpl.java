@@ -5,6 +5,10 @@ public class ViewImpl implements View {
 
   private final PrintStream out;
 
+  /**
+   * Constructo for view.
+   * @param out takes in prinstream type object
+   */
   public ViewImpl(PrintStream out) {
     this.out = out;
   }

@@ -4,6 +4,11 @@ public class ArrayListObj {
   private ArrayList<String> tickrSymbols;
   private ArrayList<String> prices;
 
+  /**
+   * Constructor for ArrayLiostObj.
+   * @param tickrSymbols of type string array list of stock tickrs
+   * @param prices of type string array list of prices
+   */
   public ArrayListObj(ArrayList<String> tickrSymbols, ArrayList<String> prices) {
     this.tickrSymbols = tickrSymbols;
     this.prices = prices;

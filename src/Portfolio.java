@@ -10,7 +10,7 @@ public interface Portfolio {
   /**
    * Method for creating new portfolio by the user.
    */
-  public void createPortfolio(String rootDir, String fileName, ArrayList<StocksObj> ListObj);
+  public void createPortfolio(String rootdir, String filename, ArrayList<StocksObj> Listobj);
 
   /**
    * Method for displaying the portfolio.
@@ -18,9 +18,10 @@ public interface Portfolio {
   public ArrayList<PortfolioObj> viewPortfolio(String rootDir, String fileName) throws IOException;
 
   /**
-   * Get portfolio value for a given date
+   * Get portfolio value for a given date.
    */
-  public float portfolioValueDate(String rootDir, String fileName, String date) throws FileNotFoundException;
+  public float portfolioValueDate(String rootDir, String fileName,
+                                  String date) throws FileNotFoundException;
 
   /**
    * Check if the given output folder has any portfolios.
