@@ -33,7 +33,6 @@ public class ViewImpl implements View {
     out.println("Menu: ");
     out.println("C: To create a new Portfolio.");
     out.println("V: View existing Portfolio.");
-    out.println("D: View existing Portfolio value for a given date.");
     out.println("Q: Quit the program");
     out.print("Enter your choice: ");
   }

@@ -82,69 +82,71 @@ public class ControllerImpl implements Controller {
             break;
           }
           // list the portfolios.
-          theView.showString("Enter a name from the list of portfolios displayed below:");
+          theView.showString("Enter the name of the portfolio you want to view from the list of " +
+                  "portfolios displayed below:");
           theView.listTXTFiles(this.rootDir);
           // check if user enters valid file name.
-          String pfNameChosen = in.nextLine();
+          String pfNameChosen = in.next();
           while (!new File(this.rootDir + pfNameChosen + ".txt").exists()) {
             theView.showString("Please enter a valid Portfolio name from " +
                     "the displayed list only!");
-            pfNameChosen = in.nextLine();
+            pfNameChosen = in.next();
           }
-          ArrayList<PortfolioObj> portfolioView = thePortfolio.viewPortfolio(
-                  this.rootDir, pfNameChosen);
-          // print the value.
-          theView.showString("Company Tickr Symbol" + " " + "Num Stocks");
-          for (PortfolioObj obj : portfolioView) {
-            theView.showString(obj.getTickr() + "                  " + obj.getNumStocks());
-          }
-          break;
-        case "D":
-          // if no portfolio exists say no portfolio has been added.
-          if (!thePortfolio.checkOutputFolder(this.rootDir)) {
-            theView.showString("No portfolio exists. Please create a portfolio to view it.");
-            break;
-          }
-          // list the portfolios.
-          theView.showString("Enter a name from the list of portfolios displayed below:");
-          theView.listTXTFiles(this.rootDir);
-          // check if user enters valid file name.
-          String pFileName = in.nextLine();
-          while (!new File(this.rootDir + pFileName + ".txt").exists()) {
-            theView.showString("Please enter a valid Portfolio" +
-                    " name from the displayed list only!!");
-            pFileName = in.nextLine();
-          }
-          theView.showString("Enter the date on which you want to " +
-                  "extract the portfolio in YYYY-MM-DD format only!");
-          String date = in.nextLine();
-          // check date format.
 
-          while (!thePortfolio.checkIfRightFormat(date)) {
-            theView.showString("Please enter correct format for date");
-            date = in.nextLine();
-          }
-          // check if future date is entered.
-          if (thePortfolio.checkFutureDate(date)) {
-            theView.showString("Future date is entered for which portfolio cannot be " +
-                    "accessed!!");
-            break;
-          }
-          // check if today's date is entered and stock market is yet to be opened.
-          try {
-            if (thePortfolio.checkTodayDateAndTime(date)) {
-              theView.showString("Stock value cannot be fetched as the stock market " +
-                      "is yet to be opened today! Please wait till 9:30 am.");
-              break;
+          boolean viewDone = false;
+          while(!viewDone){
+            theView.showString("Press D to view portfolio value by date");
+            theView.showString("Press P to view portfolio composition");
+            switch (in.next()) {
+              case "D":
+                theView.showString("Enter the date for which you want to " +
+                        "fetch the portfolio in YYYY-MM-DD format only!");
+                String date = in.nextLine();
+                // check date format.
+
+                while (!thePortfolio.checkIfRightFormat(date)) {
+                  theView.showString("Please enter correct format for date");
+                  date = in.nextLine();
+                }
+                // check if future date is entered.
+                if (thePortfolio.checkFutureDate(date)) {
+                  theView.showString("Future date is entered for which portfolio cannot be " +
+                          "accessed!!");
+                  break;
+                }
+                // check if today's date is entered and stock market is yet to be opened.
+                try {
+                  if (thePortfolio.checkTodayDateAndTime(date)) {
+                    theView.showString("Stock value cannot be fetched as the stock market " +
+                            "is yet to be opened today! Please check for a previous date.");
+                    break;
+                  }
+                } catch (Exception e) {
+                  e.printStackTrace();
+                  break;
+                }
+                // if all the above conditions are not met then it is called for portfolio.
+                float finalVal = thePortfolio.portfolioValueDate(this.rootDir, pfNameChosen, date);
+                // print the value.
+                theView.showString("The total value of the portfolio " + pfNameChosen + " is " + finalVal);
+                viewDone = true;
+                break;
+              case "P":
+                ArrayList<PortfolioObj> portfolioView = thePortfolio.viewPortfolio(
+                        this.rootDir, pfNameChosen);
+                // print the value.
+                theView.showString("Company Tickr Symbol" + " " + "Num Stocks");
+                for (PortfolioObj obj : portfolioView) {
+                  theView.showString(obj.getTickr() + "                  " + obj.getNumStocks());
+                }
+                viewDone = true;
+                break;
+              default:
+                theView.showString("Please enter either D/P only!!");
+                break;
             }
-          } catch (Exception e) {
-            e.printStackTrace();
-            break;
           }
-          // if all the above conditions are not met then it is called for portfolio.
-          float finalVal = thePortfolio.portfolioValueDate(this.rootDir, pFileName, date);
-          // print the value.
-          theView.showString("The total value of the portfolio " + pFileName + " is " + finalVal);
+
           break;
         case "C":
           // check valid if not then it uses the default.
