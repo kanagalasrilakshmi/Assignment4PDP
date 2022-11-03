@@ -1,7 +1,9 @@
+/**
+ * A class that helps to create Portfolio Object.
+ */
 public class PortfolioObj {
   private String tickr;
   private float numStocks;
-  private float stockPrice;
 
   public PortfolioObj(String tickr, int numStocks) {
     this.tickr = tickr;
@@ -26,12 +28,4 @@ public class PortfolioObj {
     return this.numStocks;
   }
 
-  /**
-   * Get stock price value of the particular tickr symbol.
-   *
-   * @return float type stock price
-   */
-  public float getStockPrice() {
-    return this.stockPrice;
-  }
 }

@@ -4,10 +4,18 @@ import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+/**
+ * Implements Controller inteface for running the stocks program for.
+ * creation of portfolio.
+ * Viewing created portfolios.
+ * Getting value of a portfolio on a given date.
+ * And Quitting the program.
+ */
 public class ControllerImpl implements Controller {
 
   private View theView;
@@ -22,6 +30,12 @@ public class ControllerImpl implements Controller {
     this.rootDir = System.getProperty("user.home") + "/Desktop/PortfolioBucket/";
   }
 
+  /**
+   * function to run the Stocks implementation.
+   *
+   * @throws ParseException when parsing of a date fails.
+   * @throws IOException    when given input is not valid
+   */
   public void go() throws IOException {
     boolean quit = false;
     theView.showString("Give a valid input path where you want to store the created portfolios!");
@@ -58,13 +72,13 @@ public class ControllerImpl implements Controller {
           }
           // list the portfolios.
           theView.showString("Choose from the list of portfolios");
-          theView.listJsonFiles(this.rootDir);
+          theView.listTXTFiles(this.rootDir);
           theView.showString("Enter the name of the portfolio from the displayed list");
           // check if user enters valid file name.
           // enters a portfolio name that does not exist.
           // type the name of the portfolio from the given list of portfolios.
           String pfNameChosen = in.nextLine();
-          while (!new File(this.rootDir + pfNameChosen + ".txt").exists()){
+          while (!new File(this.rootDir + pfNameChosen + ".txt").exists()) {
             theView.showString("Please enter a valid Portfolio name from the displayed list only!!");
             pfNameChosen = in.nextLine();
           }
@@ -89,14 +103,14 @@ public class ControllerImpl implements Controller {
           }
           // list the portfolios.
           theView.showString("Choose from the list of portfolios");
-          theView.listJsonFiles(this.rootDir);
+          theView.listTXTFiles(this.rootDir);
           // type the name of the portfolio from the given list of portfolios.
           theView.showString("Enter the name of the portfolio from the list");
           // check if user enters valid file name.
           // enters a portfolio name that does not exist.
           // type the name of the portfolio from the given list of portfolios.
           String pFileName = in.nextLine();
-          while (! new File (this.rootDir + pFileName + ".txt").exists()) {
+          while (!new File(this.rootDir + pFileName + ".txt").exists()) {
             theView.showString("Please enter a valid Portfolio name from the displayed list only!!");
             pFileName = in.nextLine();
           }
@@ -190,10 +204,9 @@ public class ControllerImpl implements Controller {
                 // backup for api key failure.
                 theView.showString("Enter number of stocks purchased (Integer Values are Only Allowed)");
                 int numberStocks = 0;
-                try{
+                try {
                   numberStocks = in.nextInt();
-                }
-                catch (InputMismatchException e){
+                } catch (InputMismatchException e) {
                   theView.showString("Enter number of stocks purchased (Integer Values are Only Allowed)");
                   theView.showString("Only Integer Stock values are allowed are allowed!!");
                   StoringList.remove(tickr);

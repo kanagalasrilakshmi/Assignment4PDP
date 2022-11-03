@@ -1,17 +1,29 @@
 import java.util.ArrayList;
 
 public class ArrayListObj {
-  private ArrayList<String>tickrSymbols;
-  private ArrayList<String>prices;
-  public ArrayListObj(ArrayList<String>tickrSymbols,ArrayList<String>prices){
+  private ArrayList<String> tickrSymbols;
+  private ArrayList<String> prices;
+
+  public ArrayListObj(ArrayList<String> tickrSymbols, ArrayList<String> prices) {
     this.tickrSymbols = tickrSymbols;
     this.prices = prices;
   }
 
+  /**
+   * gets the array list of tickr symbols.
+   *
+   * @return arraylist of tickrsymbols of type string
+   */
   public ArrayList<String> getTickrSymbols() {
     return this.tickrSymbols;
   }
-  public ArrayList<String>getPrices(){
+
+  /**
+   * gets the array list of corresponding prices for a tickr symbols.
+   *
+   * @return arraylist of price for tickrsymbols of type string
+   */
+  public ArrayList<String> getPrices() {
     return this.prices;
   }
 }

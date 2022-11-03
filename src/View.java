@@ -1,9 +1,28 @@
+
+/**
+ * View Interface that consists of all the methods to be implemented by the view.
+ */
 public interface View {
+
+  /**
+   * Shows the options that can be used by the user to run the stocks program.
+   */
   void showOptions();
 
+  /**
+   * Prints the given input string when this function is called.
+   * @param s to be printed
+   */
   void showString(String s);
 
-  void listJsonFiles(String rootDir);
+  /**
+   * Displays the list of .txt file present in the given input directory argument.
+   * @param rootDir is the directory where .txt files needs to be listed down
+   */
+  void listTXTFiles(String rootDir);
 
+  /**
+   * If an argument other than C,D,V or Q is passed this function is called to display error.
+   */
   void showOptionError();
 }

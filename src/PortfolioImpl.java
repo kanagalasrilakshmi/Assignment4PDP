@@ -4,7 +4,6 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.DateTimeException;
 import java.time.LocalDate;
@@ -146,10 +145,9 @@ public class PortfolioImpl implements Portfolio {
    */
   public boolean checkFutureDate(String date) {
     DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-    try{
+    try {
       LocalDate.parse(date, format);
-    }
-    catch (DateTimeException e){
+    } catch (DateTimeException e) {
       return false;
     }
     try {
@@ -173,14 +171,13 @@ public class PortfolioImpl implements Portfolio {
    */
   public boolean checkTodayDateAndTime(String date) {
     DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-    try{
+    try {
       LocalDate givenDate = LocalDate.parse(date, format);
-    }
-    catch (DateTimeException e){
+    } catch (DateTimeException e) {
       return false;
     }
     try {
-      try{
+      try {
         LocalDate givenDate = LocalDate.parse(date, format);
         LocalDate todayDate = LocalDate.now();
         // check today date.
@@ -198,10 +195,9 @@ public class PortfolioImpl implements Portfolio {
             e.printStackTrace();
             return false;
           }
-      }
+        }
         return false;
-      }
-      catch (Exception e){
+      } catch (Exception e) {
         e.printStackTrace();
         return false;
       }
@@ -264,16 +260,14 @@ public class PortfolioImpl implements Portfolio {
   public boolean validateTickrSymbol(String tickrSymbol) {
     // open the tickrlist.
     // check if given symbol is in the text file.
-    try{
+    try {
       ArrayListObj TickrSymbolsPriceList = this.convertTXT();
       if (TickrSymbolsPriceList.getTickrSymbols().contains(tickrSymbol)) {
         return true;
-      }
-      else{
+      } else {
         return false;
       }
-    }
-    catch (FileNotFoundException e){
+    } catch (FileNotFoundException e) {
       e.printStackTrace();
       return false;
     }
@@ -286,11 +280,11 @@ public class PortfolioImpl implements Portfolio {
    * @return true if there are any spaces or null or empty or length > 25 else false
    */
   public boolean checkValidpfName(String pfName) {
-    if (pfName == null || pfName.length()>25 || pfName.isEmpty() || pfName.contains(" ")){
+    if (pfName == null || pfName.length() > 25 || pfName.isEmpty() || pfName.contains(" ")) {
       return false;
     }
-    for(int i =0;i<pfName.length();i++){
-      if(!Character.isLetter(pfName.charAt(i))){
+    for (int i = 0; i < pfName.length(); i++) {
+      if (!Character.isLetter(pfName.charAt(i))) {
         return false;
       }
     }
