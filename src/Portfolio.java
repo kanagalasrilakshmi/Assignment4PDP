@@ -23,14 +23,6 @@ public interface Portfolio {
   public float portfolioValueDate(String rootDir,String fileName,String date) throws FileNotFoundException;
 
   /**
-   * Check if the file exists in the given directory.
-   *
-   * @param pfNamePath path of the file
-   * @return true if exists else false
-   */
-  public boolean checkExists(String pfNamePath);
-
-  /**
    * Check if the given output folder has any portfolios.
    *
    * @param rootDir is the path
@@ -63,21 +55,6 @@ public interface Portfolio {
   public boolean checkIfRightFormat(String date);
 
   /**
-   * Check if the output folder where .txt needs to be saved exists.
-   *
-   * @param rootDir path for the folder
-   * @return true if exists else false
-   */
-  public boolean checkFolderExists(String rootDir);
-
-  /**
-   * Create the output folder.
-   *
-   * @param rootDir path where the folder needs to be created
-   */
-  public void createFolder(String rootDir) throws IOException;
-
-  /**
    * Convert text file to array list consisting of valid tickr symbols.
    *
    * @return array list consisting of all valid tickr symbols
@@ -91,20 +68,6 @@ public interface Portfolio {
    * @return true if it is valid else false.
    */
   public boolean validateTickrSymbol(String tickrSymbol) throws FileNotFoundException;
-
-  /**
-   * Create an empty string list.
-   *
-   * @return Array List of type String that is empty
-   */
-  public ArrayList<String> createEmptyArrayList();
-
-  /**
-   * Check if the given user path is valid or not.
-   * @param rootDirUser path given by user to save the file
-   * @return true if path is valid else false
-   */
-  public boolean ValidPath(String rootDirUser);
 
   /**
    * Check if there are any spaces for the given portfolio name.
