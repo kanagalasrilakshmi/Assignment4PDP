@@ -14,6 +14,9 @@ import java.text.ParseException;
 
 import static org.junit.Assert.assertEquals;
 
+/**
+ * Class for testing View Implementation functions.
+ */
 public class ViewImplTest {
 
   @Before
@@ -29,9 +32,11 @@ public class ViewImplTest {
       }
     }
     File files = new File(rootDir);
-    for (File file : files.listFiles())
-      if (!file.isDirectory())
+    for (File file : files.listFiles()){
+      if (!file.isDirectory()){
         file.delete();
+      }
+    }
   }
 
   // V > invalidpf > show enter valid > enter valid > p >
@@ -112,7 +117,8 @@ public class ViewImplTest {
     controlObj.goStocks();
     assertEquals("Give a valid input path where you want to store your portfolios. " +
             "For example: /Users/PDP/PortfolioBucket/\n" +
-            "Invalid path given so portfolios will be stored in " + System.getProperty("user.home") +
+            "Invalid path given so portfolios will be stored in " +
+            System.getProperty("user.home") +
             "/Desktop/PortfolioBucket/ by default. To change directory, " +
             "quit and start again.\n" +
             "Menu: \n" +
@@ -149,7 +155,8 @@ public class ViewImplTest {
     controlObj.goStocks();
     assertEquals("Give a valid input path where you want to store your portfolios. " +
             "For example: /Users/PDP/PortfolioBucket/\n" +
-            "Invalid path given so portfolios will be stored in " + System.getProperty("user.home") +
+            "Invalid path given so portfolios will be stored in " +
+            System.getProperty("user.home") +
             "/Desktop/PortfolioBucket/ by default. To change directory, " +
             "quit and start again.\n" +
             "Menu: \n" +
@@ -202,7 +209,8 @@ public class ViewImplTest {
     controlObj.goStocks();
     assertEquals("Give a valid input path where you want to store your portfolios. " +
             "For example: /Users/PDP/PortfolioBucket/\n" +
-            "Invalid path given so portfolios will be stored in " + System.getProperty("user.home") +
+            "Invalid path given so portfolios will be stored in " +
+            System.getProperty("user.home") +
             "/Desktop/PortfolioBucket/ by default. To change directory, " +
             "quit and start again.\n" +
             "Menu: \n" +
