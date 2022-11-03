@@ -4,7 +4,6 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.DateTimeException;
 import java.time.LocalDate;
@@ -21,15 +20,15 @@ public class PortfolioImpl implements Portfolio {
    * Method for creating new portfolio by the user.
    * Dumps all the data entered by user, stores in ListObj to a .txt file.
    */
-  public void createPortfolio(String rootDir, String fileName, ArrayList<StocksObj> ListObj) {
+  public void createPortfolio(String rootDir, String fileName, ArrayList<StocksObj> listObj) {
     // create a txt type file.
     // Create a String type ArrayList.
     ArrayList<String> listAdded = new ArrayList<>();
     try (FileWriter file = new FileWriter(rootDir + fileName + ".txt")) {
       listAdded.add("Company Tickr Symbol,Num Of Stocks");
-      for (StocksObj Object : ListObj) {
+      for (StocksObj object : listObj) {
         // go through all the elements in the ListObj.
-        String toBeAppended = Object.getTickr() + "," + String.valueOf(Object.getNumStocks());
+        String toBeAppended = object.getTickr() + "," + String.valueOf(object.getNumStocks());
         listAdded.add(toBeAppended);
       }
       for (int i = 0; i < listAdded.size(); i++) {
@@ -59,7 +58,7 @@ public class PortfolioImpl implements Portfolio {
                 inputLine.split(",")[1].equals("Num Of Stocks"))) {
           String tickrSymbol = inputLine.split(",")[0];
           //ApiKey apiObj = new ApiKey(tickrSymbol);
-          Float numStocks = Float.valueOf(inputLine.split(",")[1]);
+          int numStocks = Integer.valueOf(inputLine.split(",")[1]);
           // set a timer here.
           // allow api calls for every 25s only.
 
@@ -77,9 +76,10 @@ public class PortfolioImpl implements Portfolio {
   }
 
   /**
-   * Get portfolio value for a given date
+   * Get portfolio value for a given date.
    */
-  public float portfolioValueDate(String rootDir, String fileName, String date) throws FileNotFoundException {
+  public float portfolioValueDate(String rootDir, String fileName,
+                                  String date) throws FileNotFoundException {
     // initialize sum to 0.
     float finalSum = 0;
     // load the portfolio of the given input file name.
@@ -93,12 +93,12 @@ public class PortfolioImpl implements Portfolio {
           String tickrSymbol = inputLine.split(",")[0];
           ApiKey apiObj = new ApiKey(tickrSymbol);
           Float numStocks = Float.valueOf(inputLine.split(",")[1]);
-          ArrayListObj TickerSymbolsPrice = this.convertTXT();
+          ArrayListObj tickerSymbolsPrice = this.convertTXT();
           // initialize it as zero
           Float price = 0.0f;
-          for (int i = 0; i < TickerSymbolsPrice.getTickrSymbols().size(); i++) {
-            if (TickerSymbolsPrice.getTickrSymbols().get(i).equals(tickrSymbol)) {
-              price = Float.valueOf(TickerSymbolsPrice.getPrices().get(i));
+          for (int i = 0; i < tickerSymbolsPrice.getTickrSymbols().size(); i++) {
+            if (tickerSymbolsPrice.getTickrSymbols().get(i).equals(tickrSymbol)) {
+              price = Float.valueOf(tickerSymbolsPrice.getPrices().get(i));
               break;
             }
           }
@@ -146,19 +146,15 @@ public class PortfolioImpl implements Portfolio {
    */
   public boolean checkFutureDate(String date) {
     DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-    try{
+    try {
       LocalDate.parse(date, format);
-    }
-    catch (DateTimeException e){
+    } catch (DateTimeException e) {
       return false;
     }
     try {
       LocalDate givenDate = LocalDate.parse(date, format);
       LocalDate todayDate = LocalDate.now();
-      if (givenDate.isAfter(todayDate)) {
-        return true;
-      }
-      return false;
+      return givenDate.isAfter(todayDate);
     } catch (Exception e) {
       e.printStackTrace();
       return false;
@@ -173,14 +169,13 @@ public class PortfolioImpl implements Portfolio {
    */
   public boolean checkTodayDateAndTime(String date) {
     DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-    try{
+    try {
       LocalDate givenDate = LocalDate.parse(date, format);
-    }
-    catch (DateTimeException e){
+    } catch (DateTimeException e) {
       return false;
     }
     try {
-      try{
+      try {
         LocalDate givenDate = LocalDate.parse(date, format);
         LocalDate todayDate = LocalDate.now();
         // check today date.
@@ -198,10 +193,9 @@ public class PortfolioImpl implements Portfolio {
             e.printStackTrace();
             return false;
           }
-      }
+        }
         return false;
-      }
-      catch (Exception e){
+      } catch (Exception e) {
         e.printStackTrace();
         return false;
       }
@@ -234,18 +228,19 @@ public class PortfolioImpl implements Portfolio {
    * @return array list consisting of all valid tickr symbols
    */
   public ArrayListObj convertTXT() throws FileNotFoundException {
-    BufferedReader in = new BufferedReader(new FileReader(new File("tickrData.txt").getAbsolutePath()));
+    BufferedReader in = new BufferedReader(new FileReader(new
+            File("./res/tickrData.txt").getAbsolutePath()));
     String inputLine;
-    ArrayList<String> TickrSymbolsList = new ArrayList<>();
+    ArrayList<String> tickrSymbolsList = new ArrayList<>();
     ArrayList<String> pricesList = new ArrayList<>();
     try {
       while ((inputLine = in.readLine()) != null) {
         String tickrSymbol = inputLine.split(",")[0];
         String prices = inputLine.split(",")[1];
-        TickrSymbolsList.add(tickrSymbol);
+        tickrSymbolsList.add(tickrSymbol);
         pricesList.add(prices);
       }
-      return new ArrayListObj(TickrSymbolsList, pricesList);
+      return new ArrayListObj(tickrSymbolsList, pricesList);
     } catch (FileNotFoundException e) {
       e.printStackTrace();
       return null;
@@ -264,16 +259,10 @@ public class PortfolioImpl implements Portfolio {
   public boolean validateTickrSymbol(String tickrSymbol) {
     // open the tickrlist.
     // check if given symbol is in the text file.
-    try{
-      ArrayListObj TickrSymbolsPriceList = this.convertTXT();
-      if (TickrSymbolsPriceList.getTickrSymbols().contains(tickrSymbol)) {
-        return true;
-      }
-      else{
-        return false;
-      }
-    }
-    catch (FileNotFoundException e){
+    try {
+      ArrayListObj tickrSymbolsPriceList = this.convertTXT();
+      return (tickrSymbolsPriceList.getTickrSymbols().contains(tickrSymbol));
+    } catch (FileNotFoundException e) {
       e.printStackTrace();
       return false;
     }
@@ -286,11 +275,11 @@ public class PortfolioImpl implements Portfolio {
    * @return true if there are any spaces or null or empty or length > 25 else false
    */
   public boolean checkValidpfName(String pfName) {
-    if (pfName == null || pfName.length()>25 || pfName.isEmpty() || pfName.contains(" ")){
+    if (pfName == null || pfName.length() > 25 || pfName.isEmpty() || pfName.contains(" ")) {
       return false;
     }
-    for(int i =0;i<pfName.length();i++){
-      if(!Character.isLetter(pfName.charAt(i))){
+    for (int i = 0; i < pfName.length(); i++) {
+      if (!Character.isLetter(pfName.charAt(i))) {
         return false;
       }
     }
@@ -304,9 +293,6 @@ public class PortfolioImpl implements Portfolio {
    * @return true if it ends with / else false
    */
   public boolean checkLastEndingCharacter(String rootDirUser) {
-    if (rootDirUser.charAt(rootDirUser.length() - 1) == '/') {
-      return true;
-    }
-    return false;
+    return (rootDirUser.charAt(rootDirUser.length() - 1) == '/');
   }
 }

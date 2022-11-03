@@ -10,17 +10,18 @@ public interface Portfolio {
   /**
    * Method for creating new portfolio by the user.
    */
-  public void createPortfolio(String rootDir,String fileName, ArrayList<StocksObj> ListObj);
+  public void createPortfolio(String rootDir, String fileName, ArrayList<StocksObj> listObj);
 
   /**
    * Method for displaying the portfolio.
    */
-  public ArrayList<PortfolioObj> viewPortfolio(String rootDir,String fileName) throws IOException;
+  public ArrayList<PortfolioObj> viewPortfolio(String rootDir, String fileName) throws IOException;
 
   /**
-   * Get portfolio value for a given date
+   * Get portfolio value for a given date.
    */
-  public float portfolioValueDate(String rootDir,String fileName,String date) throws FileNotFoundException;
+  public float portfolioValueDate(String rootDir, String fileName,
+                                  String date) throws FileNotFoundException;
 
   /**
    * Check if the given output folder has any portfolios.
@@ -71,6 +72,7 @@ public interface Portfolio {
 
   /**
    * Check if there are any spaces for the given portfolio name.
+   *
    * @param pfName portfolio name of type string
    * @return true if there are any spaces else false
    */
@@ -78,6 +80,7 @@ public interface Portfolio {
 
   /**
    * Check if the last ending character is : /.
+   *
    * @param rootDirUser is the path given by user in string format
    * @return true if it ends with / else false
    */
