@@ -242,14 +242,22 @@ public class PortfolioImpl implements Portfolio {
    * @param tickrSymbol of type String.
    * @return true if it is valid else false.
    */
-  public boolean validateTickrSymbol(String tickrSymbol) throws FileNotFoundException {
+  public boolean validateTickrSymbol(String tickrSymbol) throws FileNotFoundException{
     // open the tickrlist.
     // check if given symbol is in the text file.
-    ArrayListObj TickrSymbolsPriceList = this.convertTXT();
-    if (TickrSymbolsPriceList.getTickrSymbols().contains(tickrSymbol)) {
-      return true;
+    try{
+      ArrayListObj TickrSymbolsPriceList = this.convertTXT();
+      if (TickrSymbolsPriceList.getTickrSymbols().contains(tickrSymbol)) {
+        return true;
+      }
+      else{
+        return false;
+      }
     }
-    return false;
+    catch (FileNotFoundException e){
+      e.printStackTrace();
+      return false;
+    }
   }
 
   /**

@@ -40,4 +40,9 @@ public class ViewImpl implements View {
     out.print("\nInvalid option. Please try again.\n");
   }
 
+    public void showInvalidInputError(String s) {
+      out.print("Invalid input error message:" + s);
+      //showOptions();
+  }
+
 }

@@ -1,18 +1,115 @@
+
+import org.junit.Test;
+
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.PrintStream;
+import java.text.ParseException;
+
+import static org.junit.Assert.assertEquals;
+
 public class PortfolioImplTest {
 
-  @org.junit.Before
-  public void setUp() throws Exception {
+  @Test
+  public void checkIfDateInRightFormatCorrect() {
+    Portfolio portfolioObj = new PortfolioImpl();
+    assertEquals(true, portfolioObj.checkIfRightFormat("2022-02-01"));
   }
 
-  @org.junit.Test
-  public void createPortfolio() {
+  @Test
+  public void checkIfDateInRightFormatWrong1() {
+    Portfolio portfolioObj = new PortfolioImpl();
+    assertEquals(false, portfolioObj.checkIfRightFormat("01/02/2020"));
   }
 
-  @org.junit.Test
-  public void viewPortfolio() {
+  @Test
+  public void checkIfDateInRightFormatWrong2() {
+    Portfolio portfolioObj = new PortfolioImpl();
+    assertEquals(false, portfolioObj.checkIfRightFormat("01022020"));
   }
 
-  @org.junit.Test
-  public void portfolioValueDate() {
+  @Test
+  public void checkIfDateInRightFormatWrong3() {
+    Portfolio portfolioObj = new PortfolioImpl();
+    assertEquals(false, portfolioObj.checkIfRightFormat("01-02-2020"));
   }
+
+  @Test
+  public void ifPortfolioNameRightFormatValid() {
+    // Without any white spaces
+    Portfolio portfolioObj = new PortfolioImpl();
+    assertEquals(true, portfolioObj.checkValidpfName("healthPortfolio"));
+  }
+
+  @Test
+  public void ifPortfolioNameRightFormatInvalid1() {
+    // With any white spaces is invalid
+    Portfolio portfolioObj = new PortfolioImpl();
+    assertEquals(false, portfolioObj.checkValidpfName("Health Portfolio"));
+  }
+
+  @Test
+  public void ifPortfolioNameRightFormatInvalidEmptyName() {
+    // With any white spaces is invalid
+    Portfolio portfolioObj = new PortfolioImpl();
+    assertEquals(false, portfolioObj.checkValidpfName(""));
+  }
+  @Test
+  public void ifPortfolioNameRightFormatInvalidNullName() {
+    // With any white spaces is invalid
+    Portfolio portfolioObj = new PortfolioImpl();
+    assertEquals(false, portfolioObj.checkValidpfName(null));
+  }
+
+  @Test
+  public void ifPortfolioNameRightFormatInvalidBigName() {
+    // Portfolio name greater than 25 letters not allowed
+    Portfolio portfolioObj = new PortfolioImpl();
+    assertEquals(false, portfolioObj.checkValidpfName("abcdefghijklmnopqrstuvwxyz"));
+  }
+
+  @Test
+  public void ifPortfolioNameRightFormatInvalidSpecialCharacters() {
+    // Name greater than 25 letters not allowed
+    Portfolio portfolioObj = new PortfolioImpl();
+    assertEquals(false, portfolioObj.checkValidpfName("ab*b"));
+  }
+
+  @Test
+  public void ifPortfolioNameRightFormatInvalidNumbers() {
+    // Name greater than 25 letters not allowed
+    Portfolio portfolioObj = new PortfolioImpl();
+    assertEquals(false, portfolioObj.checkValidpfName("2345678"));
+  }
+
+  @Test
+  public void checkDirectoryNameEndingValid() {
+    Portfolio portfolioObj = new PortfolioImpl();
+    assertEquals(true, portfolioObj.checkLastEndingCharacter("/Users/"));
+  }
+
+  @Test
+  public void checkDirectoryNameEndingInvalid() {
+    Portfolio portfolioObj = new PortfolioImpl();
+    assertEquals(false, portfolioObj.checkLastEndingCharacter("/Users"));
+  }
+
+  @Test
+  public void checkValidateTickrSymbolValid(){
+    Portfolio portfolioObj = new PortfolioImpl();
+    try {
+      assertEquals(true, portfolioObj.validateTickrSymbol("AAL"));
+    } catch (FileNotFoundException e) {
+      throw new RuntimeException(e);
+    }
+  }
+
+  @Test
+  public void checkValidateTickrSymbolInvalid(){
+
+  }
+
 }
