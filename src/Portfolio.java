@@ -10,7 +10,7 @@ public interface Portfolio {
   /**
    * Method for creating new portfolio by the user.
    */
-  public void createPortfolio(String rootDir, String fileName, ArrayList<StocksObj> ListObj);
+  public void createPortfolio(String rootDir, String fileName, ArrayList<StocksObj> listObj);
 
   /**
    * Method for displaying the portfolio.
