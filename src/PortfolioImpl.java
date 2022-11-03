@@ -59,7 +59,7 @@ public class PortfolioImpl implements Portfolio {
                 inputLine.split(",")[1].equals("Num Of Stocks"))) {
           String tickrSymbol = inputLine.split(",")[0];
           //ApiKey apiObj = new ApiKey(tickrSymbol);
-          Float numStocks = Float.valueOf(inputLine.split(",")[1]);
+          int numStocks = Integer.valueOf(inputLine.split(",")[1]);
           // set a timer here.
           // allow api calls for every 25s only.
 

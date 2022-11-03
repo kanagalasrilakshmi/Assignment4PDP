@@ -3,9 +3,9 @@
  */
 public class StocksObj {
   private String tickr;
-  private float numStocks;
+  private int numStocks;
 
-  public StocksObj(String tickr, float numStocks) {
+  public StocksObj(String tickr, int numStocks) {
     this.tickr = tickr;
     this.numStocks = numStocks;
   }
@@ -24,7 +24,7 @@ public class StocksObj {
    *
    * @return float type of number of stocks
    */
-  public float getNumStocks() {
+  public int getNumStocks() {
     return this.numStocks;
   }
 }

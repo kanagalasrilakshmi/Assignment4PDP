@@ -3,13 +3,7 @@ public class PortfolioObj {
   private float numStocks;
   private float stockPrice;
 
-  public PortfolioObj(String tickr, float numStocks, float stockPrice) {
-    this.tickr = tickr;
-    this.numStocks = numStocks;
-    this.stockPrice = stockPrice;
-  }
-
-  public PortfolioObj(String tickr, float numStocks) {
+  public PortfolioObj(String tickr, int numStocks) {
     this.tickr = tickr;
     this.numStocks = numStocks;
   }

@@ -5,6 +5,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class ControllerImpl implements Controller {
@@ -187,8 +188,17 @@ public class ControllerImpl implements Controller {
                 // check if tickr symbol is already in the list.
                 StoringList.add(tickr);
                 // backup for api key failure.
-                theView.showString("Enter number of stocks purchased");
-                float numberStocks = in.nextFloat();
+                theView.showString("Enter number of stocks purchased (Integer Values are Only Allowed)");
+                int numberStocks = 0;
+                try{
+                  numberStocks = in.nextInt();
+                }
+                catch (InputMismatchException e){
+                  theView.showString("Enter number of stocks purchased (Integer Values are Only Allowed)");
+                  theView.showString("Only Integer Stock values are allowed are allowed!!");
+                  StoringList.remove(tickr);
+                  break;
+                }
                 objList.add(new StocksObj(tickr, numberStocks));
                 break;
               default:
