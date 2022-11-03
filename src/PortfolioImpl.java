@@ -229,7 +229,7 @@ public class PortfolioImpl implements Portfolio {
    */
   public ArrayListObj convertTXT() throws FileNotFoundException {
     BufferedReader in = new BufferedReader(new FileReader(new
-            File("./res/tickrData.txt").getAbsolutePath()));
+            File("tickrData.txt").getAbsolutePath()));
     String inputLine;
     ArrayList<String> tickrSymbolsList = new ArrayList<>();
     ArrayList<String> pricesList = new ArrayList<>();
@@ -298,12 +298,13 @@ public class PortfolioImpl implements Portfolio {
 
   /**
    * Check if a given string is an integer.
+   *
    * @param numberStocks is number of stocks purchased by user in string format
    * @return true if integer else false
    */
-  public boolean checkValidInteger(String numberStocks){
-    for(int i =0;i<numberStocks.length();i++){
-      if(!Character.isDigit(numberStocks.charAt(i))){
+  public boolean checkValidInteger(String numberStocks) {
+    for (int i = 0; i < numberStocks.length(); i++) {
+      if (!Character.isDigit(numberStocks.charAt(i))) {
         return false;
       }
     }

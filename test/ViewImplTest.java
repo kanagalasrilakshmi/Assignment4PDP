@@ -1,3 +1,4 @@
+import org.junit.Before;
 import org.junit.Test;
 
 import java.io.ByteArrayInputStream;
@@ -12,8 +13,10 @@ import java.nio.file.Paths;
 import java.text.ParseException;
 
 import static org.junit.Assert.assertEquals;
-import org.junit.Before;
 
+/**
+ * Class for testing View Implementation functions.
+ */
 public class ViewImplTest {
 
   @Before
@@ -29,16 +32,18 @@ public class ViewImplTest {
       }
     }
     File files = new File(rootDir);
-    for(File file: files.listFiles())
-      if (!file.isDirectory())
+    for (File file : files.listFiles()) {
+      if (!file.isDirectory()) {
         file.delete();
+      }
+    }
   }
 
   // V > invalidpf > show enter valid > enter valid > p >
   // future view present past and wrong  date format
   // V > other than d or P
   // test for save and load
-  @ Test
+  @Test
   public void testViewSetRootDirectoryDefaulting() throws ParseException, IOException {
     //Checks if user tried to give invalid directory route
     String rootDir = System.getProperty("user.home") + "/Desktop/PortfolioBucket/";
@@ -46,15 +51,17 @@ public class ViewImplTest {
     InputStream in = new ByteArrayInputStream(inputStream.getBytes());
     ByteArrayOutputStream bytes = new ByteArrayOutputStream();
     PrintStream out = new PrintStream(bytes);
-    Controller controlObj = new ControllerImpl(new PortfolioImpl(),new ViewImpl(out),in);
+    Controller controlObj = new ControllerImpl(new PortfolioImpl(), new ViewImpl(out), in);
     controlObj.goStocks();
-    assertEquals("Give a valid input path where you want to store your portfolios. For example: /Users/PDP/PortfolioBucket/\n" +
-            "Invalid path given so portfolios will be stored in "+rootDir+" by default. To change directory, quit and start again.\n" +
+    assertEquals("Give a valid input path where you want to store your portfolios. " +
+            "For example: /Users/PDP/PortfolioBucket/\n" +
+            "Invalid path given so portfolios will be stored in " + rootDir + " by default. " +
+            "To change directory, quit and start again.\n" +
             "Menu: \n" +
             "C: To create a new Portfolio.\n" +
             "V: View existing Portfolio.\n" +
             "Q: Quit the program\n" +
-            "Enter your choice: ", new String(bytes.toByteArray()));
+            "Enter your choice: ", bytes.toString());
   }
 
   @Test
@@ -64,15 +71,17 @@ public class ViewImplTest {
     InputStream in = new ByteArrayInputStream(inputStream.getBytes());
     ByteArrayOutputStream bytes = new ByteArrayOutputStream();
     PrintStream out = new PrintStream(bytes);
-    Controller controlObj = new ControllerImpl(new PortfolioImpl(),new ViewImpl(out),in);
+    Controller controlObj = new ControllerImpl(new PortfolioImpl(), new ViewImpl(out), in);
     controlObj.goStocks();
-    assertEquals("Give a valid input path where you want to store your portfolios. For example: /Users/PDP/PortfolioBucket/\n" +
+    assertEquals("Give a valid input path where you want to store your portfolios. " +
+            "For example: /Users/PDP/PortfolioBucket/\n" +
             "Menu: \n" +
             "C: To create a new Portfolio.\n" +
             "V: View existing Portfolio.\n" +
             "Q: Quit the program\n" +
-            "Enter your choice: ", new String(bytes.toByteArray()));
+            "Enter your choice: ", bytes.toString());
   }
+
   @Test
   public void testViewInvalidInputAtMenu() throws ParseException, IOException {
     String rootDir = System.getProperty("user.home") + "/Desktop/PortfolioBucket/";
@@ -80,9 +89,10 @@ public class ViewImplTest {
     InputStream in = new ByteArrayInputStream(inputStream.getBytes());
     ByteArrayOutputStream bytes = new ByteArrayOutputStream();
     PrintStream out = new PrintStream(bytes);
-    Controller controlObj = new ControllerImpl(new PortfolioImpl(),new ViewImpl(out),in);
+    Controller controlObj = new ControllerImpl(new PortfolioImpl(), new ViewImpl(out), in);
     controlObj.goStocks();
-    assertEquals("Give a valid input path where you want to store your portfolios. For example: /Users/PDP/PortfolioBucket/\n" +
+    assertEquals("Give a valid input path where you want to store your portfolios. " +
+            "For example: /Users/PDP/PortfolioBucket/\n" +
             "Menu: \n" +
             "C: To create a new Portfolio.\n" +
             "V: View existing Portfolio.\n" +
@@ -93,7 +103,7 @@ public class ViewImplTest {
             "C: To create a new Portfolio.\n" +
             "V: View existing Portfolio.\n" +
             "Q: Quit the program\n" +
-            "Enter your choice: ", new String(bytes.toByteArray()));
+            "Enter your choice: ", bytes.toString());
   }
 
   @Test
@@ -103,15 +113,21 @@ public class ViewImplTest {
     InputStream in = new ByteArrayInputStream(inputStream.getBytes());
     ByteArrayOutputStream bytes = new ByteArrayOutputStream();
     PrintStream out = new PrintStream(bytes);
-    Controller controlObj = new ControllerImpl(new PortfolioImpl(),new ViewImpl(out),in);
+    Controller controlObj = new ControllerImpl(new PortfolioImpl(), new ViewImpl(out), in);
     controlObj.goStocks();
-    assertEquals("Give a valid input path where you want to store your portfolios. For example: /Users/PDP/PortfolioBucket/\n" +
-            "Invalid path given so portfolios will be stored in /Users/vidyaganesh/Desktop/PortfolioBucket/ by default. To change directory, quit and start again.\n" +
+    assertEquals("Give a valid input path where you want to store your portfolios. " +
+            "For example: /Users/PDP/PortfolioBucket/\n" +
+            "Invalid path given so portfolios will be stored in " +
+            System.getProperty("user.home") +
+            "/Desktop/PortfolioBucket/ by default. To change directory, " +
+            "quit and start again.\n" +
             "Menu: \n" +
             "C: To create a new Portfolio.\n" +
             "V: View existing Portfolio.\n" +
             "Q: Quit the program\n" +
-            "Enter your choice: Give a valid name for the portfolio you want to create. The string should not have spaces or special characters and the length must be less than 25 characters.\n" +
+            "Enter your choice: Give a valid name for the portfolio you want to create. " +
+            "The string should not have spaces or special characters and the length must " +
+            "be less than 25 characters.\n" +
             "Please enter a valid portfolio name:\n" +
             "Press Y to add stocks to the retirementpf portfolio.\n" +
             "Press S to save the Portfolio.\n" +
@@ -124,25 +140,32 @@ public class ViewImplTest {
             "C: To create a new Portfolio.\n" +
             "V: View existing Portfolio.\n" +
             "Q: Quit the program\n" +
-            "Enter your choice: ", new String(bytes.toByteArray()));
+            "Enter your choice: ", bytes.toString());
   }
 
   @Test
   public void testPortfolioAlreadyExists() throws ParseException, IOException {
     String rootDir = System.getProperty("user.home") + "/Desktop/PortfolioBucket/";
-    String inputStream = rootDir + "j\nC\nretirementpf\nY\nGOOG\n100\nS\nC\nretirementpf\nhealth\nY\nGOOG\n100\nS\nQ";
+    String inputStream = rootDir +
+            "j\nC\nretirementpf\nY\nGOOG\n100\nS\nC\nretirementpf\nhealth\nY\nGOOG\n100\nS\nQ";
     InputStream in = new ByteArrayInputStream(inputStream.getBytes());
     ByteArrayOutputStream bytes = new ByteArrayOutputStream();
     PrintStream out = new PrintStream(bytes);
-    Controller controlObj = new ControllerImpl(new PortfolioImpl(),new ViewImpl(out),in);
+    Controller controlObj = new ControllerImpl(new PortfolioImpl(), new ViewImpl(out), in);
     controlObj.goStocks();
-    assertEquals("Give a valid input path where you want to store your portfolios. For example: /Users/PDP/PortfolioBucket/\n" +
-            "Invalid path given so portfolios will be stored in /Users/vidyaganesh/Desktop/PortfolioBucket/ by default. To change directory, quit and start again.\n" +
+    assertEquals("Give a valid input path where you want to store your portfolios. " +
+            "For example: /Users/PDP/PortfolioBucket/\n" +
+            "Invalid path given so portfolios will be stored in " +
+            System.getProperty("user.home") +
+            "/Desktop/PortfolioBucket/ by default. To change directory, " +
+            "quit and start again.\n" +
             "Menu: \n" +
             "C: To create a new Portfolio.\n" +
             "V: View existing Portfolio.\n" +
             "Q: Quit the program\n" +
-            "Enter your choice: Give a valid name for the portfolio you want to create. The string should not have spaces or special characters and the length must be less than 25 characters.\n" +
+            "Enter your choice: Give a valid name for the portfolio you want to create. " +
+            "The string should not have spaces or special characters and the length must be " +
+            "less than 25 characters.\n" +
             "Please enter a valid portfolio name:\n" +
             "Press Y to add stocks to the retirementpf portfolio.\n" +
             "Press S to save the Portfolio.\n" +
@@ -155,7 +178,9 @@ public class ViewImplTest {
             "C: To create a new Portfolio.\n" +
             "V: View existing Portfolio.\n" +
             "Q: Quit the program\n" +
-            "Enter your choice: Give a valid name for the portfolio you want to create. The string should not have spaces or special characters and the length must be less than 25 characters.\n" +
+            "Enter your choice: Give a valid name for the portfolio you want to create. " +
+            "The string should not have spaces or special characters and the length must be " +
+            "less than 25 characters.\n" +
             "Please enter a valid portfolio name:\n" +
             "Portfolio with this name already exists! \n" +
             "Give another name for the portfolio you want to create:\n" +
@@ -170,7 +195,7 @@ public class ViewImplTest {
             "C: To create a new Portfolio.\n" +
             "V: View existing Portfolio.\n" +
             "Q: Quit the program\n" +
-            "Enter your choice: ", new String(bytes.toByteArray()));
+            "Enter your choice: ", bytes.toString());
   }
 
   @Test
@@ -180,15 +205,21 @@ public class ViewImplTest {
     InputStream in = new ByteArrayInputStream(inputStream.getBytes());
     ByteArrayOutputStream bytes = new ByteArrayOutputStream();
     PrintStream out = new PrintStream(bytes);
-    Controller controlObj = new ControllerImpl(new PortfolioImpl(),new ViewImpl(out),in);
+    Controller controlObj = new ControllerImpl(new PortfolioImpl(), new ViewImpl(out), in);
     controlObj.goStocks();
-    assertEquals("Give a valid input path where you want to store your portfolios. For example: /Users/PDP/PortfolioBucket/\n" +
-            "Invalid path given so portfolios will be stored in /Users/vidyaganesh/Desktop/PortfolioBucket/ by default. To change directory, quit and start again.\n" +
+    assertEquals("Give a valid input path where you want to store your portfolios. " +
+            "For example: /Users/PDP/PortfolioBucket/\n" +
+            "Invalid path given so portfolios will be stored in " +
+            System.getProperty("user.home") +
+            "/Desktop/PortfolioBucket/ by default. To change directory, " +
+            "quit and start again.\n" +
             "Menu: \n" +
             "C: To create a new Portfolio.\n" +
             "V: View existing Portfolio.\n" +
             "Q: Quit the program\n" +
-            "Enter your choice: Give a valid name for the portfolio you want to create. The string should not have spaces or special characters and the length must be less than 25 characters.\n" +
+            "Enter your choice: Give a valid name for the portfolio you want to create. " +
+            "The string should not have spaces or special characters and the length must be less " +
+            "than 25 characters.\n" +
             "Please enter a valid portfolio name:\n" +
             "Press Y to add stocks to the retirementpf portfolio.\n" +
             "Press S to save the Portfolio.\n" +
@@ -204,24 +235,33 @@ public class ViewImplTest {
             "C: To create a new Portfolio.\n" +
             "V: View existing Portfolio.\n" +
             "Q: Quit the program\n" +
-            "Enter your choice: ", new String(bytes.toByteArray()));
+            "Enter your choice: ", bytes.toString());
   }
+
   @Test
-  public void testViewCreatePfwithInvalidStockTickrInvalidStockProportion() throws ParseException, IOException {
+  public void testViewCreatePfwithInvalidStockTickrInvalidStockProportion() throws
+          ParseException, IOException {
     String rootDir = System.getProperty("user.home") + "/Desktop/PortfolioBucket/";
-    String inputStream = rootDir + "j\nC\nretirementpf\nY\nGOOOOG\n1278\nGOOG\nsd11f\n$11%^\n100.1\n100\nS\nQ";
+    String inputStream = rootDir +
+            "j\nC\nretirementpf\nY\nGOOOOG\n1278\nGOOG\nsd11f\n$11%^\n100.1\n100\nS\nQ";
     InputStream in = new ByteArrayInputStream(inputStream.getBytes());
     ByteArrayOutputStream bytes = new ByteArrayOutputStream();
     PrintStream out = new PrintStream(bytes);
-    Controller controlObj = new ControllerImpl(new PortfolioImpl(),new ViewImpl(out),in);
+    Controller controlObj = new ControllerImpl(new PortfolioImpl(), new ViewImpl(out), in);
     controlObj.goStocks();
-    assertEquals("Give a valid input path where you want to store your portfolios. For example: /Users/PDP/PortfolioBucket/\n" +
-            "Invalid path given so portfolios will be stored in /Users/vidyaganesh/Desktop/PortfolioBucket/ by default. To change directory, quit and start again.\n" +
+    assertEquals("Give a valid input path where you want to store your portfolios. " +
+            "For example: /Users/PDP/PortfolioBucket/\n" +
+            "Invalid path given so portfolios will be stored in " +
+            System.getProperty("user.home") +
+            "/Desktop/PortfolioBucket/ by default. To change directory, quit " +
+            "and start again.\n" +
             "Menu: \n" +
             "C: To create a new Portfolio.\n" +
             "V: View existing Portfolio.\n" +
             "Q: Quit the program\n" +
-            "Enter your choice: Give a valid name for the portfolio you want to create. The string should not have spaces or special characters and the length must be less than 25 characters.\n" +
+            "Enter your choice: Give a valid name for the portfolio you want to create. " +
+            "The string should not have spaces or special characters and the length must be " +
+            "less than 25 characters.\n" +
             "Please enter a valid portfolio name:\n" +
             "Press Y to add stocks to the retirementpf portfolio.\n" +
             "Press S to save the Portfolio.\n" +
@@ -241,8 +281,9 @@ public class ViewImplTest {
             "C: To create a new Portfolio.\n" +
             "V: View existing Portfolio.\n" +
             "Q: Quit the program\n" +
-            "Enter your choice: ", new String(bytes.toByteArray()));
+            "Enter your choice: ", bytes.toString());
   }
+
   @Test
   public void testViewPortfolio() throws ParseException, IOException {
     // Create pfOne view create pfTwo view
@@ -252,14 +293,17 @@ public class ViewImplTest {
     InputStream in = new ByteArrayInputStream(inputStream.getBytes());
     ByteArrayOutputStream bytes = new ByteArrayOutputStream();
     PrintStream out = new PrintStream(bytes);
-    Controller controlObj = new ControllerImpl(new PortfolioImpl(),new ViewImpl(out),in);
+    Controller controlObj = new ControllerImpl(new PortfolioImpl(), new ViewImpl(out), in);
     controlObj.goStocks();
-    assertEquals("Give a valid input path where you want to store your portfolios. For example: /Users/PDP/PortfolioBucket/\n" +
+    assertEquals("Give a valid input path where you want to store your portfolios. " +
+            "For example: /Users/PDP/PortfolioBucket/\n" +
             "Menu: \n" +
             "C: To create a new Portfolio.\n" +
             "V: View existing Portfolio.\n" +
             "Q: Quit the program\n" +
-            "Enter your choice: Give a valid name for the portfolio you want to create. The string should not have spaces or special characters and the length must be less than 25 characters.\n" +
+            "Enter your choice: Give a valid name for the portfolio you want to create. " +
+            "The string should not have spaces or special characters and the length must be " +
+            "less than 25 characters.\n" +
             "Please enter a valid portfolio name:\n" +
             "Press Y to add stocks to the pfOne portfolio.\n" +
             "Press S to save the Portfolio.\n" +
@@ -272,7 +316,8 @@ public class ViewImplTest {
             "C: To create a new Portfolio.\n" +
             "V: View existing Portfolio.\n" +
             "Q: Quit the program\n" +
-            "Enter your choice: Enter the name of the portfolio you want to view from the list of portfolios displayed below:\n" +
+            "Enter your choice: Enter the name of the portfolio you want to view from the " +
+            "list of portfolios displayed below:\n" +
             "pfOne\n" +
             "Press D to view portfolio value by date\n" +
             "Press P to view portfolio composition\n" +
@@ -282,7 +327,9 @@ public class ViewImplTest {
             "C: To create a new Portfolio.\n" +
             "V: View existing Portfolio.\n" +
             "Q: Quit the program\n" +
-            "Enter your choice: Give a valid name for the portfolio you want to create. The string should not have spaces or special characters and the length must be less than 25 characters.\n" +
+            "Enter your choice: Give a valid name for the portfolio you want to create. " +
+            "The string should not have spaces or special characters and the length must be less " +
+            "than 25 characters.\n" +
             "Please enter a valid portfolio name:\n" +
             "Press Y to add stocks to the pfTwo portfolio.\n" +
             "Press S to save the Portfolio.\n" +
@@ -295,7 +342,8 @@ public class ViewImplTest {
             "C: To create a new Portfolio.\n" +
             "V: View existing Portfolio.\n" +
             "Q: Quit the program\n" +
-            "Enter your choice: Enter the name of the portfolio you want to view from the list of portfolios displayed below:\n" +
+            "Enter your choice: Enter the name of the portfolio you want to view from the " +
+            "list of portfolios displayed below:\n" +
             "pfTwo\n" +
             "pfOne\n" +
             "Press D to view portfolio value by date\n" +
@@ -306,7 +354,7 @@ public class ViewImplTest {
             "C: To create a new Portfolio.\n" +
             "V: View existing Portfolio.\n" +
             "Q: Quit the program\n" +
-            "Enter your choice: ", new String(bytes.toByteArray()));
+            "Enter your choice: ", bytes.toString());
   }
 
   @Test
@@ -316,14 +364,17 @@ public class ViewImplTest {
     InputStream in = new ByteArrayInputStream(inputStream.getBytes());
     ByteArrayOutputStream bytes = new ByteArrayOutputStream();
     PrintStream out = new PrintStream(bytes);
-    Controller controlObj = new ControllerImpl(new PortfolioImpl(),new ViewImpl(out),in);
+    Controller controlObj = new ControllerImpl(new PortfolioImpl(), new ViewImpl(out), in);
     controlObj.goStocks();
-    assertEquals("Give a valid input path where you want to store your portfolios. For example: /Users/PDP/PortfolioBucket/\n" +
+    assertEquals("Give a valid input path where you want to store your portfolios. " +
+            "For example: /Users/PDP/PortfolioBucket/\n" +
             "Menu: \n" +
             "C: To create a new Portfolio.\n" +
             "V: View existing Portfolio.\n" +
             "Q: Quit the program\n" +
-            "Enter your choice: Give a valid name for the portfolio you want to create. The string should not have spaces or special characters and the length must be less than 25 characters.\n" +
+            "Enter your choice: Give a valid name for the portfolio you want to create. " +
+            "The string should not have spaces or special characters and the length must be less " +
+            "than 25 characters.\n" +
             "Please enter a valid portfolio name:\n" +
             "Press Y to add stocks to the healthpf portfolio.\n" +
             "Press S to save the Portfolio.\n" +
@@ -336,7 +387,8 @@ public class ViewImplTest {
             "C: To create a new Portfolio.\n" +
             "V: View existing Portfolio.\n" +
             "Q: Quit the program\n" +
-            "Enter your choice: Enter the name of the portfolio you want to view from the list of portfolios displayed below:\n" +
+            "Enter your choice: Enter the name of the portfolio you want to view from the list " +
+            "of portfolios displayed below:\n" +
             "healthpf\n" +
             "Please enter a valid Portfolio name from the displayed list only!\n" +
             "Press D to view portfolio value by date\n" +
@@ -347,7 +399,7 @@ public class ViewImplTest {
             "C: To create a new Portfolio.\n" +
             "V: View existing Portfolio.\n" +
             "Q: Quit the program\n" +
-            "Enter your choice: ", new String(bytes.toByteArray()));
+            "Enter your choice: ", bytes.toString());
   }
 
   @Test
@@ -358,14 +410,17 @@ public class ViewImplTest {
     InputStream in = new ByteArrayInputStream(inputStream.getBytes());
     ByteArrayOutputStream bytes = new ByteArrayOutputStream();
     PrintStream out = new PrintStream(bytes);
-    Controller controlObj = new ControllerImpl(new PortfolioImpl(),new ViewImpl(out),in);
+    Controller controlObj = new ControllerImpl(new PortfolioImpl(), new ViewImpl(out), in);
     controlObj.goStocks();
-    assertEquals("Give a valid input path where you want to store your portfolios. For example: /Users/PDP/PortfolioBucket/\n" +
+    assertEquals("Give a valid input path where you want to store your portfolios. " +
+            "For example: /Users/PDP/PortfolioBucket/\n" +
             "Menu: \n" +
             "C: To create a new Portfolio.\n" +
             "V: View existing Portfolio.\n" +
             "Q: Quit the program\n" +
-            "Enter your choice: Give a valid name for the portfolio you want to create. The string should not have spaces or special characters and the length must be less than 25 characters.\n" +
+            "Enter your choice: Give a valid name for the portfolio you want to create. " +
+            "The string should not have spaces or special characters and the length must be " +
+            "less than 25 characters.\n" +
             "Please enter a valid portfolio name:\n" +
             "Press Y to add stocks to the healthpf portfolio.\n" +
             "Press S to save the Portfolio.\n" +
@@ -378,12 +433,14 @@ public class ViewImplTest {
             "C: To create a new Portfolio.\n" +
             "V: View existing Portfolio.\n" +
             "Q: Quit the program\n" +
-            "Enter your choice: Enter the name of the portfolio you want to view from the list of portfolios displayed below:\n" +
+            "Enter your choice: Enter the name of the portfolio you want to view from the " +
+            "list of portfolios displayed below:\n" +
             "healthpf\n" +
             "Please enter a valid Portfolio name from the displayed list only!\n" +
             "Press D to view portfolio value by date\n" +
             "Press P to view portfolio composition\n" +
-            "Enter the date for which you want to fetch the portfolio in YYYY-MM-DD format only!\n" +
+            "Enter the date for which you want to fetch the portfolio in YYYY-MM-DD " +
+            "format only!\n" +
             "Please enter correct format for date\n" +
             "Please enter correct format for date\n" +
             "Please enter correct format for date\n" +
@@ -398,7 +455,7 @@ public class ViewImplTest {
             "C: To create a new Portfolio.\n" +
             "V: View existing Portfolio.\n" +
             "Q: Quit the program\n" +
-            "Enter your choice: ", new String(bytes.toByteArray()));
+            "Enter your choice: ", bytes.toString());
   }
 
   @Test
@@ -409,14 +466,17 @@ public class ViewImplTest {
     InputStream in = new ByteArrayInputStream(inputStream.getBytes());
     ByteArrayOutputStream bytes = new ByteArrayOutputStream();
     PrintStream out = new PrintStream(bytes);
-    Controller controlObj = new ControllerImpl(new PortfolioImpl(),new ViewImpl(out),in);
+    Controller controlObj = new ControllerImpl(new PortfolioImpl(), new ViewImpl(out), in);
     controlObj.goStocks();
-    assertEquals("Give a valid input path where you want to store your portfolios. For example: /Users/PDP/PortfolioBucket/\n" +
+    assertEquals("Give a valid input path where you want to store your portfolios. " +
+            "For example: /Users/PDP/PortfolioBucket/\n" +
             "Menu: \n" +
             "C: To create a new Portfolio.\n" +
             "V: View existing Portfolio.\n" +
             "Q: Quit the program\n" +
-            "Enter your choice: Give a valid name for the portfolio you want to create. The string should not have spaces or special characters and the length must be less than 25 characters.\n" +
+            "Enter your choice: Give a valid name for the portfolio you want to create. " +
+            "The string should not have spaces or special characters and the length must " +
+            "be less than 25 characters.\n" +
             "Please enter a valid portfolio name:\n" +
             "Press Y to add stocks to the healthpf portfolio.\n" +
             "Press S to save the Portfolio.\n" +
@@ -429,7 +489,8 @@ public class ViewImplTest {
             "C: To create a new Portfolio.\n" +
             "V: View existing Portfolio.\n" +
             "Q: Quit the program\n" +
-            "Enter your choice: Enter the name of the portfolio you want to view from the list of portfolios displayed below:\n" +
+            "Enter your choice: Enter the name of the portfolio you want to view from the " +
+            "list of portfolios displayed below:\n" +
             "healthpf\n" +
             "Press D to view portfolio value by date\n" +
             "Press P to view portfolio composition\n" +
@@ -439,7 +500,9 @@ public class ViewImplTest {
             "C: To create a new Portfolio.\n" +
             "V: View existing Portfolio.\n" +
             "Q: Quit the program\n" +
-            "Enter your choice: Give a valid name for the portfolio you want to create. The string should not have spaces or special characters and the length must be less than 25 characters.\n" +
+            "Enter your choice: Give a valid name for the portfolio you want to create. " +
+            "The string should not have spaces or special characters and the length must be " +
+            "less than 25 characters.\n" +
             "Please enter a valid portfolio name:\n" +
             "Press Y to add stocks to the health portfolio.\n" +
             "Press S to save the Portfolio.\n" +
@@ -452,7 +515,8 @@ public class ViewImplTest {
             "C: To create a new Portfolio.\n" +
             "V: View existing Portfolio.\n" +
             "Q: Quit the program\n" +
-            "Enter your choice: Enter the name of the portfolio you want to view from the list of portfolios displayed below:\n" +
+            "Enter your choice: Enter the name of the portfolio you want to view from the " +
+            "list of portfolios displayed below:\n" +
             "health\n" +
             "healthpf\n" +
             "Press D to view portfolio value by date\n" +
@@ -463,6 +527,77 @@ public class ViewImplTest {
             "C: To create a new Portfolio.\n" +
             "V: View existing Portfolio.\n" +
             "Q: Quit the program\n" +
-            "Enter your choice: ", new String(bytes.toByteArray()));
+            "Enter your choice: ", bytes.toString());
+  }
+
+  public void testViewPortfolioSave() throws ParseException, IOException {
+    String rootDir = System.getProperty("user.home") + "/Desktop/PortfolioBucket/";
+    String inputStream = rootDir + "\nC\nhealthpf\nY\nGOOG\n100\nS\nV\nhealthpf\nP\nC" +
+            "\nhealth\nY\nGOOG\n100\nS\nV\nhealth\nP\nQ";
+    InputStream in = new ByteArrayInputStream(inputStream.getBytes());
+    ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+    PrintStream out = new PrintStream(bytes);
+    Controller controlObj = new ControllerImpl(new PortfolioImpl(), new ViewImpl(out), in);
+    controlObj.goStocks();
+    assertEquals("Give a valid input path where you want to store your portfolios. " +
+            "For example: /Users/PDP/PortfolioBucket/\n" +
+            "Menu: \n" +
+            "C: To create a new Portfolio.\n" +
+            "V: View existing Portfolio.\n" +
+            "Q: Quit the program\n" +
+            "Enter your choice: Give a valid name for the portfolio you want to create. " +
+            "The string should not have spaces or special characters and the length must " +
+            "be less than 25 characters.\n" +
+            "Please enter a valid portfolio name:\n" +
+            "Press Y to add stocks to the healthpf portfolio.\n" +
+            "Press S to save the Portfolio.\n" +
+            "Enter Valid Stock company tickr symbol\n" +
+            "Enter number of stocks purchased (Integer Values are Only Allowed)\n" +
+            "Press Y to add stocks to the healthpf portfolio.\n" +
+            "Press S to save the Portfolio.\n" +
+            "Successfully created the portfolio healthpf\n" +
+            "Menu: \n" +
+            "C: To create a new Portfolio.\n" +
+            "V: View existing Portfolio.\n" +
+            "Q: Quit the program\n" +
+            "Enter your choice: Enter the name of the portfolio you want to view from the " +
+            "list of portfolios displayed below:\n" +
+            "healthpf\n" +
+            "Press D to view portfolio value by date\n" +
+            "Press P to view portfolio composition\n" +
+            "Company Tickr Symbol Num Stocks\n" +
+            "GOOG                  100.0\n" +
+            "Menu: \n" +
+            "C: To create a new Portfolio.\n" +
+            "V: View existing Portfolio.\n" +
+            "Q: Quit the program\n" +
+            "Enter your choice: Give a valid name for the portfolio you want to create. " +
+            "The string should not have spaces or special characters and the length must be " +
+            "less than 25 characters.\n" +
+            "Please enter a valid portfolio name:\n" +
+            "Press Y to add stocks to the health portfolio.\n" +
+            "Press S to save the Portfolio.\n" +
+            "Enter Valid Stock company tickr symbol\n" +
+            "Enter number of stocks purchased (Integer Values are Only Allowed)\n" +
+            "Press Y to add stocks to the health portfolio.\n" +
+            "Press S to save the Portfolio.\n" +
+            "Successfully created the portfolio health\n" +
+            "Menu: \n" +
+            "C: To create a new Portfolio.\n" +
+            "V: View existing Portfolio.\n" +
+            "Q: Quit the program\n" +
+            "Enter your choice: Enter the name of the portfolio you want to view from the " +
+            "list of portfolios displayed below:\n" +
+            "health\n" +
+            "healthpf\n" +
+            "Press D to view portfolio value by date\n" +
+            "Press P to view portfolio composition\n" +
+            "Company Tickr Symbol Num Stocks\n" +
+            "GOOG                  100.0\n" +
+            "Menu: \n" +
+            "C: To create a new Portfolio.\n" +
+            "V: View existing Portfolio.\n" +
+            "Q: Quit the program\n" +
+            "Enter your choice: ", bytes.toString());
   }
 }
