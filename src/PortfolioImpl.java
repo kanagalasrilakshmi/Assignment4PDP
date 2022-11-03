@@ -234,7 +234,7 @@ public class PortfolioImpl implements Portfolio {
    * @return array list consisting of all valid tickr symbols
    */
   public ArrayListObj convertTXT() throws FileNotFoundException {
-    BufferedReader in = new BufferedReader(new FileReader(new File("tickrData.txt").getAbsolutePath()));
+    BufferedReader in = new BufferedReader(new FileReader(new File("./res/tickrData.txt").getAbsolutePath()));
     String inputLine;
     ArrayList<String> TickrSymbolsList = new ArrayList<>();
     ArrayList<String> pricesList = new ArrayList<>();
