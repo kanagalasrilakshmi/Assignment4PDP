@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintStream;
 import java.text.ParseException;
+import java.time.LocalDate;
 
 import static org.junit.Assert.assertEquals;
 
@@ -109,7 +110,73 @@ public class PortfolioImplTest {
 
   @Test
   public void checkValidateTickrSymbolInvalid(){
+    Portfolio portfolioObj = new PortfolioImpl();
+    try {
+      assertEquals(false, portfolioObj.validateTickrSymbol("YZ"));
+    } catch (FileNotFoundException e) {
+      throw new RuntimeException(e);
+    }
+  }
 
+  @Test
+  public void checkTodayDateAndTimePastDate(){
+    Portfolio portfolioObj = new PortfolioImpl();
+    assertEquals(false, portfolioObj.checkTodayDateAndTime("2020-12-12"));
+  }
+
+  @Test
+  public void checkTodayDateAndTimeFutureDate(){
+    Portfolio portfolioObj = new PortfolioImpl();
+    assertEquals(false, portfolioObj.checkTodayDateAndTime("2024-11-12"));
+  }
+
+  @Test
+  public void checkTodayDateAndTimeInvalidDateFormat1(){
+    Portfolio portfolioObj = new PortfolioImpl();
+    assertEquals(false, portfolioObj.checkTodayDateAndTime("2024/11/12"));
+  }
+
+  @Test
+  public void checkTodayDateAndTimeInvalidDateFormat2(){
+    Portfolio portfolioObj = new PortfolioImpl();
+    assertEquals(false, portfolioObj.checkTodayDateAndTime("20241112"));
+  }
+
+  @Test
+  public void checkFutureDateForFutureDate(){
+    Portfolio portfolioObj = new PortfolioImpl();
+    assertEquals(true, portfolioObj.checkFutureDate("2028-11-23"));
+  }
+
+  @Test
+  public void checkFutureDateForPresentDate(){
+    Portfolio portfolioObj = new PortfolioImpl();
+    assertEquals(false, portfolioObj.checkFutureDate(String.valueOf(LocalDate.now())));
+  }
+
+  @Test
+  public void checkFutureDateForPastDate(){
+    Portfolio portfolioObj = new PortfolioImpl();
+    assertEquals(false, portfolioObj.checkFutureDate("1998-06-01"));
+  }
+
+  @Test
+  public void checkFutureDateForWrongFormat1(){
+    Portfolio portfolioObj = new PortfolioImpl();
+    assertEquals(false, portfolioObj.checkFutureDate("123435436"));
+  }
+
+
+  @Test
+  public void checkFutureDateForWrongFormat2() {
+    Portfolio portfolioObj = new PortfolioImpl();
+    assertEquals(false, portfolioObj.checkFutureDate("1234-35-436"));
+  }
+
+  @Test
+  public void checkFutureDateForWrongFormat3() {
+    Portfolio portfolioObj = new PortfolioImpl();
+    assertEquals(false, portfolioObj.checkFutureDate("1234/11/11"));
   }
 
 }

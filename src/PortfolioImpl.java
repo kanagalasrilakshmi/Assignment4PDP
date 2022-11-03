@@ -4,7 +4,9 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -144,6 +146,12 @@ public class PortfolioImpl implements Portfolio {
    */
   public boolean checkFutureDate(String date) {
     DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    try{
+      LocalDate.parse(date, format);
+    }
+    catch (DateTimeException e){
+      return false;
+    }
     try {
       LocalDate givenDate = LocalDate.parse(date, format);
       LocalDate todayDate = LocalDate.now();
@@ -165,31 +173,42 @@ public class PortfolioImpl implements Portfolio {
    */
   public boolean checkTodayDateAndTime(String date) {
     DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-    try {
+    try{
       LocalDate givenDate = LocalDate.parse(date, format);
-      LocalDate todayDate = LocalDate.now();
-      // check today date.
-      if (givenDate.isEqual(todayDate)) {
-        // check if time is less than 9:30 am.
-        LocalTime timeNow = LocalTime.now();
-        String valTimeNow = String.valueOf(timeNow);
-        SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
-        try {
-          Date dateFormat = timeFormat.parse(valTimeNow);
-          if (dateFormat.before(timeFormat.parse("09:30"))) {
-            return true;
+    }
+    catch (DateTimeException e){
+      return false;
+    }
+    try {
+      try{
+        LocalDate givenDate = LocalDate.parse(date, format);
+        LocalDate todayDate = LocalDate.now();
+        // check today date.
+        if (givenDate.isEqual(todayDate)) {
+          // check if time is less than 9:30 am.
+          LocalTime timeNow = LocalTime.now();
+          String valTimeNow = String.valueOf(timeNow);
+          SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
+          try {
+            Date dateFormat = timeFormat.parse(valTimeNow);
+            if (dateFormat.before(timeFormat.parse("09:30"))) {
+              return true;
+            }
+          } catch (DateTimeException e) {
+            e.printStackTrace();
+            return false;
           }
-        } catch (Exception e) {
-          e.printStackTrace();
-        }
-
+      }
         return false;
       }
-      return false;
+      catch (Exception e){
+        e.printStackTrace();
+        return false;
+      }
     } catch (Exception e) {
       e.printStackTrace();
+      return false;
     }
-    return false;
   }
 
   /**
@@ -242,7 +261,7 @@ public class PortfolioImpl implements Portfolio {
    * @param tickrSymbol of type String.
    * @return true if it is valid else false.
    */
-  public boolean validateTickrSymbol(String tickrSymbol) throws FileNotFoundException{
+  public boolean validateTickrSymbol(String tickrSymbol) {
     // open the tickrlist.
     // check if given symbol is in the text file.
     try{
