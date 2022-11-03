@@ -10,6 +10,9 @@ import java.text.ParseException;
 
 import static org.junit.Assert.assertEquals;
 
+/**
+ * Test class for testing  Controllor functions.
+ */
 public class ControllerImplTest {
 
   @Test

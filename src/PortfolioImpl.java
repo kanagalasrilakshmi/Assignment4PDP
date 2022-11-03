@@ -26,9 +26,9 @@ public class PortfolioImpl implements Portfolio {
     ArrayList<String> listAdded = new ArrayList<>();
     try (FileWriter file = new FileWriter(rootDir + fileName + ".txt")) {
       listAdded.add("Company Tickr Symbol,Num Of Stocks");
-      for (StocksObj Object : listObj) {
+      for (StocksObj object : listObj) {
         // go through all the elements in the ListObj.
-        String toBeAppended = Object.getTickr() + "," + String.valueOf(Object.getNumStocks());
+        String toBeAppended = object.getTickr() + "," + String.valueOf(object.getNumStocks());
         listAdded.add(toBeAppended);
       }
       for (int i = 0; i < listAdded.size(); i++) {
@@ -76,7 +76,7 @@ public class PortfolioImpl implements Portfolio {
   }
 
   /**
-   * Get portfolio value for a given date
+   * Get portfolio value for a given date.
    */
   public float portfolioValueDate(String rootDir, String fileName,
                                   String date) throws FileNotFoundException {
@@ -228,8 +228,8 @@ public class PortfolioImpl implements Portfolio {
    * @return array list consisting of all valid tickr symbols
    */
   public ArrayListObj convertTXT() throws FileNotFoundException {
-    BufferedReader in = new BufferedReader(new FileReader
-            (new File("./res/tickrData.txt").getAbsolutePath()));
+    BufferedReader in = new BufferedReader(new FileReader(new
+            File("./res/tickrData.txt").getAbsolutePath()));
     String inputLine;
     ArrayList<String> tickrSymbolsList = new ArrayList<>();
     ArrayList<String> pricesList = new ArrayList<>();

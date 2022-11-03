@@ -9,6 +9,9 @@ import java.text.ParseException;
 
 import static org.junit.Assert.assertEquals;
 
+/**
+ * test class for testing View functions.
+ */
 public class ViewImplTest {
 
   @Test

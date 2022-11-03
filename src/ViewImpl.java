@@ -1,6 +1,9 @@
 import java.io.File;
 import java.io.PrintStream;
 
+/**
+ * Class for implementing View Interface.
+ */
 public class ViewImpl implements View {
 
   private final PrintStream out;

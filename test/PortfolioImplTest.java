@@ -6,6 +6,9 @@ import java.time.LocalDate;
 
 import static org.junit.Assert.assertEquals;
 
+/**
+ * Test class for testing  Portfolio (Model) functions.
+ */
 public class PortfolioImplTest {
 
   @Test
