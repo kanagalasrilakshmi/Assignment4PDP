@@ -1,4 +1,3 @@
-
 import org.junit.Before;
 import org.junit.Test;
 
@@ -55,6 +54,6 @@ public class ControllerImplTest {
             "C: To create a new Portfolio.\n" +
             "V: View existing Portfolio.\n" +
             "Q: Quit the program\n" +
-            "Enter your choice: ", new String(bytes.toByteArray()));
+            "Enter your choice: ", bytes.toString());
   }
 }

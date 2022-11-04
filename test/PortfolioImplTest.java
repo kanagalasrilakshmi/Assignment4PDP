@@ -1,6 +1,17 @@
+import org.junit.Before;
 import org.junit.Test;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.PrintStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.text.ParseException;
 import java.time.LocalDate;
 
 import static org.junit.Assert.assertEquals;
@@ -9,6 +20,26 @@ import static org.junit.Assert.assertEquals;
  * Test class for testing  Portfolio (Model) functions.
  */
 public class PortfolioImplTest {
+
+  @Before
+  public void setUp() {
+    // Flush contents in directory for every test
+    String rootDir = System.getProperty("user.home") + "/Desktop/PortfolioBucket";
+    if (!new File(rootDir).exists()) {
+      try {
+        Path path = Paths.get(rootDir);
+        Files.createDirectories(path);
+      } catch (Exception e) {
+        e.printStackTrace();
+      }
+    }
+    File files = new File(rootDir);
+    for (File file : files.listFiles()) {
+      if (!file.isDirectory()) {
+        file.delete();
+      }
+    }
+  }
 
   @Test
   public void checkIfDateInRightFormatCorrect() {
@@ -176,4 +207,56 @@ public class PortfolioImplTest {
     assertEquals(false, portfolioObj.checkFutureDate("1234/11/11"));
   }
 
+  @Test
+  public void testFileCreatedAndContentsExist() throws ParseException, IOException {
+    String rootDir = System.getProperty("user.home") + "/Desktop/PortfolioBucket";
+    if (!new File(rootDir).exists()) {
+      try {
+        Path path = Paths.get(rootDir);
+        Files.createDirectories(path);
+      } catch (Exception e) {
+        e.printStackTrace();
+      }
+    }
+    String root = System.getProperty("user.home") + "/Desktop/PortfolioBucket/";
+    String inputStream = root + "F\nC\nretire\nY\nGOOG\n100\nS\nQ";
+    InputStream in = new ByteArrayInputStream(inputStream.getBytes());
+    ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+    PrintStream out = new PrintStream(bytes);
+    Controller controlObj = new ControllerImpl(new PortfolioImpl(), new ViewImpl(out), in);
+    controlObj.goStocks();
+    String text = "";
+    // Read all contents of the file
+    try {
+      text = new String(Files.readAllBytes(Paths.get(root + "retire" + ".txt")));
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+    assertEquals("Company Tickr Symbol,Num Of Stocks\n" +
+            "GOOG,100", text);
+  }
+
+  @Test
+  public void testPortfolioValues() throws IOException, ParseException {
+    String rootDir = System.getProperty("user.home") + "/Desktop/PortfolioBucket/";
+    if (!new File(rootDir).exists()) {
+      try {
+        Path path = Paths.get(rootDir);
+        Files.createDirectories(path);
+      } catch (Exception e) {
+        e.printStackTrace();
+      }
+    }
+    String root = System.getProperty("user.home") + "/Desktop/PortfolioBucket/";
+    String inputStream = root + "F\nC\nnewpf\nY\nGOOG\n100\nS\nQ";
+    InputStream in = new ByteArrayInputStream(inputStream.getBytes());
+    ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+    PrintStream out = new PrintStream(bytes);
+    Controller controlObj = new ControllerImpl(new PortfolioImpl(), new ViewImpl(out), in);
+    controlObj.goStocks();
+
+    Portfolio newModel = new PortfolioImpl();
+    newModel.portfolioValueDate(rootDir, "newpf", "2017-02-10");
+    assertEquals(81367.0, newModel.portfolioValueDate(rootDir, "newpf", "2017-02-10"), 0.01);
+  }
 }
