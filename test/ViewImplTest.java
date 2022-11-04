@@ -39,10 +39,6 @@ public class ViewImplTest {
     }
   }
 
-  // V > invalidpf > show enter valid > enter valid > p >
-  // future view present past and wrong  date format
-  // V > other than d or P
-  // test for save and load
   @Test
   public void testViewSetRootDirectoryDefaulting() throws ParseException, IOException {
     //Checks if user tried to give invalid directory route
@@ -530,6 +526,7 @@ public class ViewImplTest {
             "Enter your choice: ", bytes.toString());
   }
 
+  @Test
   public void testViewPortfolioSave() throws ParseException, IOException {
     String rootDir = System.getProperty("user.home") + "/Desktop/PortfolioBucket/";
     String inputStream = rootDir + "\nC\nhealthpf\nY\nGOOG\n100\nS\nV\nhealthpf\nP\nC" +
