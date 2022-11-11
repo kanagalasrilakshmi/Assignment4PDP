@@ -64,117 +64,9 @@ public class ControllerImpl implements Controller {
         }
       }
     }
-    // ask for commission fees.
-    theView.showString("Enter commission fees");
-    String commissionFees = in.next();
-    while (!thePortfolio.checkValidInteger(commissionFees)) {
-      theView.showString("Only Integer Stock values " +
-              "are allowed. Please enter a valid Integer number.");
-      commissionFees = in.next();
-    }
     while (!quit) {
       theView.showOptions();
       switch (in.next()) {
-        case "B":
-          // visualize using bar graph.
-          // take input portfolio name.
-          // get value of portfolio for that range.
-          // take specific range for which portfolio needs to be displayed.
-        case "C1":
-          // check valid if not then it uses the default.
-          // initialized path only for saving the portfolios.
-          theView.showString("Give a valid name for the portfolio you " +
-                  "want to create. The string " +
-                  "should not have spaces or special characters and " +
-                  "the length must be less than 25 characters.");
-          ArrayList<String> storinglist = new ArrayList<>();
-          String pfName = in.nextLine();
-          while (!thePortfolio.checkValidpfName(pfName)) {
-            theView.showString("Please enter a valid portfolio name:");
-            pfName = in.nextLine();
-          }
-          // check if this same name portfolio exists.
-          String pfNamePath = this.rootDir + pfName + ".txt";
-          while (new File(pfNamePath).exists()) {
-            theView.showString("Portfolio with this name already exists! ");
-            theView.showString("Give another name for the portfolio you want to create:");
-            pfName = in.nextLine();
-            pfNamePath = this.rootDir + pfName + ".txt";
-          }
-          ArrayList<StocksObj> objList = new ArrayList<>();
-          boolean done = false;
-          while (!done) {
-            theView.showString("Press Y to add stocks " +
-                    "to the " + pfName + " portfolio.");
-            theView.showString("Press S to save the Portfolio.");
-            switch (in.next()) {
-              case "S":
-                //check if object list is empty nothing to save
-                if (objList.size() == 0) {
-                  theView.showString("Portfolio must contain at least one entry!! ");
-                } else {
-                  thePortfolio.createPortfolio(this.rootDir, pfName, objList);
-                  done = true;
-                  theView.showString("Successfully created the portfolio " + pfName);
-                }
-                break;
-              case "Y":
-                theView.showString("Enter Valid Stock company tickr symbol");
-                String tickr = in.next();
-                // validate tickr symbol in model.
-                while (!thePortfolio.validateTickrSymbol(tickr)) {
-                  theView.showString("Invalid Tickr Symbol is entered!");
-                  theView.showString("Enter Valid Stock company tickr symbol");
-                  tickr = in.next();
-                }
-                while (storinglist.contains(tickr)) {
-                  theView.showString("The Tickr symbol already " +
-                          "exists! Please enter new Symbol");
-                  tickr = in.next();
-                }
-                // check if tickr symbol is already in the list.
-                storinglist.add(tickr);
-                // backup for api key failure.
-                theView.showString("Enter number of stocks purchased " +
-                        "(Integer Values are Only Allowed)");
-                String numberStocks = in.next();
-                while (!thePortfolio.checkValidInteger(numberStocks)) {
-                  theView.showString("Only Integer Stock values " +
-                          "are allowed. Please enter a valid Integer number.");
-                  numberStocks = in.next();
-                }
-                // add date.
-                theView.showString("Enter the date on which you want to purchase stocks");
-                String date = in.nextLine();
-                while (!thePortfolio.checkIfRightFormat(date)) {
-                  theView.showString("Please enter correct format for date");
-                  date = in.nextLine();
-                }
-                // check if future date is entered.
-                if (thePortfolio.checkFutureDate(date)) {
-                  theView.showString("Future date is entered for which portfolio cannot be " +
-                          "accessed!!");
-                  break;
-                }
-                // check if today's date is entered and stock market is yet to be opened.
-                try {
-                  if (thePortfolio.checkTodayDateAndTime(date)) {
-                    theView.showString("Stock value cannot be fetched as the stock market " +
-                            "is yet to be opened today! Please check for a previous date.");
-                    break;
-                  }
-                } catch (Exception e) {
-                  e.printStackTrace();
-                  break;
-                }
-                objList.add(new StocksObj(tickr, Integer.valueOf(numberStocks),date));
-                break;
-              default:
-                theView.showString("Please Enter Either S/Y only!!");
-                break;
-            }
-          }
-          break;
         case "Q":
           quit = true;
           break;
@@ -203,17 +95,6 @@ public class ControllerImpl implements Controller {
             theView.showString("Press D to view portfolio value by date");
             theView.showString("Press P to view portfolio composition");
             switch (in.next()) {
-              case "P1":
-                ArrayList<PortfolioObj> portfolioView = thePortfolio.viewPortfolio(
-                        this.rootDir, pfNameChosen);
-                // print the value.
-                theView.showString("Company Tickr Symbol" + " " + "Num Stocks"+" "+
-                        "Date of purchase");
-                for (PortfolioObj obj : portfolioView) {
-                  theView.showString(obj.getTickr() + "                  " + obj.getNumStocks()
-                          +"                  "+obj.getDate());
-                }
-                viewDone = true;
               case "D":
                 theView.showString("Enter the date for which you want to " +
                         "fetch the portfolio in YYYY-MM-DD format only!");
