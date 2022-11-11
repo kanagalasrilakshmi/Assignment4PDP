@@ -9,6 +9,9 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
+/**
+ * Class for implementing api calls.
+ */
 public class ApiKey {
   private String tickrsymbol;
 
@@ -16,6 +19,11 @@ public class ApiKey {
     this.tickrsymbol = tickrsymbol;
   }
 
+  /**
+   * Gets the tickr symbol.
+   *
+   * @return tickr symbol of type string
+   */
   public String getTickrSymbol() {
     return this.tickrsymbol;
   }
@@ -26,7 +34,7 @@ public class ApiKey {
    * @return float type price of the stock
    */
   public float callPresentPrice() {
-    String apiKey = "W0M1JOKC82EZEQA8";
+    String apiKey = "QH2XYHVUAHRIBTZ2";
     URL url = null;
     try {
       url = new URL("https://www.alphavantage"
@@ -44,10 +52,16 @@ public class ApiKey {
       BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));
       String inputLine;
       while ((inputLine = in.readLine()) != null) {
-        String h2 = inputLine.split(",")[0];
-        if (!h2.equals("timestamp")) {
-          num = Float.valueOf(inputLine.split(",")[4]);
-          break;
+        // check length.
+        if (inputLine.split(",").length < 5) {
+          num = 0;
+        } else {
+          String h2 = inputLine.split(",")[0];
+          if (!h2.equals("timestamp")) {
+            System.out.println(Float.valueOf(inputLine.split(",")[4]));
+            num = Float.valueOf(inputLine.split(",")[4]);
+            break;
+          }
         }
       }
     } catch (IOException e) {
@@ -59,6 +73,7 @@ public class ApiKey {
   /**
    * get the price for a given date.
    *
+   * @param date of type string
    * @return float type price of the stock
    */
   public float callPriceDate(String date) {
@@ -92,7 +107,7 @@ public class ApiKey {
           if (weekday == Calendar.SATURDAY) {
             // set one day back i.e. friday date.
             LocalDate fridayDate = LocalDate.parse(formatDate.format(dateCheck)).minusDays(1);
-            date= String.valueOf(fridayDate);
+            date = String.valueOf(fridayDate);
           } else if (weekday == Calendar.SUNDAY) {
             // set 2 days back date i.e. friday date.
             LocalDate fridayDate = LocalDate.parse(formatDate.format(dateCheck)).minusDays(2);
