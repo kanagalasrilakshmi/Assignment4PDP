@@ -4,10 +4,17 @@
 public class StocksObj {
   private String tickr;
   private int numStocks;
+  private String date;
 
   public StocksObj(String tickr, int numStocks) {
     this.tickr = tickr;
     this.numStocks = numStocks;
+  }
+
+  public StocksObj(String tickr, int numStocks, String date) {
+    this.tickr = tickr;
+    this.numStocks = numStocks;
+    this.date = date;
   }
 
   /**
@@ -26,5 +33,9 @@ public class StocksObj {
    */
   public int getNumStocks() {
     return this.numStocks;
+  }
+
+  public String getDate(){
+    return this.date;
   }
 }
