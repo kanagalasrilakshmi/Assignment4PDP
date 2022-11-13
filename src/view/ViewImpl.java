@@ -68,4 +68,21 @@ public class ViewImpl implements View {
   public void showOptionError() {
     out.print("\nInvalid option. Please try again.\n");
   }
+
+  /**
+   * List all the json files
+   * @param rootDir is the path from which json files need to be searched
+   */
+  public void listJSONFiles(String rootDir) {
+    File curDir = new File(rootDir);
+    File[] filesList = curDir.listFiles();
+    for (File f : filesList) {
+      if (f.isFile()) {
+        // list only .json files.
+        if (f.getName().contains(".txt")) {
+          out.println(f.getName().split("\\.json")[0]);
+        }
+      }
+    }
+  }
 }

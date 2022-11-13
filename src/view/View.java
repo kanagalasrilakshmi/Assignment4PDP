@@ -28,5 +28,11 @@ public interface View {
    * If an argument other than C,D,V or Q is passed this function is called to display error.
    */
   void showOptionError();
+
+  /**
+   * List all the json files
+   * @param rootDir is the path from which json files need to be searched
+   */
+  void listJSONFiles(String rootDir);
 }
 
