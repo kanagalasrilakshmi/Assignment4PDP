@@ -14,8 +14,8 @@ import java.nio.file.Paths;
 import java.text.ParseException;
 import java.time.LocalDate;
 
-import Controller.Controller;
-import Controller.ControllerImpl;
+import controller.Controller;
+import controller.ControllerImpl;
 import Model.Portfolio;
 import Model.PortfolioImpl;
 import view.ViewImpl;

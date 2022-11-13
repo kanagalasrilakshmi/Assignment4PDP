@@ -12,8 +12,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.ParseException;
 
-import Controller.Controller;
-import Controller.ControllerImpl;
+import controller.Controller;
+import controller.ControllerImpl;
 import Model.PortfolioImpl;
 import view.ViewImpl;
 
