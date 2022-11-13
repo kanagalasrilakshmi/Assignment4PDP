@@ -1,3 +1,6 @@
+package Model;
+
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -11,24 +14,133 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
+/**
+ * A class that helps to create Portfolio Object.
+ */
+class PortfolioObj {
+  private String tickr;
+  private float numStocks;
+
+  public PortfolioObj(String tickr, int numStocks) {
+    this.tickr = tickr;
+    this.numStocks = numStocks;
+  }
+
+  /**
+   * Get the tickr symbol of the company.
+   *
+   * @return string type of the tickr symbol.
+   */
+  public String getTickr() {
+    return this.tickr;
+  }
+
+  /**
+   * Get number of stocks value.
+   *
+   * @return float type of number of stocks
+   */
+  public float getNumStocks() {
+    return this.numStocks;
+  }
+
+}
+
+
+class StocksObj {
+  private String tickr;
+  private int numStocks;
+
+  public StocksObj(String tickr, int numStocks) {
+    this.tickr = tickr;
+    this.numStocks = numStocks;
+  }
+
+  /**
+   * Get the tickr symbol of the company.
+   *
+   * @return string type of the tickr symbol.
+   */
+  public String getTickr() {
+    return this.tickr;
+  }
+
+  /**
+   * Get number of stocks value.
+   *
+   * @return float type of number of stocks
+   */
+  public int getNumStocks() {
+    return this.numStocks;
+  }
+}
+/**
+ * Class for creating an object for creating arraylist objects.
+ */
+class ArrayListObj {
+  private ArrayList<String> tickrSymbols;
+  private ArrayList<String> prices;
+
+  /**
+   * Constructor for ArrayLiostObj.
+   *
+   * @param tickrSymbols of type string array list of stock tickrs
+   * @param prices       of type string array list of prices
+   */
+  public ArrayListObj(ArrayList<String> tickrSymbols, ArrayList<String> prices) {
+    this.tickrSymbols = tickrSymbols;
+    this.prices = prices;
+  }
+
+  /**
+   * gets the array list of tickr symbols.
+   *
+   * @return arraylist of tickrsymbols of type string
+   */
+  public ArrayList<String> getTickrSymbols() {
+    return this.tickrSymbols;
+  }
+
+  /**
+   * gets the array list of corresponding prices for a tickr symbols.
+   *
+   * @return arraylist of price for tickrsymbols of type string
+   */
+  public ArrayList<String> getPrices() {
+    return this.prices;
+  }
+}
+
 
 /**
  * Implementing the Portfolio Interface and coded the implementation.
  */
 public class PortfolioImpl implements Portfolio {
+  private ArrayList<String> objString = new ArrayList<>();
+  private ArrayList<String> objNumStocks = new ArrayList<>();
+  /**
+   * Creates a stock object.
+   * @param tickr is company tickr symbol
+   * @param numberStocks is number of stocks purchased
+   * @return StocksObj type object
+   */
+  public StocksObj makeStockObj(String tickr, String numberStocks){
+    return new StocksObj(tickr,Integer.valueOf(numberStocks));
+  }
   /**
    * Method for creating new portfolio by the user.
    * Dumps all the data entered by user, stores in ListObj to a .txt file.
    */
-  public void createPortfolio(String rootDir, String fileName, ArrayList<StocksObj> listObj) {
+  public void createPortfolio(String rootDir, String fileName, ArrayList<Object> listObj) {
     // create a txt type file.
     // Create a String type ArrayList.
     ArrayList<String> listAdded = new ArrayList<>();
     try (FileWriter file = new FileWriter(rootDir + fileName + ".txt")) {
       listAdded.add("Company Tickr Symbol,Num Of Stocks");
-      for (StocksObj object : listObj) {
+      for (Object object : listObj) {
         // go through all the elements in the ListObj.
-        String toBeAppended = object.getTickr() + "," + String.valueOf(object.getNumStocks());
+        StocksObj obj = (StocksObj)object;
+        String toBeAppended = obj.getTickr() + "," + String.valueOf(obj.getNumStocks());
         listAdded.add(toBeAppended);
       }
       for (int i = 0; i < listAdded.size(); i++) {
@@ -47,7 +159,8 @@ public class PortfolioImpl implements Portfolio {
   /**
    * Method for displaying the portfolio.
    */
-  public ArrayList<PortfolioObj> viewPortfolio(String rootDir, String filename) throws IOException {
+  public ArrayList<PortfolioObj> viewPortfolio(String rootDir, String filename)
+          throws IOException {
     // load the portfolio of the given input file name.
     BufferedReader in = new BufferedReader(new FileReader(rootDir + filename + ".txt"));
     String inputLine;
@@ -73,6 +186,27 @@ public class PortfolioImpl implements Portfolio {
       e.printStackTrace();
       return null;
     }
+  }
+
+  public ArrayList<String> getTickrs(){
+    return this.objString;
+  }
+
+  public ArrayList<String> getNumberStocks(){
+    return this.objNumStocks;
+  }
+
+  public void viewPortfolioDisplay(String rootDir, String filename) throws IOException{
+    ArrayList<PortfolioObj> obj = viewPortfolio(rootDir, filename);
+    ArrayList<String> tickrSymbols = new ArrayList<>();
+    ArrayList<String> numStocks = new ArrayList<>();
+    for(PortfolioObj object: obj){
+      tickrSymbols.add(object.getTickr());
+      numStocks.add(String.valueOf(object.getNumStocks()));
+    }
+    ArrayListObj objreturn = new ArrayListObj(tickrSymbols,numStocks);
+    this.objString = objreturn.getTickrSymbols();
+    this.objNumStocks = objreturn.getPrices();
   }
 
   /**
@@ -310,4 +444,7 @@ public class PortfolioImpl implements Portfolio {
     }
     return true;
   }
+
+
 }
+

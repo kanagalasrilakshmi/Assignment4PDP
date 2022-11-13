@@ -1,5 +1,11 @@
+package view;
+
+import java.awt.*;
 import java.io.File;
 import java.io.PrintStream;
+
+import javax.swing.text.BadLocationException;
+import javax.swing.text.Position;
 
 /**
  * Class for implementing View Interface.
@@ -62,5 +68,4 @@ public class ViewImpl implements View {
   public void showOptionError() {
     out.print("\nInvalid option. Please try again.\n");
   }
-
 }

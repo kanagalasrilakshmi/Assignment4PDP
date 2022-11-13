@@ -1,6 +1,13 @@
 import java.io.IOException;
 import java.text.ParseException;
 
+import Controller.Controller;
+import Controller.ControllerImpl;
+import Model.Portfolio;
+import Model.PortfolioImpl;
+import view.View;
+import view.ViewImpl;
+
 /**
  * Main Stocks class that implements Controllor, PortfolioObj(Model), View.
  * Program is ran using main method.

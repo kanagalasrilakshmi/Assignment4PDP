@@ -1,4 +1,9 @@
+package Model;
+
+
+import java.io.BufferedReader;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -6,7 +11,18 @@ import java.util.ArrayList;
  * Model Interface that consists of all the methods to be implemented by the model.
  */
 public interface Portfolio {
+  public ArrayList<String> getTickrs();
 
+  public ArrayList<String> getNumberStocks();
+
+  public void viewPortfolioDisplay(String rootDir, String filename) throws IOException;
+  /**
+   * Creates a stock object.
+   * @param tickr is company tickr symbol
+   * @param numberStocks is number of stocks purchased
+   * @return StocksObj type object
+   */
+  public StocksObj makeStockObj(String tickr, String numberStocks);
   /**
    * Method for creating new portfolio by the user.
    *
@@ -14,7 +30,7 @@ public interface Portfolio {
    * @param fileName of type string
    * @param listObj  arryay list of StocksObj type
    */
-  public void createPortfolio(String rootDir, String fileName, ArrayList<StocksObj> listObj);
+  public void createPortfolio(String rootDir, String fileName, ArrayList<Object> listObj);
 
   /**
    * Method for displaying the portfolio.
@@ -111,4 +127,6 @@ public interface Portfolio {
    * @return true if integer else false
    */
   public boolean checkValidInteger(String numberStocks);
+
 }
+
