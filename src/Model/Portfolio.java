@@ -1,9 +1,7 @@
 package Model;
 
 
-import java.io.BufferedReader;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -16,13 +14,16 @@ public interface Portfolio {
   public ArrayList<String> getNumberStocks();
 
   public void viewPortfolioDisplay(String rootDir, String filename) throws IOException;
+
   /**
    * Creates a stock object.
-   * @param tickr is company tickr symbol
+   *
+   * @param tickr        is company tickr symbol
    * @param numberStocks is number of stocks purchased
    * @return StocksObj type object
    */
   public StocksObj makeStockObj(String tickr, String numberStocks);
+
   /**
    * Method for creating new portfolio by the user.
    *
@@ -130,19 +131,51 @@ public interface Portfolio {
 
   /**
    * check if the number of stocks entered to be sold is valid or not.
+   *
    * @param numStocks is number stocks to be sold
-   * @param tickr is tickr symbol for which stocks need to be sold
+   * @param tickr     is tickr symbol for which stocks need to be sold
    * @return true if sale can be made else false
    */
   public boolean checkValidSell(String pfPath, int numStocks, String tickr);
 
   /**
    * check if the tickr symbol exists in the portfolio.
+   *
    * @param pfPath path for the portfolio
-   * @param tickr is company tickr symbol
+   * @param tickr  is company tickr symbol
    * @return true if tickr exists else false
    */
   public boolean checkTickrExists(String pfPath, String tickr);
+
+  /**
+   * Check if the given input date is prior to the given input date for a given tickr.
+   *
+   * @param date   is input date
+   * @param tickr  is company tickr symbol
+   * @param pfPath is portfolio path
+   * @return true not prior else false
+   */
+  public boolean checkPriorDate(String date, String tickr, String pfPath);
+
+  /**
+   * check if the given number either an integer or a decimal number
+   *
+   * @param num input string parameter
+   * @return true if valid else return false
+   */
+  public boolean checkValidNum(String num);
+
+  /**
+   * modify the json.
+   *
+   * @param fees   is the commision fees
+   * @param num    num stocks willing to sell
+   * @param date   date on which sale is to be made
+   * @param tickr company tickr symbol
+   * @param pfPath path for the location of the portfolio
+   */
+
+  public void modifyJson(String fees, int num, String date, String tickr,String pfPath);
 
 
 }

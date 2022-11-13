@@ -464,5 +464,37 @@ public class PortfolioImpl implements Portfolio {
   public boolean checkTickrExists(String pfPath, String tickr){
     return false;
   }
+
+  /**
+   * Check if the given input date is prior to the given input date for a given tickr.
+   * @param date is input date
+   * @param tickr is company tickr symbol
+   * @param pfPath is portfolio path
+   * @return true not prior else false
+   */
+  public boolean checkPriorDate(String date,String tickr, String pfPath){
+    return false;
+  }
+
+  /**
+   * check if the given number either an integer or a decimal number
+   * @param num input string parameter
+   * @return true if valid else return false
+   */
+  public boolean checkValidNum(String num){
+    return false;
+  }
+
+  /**
+   * modify the json.
+   *
+   * @param fees   is the commision fees
+   * @param num    num stocks willing to sell
+   * @param date   date on which sale is to be made
+   * @param tickr company tickr symbol
+   * @param pfPath path for the location of the portfolio
+   */
+
+  public void modifyJson(String fees, int num, String date, String tickr,String pfPath){}
 }
 
