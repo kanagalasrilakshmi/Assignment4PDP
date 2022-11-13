@@ -496,5 +496,15 @@ public class PortfolioImpl implements Portfolio {
    */
 
   public void modifyJson(String fees, int num, String date, String tickr,String pfPath){}
+
+  /**
+   * Get the cost basis of a portfolio till a date.
+   * @param pfPath input portfolio path
+   * @param date input string date
+   * @return cost basis value
+   */
+  public float getCostBasis(String pfPath,String date){
+    return 0;
+  }
 }
 
