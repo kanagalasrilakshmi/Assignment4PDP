@@ -1,10 +1,12 @@
 import java.io.IOException;
 import java.text.ParseException;
 
-import Controller.Controller;
-import Controller.ControllerImpl;
+import controller.Controller;
+import controller.ControllerImpl;
 import Model.Portfolio;
 import Model.PortfolioImpl;
+import controller.Controller;
+import controller.ControllerImpl;
 import view.View;
 import view.ViewImpl;
 
