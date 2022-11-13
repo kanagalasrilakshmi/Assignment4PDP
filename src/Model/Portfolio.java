@@ -128,5 +128,6 @@ public interface Portfolio {
    */
   public boolean checkValidInteger(String numberStocks);
 
+
 }
 
