@@ -181,17 +181,68 @@ public class ControllerImplFlexible implements Controller {
                 // ask for commission fees.
                 // check if it is a valid number.
                 String feespurchase = in.next();
+                while (!thePortfolio.checkValidNum(feespurchase)) {
+                  theView.showString("Enter only float and integer values!");
+                  fees = in.next();
+                }
                 // ask for which tickr symbol you want to purchase stocks.
                 // validate that tickr symbol.
                 String tickrpurchase = in.next();
+                while (!thePortfolio.validateTickrSymbol(tickrpurchase)) {
+                  theView.showString("Invalid Tickr Symbol is entered!");
+                  theView.showString("Enter Valid Stock company tickr symbol");
+                  tickrpurchase = in.next();
+                }
                 // ask the date on which you want to purchase the stocks.
                 // check if this date is prior or not to the existing dates.
-                String datepurchase = in.next();
-                // ask number of stocks to be sold.
-                // check if this number is valid.
-                // ask number of stocks to be sold.
+                // ask number of stocks to be purchased.
                 // check if this number is valid.
                 String numpurchase = in.next();
+                while (!thePortfolio.checkValidInteger(numpurchase)) {
+                  theView.showString("Only Integer Stock values " +
+                          "are allowed. Please enter a valid Integer number.");
+                  num = in.next();
+                }
+                // check if number of stocks to be sold are valid.
+                while (!thePortfolio.checkValidSell(this.rootDir +
+                        pfJsonNameChosen + ".json", Integer.valueOf(numpurchase), tickrpurchase)) {
+                  theView.showString("The number entered for selling stocks is more than " +
+                          "stocks purchased");
+                  theView.showString("Please enter valid number for stocks to be sold!!");
+                  num = in.next();
+                }
+                String datepurchase = in.next();
+                while (!thePortfolio.checkIfRightFormat(datepurchase)) {
+                  theView.showString("Please enter correct format for date");
+                  date = in.nextLine();
+                }
+                // check if future date is entered.
+                if (thePortfolio.checkFutureDate(datepurchase)) {
+                  theView.showString("Future date is entered for which portfolio cannot be " +
+                          "accessed!!");
+                  break;
+                }
+                // check if today's date is entered and stock market is yet to be opened.
+                try {
+                  if (thePortfolio.checkTodayDateAndTime(datepurchase)) {
+                    theView.showString("Stock value cannot be fetched as the stock market " +
+                            "is yet to be opened today! Please check for a previous date.");
+                    break;
+                  }
+                } catch (Exception e) {
+                  e.printStackTrace();
+                  break;
+                }
+                // check if it is prior to the date for the tickr symbol.
+                if (!thePortfolio.checkPriorDate(datepurchase, tickrpurchase, this.rootDir +
+                        pfJsonNameChosen + ".json")) {
+                  theView.showString("Purchase on this date cannot be made on this date since " +
+                          "it is invalid");
+                }
+                // if all are valid then call modify the json function.
+                thePortfolio.modifyJson(feespurchase, Integer.parseInt(numpurchase)*-1,
+                        datepurchase, tickrpurchase,
+                        this.rootDir + pfJsonNameChosen + ".json");
                 transDone = true;
                 break;
               default:

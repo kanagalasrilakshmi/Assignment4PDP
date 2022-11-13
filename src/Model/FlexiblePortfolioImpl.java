@@ -80,45 +80,75 @@ public class FlexiblePortfolioImpl extends PortfolioImpl {
     try (FileReader reader = new FileReader(pfPath)) {
       Object parseObj = parser.parse(reader);
       JSONObject portfolio = (JSONObject) parseObj;
-      JSONArray tickrRecord = (JSONArray) portfolio.get(tickr);
-      JSONObject lastEntry = (JSONObject) tickrRecord.get(tickrRecord.size()-1);
-      int totStocks = (Integer)(lastEntry.get("TotalStocks"));
-      int newtotStocks = totStocks + num;
-      // make an api call.
-      ApiKey apiObj = new ApiKey(tickr);
-      // get stock price.
-      float stockPrice = apiObj.callPriceDate(date);
-      // make account of cost basis.
-      float newcostBasis = Float.valueOf(fees)+ (float)lastEntry.get("CostBasis");
-      // add them to the json.
-      JSONObject newEntry = new JSONObject();
-      newEntry.put("Date", date);
-      newEntry.put("Commission Fee", fees);
-      newEntry.put("NumStocks Sold/Purchased", num);
-      newEntry.put("Stock Price", stockPrice);
-      newEntry.put("TotalStocks", newtotStocks);
-      newEntry.put("CostBasis", newcostBasis);
-      // add back to the json.
-      tickrRecord.add(newEntry);
-      portfolio.put(tickr,tickrRecord);
-      // write back to the json.
-      try {
-        FileWriter file = new FileWriter(pfPath);
-        file.write(portfolio.toJSONString());
-        file.close();
-      } catch (IOException e) {
-        // TODO Auto-generated catch block
-        e.printStackTrace();
+      // add new entry if the tickr symbol does not exist.
+      if(!checkTickrExists(pfPath,tickr)){
+        JSONObject newEntry = new JSONObject();
+        // make an api call.
+        ApiKey apiObj = new ApiKey(tickr);
+        float stockPrice = apiObj.callPriceDate(date);
+        // make account of cost basis.
+        float newcostBasis = Float.valueOf(fees)+ (stockPrice*num);
+        newEntry.put("Date", date);
+        newEntry.put("Commission Fee", fees);
+        newEntry.put("NumStocks Sold/Purchased", num);
+        newEntry.put("Stock Price", stockPrice);
+        newEntry.put("TotalStocks", num);
+        newEntry.put("CostBasis", newcostBasis);
+        portfolio.put(tickr,newEntry);
+        try {
+          FileWriter file = new FileWriter(pfPath);
+          file.write(portfolio.toJSONString());
+          file.close();
+        } catch (IOException e) {
+          // TODO Auto-generated catch block
+          e.printStackTrace();
+        }
       }
-
+      // if exists modify it.
+      else{
+        JSONArray tickrRecord = (JSONArray) portfolio.get(tickr);
+        JSONObject lastEntry = (JSONObject) tickrRecord.get(tickrRecord.size()-1);
+        int totStocks = (Integer)(lastEntry.get("TotalStocks"));
+        int newtotStocks = totStocks + num;
+        // make an api call.
+        ApiKey apiObj = new ApiKey(tickr);
+        // get stock price.
+        float stockPrice = apiObj.callPriceDate(date);
+        // make account of cost basis.
+        float newcostBasis = Float.valueOf(fees)+ (float)lastEntry.get("CostBasis");
+        if(num>0){
+          newcostBasis += (stockPrice*num);
+        }
+        // add them to the json.
+        JSONObject newEntry = new JSONObject();
+        newEntry.put("Date", date);
+        newEntry.put("Commission Fee", fees);
+        newEntry.put("NumStocks Sold/Purchased", num);
+        newEntry.put("Stock Price", stockPrice);
+        newEntry.put("TotalStocks", newtotStocks);
+        newEntry.put("CostBasis", newcostBasis);
+        // add back to the json.
+        tickrRecord.add(newEntry);
+        portfolio.put(tickr,tickrRecord);
+        // write back to the json.
+        try {
+          FileWriter file = new FileWriter(pfPath);
+          file.write(portfolio.toJSONString());
+          file.close();
+        } catch (IOException e) {
+          // TODO Auto-generated catch block
+          e.printStackTrace();
+        }
+      }
     } catch (FileNotFoundException e) {
-      e.printStackTrace();
+      throw new RuntimeException(e);
     } catch (IOException e) {
-      e.printStackTrace();
+      throw new RuntimeException(e);
     } catch (ParseException e) {
-      e.printStackTrace();
+      throw new RuntimeException(e);
     }
   }
+
 
   public ArrayList<entryJson> loadPortfolio(String portfolioPath) {
     ArrayList<entryJson> listJson = new ArrayList<>();
