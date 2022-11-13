@@ -1,3 +1,5 @@
+package Controller;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -6,6 +8,9 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import Model.Portfolio;
+import view.View;
 
 /**
  * Implements Controller inteface for running the stocks program for.
@@ -130,12 +135,14 @@ public class ControllerImpl implements Controller {
                 viewDone = true;
                 break;
               case "P":
-                ArrayList<PortfolioObj> portfolioView = thePortfolio.viewPortfolio(
-                        this.rootDir, pfNameChosen);
+                // view the portfolio.
+                thePortfolio.viewPortfolioDisplay(this.rootDir, pfNameChosen);
                 // print the value.
                 theView.showString("Company Tickr Symbol" + " " + "Num Stocks");
-                for (PortfolioObj obj : portfolioView) {
-                  theView.showString(obj.getTickr() + "                  " + obj.getNumStocks());
+                ArrayList<String>tickrsymbols = thePortfolio.getTickrs();
+                ArrayList<String>numStocks= thePortfolio.getNumberStocks();
+                for(int i =0;i<tickrsymbols.size();i++){
+                  theView.showString(tickrsymbols.get(i)+ "                  " +numStocks.get(i));
                 }
                 viewDone = true;
                 break;
@@ -167,7 +174,7 @@ public class ControllerImpl implements Controller {
             pfName = in.nextLine();
             pfNamePath = this.rootDir + pfName + ".txt";
           }
-          ArrayList<StocksObj> objList = new ArrayList<>();
+          ArrayList<Object> objList = new ArrayList<>();
           boolean done = false;
           while (!done) {
             theView.showString("Press Y to add stocks " +
@@ -209,7 +216,7 @@ public class ControllerImpl implements Controller {
                           "are allowed. Please enter a valid Integer number.");
                   numberStocks = in.next();
                 }
-                objList.add(new StocksObj(tickr, Integer.valueOf(numberStocks)));
+                objList.add(thePortfolio.makeStockObj(tickr, numberStocks));
                 break;
               default:
                 theView.showString("Please Enter Either S/Y only!!");
@@ -224,3 +231,4 @@ public class ControllerImpl implements Controller {
     }
   }
 }
+

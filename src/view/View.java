@@ -1,3 +1,4 @@
+package view;
 
 /**
  * View Interface that consists of all the methods to be implemented by the view.
@@ -28,3 +29,4 @@ public interface View {
    */
   void showOptionError();
 }
+
