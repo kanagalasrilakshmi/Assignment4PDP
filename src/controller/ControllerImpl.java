@@ -90,7 +90,7 @@ public class ControllerImpl implements Controller {
           theView.listJSONFiles(this.rootDir);
           // check if user enters valid file name.
           String pfJsonNameChosen = in.next();
-          while (!new File(this.rootDir + pfJsonNameChosen + ".txt").exists()) {
+          while (!new File(this.rootDir + pfJsonNameChosen + ".json").exists()) {
             theView.showString("Please enter a valid Portfolio name from " +
                     "the displayed list only!");
             pfJsonNameChosen = in.next();
@@ -107,15 +107,62 @@ public class ControllerImpl implements Controller {
                 // ask for commission fees.
                 // check if it is a valid number.
                 String fees = in.next();
+
                 // ask for which tickr symbol you want to sell stocks.
                 // validate that tickr symbol.
                 String tickr = in.next();
+                // check if this tickr symbol exists in the portfolio.
+                while (!thePortfolio.checkTickrExists(this.rootDir + pfJsonNameChosen
+                                + ".json", tickr)) {
+                  theView.showString("The stock for which sale is to be made does not exist!");
+                  theView.showString("Enter Valid Stock company tickr symbol");
+                  tickr = in.next();
+                }
+
+                // ask number of stocks to be sold.
+                // check if this number is valid.
+                theView.showString("Enter number of stocks purchased " +
+                        "(Integer Values are Only Allowed)");
+                String num = in.next();
+                while (!thePortfolio.checkValidInteger(num)) {
+                  theView.showString("Only Integer Stock values " +
+                          "are allowed. Please enter a valid Integer number.");
+                  num = in.next();
+                }
+                // check if number of stocks to be sold are valid.
+                while(!thePortfolio.checkValidSell(this.rootDir + pfJsonNameChosen + ".json",
+                      Integer.valueOf(num),tickr)){
+                  theView.showString("The number entered for selling stocks is more than " +
+                          "stocks purchased");
+                  theView.showString("Please enter valid number for stocks to be sold!!");
+                  num = in.next();
+                }
                 // ask the date on which you want to sell the stocks.
                 // check if this date is prior or not to the existing dates.
                 String date = in.next();
-                // ask number of stocks to be sold.
-                // check if this number is valid.
-                String num = in.next();
+                while (!thePortfolio.checkIfRightFormat(date)) {
+                  theView.showString("Please enter correct format for date");
+                  date = in.nextLine();
+                }
+                // check if future date is entered.
+                if (thePortfolio.checkFutureDate(date)) {
+                  theView.showString("Future date is entered for which portfolio cannot be " +
+                          "accessed!!");
+                  break;
+                }
+                // check if today's date is entered and stock market is yet to be opened.
+                try {
+                  if (thePortfolio.checkTodayDateAndTime(date)) {
+                    theView.showString("Stock value cannot be fetched as the stock market " +
+                            "is yet to be opened today! Please check for a previous date.");
+                    break;
+                  }
+                } catch (Exception e) {
+                  e.printStackTrace();
+                  break;
+                }
+                // check if it is prior to the date for the tickr symbol.
+                
                 // if all are valid then modify the json.
                 transDone = true;
                 break;
@@ -156,7 +203,7 @@ public class ControllerImpl implements Controller {
           theView.listJSONFiles(this.rootDir);
           // check if user enters valid file name.
           String pfNameChosen = in.next();
-          while (!new File(this.rootDir + pfNameChosen + ".txt").exists()) {
+          while (!new File(this.rootDir + pfNameChosen + ".json").exists()) {
             theView.showString("Please enter a valid Portfolio name from " +
                     "the displayed list only!");
             pfNameChosen = in.next();
@@ -252,12 +299,12 @@ public class ControllerImpl implements Controller {
             pfName = in.nextLine();
           }
           // check if this same name portfolio exists.
-          String pfNamePath = this.rootDir + pfName + ".txt";
+          String pfNamePath = this.rootDir + pfName + ".json";
           while (new File(pfNamePath).exists()) {
             theView.showString("Portfolio with this name already exists! ");
             theView.showString("Give another name for the portfolio you want to create:");
             pfName = in.nextLine();
-            pfNamePath = this.rootDir + pfName + ".txt";
+            pfNamePath = this.rootDir + pfName + ".json";
           }
           boolean done = false;
           while (!done) {

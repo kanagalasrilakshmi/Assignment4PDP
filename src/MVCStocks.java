@@ -1,6 +1,7 @@
 import java.io.IOException;
 import java.text.ParseException;
 
+import Model.FlexiblePortfolioImpl;
 import controller.Controller;
 import controller.ControllerImpl;
 import Model.Portfolio;
@@ -24,7 +25,7 @@ public class MVCStocks {
    * @throws IOException    if given input is not valid
    */
   public static void main(String[] args) throws ParseException, IOException {
-    Portfolio model = new PortfolioImpl();
+    Portfolio model = new FlexiblePortfolioImpl();
     View view = new ViewImpl(System.out);
     Controller controller = new ControllerImpl(model, view, System.in);
     controller.goStocks();

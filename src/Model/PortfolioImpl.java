@@ -445,6 +445,24 @@ public class PortfolioImpl implements Portfolio {
     return true;
   }
 
+  /**
+   * check if the number of stocks entered to be sold is valid or not.
+   * @param numStocks is number stocks to be sold
+   * @param tickr is tickr symbol for which stocks need to be sold
+   * @return true if sale can be made else false
+   */
+  public boolean checkValidSell(String pfPath, int numStocks, String tickr){
+    return false;
+  }
 
+  /**
+   * check if the tickr symbol exists in the portfolio.
+   * @param pfPath path for the portfolio
+   * @param tickr is company tickr symbol
+   * @return true if tickr exists else false
+   */
+  public boolean checkTickrExists(String pfPath, String tickr){
+    return false;
+  }
 }
 

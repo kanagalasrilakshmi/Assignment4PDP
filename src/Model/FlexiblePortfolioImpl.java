@@ -137,6 +137,80 @@ public class FlexiblePortfolioImpl extends PortfolioImpl {
   public void getBarGraph(){
     
   }
+  /**
+   * check if the number of stocks entered to be sold is valid or not.
+   * @param numStocks is number stocks to be sold
+   * @param tickr is tickr symbol for which stocks need to be sold
+   * @return true if sale can be made else false
+   */
+  @Override
+  public boolean checkValidSell(String pfPath, int numStocks, String tickr){
+    // load the json file.
+    // check if the for the given tickr symbol and number of stocks is sale possible.
+    // check if number stock to be sold are valid.
+    JSONParser parser = new JSONParser();
+
+    try (FileReader reader = new FileReader(pfPath)) {
+      Object parseObj = parser.parse(reader);
+      JSONObject portfolio = (JSONObject) parseObj;
+      if (this.checkTickrExists(pfPath,tickr)){
+        JSONArray tickr_record = (JSONArray) portfolio.get(tickr);
+        // go to the last entry.
+        JSONObject lastEntry = (JSONObject) tickr_record.get(tickr_record.size()-1);
+        int val = (Integer)lastEntry.get("Total Stock");
+        if(val>=numStocks){
+          return true;
+        }
+      }
+      for (Object tickrsym :portfolio.keySet()){
+        String checkTickr = (String)tickrsym;
+        if(checkTickr.equals(tickr)){
+          return true;
+        }
+      }
+    } catch (FileNotFoundException e) {
+      e.printStackTrace();
+      return false;
+    } catch (IOException e) {
+      e.printStackTrace();
+      return false;
+    } catch (ParseException e) {
+      e.printStackTrace();
+      return false;
+    }
+    return false;
+  }
+
+  /**
+   * check if the tickr symbol exists in the portfolio.
+   * @param pfPath path for the portfolio
+   * @param tickr is company tickr symbol
+   * @return true if tickr exists else false
+   */
+  @Override
+  public boolean checkTickrExists(String pfPath, String tickr){
+    JSONParser parser = new JSONParser();
+    try (FileReader reader = new FileReader(pfPath)) {
+      Object parseObj = parser.parse(reader);
+      JSONObject portfolio = (JSONObject) parseObj;
+      for (Object tickrsym :portfolio.keySet()){
+        String checkTickr = (String)tickrsym;
+        if(checkTickr.equals(tickr)){
+          return true;
+        }
+      }
+    } catch (FileNotFoundException e) {
+      e.printStackTrace();
+      return false;
+    } catch (IOException e) {
+      e.printStackTrace();
+      return false;
+    } catch (ParseException e) {
+      e.printStackTrace();
+      return false;
+    }
+    return false;
+  }
 
 }
 
