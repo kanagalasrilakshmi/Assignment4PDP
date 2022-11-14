@@ -112,13 +112,16 @@ public class ControllerImplFlexible implements Controller {
                 // selling.
                 // ask for commission fees.
                 // check if it is a valid number.
+                theView.showString("Enter the commission fees");
                 String fees = in.next();
                 while (!thePortfolio.checkValidNum(fees)) {
                   theView.showString("Enter only float and integer values!");
+                  theView.showString("Enter the commission fees");
                   fees = in.next();
                 }
                 // ask for which tickr symbol you want to sell stocks.
                 // validate that tickr symbol.
+                theView.showString("Enter Valid Stock company tickr symbol");
                 String tickr = in.next();
                 // check if this tickr symbol exists in the portfolio.
                 while (!thePortfolio.checkTickrExists(this.rootDir + pfJsonNameChosen
@@ -130,7 +133,7 @@ public class ControllerImplFlexible implements Controller {
 
                 // ask number of stocks to be sold.
                 // check if this number is valid.
-                theView.showString("Enter number of stocks purchased " +
+                theView.showString("Enter number of stocks to be sold " +
                         "(Integer Values are Only Allowed)");
                 String num = in.next();
                 while (!thePortfolio.checkValidInteger(num)) {
@@ -175,16 +178,22 @@ public class ControllerImplFlexible implements Controller {
                         pfJsonNameChosen + ".json")) {
                   theView.showString("Sale on this date cannot be made on this date since " +
                           "it is invalid");
+                  break;
                 }
                 // if all are valid then call modify the json function.
-                thePortfolio.modifyJson(fees, Integer.parseInt(num) * -1, date,
-                        tickr, this.rootDir + pfJsonNameChosen + ".json");
+                else{
+                  thePortfolio.modifyJson(fees, Integer.parseInt(num) * -1, date,
+                          tickr, this.rootDir + pfJsonNameChosen + ".json");
+                  theView.showString("The portfolio " + pfJsonNameChosen +
+                          " is sucessfully modified");
+                }
                 transDone = true;
                 break;
               case "2":
                 // purchasing
                 // ask for commission fees.
                 // check if it is a valid number.
+                theView.showString("Enter the commission fees");
                 String feespurchase = in.next();
                 while (!thePortfolio.checkValidNum(feespurchase)) {
                   theView.showString("Enter only float and integer values!");
@@ -192,6 +201,7 @@ public class ControllerImplFlexible implements Controller {
                 }
                 // ask for which tickr symbol you want to purchase stocks.
                 // validate that tickr symbol.
+                theView.showString("Enter Valid Stock company tickr symbol");
                 String tickrpurchase = in.next();
                 while (!thePortfolio.validateTickrSymbol(tickrpurchase)) {
                   theView.showString("Invalid Tickr Symbol is entered!");
@@ -202,24 +212,19 @@ public class ControllerImplFlexible implements Controller {
                 // check if this date is prior or not to the existing dates.
                 // ask number of stocks to be purchased.
                 // check if this number is valid.
+                theView.showString("Enter number of stocks to be purchased " +
+                        "(Integer Values are Only Allowed)");
                 String numpurchase = in.next();
                 while (!thePortfolio.checkValidInteger(numpurchase)) {
                   theView.showString("Only Integer Stock values " +
                           "are allowed. Please enter a valid Integer number.");
                   numpurchase = in.next();
                 }
-                // check if number of stocks to be sold are valid.
-                while (!thePortfolio.checkValidSell(this.rootDir +
-                        pfJsonNameChosen + ".json", Integer.valueOf(numpurchase), tickrpurchase)) {
-                  theView.showString("The number entered for selling stocks is more than " +
-                          "stocks purchased");
-                  theView.showString("Please enter valid number for stocks to be sold!!");
-                  numpurchase = in.next();
-                }
-                String datepurchase = in.nextLine();
+                theView.showString("Enter date to purchase the stocks");
+                String datepurchase = in.next();
                 while (!thePortfolio.checkIfRightFormat(datepurchase)) {
                   theView.showString("Please enter correct format for date");
-                  datepurchase = in.nextLine();
+                  datepurchase = in.next();
                 }
                 // check if future date is entered.
                 if (thePortfolio.checkFutureDate(datepurchase)) {
@@ -238,16 +243,28 @@ public class ControllerImplFlexible implements Controller {
                   e.printStackTrace();
                   break;
                 }
-                // check if it is prior to the date for the tickr symbol.
-                if (!thePortfolio.checkPriorDate(datepurchase, tickrpurchase, this.rootDir +
-                        pfJsonNameChosen + ".json")) {
-                  theView.showString("Purchase on this date cannot be made on this date since " +
-                          "it is invalid");
-                }
                 // if all are valid then call modify the json function.
-                thePortfolio.modifyJson(feespurchase, Integer.parseInt(numpurchase) * -1,
-                        datepurchase, tickrpurchase,
-                        this.rootDir + pfJsonNameChosen + ".json");
+                if (!thePortfolio.checkTickrExists(this.rootDir + pfJsonNameChosen +
+                        ".json", tickrpurchase)) {
+                  thePortfolio.modifyJson(feespurchase, Integer.parseInt(numpurchase),
+                          datepurchase, tickrpurchase,
+                          this.rootDir + pfJsonNameChosen + ".json");
+                  theView.showString("The portfolio " + pfJsonNameChosen + " is successfully " +
+                          "modified");
+                } else {
+                  // check if it is prior to the date for the tickr symbol.
+                  if (!thePortfolio.checkPriorDate(datepurchase, tickrpurchase,
+                          this.rootDir + pfJsonNameChosen + ".json")) {
+                    theView.showString("Purchase on this date cannot be made on this " +
+                            "date since, it is invalid");
+                    break;
+                  }
+                  thePortfolio.modifyJson(feespurchase, Integer.parseInt(numpurchase),
+                          datepurchase, tickrpurchase,
+                          this.rootDir + pfJsonNameChosen + ".json");
+                  theView.showString("The portfolio " + pfJsonNameChosen + " is successfully " +
+                          "modified");
+                }
                 transDone = true;
                 break;
               default:

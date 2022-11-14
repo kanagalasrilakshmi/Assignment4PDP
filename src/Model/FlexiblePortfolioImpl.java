@@ -11,9 +11,9 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
+
 public class FlexiblePortfolioImpl extends PortfolioImpl {
 
   /**
@@ -32,18 +32,22 @@ public class FlexiblePortfolioImpl extends PortfolioImpl {
       Object parseObj = parser.parse(reader);
       JSONObject portfolio = (JSONObject) parseObj;
       // add new entry if the tickr symbol does not exist.
-      if(!checkTickrExists(pfPath,tickr)){
+      if (!checkTickrExists(pfPath, tickr)) {
         JSONObject newEntry = new JSONObject();
-        float stockPrice = (float)newEntry.get("Stock Price");
+        // make an api call
+        ApiKey apiObj = new ApiKey(tickr);
+        float stockPrice = apiObj.callPriceDate(date);
         // make account of cost basis.
-        float newcostBasis = Float.valueOf(fees)+ (stockPrice*num);
+        float newcostBasis = Float.valueOf(fees) + (stockPrice * num);
         newEntry.put("Date", date);
-        newEntry.put("Commission Fee", fees);
-        newEntry.put("NumStocks Sold/Purchased", num);
-        newEntry.put("Stock Price", stockPrice);
-        newEntry.put("TotalStocks", num);
-        newEntry.put("CostBasis", newcostBasis);
-        portfolio.put(tickr,newEntry);
+        newEntry.put("Commission Fee", Float.valueOf(fees));
+        newEntry.put("NumStocks Sold or Purchased", Integer.valueOf(num));
+        newEntry.put("Stock Price", Float.valueOf(stockPrice));
+        newEntry.put("TotalStocks", Integer.valueOf(num));
+        newEntry.put("CostBasis", Float.valueOf(newcostBasis));
+        JSONArray arrayObj = new JSONArray();
+        arrayObj.add(newEntry);
+        portfolio.put(tickr, arrayObj);
         try {
           FileWriter file = new FileWriter(pfPath);
           file.write(portfolio.toJSONString());
@@ -54,29 +58,33 @@ public class FlexiblePortfolioImpl extends PortfolioImpl {
         }
       }
       // if exists modify it.
-      else{
+      else {
         JSONArray tickrRecord = (JSONArray) portfolio.get(tickr);
-        JSONObject lastEntry = (JSONObject) tickrRecord.get(tickrRecord.size()-1);
-        int totStocks = (Integer)(lastEntry.get("TotalStocks"));
+        JSONObject lastEntry = (JSONObject) tickrRecord.get(tickrRecord.size() - 1);
+        Long valStocks = (Long) lastEntry.get("TotalStocks");
+        int totStocks = valStocks.intValue();
         int newtotStocks = totStocks + num;
         // get stock price.
-        float stockPrice = (float)lastEntry.get("Stock Price");
+        double valStockPrice = (double) lastEntry.get("Stock Price");
+        float stockPrice = (float) valStockPrice;
         // make account of cost basis.
-        float newcostBasis = Float.valueOf(fees)+ (float)lastEntry.get("CostBasis");
-        if(num>0){
-          newcostBasis += (stockPrice*num);
+        double valCostbasis = (double) lastEntry.get("CostBasis");
+        float costbasis = (float) valCostbasis;
+        float newcostBasis = Float.valueOf(fees) + costbasis;
+        if (num > 0) {
+          newcostBasis += (stockPrice * num);
         }
         // add them to the json.
         JSONObject newEntry = new JSONObject();
         newEntry.put("Date", date);
-        newEntry.put("Commission Fee", fees);
-        newEntry.put("NumStocks Sold/Purchased", num);
-        newEntry.put("Stock Price", stockPrice);
-        newEntry.put("TotalStocks", newtotStocks);
-        newEntry.put("CostBasis", newcostBasis);
+        newEntry.put("Commission Fee", Float.valueOf(fees));
+        newEntry.put("NumStocks Sold or Purchased", Integer.valueOf(num));
+        newEntry.put("Stock Price", Float.valueOf(stockPrice));
+        newEntry.put("TotalStocks", Integer.valueOf(newtotStocks));
+        newEntry.put("CostBasis", Float.valueOf(newcostBasis));
         // add back to the json.
         tickrRecord.add(newEntry);
-        portfolio.put(tickr,tickrRecord);
+        portfolio.put(tickr, tickrRecord);
         // write back to the json.
         try {
           FileWriter file = new FileWriter(pfPath);
@@ -98,12 +106,13 @@ public class FlexiblePortfolioImpl extends PortfolioImpl {
 
   /**
    * Get the cost basis of a portfolio till a date.
+   *
    * @param pfPath input portfolio path
-   * @param date input string date
+   * @param date   input string date
    * @return cost basis value
    */
   @Override
-  public float getCostBasis(String pfPath,String date) {
+  public float getCostBasis(String pfPath, String date) {
     float finalCostBasis = 0;
     JSONParser parser = new JSONParser();
     try (FileReader reader = new FileReader(pfPath)) {
@@ -111,11 +120,11 @@ public class FlexiblePortfolioImpl extends PortfolioImpl {
       JSONObject portfolio = (JSONObject) parseObj;
       for (Object tickrsym : portfolio.keySet()) {
         JSONArray arrayObj = (JSONArray) portfolio.get(tickrsym);
-        for(int i = arrayObj.size()-1 ;i>=0;i--){
+        for (int i = arrayObj.size() - 1; i >= 0; i--) {
           JSONObject tickrRecord = (JSONObject) arrayObj.get(i);
-          if(checkIfBeforeDate(date,(String)tickrRecord.get("Date"))){
-            double presentCostBasis = (double)tickrRecord.get("CostBasis");
-            finalCostBasis +=  presentCostBasis;
+          if (checkIfBeforeDate(date, (String) tickrRecord.get("Date"))) {
+            double presentCostBasis = (double) tickrRecord.get("CostBasis");
+            finalCostBasis += presentCostBasis;
             break;
           }
         }
@@ -137,11 +146,12 @@ public class FlexiblePortfolioImpl extends PortfolioImpl {
 
   /**
    * create a json portfolio.
-   * @param pfPath portfolio path where json needs to be saved
+   *
+   * @param pfPath   portfolio path where json needs to be saved
    * @param addEntry add json entry
    */
   @Override
-  public void createPortfolioJson(String pfPath,JSONObject addEntry){
+  public void createPortfolioJson(String pfPath, JSONObject addEntry) {
     try {
       FileWriter file = new FileWriter(pfPath);
       file.write(addEntry.toJSONString());
@@ -157,25 +167,25 @@ public class FlexiblePortfolioImpl extends PortfolioImpl {
    */
   @Override
   public float portfolioValueDate(String rootDir, String fileName,
-                                  String date) throws FileNotFoundException{
+                                  String date) throws FileNotFoundException {
     float finalVal = 0;
     // load the json file.
     JSONParser parser = new JSONParser();
-    try (FileReader reader = new FileReader(rootDir+fileName+".json")) {
+    try (FileReader reader = new FileReader(rootDir + fileName + ".json")) {
       Object parseObj = parser.parse(reader);
       JSONObject portfolio = (JSONObject) parseObj;
       for (Object tickrsym : portfolio.keySet()) {
-        ApiKey apiObj = new ApiKey((String)tickrsym);
+        ApiKey apiObj = new ApiKey((String) tickrsym);
         JSONArray arrayObj = (JSONArray) portfolio.get(tickrsym);
-        for(int i = arrayObj.size()-1 ;i>=0;i--){
+        for (int i = arrayObj.size() - 1; i >= 0; i--) {
           JSONObject tickrRecord = (JSONObject) arrayObj.get(i);
           // check if the date is prior.
           // get the stocks.
           // multiply by the stock value and number of total stocks on that day.
-          if(checkIfBeforeDate(date,(String) tickrRecord.get("Date"))){
+          if (checkIfBeforeDate(date, (String) tickrRecord.get("Date"))) {
             Long val = (Long) tickrRecord.get("TotalStocks");
             int totStocks = val.intValue();
-            finalVal +=  totStocks* apiObj.callPriceDate(date);
+            finalVal += totStocks * apiObj.callPriceDate(date);
             break;
           }
         }
@@ -214,14 +224,9 @@ public class FlexiblePortfolioImpl extends PortfolioImpl {
         JSONArray tickr_record = (JSONArray) portfolio.get(tickr);
         // go to the last entry.
         JSONObject lastEntry = (JSONObject) tickr_record.get(tickr_record.size() - 1);
-        int val = (Integer) lastEntry.get("Total Stock");
-        if (val >= numStocks) {
-          return true;
-        }
-      }
-      for (Object tickrsym : portfolio.keySet()) {
-        String checkTickr = (String) tickrsym;
-        if (checkTickr.equals(tickr)) {
+        Long val = (Long) lastEntry.get("TotalStocks");
+        int valStocks = val.intValue();
+        if (valStocks >= numStocks) {
           return true;
         }
       }
@@ -271,8 +276,9 @@ public class FlexiblePortfolioImpl extends PortfolioImpl {
   }
 
 
-  private boolean checkIfBeforeDate(String givenDate,String toBeChecked)
+  private boolean checkIfBeforeDate(String givenDate, String toBeChecked)
           throws java.text.ParseException {
+    System.out.println("Came here");
     SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-DD", Locale.ENGLISH);
     Date newdate = formatter.parse(givenDate);
     Date checkrecentDate = formatter.parse(toBeChecked);
@@ -281,6 +287,7 @@ public class FlexiblePortfolioImpl extends PortfolioImpl {
     }
     return false;
   }
+
   /**
    * Check if the given input date is prior to the given input date for a given tickr.
    *
@@ -299,13 +306,7 @@ public class FlexiblePortfolioImpl extends PortfolioImpl {
         JSONArray tickrrecord = (JSONArray) portfolio.get(tickr);
         JSONObject obj = (JSONObject) tickrrecord.get(tickrrecord.size() - 1);
         String recentDate = (String) obj.get("Date");
-        if(checkIfBeforeDate(date,recentDate)){
-          return true;
-        }
-      }
-      for (Object tickrsym : portfolio.keySet()) {
-        String checkTickr = (String) tickrsym;
-        if (checkTickr.equals(tickr)) {
+        if(recentDate.equals(date) || checkIfBeforeDate(date, recentDate)){
           return true;
         }
       }
@@ -353,14 +354,15 @@ public class FlexiblePortfolioImpl extends PortfolioImpl {
 
   /**
    * check if the tickr symbol exists in a json array
+   *
    * @param tickrList of type JSONObject
-   * @param tickr company tickrsymbol
+   * @param tickr     company tickrsymbol
    * @return false if not found else return true
    */
-  public boolean checkTickrJSONArray(JSONObject tickrList,String tickr){
-    for(Object ticksSym : tickrList.keySet()){
-      String tickerSymbol = (String)ticksSym;
-      if(tickerSymbol.equals(tickr)){
+  public boolean checkTickrJSONArray(JSONObject tickrList, String tickr) {
+    for (Object ticksSym : tickrList.keySet()) {
+      String tickerSymbol = (String) ticksSym;
+      if (tickerSymbol.equals(tickr)) {
         return true;
       }
     }
@@ -369,13 +371,14 @@ public class FlexiblePortfolioImpl extends PortfolioImpl {
 
   /**
    * check if date is prior to the most recent date entry.
-   * @param date input date entry
+   *
+   * @param date         input date entry
    * @param existingDate most recent date
    * @return true if prior else false
    */
-  public boolean checkDateinJSONObject(String date, String existingDate){
+  public boolean checkDateinJSONObject(String date, String existingDate) {
     SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-DD", Locale.ENGLISH);
-    try{
+    try {
       Date newdate = formatter.parse(date);
       Date checkrecentDate = formatter.parse(existingDate);
       if (checkrecentDate.before(newdate)) {
@@ -389,11 +392,12 @@ public class FlexiblePortfolioImpl extends PortfolioImpl {
 
   /**
    * Get the price of a stock on a date.
-   * @param date input date on which portfolio value is needed
+   *
+   * @param date        input date on which portfolio value is needed
    * @param tickrSymbol company tickr symbol
    * @return float value of the price
    */
-  public float getCallPriceDate(String date,String tickrSymbol){
+  public float getCallPriceDate(String date, String tickrSymbol) {
     ApiKey apiObj = new ApiKey(tickrSymbol);
     return apiObj.callPriceDate(date);
   }
