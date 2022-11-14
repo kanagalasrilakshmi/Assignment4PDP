@@ -1,6 +1,9 @@
 package controller;
 
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -376,49 +379,115 @@ public class ControllerImplFlexible implements Controller {
             theView.showString("Press Y to add stocks " +
                     "to the " + pfName + " portfolio.");
             theView.showString("Press S to save the Portfolio.");
-            ArrayList<Object> objList = new ArrayList<>();
+            // {"GOOG":[{Date:,No of stocks:,Total Stocks:,commission Fees:,stockPrice that day:,
+            // costBasis },{}],"TSLA":[{},{}],"UBER":[{}]}.
+            JSONObject addTickr = new JSONObject();
             switch (in.next()) {
               case "S":
-                //check if object list is empty nothing to save
-                if (objList.size() == 0) {
+                if (addTickr.size() == 0) {
                   theView.showString("Portfolio must contain at least one entry!! ");
                 } else {
-                  thePortfolio.createPortfolio(this.rootDir, pfName, objList);
+                  thePortfolio.createPortfolioJson(this.rootDir+pfName+".json",addTickr);
                   done = true;
                   theView.showString("Successfully created the portfolio " + pfName);
                 }
                 break;
               case "Y":
-                theView.showString("Enter Valid Stock company tickr symbol");
-                String tickr = in.next();
-                // validate tickr symbol in model.
-                while (!thePortfolio.validateTickrSymbol(tickr)) {
-                  theView.showString("Invalid Tickr Symbol is entered!");
-                  theView.showString("Enter Valid Stock company tickr symbol");
-                  tickr = in.next();
+                theView.showString("Enter the commission fees");
+                String feescommision = in.next();
+                while (!thePortfolio.checkValidNum(feescommision)) {
+                  theView.showString("Enter only float and integer values!");
+                  feescommision= in.next();
                 }
-                while (storinglist.contains(tickr)) {
-                  theView.showString("The Tickr symbol already " +
-                          "exists! Please enter new Symbol");
-                  tickr = in.next();
-                }
-                // check if tickr symbol is already in the list.
-                storinglist.add(tickr);
-                // backup for api key failure.
-                theView.showString("Enter number of stocks purchased " +
-                        "(Integer Values are Only Allowed)");
-                String numberStocks = in.next();
-                while (!thePortfolio.checkValidInteger(numberStocks)) {
+
+                theView.showString("Enter the number of stocks");
+                String numpurchase = in.next();
+                while (!thePortfolio.checkValidInteger(numpurchase)) {
                   theView.showString("Only Integer Stock values " +
                           "are allowed. Please enter a valid Integer number.");
-                  numberStocks = in.next();
+                  numpurchase = in.next();
                 }
+
+                theView.showString("Enter the tickr symbol");
+                String tickrpurchase = in.next();
+                while (!thePortfolio.validateTickrSymbol(tickrpurchase)) {
+                  theView.showString("Invalid Tickr Symbol is entered!");
+                  theView.showString("Enter Valid Stock company tickr symbol");
+                  tickrpurchase = in.next();
+                }
+
+                theView.showString("Enter the date of purchase");
+                String datepurchase = in.next();
+                while (!thePortfolio.checkIfRightFormat(datepurchase)) {
+                  theView.showString("Please enter correct format for date");
+                  datepurchase = in.nextLine();
+                }
+                // check if future date is entered.
+                if (thePortfolio.checkFutureDate(datepurchase)) {
+                  theView.showString("Future date is entered for which portfolio cannot be " +
+                          "accessed!!");
+                  break;
+                }
+                // check if today's date is entered and stock market is yet to be opened.
+                try {
+                  if (thePortfolio.checkTodayDateAndTime(datepurchase)) {
+                    theView.showString("Stock value cannot be fetched as the stock market " +
+                            "is yet to be opened today! Please check for a previous date.");
+                    break;
+                  }
+                } catch (Exception e) {
+                  e.printStackTrace();
+                  break;
+                }
+
+                if(!thePortfolio.checkTickrJSONArray(addTickr,tickrpurchase)){
+                  JSONObject addEntry = new JSONObject();
+                  JSONArray listEntry = new JSONArray();
+                  addEntry.put("Date", datepurchase);
+                  addEntry.put("Commission Fee", Float.valueOf(feescommision));
+                  addEntry.put("NumStocks Sold/Purchased", Integer.valueOf(numpurchase));
+                  addEntry.put("TotalStocks", Integer.valueOf(numpurchase));
+                  // get stock price on that day.
+                  // calculate cost basis.
+                  Float stockPrice = thePortfolio.getCallPriceDate
+                          (datepurchase,tickrpurchase);
+                  addEntry.put("CostBasis", stockPrice*Float.valueOf(numpurchase));
+                  addEntry.put("Stock Price", stockPrice);
+                  addTickr.put(tickrpurchase,listEntry.add(addEntry));
+                }
+                else{
+                  JSONArray tickerRecord = (JSONArray) addTickr.get(tickrpurchase);
+                  JSONObject keyEntry = (JSONObject)tickerRecord.get(tickerRecord.size()-1);
+                  while(!thePortfolio.checkDateinJSONObject(datepurchase,
+                          (String)keyEntry.get("Date"))){
+                    theView.showString("The date entered is invalid entry");
+                    theView.showString("Enter the date of purchase");
+                    datepurchase = in.next();
+                  }
+                  JSONObject newKeyEntry = new JSONObject();
+                  Float stockPrice = thePortfolio.getCallPriceDate
+                          (datepurchase,tickrpurchase);
+                  newKeyEntry.put("Date",datepurchase);
+                  newKeyEntry.put("Commission Fee", Float.valueOf(feescommision));
+                  newKeyEntry.put("NumStocks Sold/Purchased", Integer.valueOf(numpurchase));
+                  newKeyEntry.put("TotalStocks", Integer.valueOf(numpurchase) +
+                          (int)keyEntry.get("NumStocks Sold/Purchased"));
+                  newKeyEntry.put("Stock Price", stockPrice);
+                  newKeyEntry.put("CostBasis", stockPrice*Float.valueOf(numpurchase)+
+                          (float)keyEntry.get("CostBasis"));
+                  tickerRecord.add(newKeyEntry);
+                  addTickr.put(tickrpurchase,tickerRecord);
+                }
+                thePortfolio.createPortfolioJson(pfNamePath,addTickr);
                 break;
               default:
-                theView.showOptionError();
+                theView.showString("Press Either Y/S only!!");
                 break;
             }
           }
+        default:
+          theView.showOptionError();
+          break;
       }
     }
   }

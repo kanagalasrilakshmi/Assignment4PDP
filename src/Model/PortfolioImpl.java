@@ -1,6 +1,8 @@
 package Model;
 
 
+import org.json.simple.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -504,6 +506,39 @@ public class PortfolioImpl implements Portfolio {
    * @return cost basis value
    */
   public float getCostBasis(String pfPath,String date){
+    return 0;
+  }
+
+  /**
+   * create a json portfolio.
+   * @param pfPath portfolio path where json needs to be saved
+   * @param addEntry add json entry
+   */
+  public void createPortfolioJson(String pfPath, JSONObject addEntry){
+
+  }
+
+  /**
+   * check if the tickr symbol exists in a json array
+   * @param tickrList of type JSONObject
+   * @param tickr company tickrsymbol
+   * @return false if not found else return true
+   */
+  public boolean checkTickrJSONArray(JSONObject tickrList,String tickr){
+    return false;
+  }
+
+  public boolean checkDateinJSONObject(String date, String existingDate){
+    return false;
+  }
+
+  /**
+   * Get the price of a stock on a date.
+   * @param date input date on which portfolio value is needed
+   * @param tickrSymbol company tickr symbol
+   * @return float value of the price
+   */
+  public float getCallPriceDate(String date,String tickrSymbol){
     return 0;
   }
 }

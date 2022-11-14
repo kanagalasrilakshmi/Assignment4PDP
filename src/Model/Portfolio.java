@@ -1,6 +1,8 @@
 package Model;
 
 
+import org.json.simple.JSONObject;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -184,6 +186,37 @@ public interface Portfolio {
    * @return cost basis value
    */
   public float getCostBasis(String pfPath,String date);
+
+  /**
+   * create a json portfolio.
+   * @param pfPath portfolio path where json needs to be saved
+   * @param addEntry add json entry
+   */
+  public void createPortfolioJson(String pfPath, JSONObject addEntry);
+
+  /**
+   * check if the tickr symbol exists in a json array
+   * @param tickrList of type JSONObject
+   * @param tickr company tickrsymbol
+   * @return false if not found else return true
+   */
+  public boolean checkTickrJSONArray(JSONObject tickrList,String tickr);
+
+  /**
+   * check if date is prior to the most recent date entry.
+   * @param date input date entry
+   * @param existingDate most recent date
+   * @return true if prior else false
+   */
+  public boolean checkDateinJSONObject(String date, String existingDate);
+
+  /**
+   * Get the price of a stock on a date.
+   * @param date input date on which portfolio value is needed
+   * @param tickrSymbol company tickr symbol
+   * @return float value of the price
+   */
+  public float getCallPriceDate(String date,String tickrSymbol);
 
 
 }

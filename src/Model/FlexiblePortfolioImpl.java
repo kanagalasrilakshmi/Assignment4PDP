@@ -33,9 +33,7 @@ public class FlexiblePortfolioImpl extends PortfolioImpl {
       // add new entry if the tickr symbol does not exist.
       if(!checkTickrExists(pfPath,tickr)){
         JSONObject newEntry = new JSONObject();
-        // make an api call.
-        ApiKey apiObj = new ApiKey(tickr);
-        float stockPrice = apiObj.callPriceDate(date);
+        float stockPrice = (float)newEntry.get("Stock Price");
         // make account of cost basis.
         float newcostBasis = Float.valueOf(fees)+ (stockPrice*num);
         newEntry.put("Date", date);
@@ -60,10 +58,8 @@ public class FlexiblePortfolioImpl extends PortfolioImpl {
         JSONObject lastEntry = (JSONObject) tickrRecord.get(tickrRecord.size()-1);
         int totStocks = (Integer)(lastEntry.get("TotalStocks"));
         int newtotStocks = totStocks + num;
-        // make an api call.
-        ApiKey apiObj = new ApiKey(tickr);
         // get stock price.
-        float stockPrice = apiObj.callPriceDate(date);
+        float stockPrice = (float)lastEntry.get("Stock Price");
         // make account of cost basis.
         float newcostBasis = Float.valueOf(fees)+ (float)lastEntry.get("CostBasis");
         if(num>0){
@@ -133,6 +129,23 @@ public class FlexiblePortfolioImpl extends PortfolioImpl {
     } catch (ParseException e) {
       e.printStackTrace();
       return 0;
+    }
+  }
+
+  /**
+   * create a json portfolio.
+   * @param pfPath portfolio path where json needs to be saved
+   * @param addEntry add json entry
+   */
+  @Override
+  public void createPortfolioJson(String pfPath,JSONObject addEntry){
+    try {
+      FileWriter file = new FileWriter(pfPath);
+      file.write(addEntry.toJSONString());
+      file.close();
+    } catch (IOException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
     }
   }
 
@@ -321,6 +334,53 @@ public class FlexiblePortfolioImpl extends PortfolioImpl {
       }
     }
     return true;
+  }
+
+  /**
+   * check if the tickr symbol exists in a json array
+   * @param tickrList of type JSONObject
+   * @param tickr company tickrsymbol
+   * @return false if not found else return true
+   */
+  public boolean checkTickrJSONArray(JSONObject tickrList,String tickr){
+    for(Object ticksSym : tickrList.keySet()){
+      String tickerSymbol = (String)ticksSym;
+      if(tickerSymbol.equals(tickr)){
+        return true;
+      }
+    }
+    return false;
+  }
+
+  /**
+   * check if date is prior to the most recent date entry.
+   * @param date input date entry
+   * @param existingDate most recent date
+   * @return true if prior else false
+   */
+  public boolean checkDateinJSONObject(String date, String existingDate){
+    SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-DD", Locale.ENGLISH);
+    try{
+      Date newdate = formatter.parse(date);
+      Date checkrecentDate = formatter.parse(existingDate);
+      if (checkrecentDate.before(newdate)) {
+        return true;
+      }
+    } catch (java.text.ParseException e) {
+      throw new RuntimeException(e);
+    }
+    return false;
+  }
+
+  /**
+   * Get the price of a stock on a date.
+   * @param date input date on which portfolio value is needed
+   * @param tickrSymbol company tickr symbol
+   * @return float value of the price
+   */
+  public float getCallPriceDate(String date,String tickrSymbol){
+    ApiKey apiObj = new ApiKey(tickrSymbol);
+    return apiObj.callPriceDate(date);
   }
 
   /* Create
