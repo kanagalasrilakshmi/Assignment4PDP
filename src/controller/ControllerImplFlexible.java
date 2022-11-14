@@ -304,8 +304,9 @@ public class ControllerImplFlexible implements Controller {
                   break;
                 }
                 // get the cost basis.
-                float costBasis = thePortfolio.getCostBasis(pfNameChosen,date);
-                theView.showString("The cost basis till the date "+date+" is : "+costBasis);
+                float costBasis = thePortfolio.getCostBasis(this.rootDir + pfNameChosen
+                        + ".json",date);
+                theView.showString("The cost basis till the date, "+date+" is : "+costBasis);
                 break;
               case "D":
                 // get value of the portfolio on that specific date.
@@ -336,6 +337,7 @@ public class ControllerImplFlexible implements Controller {
                   break;
                 }
                 // get the value on the specific date.
+                thePortfolio.portfolioValueDate(this.rootDir,pfNameChosen,valdate);
                 break;
               case "P":
                 // view composition of portfolio.

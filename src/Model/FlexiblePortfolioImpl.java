@@ -105,7 +105,9 @@ public class FlexiblePortfolioImpl extends PortfolioImpl {
    * @param date input string date
    * @return cost basis value
    */
+  @Override
   public float getCostBasis(String pfPath,String date) {
+    float finalCostBasis = 0;
     JSONParser parser = new JSONParser();
     try (FileReader reader = new FileReader(pfPath)) {
       Object parseObj = parser.parse(reader);
@@ -116,10 +118,12 @@ public class FlexiblePortfolioImpl extends PortfolioImpl {
         for(int i = arrayObj.size()-1 ;i>=0;i--){
           JSONObject tickrRecord = (JSONObject) arrayObj.get(i);
           if(checkPriorDate(date,(String)tickrRecord.get("Date"),pfPath)){
-            return (float)tickrRecord.get("CostBasis");
+            finalCostBasis +=  (float)tickrRecord.get("CostBasis");
+            break;
           }
         }
       }
+      return finalCostBasis;
     } catch (FileNotFoundException e) {
       e.printStackTrace();
       return 0;
@@ -130,7 +134,47 @@ public class FlexiblePortfolioImpl extends PortfolioImpl {
       e.printStackTrace();
       return 0;
     }
-    return 0;
+  }
+
+  /**
+   * Get portfolio value for a given date.
+   */
+  @Override
+  public float portfolioValueDate(String rootDir, String fileName,
+                                  String date) throws FileNotFoundException{
+    float finalVal = 0;
+    // load the json file.
+    JSONParser parser = new JSONParser();
+    try (FileReader reader = new FileReader(rootDir+fileName+".json")) {
+      Object parseObj = parser.parse(reader);
+      JSONObject portfolio = (JSONObject) parseObj;
+      for (Object tickrsym : portfolio.keySet()) {
+        ApiKey apiObj = new ApiKey((String)tickrsym);
+        JSONArray arrayObj = (JSONArray) portfolio.get(tickrsym);
+        for(int i = arrayObj.size()-1 ;i>=0;i--){
+          JSONObject tickrRecord = (JSONObject) arrayObj.get(i);
+          // check if the date is prior.
+          // get the stocks.
+          // multiply by the stock value and number of total stocks on that day.
+          if(checkPriorDate(date,(String)tickrRecord.get("Date"),rootDir+fileName+".json")){
+            finalVal +=  (int)tickrRecord.get("TotalStocks")* apiObj.callPriceDate(date);
+            break;
+          }
+        }
+      }
+
+      // return that value.
+      return finalVal;
+    } catch (FileNotFoundException e) {
+      e.printStackTrace();
+      return 0;
+    } catch (IOException e) {
+      e.printStackTrace();
+      return 0;
+    } catch (ParseException e) {
+      e.printStackTrace();
+      return 0;
+    }
   }
 
   /**
@@ -303,19 +347,5 @@ public class FlexiblePortfolioImpl extends PortfolioImpl {
 
   }
   */
-  public void savePortFolio(String pathPfName) {
-
-  }
-
-  public void getValueDate() {
-
-  }
-
-  public void getBarGraph() {
-
-  }
-
-
-
 }
 
