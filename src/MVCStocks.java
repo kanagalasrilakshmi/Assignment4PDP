@@ -10,6 +10,7 @@ import controller.Controller;
 import controller.ControllerImpl;
 import view.View;
 import view.ViewImpl;
+import view.ViewImplFlexible;
 
 /**
  * Main Stocks class that implements Controllor, PortfolioObj(Model), View.
@@ -26,7 +27,7 @@ public class MVCStocks {
    */
   public static void main(String[] args) throws ParseException, IOException {
     Portfolio model = new FlexiblePortfolioImpl();
-    View view = new ViewImpl(System.out);
+    View view = new ViewImplFlexible(System.out);
     Controller controller = new ControllerImpl(model, view, System.in);
     controller.goStocks();
   }

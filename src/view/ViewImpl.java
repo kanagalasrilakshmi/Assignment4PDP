@@ -12,7 +12,7 @@ import javax.swing.text.Position;
  */
 public class ViewImpl implements View {
 
-  private final PrintStream out;
+  final PrintStream out;
 
   /**
    * Constructo for view.
