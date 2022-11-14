@@ -79,7 +79,7 @@ public class ViewImpl implements View {
     for (File f : filesList) {
       if (f.isFile()) {
         // list only .json files.
-        if (f.getName().contains(".txt")) {
+        if (f.getName().contains(".json")) {
           out.println(f.getName().split("\\.json")[0]);
         }
       }

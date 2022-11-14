@@ -5,6 +5,7 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -381,6 +382,26 @@ public class FlexiblePortfolioImpl extends PortfolioImpl {
   public float getCallPriceDate(String date,String tickrSymbol){
     ApiKey apiObj = new ApiKey(tickrSymbol);
     return apiObj.callPriceDate(date);
+  }
+
+  /**
+   * Check if the given output folder has any portfolios.
+   *
+   * @param rootDir is the path
+   * @return true if there are any portfolios else false
+   */
+  @Override
+  public boolean checkOutputFolder(String rootDir) {
+    File curDir = new File(rootDir);
+    File[] filesList = curDir.listFiles();
+    for (File file : filesList) {
+      if (file.isFile()) {
+        if (file.getName().contains(".json")) {
+          return true;
+        }
+      }
+    }
+    return false;
   }
 
   /* Create

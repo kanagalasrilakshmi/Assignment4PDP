@@ -149,7 +149,7 @@ public class ControllerImplFlexible implements Controller {
                 }
                 // ask the date on which you want to sell the stocks.
                 // check if this date is prior or not to the existing dates.
-                String date = in.next();
+                String date = in.nextLine();
                 while (!thePortfolio.checkIfRightFormat(date)) {
                   theView.showString("Please enter correct format for date");
                   date = in.nextLine();
@@ -189,7 +189,7 @@ public class ControllerImplFlexible implements Controller {
                 String feespurchase = in.next();
                 while (!thePortfolio.checkValidNum(feespurchase)) {
                   theView.showString("Enter only float and integer values!");
-                  fees = in.next();
+                  feespurchase = in.next();
                 }
                 // ask for which tickr symbol you want to purchase stocks.
                 // validate that tickr symbol.
@@ -207,7 +207,7 @@ public class ControllerImplFlexible implements Controller {
                 while (!thePortfolio.checkValidInteger(numpurchase)) {
                   theView.showString("Only Integer Stock values " +
                           "are allowed. Please enter a valid Integer number.");
-                  num = in.next();
+                  numpurchase = in.next();
                 }
                 // check if number of stocks to be sold are valid.
                 while (!thePortfolio.checkValidSell(this.rootDir +
@@ -215,12 +215,12 @@ public class ControllerImplFlexible implements Controller {
                   theView.showString("The number entered for selling stocks is more than " +
                           "stocks purchased");
                   theView.showString("Please enter valid number for stocks to be sold!!");
-                  num = in.next();
+                  numpurchase = in.next();
                 }
-                String datepurchase = in.next();
+                String datepurchase = in.nextLine();
                 while (!thePortfolio.checkIfRightFormat(datepurchase)) {
                   theView.showString("Please enter correct format for date");
-                  date = in.nextLine();
+                  datepurchase = in.nextLine();
                 }
                 // check if future date is entered.
                 if (thePortfolio.checkFutureDate(datepurchase)) {
@@ -258,6 +258,7 @@ public class ControllerImplFlexible implements Controller {
           break;
         case "B":
           // display bar graph of the portfolio.
+          break;
         case "V":
           if (!thePortfolio.checkOutputFolder(this.rootDir)) {
             theView.showString("No portfolio exists. Create a portfolio to view it.");
@@ -323,7 +324,7 @@ public class ControllerImplFlexible implements Controller {
 
                 while (!thePortfolio.checkIfRightFormat(valdate)) {
                   theView.showString("Please enter correct format for date");
-                  date = in.nextLine();
+                  valdate = in.nextLine();
                 }
                 // check if future date is entered.
                 if (thePortfolio.checkFutureDate(valdate)) {
@@ -387,35 +388,34 @@ public class ControllerImplFlexible implements Controller {
                   "want to create. The string " +
                   "should not have spaces or special characters and " +
                   "the length must be less than 25 characters.");
-          String pfName = in.nextLine();
-          ArrayList<String> storinglist = new ArrayList<>();
+          String pfName = in.next();
           while (!thePortfolio.checkValidpfName(pfName)) {
             theView.showString("Please enter a valid portfolio name:");
-            pfName = in.nextLine();
+            pfName = in.next();
           }
           // check if this same name portfolio exists.
           String pfNamePath = this.rootDir + pfName + ".json";
           while (new File(pfNamePath).exists()) {
             theView.showString("Portfolio with this name already exists! ");
             theView.showString("Give another name for the portfolio you want to create:");
-            pfName = in.nextLine();
+            pfName = in.next();
             pfNamePath = this.rootDir + pfName + ".json";
           }
           boolean done = false;
+          JSONObject addTickr = new JSONObject();
           while (!done) {
             theView.showString("Press Y to add stocks " +
                     "to the " + pfName + " portfolio.");
             theView.showString("Press S to save the Portfolio.");
-            // {"GOOG":[{Date:,No of stocks:,Total Stocks:,commission Fees:,stockPrice that day:,
-            // costBasis },{}],"TSLA":[{},{}],"UBER":[{}]}.
-            JSONObject addTickr = new JSONObject();
             switch (in.next()) {
               case "S":
                 if (addTickr.size() == 0) {
+                  System.out.println(addTickr);
                   theView.showString("Portfolio must contain at least one entry!! ");
                 } else {
                   thePortfolio.createPortfolioJson(this.rootDir+pfName+".json",addTickr);
                   done = true;
+                  thePortfolio.createPortfolioJson(pfNamePath,addTickr);
                   theView.showString("Successfully created the portfolio " + pfName);
                 }
                 break;
@@ -426,6 +426,13 @@ public class ControllerImplFlexible implements Controller {
                   theView.showString("Enter only float and integer values!");
                   feescommision= in.next();
                 }
+                theView.showString("Enter the tickr symbol");
+                String tickrpurchase = in.next();
+                while (!thePortfolio.validateTickrSymbol(tickrpurchase)) {
+                  theView.showString("Invalid Tickr Symbol is entered!");
+                  theView.showString("Enter Valid Stock company tickr symbol");
+                  tickrpurchase = in.next();
+                }
 
                 theView.showString("Enter the number of stocks");
                 String numpurchase = in.next();
@@ -435,24 +442,16 @@ public class ControllerImplFlexible implements Controller {
                   numpurchase = in.next();
                 }
 
-                theView.showString("Enter the tickr symbol");
-                String tickrpurchase = in.next();
-                while (!thePortfolio.validateTickrSymbol(tickrpurchase)) {
-                  theView.showString("Invalid Tickr Symbol is entered!");
-                  theView.showString("Enter Valid Stock company tickr symbol");
-                  tickrpurchase = in.next();
-                }
-
                 theView.showString("Enter the date of purchase");
                 String datepurchase = in.next();
                 while (!thePortfolio.checkIfRightFormat(datepurchase)) {
                   theView.showString("Please enter correct format for date");
-                  datepurchase = in.nextLine();
+                  datepurchase = in.next();
                 }
                 // check if future date is entered.
                 if (thePortfolio.checkFutureDate(datepurchase)) {
                   theView.showString("Future date is entered for which portfolio cannot be " +
-                          "accessed!!");
+                          "created!!");
                   break;
                 }
                 // check if today's date is entered and stock market is yet to be opened.
@@ -466,21 +465,21 @@ public class ControllerImplFlexible implements Controller {
                   e.printStackTrace();
                   break;
                 }
-
                 if(!thePortfolio.checkTickrJSONArray(addTickr,tickrpurchase)){
                   JSONObject addEntry = new JSONObject();
                   JSONArray listEntry = new JSONArray();
                   addEntry.put("Date", datepurchase);
                   addEntry.put("Commission Fee", Float.valueOf(feescommision));
-                  addEntry.put("NumStocks Sold/Purchased", Integer.valueOf(numpurchase));
+                  addEntry.put("NumStocks Sold or Purchased", Integer.valueOf(numpurchase));
                   addEntry.put("TotalStocks", Integer.valueOf(numpurchase));
                   // get stock price on that day.
                   // calculate cost basis.
-                  Float stockPrice = thePortfolio.getCallPriceDate
-                          (datepurchase,tickrpurchase);
-                  addEntry.put("CostBasis", stockPrice*Float.valueOf(numpurchase));
+                  //Float stockPrice = thePortfolio.getCallPriceDate(datepurchase,tickrpurchase);
+                  float stockPrice = 0;
+                  addEntry.put("CostBasis", stockPrice*Float.valueOf(numpurchase)+ Float.valueOf(feescommision));
                   addEntry.put("Stock Price", stockPrice);
-                  addTickr.put(tickrpurchase,listEntry.add(addEntry));
+                  listEntry.add(addEntry);
+                  addTickr.put(tickrpurchase,listEntry);
                 }
                 else{
                   JSONArray tickerRecord = (JSONArray) addTickr.get(tickrpurchase);
@@ -501,17 +500,17 @@ public class ControllerImplFlexible implements Controller {
                           (int)keyEntry.get("NumStocks Sold/Purchased"));
                   newKeyEntry.put("Stock Price", stockPrice);
                   newKeyEntry.put("CostBasis", stockPrice*Float.valueOf(numpurchase)+
-                          (float)keyEntry.get("CostBasis"));
+                          (float)keyEntry.get("CostBasis")+Float.valueOf(feescommision));
                   tickerRecord.add(newKeyEntry);
                   addTickr.put(tickrpurchase,tickerRecord);
                 }
-                thePortfolio.createPortfolioJson(pfNamePath,addTickr);
                 break;
               default:
                 theView.showString("Press Either Y/S only!!");
                 break;
             }
           }
+          break;
         default:
           theView.showOptionError();
           break;
