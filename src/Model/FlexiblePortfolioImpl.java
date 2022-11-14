@@ -172,8 +172,10 @@ public class FlexiblePortfolioImpl extends PortfolioImpl {
           // check if the date is prior.
           // get the stocks.
           // multiply by the stock value and number of total stocks on that day.
-          if(checkPriorDate(date,(String) tickrsym,rootDir+fileName+".json")){
-            finalVal +=  (float)tickrRecord.get("TotalStocks")* apiObj.callPriceDate(date);
+          if(checkIfBeforeDate(date,(String) tickrRecord.get("Date"))){
+            Long val = (Long) tickrRecord.get("TotalStocks");
+            int totStocks = val.intValue();
+            finalVal +=  totStocks* apiObj.callPriceDate(date);
             break;
           }
         }
@@ -190,6 +192,8 @@ public class FlexiblePortfolioImpl extends PortfolioImpl {
     } catch (ParseException e) {
       e.printStackTrace();
       return 0;
+    } catch (java.text.ParseException e) {
+      throw new RuntimeException(e);
     }
   }
 
@@ -413,30 +417,5 @@ public class FlexiblePortfolioImpl extends PortfolioImpl {
     }
     return false;
   }
-
-  /* Create
-  JSONObject obj = new JSONObject();
-  JSONObject arrayElementOne = new JSONObject();
-  JSONArray arrayElementOneArray = new JSONArray();
-  arrayElementOne.put("Date", 1);
-  arrayElementOne.put("Commission", 1);
-  arrayElementOne.put("no_of_stocks", 1);
-  arrayElementOne.put("status", 1);
-  arrayElementOne.put("remaining_stocks", 1);
-  arrayElementOne.put("current_value", 1);
-  arrayElementOneArray.add(arrayElementOne);
-  obj.put("GOOG",arrayElementOneArray);
-  System.out.print(obj);
-
-  try {
-    FileWriter file = new FileWriter(System.getProperty("user.home")+"/Desktop/"+"output.json");
-    file.write(obj.toJSONString());
-    file.close();
-  } catch (IOException e) {
-    // TODO Auto-generated catch block
-    e.printStackTrace();
-
-  }
-  */
 }
 

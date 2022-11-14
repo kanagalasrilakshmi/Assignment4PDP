@@ -13,7 +13,6 @@ import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 import Model.Portfolio;
@@ -141,7 +140,7 @@ public class ControllerImplFlexible implements Controller {
                 }
                 // check if number of stocks to be sold are valid.
                 while (!thePortfolio.checkValidSell(this.rootDir +
-                                pfJsonNameChosen + ".json", Integer.valueOf(num), tickr)) {
+                        pfJsonNameChosen + ".json", Integer.valueOf(num), tickr)) {
                   theView.showString("The number entered for selling stocks is more than " +
                           "stocks purchased");
                   theView.showString("Please enter valid number for stocks to be sold!!");
@@ -178,7 +177,7 @@ public class ControllerImplFlexible implements Controller {
                           "it is invalid");
                 }
                 // if all are valid then call modify the json function.
-                thePortfolio.modifyJson(fees, Integer.parseInt(num)*-1, date,
+                thePortfolio.modifyJson(fees, Integer.parseInt(num) * -1, date,
                         tickr, this.rootDir + pfJsonNameChosen + ".json");
                 transDone = true;
                 break;
@@ -246,7 +245,7 @@ public class ControllerImplFlexible implements Controller {
                           "it is invalid");
                 }
                 // if all are valid then call modify the json function.
-                thePortfolio.modifyJson(feespurchase, Integer.parseInt(numpurchase)*-1,
+                thePortfolio.modifyJson(feespurchase, Integer.parseInt(numpurchase) * -1,
                         datepurchase, tickrpurchase,
                         this.rootDir + pfJsonNameChosen + ".json");
                 transDone = true;
@@ -312,8 +311,10 @@ public class ControllerImplFlexible implements Controller {
                 }
                 // get the cost basis.
                 float costBasis = thePortfolio.getCostBasis(this.rootDir + pfNameChosen
-                        + ".json",date);
-                theView.showString("The cost basis till the date, "+date+" is : "+costBasis);
+                        + ".json", date);
+                theView.showString("The cost basis till the date, " + date + " is : "
+                        + costBasis);
+                viewDone = true;
                 break;
               case "D":
                 // get value of the portfolio on that specific date.
@@ -344,36 +345,41 @@ public class ControllerImplFlexible implements Controller {
                   break;
                 }
                 // get the value on the specific date.
-                thePortfolio.portfolioValueDate(this.rootDir,pfNameChosen,valdate);
+                float totVal = thePortfolio.portfolioValueDate(this.rootDir, pfNameChosen, valdate);
+                theView.showString("Portfolio Value on " + valdate + " is : " + totVal);
+                viewDone = true;
                 break;
               case "P":
                 // view composition of portfolio.
                 JSONParser parser = new JSONParser();
-                try (FileReader reader = new FileReader(this.rootDir+pfNameChosen+".json")) {
+                try (FileReader reader = new FileReader
+                        (this.rootDir + pfNameChosen + ".json")) {
                   Object parseObj = parser.parse(reader);
                   JSONObject portfolio = (JSONObject) parseObj;
                   for (Object tickrsym : portfolio.keySet()) {
-                    theView.showString("TICKER SYMBOL : "+(String) tickrsym);
+                    theView.showString("TICKER SYMBOL : " + (String) tickrsym);
                     theView.showString("NUM OF STOCKS PURCHASED/SOLD    DATE OF PURCHASE/SELL   "
                             + " COMMISION FEES    STOCK PRICE   TOTAL NUMBER OF STOCKS TILL DATE  "
                             + "COST BASIS");
                     JSONArray arrayObj = (JSONArray) portfolio.get(tickrsym);
-                    for (int i = 0; i <arrayObj.size(); i++) {
+                    for (int i = 0; i < arrayObj.size(); i++) {
                       JSONObject tickrRecord = (JSONObject) arrayObj.get(i);
                       theView.showString(
-                              tickrRecord.get("NumStocks Sold or Purchased")+"                 "+
-                                     "              " +(String)tickrRecord.get("Date")
-                                      +"            "+
-                                      "     "+ (Double)tickrRecord.get("Commission Fee")+
-                                      "                   "+ tickrRecord.get("Stock Price")+
+                              tickrRecord.get("NumStocks Sold or Purchased")
+                                      + "                 " +
+                                      "              " + (String) tickrRecord.get("Date")
+                                      + "            " +
+                                      "     " + (Double) tickrRecord.get("Commission Fee") +
+                                      "                   " + tickrRecord.get("Stock Price") +
                                       "                  " + tickrRecord.get("TotalStocks")
-                                      +"                   "+ (Double)tickrRecord.get("CostBasis"));
-                      }
+                                      + "                   "
+                                      + (Double) tickrRecord.get("CostBasis"));
                     }
-                  } catch (ParseException e) {
+                  }
+                } catch (ParseException e) {
                   throw new RuntimeException(e);
                 }
-                // display the .json file.
+                viewDone = true;
                 break;
               default:
                 theView.showString("Please enter either I/D/P only!!");
@@ -414,9 +420,10 @@ public class ControllerImplFlexible implements Controller {
                   System.out.println(addTickr);
                   theView.showString("Portfolio must contain at least one entry!! ");
                 } else {
-                  thePortfolio.createPortfolioJson(this.rootDir+pfName+".json",addTickr);
+                  thePortfolio.createPortfolioJson(this.rootDir + pfName + ".json",
+                          addTickr);
                   done = true;
-                  thePortfolio.createPortfolioJson(pfNamePath,addTickr);
+                  thePortfolio.createPortfolioJson(pfNamePath, addTickr);
                   theView.showString("Successfully created the portfolio " + pfName);
                 }
                 break;
@@ -425,7 +432,7 @@ public class ControllerImplFlexible implements Controller {
                 String feescommision = in.next();
                 while (!thePortfolio.checkValidNum(feescommision)) {
                   theView.showString("Enter only float and integer values!");
-                  feescommision= in.next();
+                  feescommision = in.next();
                 }
                 theView.showString("Enter the tickr symbol");
                 String tickrpurchase = in.next();
@@ -466,7 +473,7 @@ public class ControllerImplFlexible implements Controller {
                   e.printStackTrace();
                   break;
                 }
-                if(!thePortfolio.checkTickrJSONArray(addTickr,tickrpurchase)){
+                if (!thePortfolio.checkTickrJSONArray(addTickr, tickrpurchase)) {
                   JSONObject addEntry = new JSONObject();
                   JSONArray listEntry = new JSONArray();
                   addEntry.put("Date", datepurchase);
@@ -477,33 +484,33 @@ public class ControllerImplFlexible implements Controller {
                   // calculate cost basis.
                   //Float stockPrice = thePortfolio.getCallPriceDate(datepurchase,tickrpurchase);
                   float stockPrice = 0;
-                  addEntry.put("CostBasis", stockPrice*Float.valueOf(numpurchase)+ Float.valueOf(feescommision));
+                  addEntry.put("CostBasis", stockPrice * Float.valueOf(numpurchase) +
+                          Float.valueOf(feescommision));
                   addEntry.put("Stock Price", stockPrice);
                   listEntry.add(addEntry);
-                  addTickr.put(tickrpurchase,listEntry);
-                }
-                else{
+                  addTickr.put(tickrpurchase, listEntry);
+                } else {
                   JSONArray tickerRecord = (JSONArray) addTickr.get(tickrpurchase);
-                  JSONObject keyEntry = (JSONObject)tickerRecord.get(tickerRecord.size()-1);
-                  while(!thePortfolio.checkDateinJSONObject(datepurchase,
-                          (String)keyEntry.get("Date"))){
+                  JSONObject keyEntry = (JSONObject) tickerRecord.get(tickerRecord.size() - 1);
+                  while (!thePortfolio.checkDateinJSONObject(datepurchase,
+                          (String) keyEntry.get("Date"))) {
                     theView.showString("The date entered is invalid entry");
                     theView.showString("Enter the date of purchase");
                     datepurchase = in.next();
                   }
                   JSONObject newKeyEntry = new JSONObject();
                   Float stockPrice = thePortfolio.getCallPriceDate
-                          (datepurchase,tickrpurchase);
-                  newKeyEntry.put("Date",datepurchase);
+                          (datepurchase, tickrpurchase);
+                  newKeyEntry.put("Date", datepurchase);
                   newKeyEntry.put("Commission Fee", Float.valueOf(feescommision));
                   newKeyEntry.put("NumStocks Sold or Purchased", Integer.valueOf(numpurchase));
                   newKeyEntry.put("TotalStocks", Integer.valueOf(numpurchase) +
-                          (int)keyEntry.get("NumStocks Sold or Purchased"));
+                          (int) keyEntry.get("NumStocks Sold or Purchased"));
                   newKeyEntry.put("Stock Price", stockPrice);
-                  newKeyEntry.put("CostBasis", stockPrice*Float.valueOf(numpurchase)+
-                          (float)keyEntry.get("CostBasis")+Float.valueOf(feescommision));
+                  newKeyEntry.put("CostBasis", stockPrice * Float.valueOf(numpurchase) +
+                          (float) keyEntry.get("CostBasis") + Float.valueOf(feescommision));
                   tickerRecord.add(newKeyEntry);
-                  addTickr.put(tickrpurchase,tickerRecord);
+                  addTickr.put(tickrpurchase, tickerRecord);
                 }
                 break;
               default:
