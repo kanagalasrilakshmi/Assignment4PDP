@@ -110,12 +110,12 @@ public class FlexiblePortfolioImpl extends PortfolioImpl {
       Object parseObj = parser.parse(reader);
       JSONObject portfolio = (JSONObject) parseObj;
       for (Object tickrsym : portfolio.keySet()) {
-        String checkTickr = (String) tickrsym;
         JSONArray arrayObj = (JSONArray) portfolio.get(tickrsym);
         for(int i = arrayObj.size()-1 ;i>=0;i--){
           JSONObject tickrRecord = (JSONObject) arrayObj.get(i);
-          if(checkPriorDate(date,(String)tickrRecord.get("Date"),pfPath)){
-            finalCostBasis +=  (float)tickrRecord.get("CostBasis");
+          if(checkIfBeforeDate(date,(String)tickrRecord.get("Date"))){
+            double presentCostBasis = (double)tickrRecord.get("CostBasis");
+            finalCostBasis +=  presentCostBasis;
             break;
           }
         }
@@ -130,6 +130,8 @@ public class FlexiblePortfolioImpl extends PortfolioImpl {
     } catch (ParseException e) {
       e.printStackTrace();
       return 0;
+    } catch (java.text.ParseException e) {
+      throw new RuntimeException(e);
     }
   }
 
@@ -170,8 +172,8 @@ public class FlexiblePortfolioImpl extends PortfolioImpl {
           // check if the date is prior.
           // get the stocks.
           // multiply by the stock value and number of total stocks on that day.
-          if(checkPriorDate(date,(String)tickrRecord.get("Date"),rootDir+fileName+".json")){
-            finalVal +=  (int)tickrRecord.get("TotalStocks")* apiObj.callPriceDate(date);
+          if(checkPriorDate(date,(String) tickrsym,rootDir+fileName+".json")){
+            finalVal +=  (float)tickrRecord.get("TotalStocks")* apiObj.callPriceDate(date);
             break;
           }
         }
@@ -264,6 +266,17 @@ public class FlexiblePortfolioImpl extends PortfolioImpl {
     return false;
   }
 
+
+  private boolean checkIfBeforeDate(String givenDate,String toBeChecked)
+          throws java.text.ParseException {
+    SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-DD", Locale.ENGLISH);
+    Date newdate = formatter.parse(givenDate);
+    Date checkrecentDate = formatter.parse(toBeChecked);
+    if (checkrecentDate.before(newdate)) {
+      return true;
+    }
+    return false;
+  }
   /**
    * Check if the given input date is prior to the given input date for a given tickr.
    *
@@ -282,10 +295,7 @@ public class FlexiblePortfolioImpl extends PortfolioImpl {
         JSONArray tickrrecord = (JSONArray) portfolio.get(tickr);
         JSONObject obj = (JSONObject) tickrrecord.get(tickrrecord.size() - 1);
         String recentDate = (String) obj.get("Date");
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-DD", Locale.ENGLISH);
-        Date newdate = formatter.parse(date);
-        Date checkrecentDate = formatter.parse(recentDate);
-        if (checkrecentDate.before(newdate)) {
+        if(checkIfBeforeDate(date,recentDate)){
           return true;
         }
       }
