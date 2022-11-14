@@ -361,12 +361,13 @@ public class ControllerImplFlexible implements Controller {
                     for (int i = 0; i <arrayObj.size(); i++) {
                       JSONObject tickrRecord = (JSONObject) arrayObj.get(i);
                       theView.showString(
-                              tickrRecord.get("NumStocks Sold/Purchased")+"   "
-                                      +(String)tickrRecord.get("Date")+"  "+
-                              +(Float)tickrRecord.get("Commission Fee")+"   "+
-                                      tickrRecord.get("Stock Price")+"  "+
-                                      tickrRecord.get("TotalStocks")+"  "+
-                                      tickrRecord.get("CostBasis"));
+                              tickrRecord.get("NumStocks Sold or Purchased")+"                 "+
+                                     "              " +(String)tickrRecord.get("Date")
+                                      +"            "+
+                                      "     "+ (Double)tickrRecord.get("Commission Fee")+
+                                      "                   "+ tickrRecord.get("Stock Price")+
+                                      "                  " + tickrRecord.get("TotalStocks")
+                                      +"                   "+ (Double)tickrRecord.get("CostBasis"));
                       }
                     }
                   } catch (ParseException e) {
@@ -495,9 +496,9 @@ public class ControllerImplFlexible implements Controller {
                           (datepurchase,tickrpurchase);
                   newKeyEntry.put("Date",datepurchase);
                   newKeyEntry.put("Commission Fee", Float.valueOf(feescommision));
-                  newKeyEntry.put("NumStocks Sold/Purchased", Integer.valueOf(numpurchase));
+                  newKeyEntry.put("NumStocks Sold or Purchased", Integer.valueOf(numpurchase));
                   newKeyEntry.put("TotalStocks", Integer.valueOf(numpurchase) +
-                          (int)keyEntry.get("NumStocks Sold/Purchased"));
+                          (int)keyEntry.get("NumStocks Sold or Purchased"));
                   newKeyEntry.put("Stock Price", stockPrice);
                   newKeyEntry.put("CostBasis", stockPrice*Float.valueOf(numpurchase)+
                           (float)keyEntry.get("CostBasis")+Float.valueOf(feescommision));

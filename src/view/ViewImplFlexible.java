@@ -19,6 +19,7 @@ public class ViewImplFlexible extends ViewImpl{
     //print the UI
     out.println("Menu: ");
     out.println("C: To create a new Portfolio.");
+    out.println("M: To modify an existing Portfolio.");
     out.println("V: View existing Portfolio.");
     out.println("Q: Quit the program.");
     out.println("B: Get Bar graph of the program.");
