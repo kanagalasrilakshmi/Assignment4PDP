@@ -3,8 +3,11 @@ package controller;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
@@ -344,6 +347,30 @@ public class ControllerImplFlexible implements Controller {
                 break;
               case "P":
                 // view composition of portfolio.
+                JSONParser parser = new JSONParser();
+                try (FileReader reader = new FileReader(this.rootDir+pfNameChosen+".json")) {
+                  Object parseObj = parser.parse(reader);
+                  JSONObject portfolio = (JSONObject) parseObj;
+                  for (Object tickrsym : portfolio.keySet()) {
+                    theView.showString("TICKER SYMBOL : "+(String) tickrsym);
+                    theView.showString("NUM OF STOCKS PURCHASED/SOLD    DATE OF PURCHASE/SELL   "
+                            + " COMMISION FEES    STOCK PRICE   TOTAL NUMBER OF STOCKS TILL DATE  "
+                            + "COST BASIS");
+                    JSONArray arrayObj = (JSONArray) portfolio.get(tickrsym);
+                    for (int i = 0; i <arrayObj.size(); i++) {
+                      JSONObject tickrRecord = (JSONObject) arrayObj.get(i);
+                      theView.showString(
+                              tickrRecord.get("NumStocks Sold/Purchased")+"   "
+                                      +(String)tickrRecord.get("Date")+"  "+
+                              +(Float)tickrRecord.get("Commission Fee")+"   "+
+                                      tickrRecord.get("Stock Price")+"  "+
+                                      tickrRecord.get("TotalStocks")+"  "+
+                                      tickrRecord.get("CostBasis"));
+                      }
+                    }
+                  } catch (ParseException e) {
+                  throw new RuntimeException(e);
+                }
                 // display the .json file.
                 break;
               default:
