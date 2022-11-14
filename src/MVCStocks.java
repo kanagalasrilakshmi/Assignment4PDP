@@ -1,12 +1,17 @@
 import java.io.IOException;
 import java.text.ParseException;
 
-import Controller.Controller;
-import Controller.ControllerImpl;
+import Model.FlexiblePortfolioImpl;
+import controller.Controller;
+import controller.ControllerImpl;
 import Model.Portfolio;
 import Model.PortfolioImpl;
+import controller.Controller;
+import controller.ControllerImpl;
+import controller.ControllerImplFlexible;
 import view.View;
 import view.ViewImpl;
+import view.ViewImplFlexible;
 
 /**
  * Main Stocks class that implements Controllor, PortfolioObj(Model), View.
@@ -22,9 +27,9 @@ public class MVCStocks {
    * @throws IOException    if given input is not valid
    */
   public static void main(String[] args) throws ParseException, IOException {
-    Portfolio model = new PortfolioImpl();
-    View view = new ViewImpl(System.out);
-    Controller controller = new ControllerImpl(model, view, System.in);
+    Portfolio model = new FlexiblePortfolioImpl();
+    View view = new ViewImplFlexible(System.out);
+    Controller controller = new ControllerImplFlexible(model, view, System.in);
     controller.goStocks();
   }
 }

@@ -1,6 +1,8 @@
 package Model;
 
 
+import org.json.simple.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -445,6 +447,99 @@ public class PortfolioImpl implements Portfolio {
     return true;
   }
 
+  /**
+   * check if the number of stocks entered to be sold is valid or not.
+   * @param numStocks is number stocks to be sold
+   * @param tickr is tickr symbol for which stocks need to be sold
+   * @return true if sale can be made else false
+   */
+  public boolean checkValidSell(String pfPath, int numStocks, String tickr){
+    return false;
+  }
 
+  /**
+   * check if the tickr symbol exists in the portfolio.
+   * @param pfPath path for the portfolio
+   * @param tickr is company tickr symbol
+   * @return true if tickr exists else false
+   */
+  public boolean checkTickrExists(String pfPath, String tickr){
+    return false;
+  }
+
+  /**
+   * Check if the given input date is prior to the given input date for a given tickr.
+   * @param date is input date
+   * @param tickr is company tickr symbol
+   * @param pfPath is portfolio path
+   * @return true not prior else false
+   */
+  public boolean checkPriorDate(String date,String tickr, String pfPath){
+    return false;
+  }
+
+  /**
+   * check if the given number either an integer or a decimal number
+   * @param num input string parameter
+   * @return true if valid else return false
+   */
+  public boolean checkValidNum(String num){
+    return false;
+  }
+
+  /**
+   * modify the json.
+   *
+   * @param fees   is the commision fees
+   * @param num    num stocks willing to sell
+   * @param date   date on which sale is to be made
+   * @param tickr company tickr symbol
+   * @param pfPath path for the location of the portfolio
+   */
+
+  public void modifyJson(String fees, int num, String date, String tickr,String pfPath){}
+
+  /**
+   * Get the cost basis of a portfolio till a date.
+   * @param pfPath input portfolio path
+   * @param date input string date
+   * @return cost basis value
+   */
+  public float getCostBasis(String pfPath,String date){
+    return 0;
+  }
+
+  /**
+   * create a json portfolio.
+   * @param pfPath portfolio path where json needs to be saved
+   * @param addEntry add json entry
+   */
+  public void createPortfolioJson(String pfPath, JSONObject addEntry){
+
+  }
+
+  /**
+   * check if the tickr symbol exists in a json array
+   * @param tickrList of type JSONObject
+   * @param tickr company tickrsymbol
+   * @return false if not found else return true
+   */
+  public boolean checkTickrJSONArray(JSONObject tickrList,String tickr){
+    return false;
+  }
+
+  public boolean checkDateinJSONObject(String date, String existingDate){
+    return false;
+  }
+
+  /**
+   * Get the price of a stock on a date.
+   * @param date input date on which portfolio value is needed
+   * @param tickrSymbol company tickr symbol
+   * @return float value of the price
+   */
+  public float getCallPriceDate(String date,String tickrSymbol){
+    return 0;
+  }
 }
 

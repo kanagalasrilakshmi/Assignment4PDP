@@ -75,6 +75,77 @@ public class ControllerImpl implements Controller {
         case "Q":
           quit = true;
           break;
+        case "C":
+          // check valid if not then it uses the default.
+          // initialized path only for saving the portfolios.
+          theView.showString("Give a valid name for the portfolio you " +
+                  "want to create. The string " +
+                  "should not have spaces or special characters and " +
+                  "the length must be less than 25 characters.");
+          ArrayList<String> storinglist = new ArrayList<>();
+          String pfName = in.nextLine();
+          while (!thePortfolio.checkValidpfName(pfName)) {
+            theView.showString("Please enter a valid portfolio name:");
+            pfName = in.nextLine();
+          }
+          // check if this same name portfolio exists.
+          String pfNamePath = this.rootDir + pfName + ".txt";
+          while (new File(pfNamePath).exists()) {
+            theView.showString("Portfolio with this name already exists! ");
+            theView.showString("Give another name for the portfolio you want to create:");
+            pfName = in.nextLine();
+            pfNamePath = this.rootDir + pfName + ".txt";
+          }
+          ArrayList<Object> objList = new ArrayList<>();
+          boolean done = false;
+          while (!done) {
+            theView.showString("Press Y to add stocks " +
+                    "to the " + pfName + " portfolio.");
+            theView.showString("Press S to save the Portfolio.");
+            switch (in.next()) {
+              case "S":
+                //check if object list is empty nothing to save
+                if (objList.size() == 0) {
+                  theView.showString("Portfolio must contain at least one entry!! ");
+                } else {
+                  thePortfolio.createPortfolio(this.rootDir, pfName, objList);
+                  done = true;
+                  theView.showString("Successfully created the portfolio " + pfName);
+                }
+                break;
+              case "Y":
+                theView.showString("Enter Valid Stock company tickr symbol");
+                String tickr = in.next();
+                // validate tickr symbol in model.
+                while (!thePortfolio.validateTickrSymbol(tickr)) {
+                  theView.showString("Invalid Tickr Symbol is entered!");
+                  theView.showString("Enter Valid Stock company tickr symbol");
+                  tickr = in.next();
+                }
+                while (storinglist.contains(tickr)) {
+                  theView.showString("The Tickr symbol already " +
+                          "exists! Please enter new Symbol");
+                  tickr = in.next();
+                }
+                // check if tickr symbol is already in the list.
+                storinglist.add(tickr);
+                // backup for api key failure.
+                theView.showString("Enter number of stocks purchased " +
+                        "(Integer Values are Only Allowed)");
+                String numberStocks = in.next();
+                while (!thePortfolio.checkValidInteger(numberStocks)) {
+                  theView.showString("Only Integer Stock values " +
+                          "are allowed. Please enter a valid Integer number.");
+                  numberStocks = in.next();
+                }
+                objList.add(thePortfolio.makeStockObj(tickr, numberStocks));
+                break;
+              default:
+                theView.showString("Please Enter Either S/Y only!!");
+                break;
+            }
+          }
+          break;
         case "V":
           // check if the output folder has .txt files or not.
           // if no portfolio exists say no portfolio has been added.
@@ -151,84 +222,12 @@ public class ControllerImpl implements Controller {
                 break;
             }
           }
-
-          break;
-        case "C":
-          // check valid if not then it uses the default.
-          // initialized path only for saving the portfolios.
-          theView.showString("Give a valid name for the portfolio you " +
-                  "want to create. The string " +
-                  "should not have spaces or special characters and " +
-                  "the length must be less than 25 characters.");
-          ArrayList<String> storinglist = new ArrayList<>();
-          String pfName = in.nextLine();
-          while (!thePortfolio.checkValidpfName(pfName)) {
-            theView.showString("Please enter a valid portfolio name:");
-            pfName = in.nextLine();
-          }
-          // check if this same name portfolio exists.
-          String pfNamePath = this.rootDir + pfName + ".txt";
-          while (new File(pfNamePath).exists()) {
-            theView.showString("Portfolio with this name already exists! ");
-            theView.showString("Give another name for the portfolio you want to create:");
-            pfName = in.nextLine();
-            pfNamePath = this.rootDir + pfName + ".txt";
-          }
-          ArrayList<Object> objList = new ArrayList<>();
-          boolean done = false;
-          while (!done) {
-            theView.showString("Press Y to add stocks " +
-                    "to the " + pfName + " portfolio.");
-            theView.showString("Press S to save the Portfolio.");
-            switch (in.next()) {
-              case "S":
-                //check if object list is empty nothing to save
-                if (objList.size() == 0) {
-                  theView.showString("Portfolio must contain at least one entry!! ");
-                } else {
-                  thePortfolio.createPortfolio(this.rootDir, pfName, objList);
-                  done = true;
-                  theView.showString("Successfully created the portfolio " + pfName);
-                }
-                break;
-              case "Y":
-                theView.showString("Enter Valid Stock company tickr symbol");
-                String tickr = in.next();
-                // validate tickr symbol in model.
-                while (!thePortfolio.validateTickrSymbol(tickr)) {
-                  theView.showString("Invalid Tickr Symbol is entered!");
-                  theView.showString("Enter Valid Stock company tickr symbol");
-                  tickr = in.next();
-                }
-                while (storinglist.contains(tickr)) {
-                  theView.showString("The Tickr symbol already " +
-                          "exists! Please enter new Symbol");
-                  tickr = in.next();
-                }
-                // check if tickr symbol is already in the list.
-                storinglist.add(tickr);
-                // backup for api key failure.
-                theView.showString("Enter number of stocks purchased " +
-                        "(Integer Values are Only Allowed)");
-                String numberStocks = in.next();
-                while (!thePortfolio.checkValidInteger(numberStocks)) {
-                  theView.showString("Only Integer Stock values " +
-                          "are allowed. Please enter a valid Integer number.");
-                  numberStocks = in.next();
-                }
-                objList.add(thePortfolio.makeStockObj(tickr, numberStocks));
-                break;
-              default:
-                theView.showString("Please Enter Either S/Y only!!");
-                break;
-            }
-          }
           break;
         default:
           theView.showOptionError();
           break;
+            }
+          }
       }
     }
-  }
-}
 
