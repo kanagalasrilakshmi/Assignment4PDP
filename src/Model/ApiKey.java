@@ -36,7 +36,7 @@ public class ApiKey {
    * @return float type price of the stock
    */
   public float callPresentPrice() {
-    String apiKey = "QH2XYHVUAHRIBTZ2";
+    String apiKey = "E9HF2DALRYZKAIJC";
     URL url = null;
     try {
       url = new URL("https://www.alphavantage"
