@@ -13,6 +13,7 @@ import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import Model.Portfolio;
@@ -51,7 +52,7 @@ public class ControllerImplFlexible implements Controller {
    *
    * @throws IOException if invalid file is given
    */
-  public void goStocks() throws IOException {
+  public void goStocks() throws IOException, java.text.ParseException {
     boolean quit = false;
     theView.showString("Give a valid input path where you want to store your portfolios. " +
             "For example: /Users/PDP/PortfolioBucket/");
@@ -274,6 +275,54 @@ public class ControllerImplFlexible implements Controller {
           break;
         case "B":
           // display bar graph of the portfolio.
+          // ask the user input.
+          if (!thePortfolio.checkOutputFolder(this.rootDir)) {
+            theView.showString("No portfolio exists. Create a portfolio to view it.");
+            break;
+          }
+          // list the portfolios.
+          theView.showString("Enter the name of the portfolio you want to view from " +
+                  "the list of " +
+                  "portfolios displayed below:");
+          theView.listJSONFiles(this.rootDir);
+          // check if user enters valid file name.
+          String pfPerformance = in.next();
+          while (!new File(this.rootDir + pfPerformance + ".json").exists()) {
+            theView.showString("Please enter a valid Portfolio name from " +
+                    "the displayed list only!");
+            pfPerformance = in.next();
+          }
+          theView.showString("Choose one of the following timespan range to view the " +
+                  "performance of the portfolio");
+          // take range of inputs from the user.
+          String date1 = in.next();
+          String date2 = in.next();
+          // if user first input date > second input date.
+          // say it is not possible enter valid range.
+          while(!thePortfolio.checkValidDates(date1,date2)){
+            theView.showString("The dates given cannot give a valid range please given valid " +
+                    "input dates");
+            date1 = in.next();
+            date2 = in.next();
+          }
+          // if the user enters valid range dates.
+          // check difference between the dates.
+          int differenceDays = thePortfolio.checkDifference(date1,date2);
+          // if the difference is less than 5 return error.
+          if(differenceDays < 5){
+            theView.showString("The difference is less than 5 days hence not valid");
+            break;
+          }
+          ArrayList<Float>values = thePortfolio.getValuesPortfolio(date1,date2,differenceDays);
+          ArrayList<String>dates = thePortfolio.getDatesDisplay(date1,date2,differenceDays);
+          float scaleVal = thePortfolio.getScale(values);
+          ArrayList<String>points = thePortfolio.getPoints(scaleVal,values);
+          theView.showString("Performance of the portfolio "+pfPerformance+" from "+date1+
+                  " to "+date2);
+          for(int i = 0;i<points.size();i++){
+            theView.showString(dates.get(i)+" : "+points.get(i));
+          }
+          theView.showString("Scale: * = $"+scaleVal);
           break;
         case "V":
           if (!thePortfolio.checkOutputFolder(this.rootDir)) {
