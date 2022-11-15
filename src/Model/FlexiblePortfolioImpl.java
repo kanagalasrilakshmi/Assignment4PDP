@@ -441,32 +441,80 @@ public class FlexiblePortfolioImpl extends PortfolioImpl {
           throws java.text.ParseException, FileNotFoundException {
     ArrayList<Float>getValues = new ArrayList<>();
     // if the difference is more than 5 and <= 30 print day wise.
-    if(differenceDays>=5 && differenceDays<=30){
-      ArrayList<String>datesList = getDatesDisplay(date1,date2, differenceDays);
-      for(int i =0;i<datesList.size();i++){
-        String date = datesList.get(i);
-        getValues.add(portfolioValueDate(rootDir, pfName, date));
-      }
-    }
     // if the difference is more than 30 days and <=150 days print for every 5 days.
-    else if(differenceDays>30 && differenceDays<=150){
-      // get the date of the first entry in portfolio.
+    if(differenceDays>=5 && differenceDays<=150){
       ArrayList<String>datesList = getDatesDisplay(date1,date2, differenceDays);
       for(int i =0;i<datesList.size();i++){
         String date = datesList.get(i);
         getValues.add(portfolioValueDate(rootDir, pfName, date));
       }
     }
-    // if the difference is more than 150 days and 900 days print in months.
-    else if(differenceDays>150 && differenceDays<=900){
 
-    }
+    // if the difference is more than 150 days and 900 days print in months.
     // if difference is more than 900 days and less than equal to 1800 days print on 3 mon basis.
-    else if(differenceDays>900 && differenceDays<=1800){
+    else if(differenceDays>150 && differenceDays<=1800){
+      ArrayList<String>monYearList = getDatesDisplay(date1,date2, differenceDays);
+      ArrayList<String>datesList = new ArrayList<>();
+      for(int i =0;i< monYearList.size()-1;i++){
+        String date = monYearList.get(i);
+        String StringDate[] = date.split(" ");
+        if(date.contains("Jan")){
+          datesList.add(StringDate[1]+"-01-31");
+        }
+        else if(date.contains("Feb")){
+          datesList.add(StringDate[1]+"-02-28");
+        }
+        else if(date.contains("Mar")){
+          datesList.add(StringDate[1]+"-03-31");
+        }
+        else if(date.contains("Apr")){
+          datesList.add(StringDate[1]+"-04-30");
+        }
+        else if(date.contains("May")){
+          datesList.add(StringDate[1]+"-05-31");
+        }
+        else if(date.contains("Jun")){
+          datesList.add(StringDate[1]+"-06-30");
+        }
+        else if(date.contains("Jul")){
+          datesList.add(StringDate[1]+"-07-31");
+        }
+        else if(date.contains("Aug")){
+          datesList.add(StringDate[1]+"-08-31");
+        }
+        else if(date.contains("Sep")){
+          datesList.add(StringDate[1]+"-09-30");
+        }
+        else if(date.contains("Oct")){
+          datesList.add(StringDate[1]+"-10-31");
+        }
+        else if(date.contains("Nov")){
+          datesList.add(StringDate[1]+"-11-30");
+        }
+        else if(date.contains("Dec")){
+          datesList.add(StringDate[1]+"-12-31");
+        }
+      }
+      datesList.add(date2);
+      for(int i =0;i<datesList.size();i++){
+        String date = datesList.get(i);
+        getValues.add(portfolioValueDate(rootDir, pfName, date));
+      }
     }
+
     // if difference is more than 1800 days then yearly.
     else{
-
+      ArrayList<String>yearList = getDatesDisplay(date1,date2, differenceDays);
+      ArrayList<String>datesList = new ArrayList<>();
+      for(int i =0;i< yearList.size()-1;i++){
+        String date = yearList.get(i);
+        datesList.add(date+"-12-31");
+      }
+      datesList.add(date2);
+      for(int i =0;i<datesList.size();i++){
+        String date = datesList.get(i);
+        getValues.add(portfolioValueDate(rootDir, pfName, date));
+      }
     }
     return getValues;
   }
