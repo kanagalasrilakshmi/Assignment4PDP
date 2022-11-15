@@ -182,7 +182,7 @@ public class ControllerImplFlexible implements Controller {
                   break;
                 }
                 // if all are valid then call modify the json function.
-                else{
+                else {
                   thePortfolio.modifyJson(fees, Integer.parseInt(num) * -1, date,
                           tickr, this.rootDir + pfJsonNameChosen + ".json");
                   theView.showString("The portfolio " + pfJsonNameChosen +
@@ -299,7 +299,7 @@ public class ControllerImplFlexible implements Controller {
           String date2 = in.next();
           // if user first input date > second input date.
           // say it is not possible enter valid range.
-          while(!thePortfolio.checkValidDates(date1,date2)){
+          while (!thePortfolio.checkValidDates(date1, date2)) {
             theView.showString("The dates given cannot give a valid range please given valid " +
                     "input dates");
             date1 = in.next();
@@ -307,23 +307,23 @@ public class ControllerImplFlexible implements Controller {
           }
           // if the user enters valid range dates.
           // check difference between the dates.
-          int differenceDays = thePortfolio.checkDifference(date1,date2);
+          int differenceDays = thePortfolio.checkDifference(date1, date2);
           // if the difference is less than 5 return error.
-          if(differenceDays < 5){
+          if (differenceDays < 5) {
             theView.showString("The difference is less than 5 days hence not valid");
             break;
           }
-          ArrayList<Float>values = thePortfolio.getValuesPortfolio(this.rootDir,
-                  pfPerformance ,date1,date2,differenceDays);
-          ArrayList<String>dates = thePortfolio.getDatesDisplay(date1,date2,differenceDays);
+          ArrayList<Float> values = thePortfolio.getValuesPortfolio(this.rootDir,
+                  pfPerformance, date1, date2, differenceDays);
+          ArrayList<String> dates = thePortfolio.getDatesDisplay(date1, date2, differenceDays);
           float scaleVal = thePortfolio.getScale(values);
-          ArrayList<String>points = thePortfolio.getPoints(scaleVal,values);
-          theView.showString("Performance of the portfolio "+pfPerformance+" from "+date1+
-                  " to "+date2);
-          for(int i = 0;i<points.size();i++){
-            theView.showString(dates.get(i)+" : "+points.get(i));
+          ArrayList<String> points = thePortfolio.getPoints(scaleVal, values);
+          theView.showString("Performance of the portfolio " + pfPerformance + " from " + date1 +
+                  " to " + date2);
+          for (int i = 0; i < points.size(); i++) {
+            theView.showString(dates.get(i) + " : " + points.get(i));
           }
-          theView.showString("Scale: * = $"+scaleVal);
+          theView.showString("Scale: * = $" + scaleVal);
           break;
         case "V":
           if (!thePortfolio.checkOutputFolder(this.rootDir)) {
