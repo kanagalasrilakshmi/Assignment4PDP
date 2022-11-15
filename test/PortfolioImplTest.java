@@ -14,10 +14,10 @@ import java.nio.file.Paths;
 import java.text.ParseException;
 import java.time.LocalDate;
 
-import controller.Controller;
-import controller.ControllerImpl;
 import Model.Portfolio;
 import Model.PortfolioImpl;
+import controller.Controller;
+import controller.ControllerImpl;
 import view.ViewImpl;
 
 import static org.junit.Assert.assertEquals;

@@ -174,38 +174,42 @@ public interface Portfolio {
    * @param fees   is the commision fees
    * @param num    num stocks willing to sell
    * @param date   date on which sale is to be made
-   * @param tickr company tickr symbol
+   * @param tickr  company tickr symbol
    * @param pfPath path for the location of the portfolio
    */
 
-  public void modifyJson(String fees, int num, String date, String tickr,String pfPath);
+  public void modifyJson(String fees, int num, String date, String tickr, String pfPath);
 
   /**
    * Get the cost basis of a portfolio till a date.
+   *
    * @param pfPath input portfolio path
-   * @param date input string date
+   * @param date   input string date
    * @return cost basis value
    */
-  public float getCostBasis(String pfPath,String date);
+  public float getCostBasis(String pfPath, String date);
 
   /**
    * create a json portfolio.
-   * @param pfPath portfolio path where json needs to be saved
+   *
+   * @param pfPath   portfolio path where json needs to be saved
    * @param addEntry add json entry
    */
   public void createPortfolioJson(String pfPath, JSONObject addEntry);
 
   /**
    * check if the tickr symbol exists in a json array
+   *
    * @param tickrList of type JSONObject
-   * @param tickr company tickrsymbol
+   * @param tickr     company tickrsymbol
    * @return false if not found else return true
    */
-  public boolean checkTickrJSONArray(JSONObject tickrList,String tickr);
+  public boolean checkTickrJSONArray(JSONObject tickrList, String tickr);
 
   /**
    * check if date is prior to the most recent date entry.
-   * @param date input date entry
+   *
+   * @param date         input date entry
    * @param existingDate most recent date
    * @return true if prior else false
    */
@@ -213,67 +217,74 @@ public interface Portfolio {
 
   /**
    * Get the price of a stock on a date.
-   * @param date input date on which portfolio value is needed
+   *
+   * @param date        input date on which portfolio value is needed
    * @param tickrSymbol company tickr symbol
    * @return float value of the price
    */
-  public float getCallPriceDate(String date,String tickrSymbol);
+  public float getCallPriceDate(String date, String tickrSymbol);
 
   /**
    * Get the values of the porfolio for a particular day, month, year.
-   * @param date1 first input date
-   * @param date2 second input date
+   *
+   * @param date1          first input date
+   * @param date2          second input date
    * @param differenceDays number of days difference between date1 and date2
-   * @param pfName portfolio name for which performance need to be plotted
-   * @param rootDir root directory of portfolio
+   * @param pfName         portfolio name for which performance need to be plotted
+   * @param rootDir        root directory of portfolio
    * @return array list of values of the portfolio
    */
-  public ArrayList<Float>getValuesPortfolio(String rootDir,String pfName,
-                                            String date1,String date2,int differenceDays)
+  public ArrayList<Float> getValuesPortfolio(String rootDir, String pfName,
+                                             String date1, String date2, int differenceDays)
           throws ParseException, FileNotFoundException;
 
 
   /**
    * List of days or months or years that needs to be displayed while checking the performance.
-   * @param date1 first input date
-   * @param date2 second input date
+   *
+   * @param date1          first input date
+   * @param date2          second input date
    * @param differenceDays number of days difference between date1 and date2
    * @return array list of dates to be printed for recording performance of the portfolio
    */
 
-  public ArrayList<String>getDatesDisplay(String date1,String date2,int differenceDays);
+  public ArrayList<String> getDatesDisplay(String date1, String date2, int differenceDays);
 
   /**
    * Compute the scale for the portfolio.
+   *
    * @param values list of values obtained on a given date or month or year
    * @return scale of type float
    */
-  public float getScale(ArrayList<Float>values);
+  public float getScale(ArrayList<Float> values);
 
   /**
    * Get the number of points to be pointed in form of asterisks.
    * for getting the performance of portfolio.
+   *
    * @param scaleVal scale of the performance portfolio
-   * @param values list of performance portfolio values
+   * @param values   list of performance portfolio values
    * @return list of asterisks that needs to be printed
    */
-  public ArrayList<String> getPoints(float scaleVal,ArrayList<Float>values);
+  public ArrayList<String> getPoints(float scaleVal, ArrayList<Float> values);
 
   /**
    * Difference between dates.
+   *
    * @param date1 first input date
    * @param date2 second input date
    * @return difference value between dates date1 and date2
    */
-  public int checkDifference(String date1,String date2) throws ParseException;
+  public int checkDifference(String date1, String date2) throws ParseException;
 
   /**
    * Check if input date1 is prior to the date2.
+   *
    * @param date1 first input date
    * @param date2 second input date
    * @return true if date1 is prior to the date2 else return false
    */
-  public boolean checkValidDates(String date1,String date2) throws ParseException;
+  public boolean checkValidDates(String date1, String date2) throws ParseException;
 
 
 }

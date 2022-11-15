@@ -1,11 +1,7 @@
 package view;
 
-import java.awt.*;
 import java.io.File;
 import java.io.PrintStream;
-
-import javax.swing.text.BadLocationException;
-import javax.swing.text.Position;
 
 /**
  * Class for implementing View Interface.
@@ -71,6 +67,7 @@ public class ViewImpl implements View {
 
   /**
    * List all the json files
+   *
    * @param rootDir is the path from which json files need to be searched
    */
   public void listJSONFiles(String rootDir) {

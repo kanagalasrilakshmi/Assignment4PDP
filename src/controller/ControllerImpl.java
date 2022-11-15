@@ -210,10 +210,10 @@ public class ControllerImpl implements Controller {
                 thePortfolio.viewPortfolioDisplay(this.rootDir, pfNameChosen);
                 // print the value.
                 theView.showString("Company Tickr Symbol" + " " + "Num Stocks");
-                ArrayList<String>tickrsymbols = thePortfolio.getTickrs();
-                ArrayList<String>numStocks= thePortfolio.getNumberStocks();
-                for(int i =0;i<tickrsymbols.size();i++){
-                  theView.showString(tickrsymbols.get(i)+ "                  " +numStocks.get(i));
+                ArrayList<String> tickrsymbols = thePortfolio.getTickrs();
+                ArrayList<String> numStocks = thePortfolio.getNumberStocks();
+                for (int i = 0; i < tickrsymbols.size(); i++) {
+                  theView.showString(tickrsymbols.get(i) + "                  " + numStocks.get(i));
                 }
                 viewDone = true;
                 break;
@@ -226,8 +226,8 @@ public class ControllerImpl implements Controller {
         default:
           theView.showOptionError();
           break;
-            }
-          }
       }
     }
+  }
+}
 

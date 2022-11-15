@@ -310,7 +310,7 @@ public class FlexiblePortfolioImpl extends PortfolioImpl {
         JSONArray tickrrecord = (JSONArray) portfolio.get(tickr);
         JSONObject obj = (JSONObject) tickrrecord.get(tickrrecord.size() - 1);
         String recentDate = (String) obj.get("Date");
-        if(recentDate.equals(date) || checkIfBeforeDate(date, recentDate)){
+        if (recentDate.equals(date) || checkIfBeforeDate(date, recentDate)) {
           return true;
         }
       }
@@ -428,23 +428,24 @@ public class FlexiblePortfolioImpl extends PortfolioImpl {
 
   /**
    * Get the values of the porfolio for a particular day, month, year.
-   * @param date1 first input date
-   * @param date2 second input date
+   *
+   * @param date1          first input date
+   * @param date2          second input date
    * @param differenceDays number of days difference between date1 and date2
-   * @param pfName portfolio name for which performance need to be plotted
-   * @param rootDir root directory of portfolio
+   * @param pfName         portfolio name for which performance need to be plotted
+   * @param rootDir        root directory of portfolio
    * @return array list of values of the portfolio
    */
   @Override
-  public ArrayList<Float>getValuesPortfolio(String rootDir,String pfName,
-                                            String date1,String date2,int differenceDays)
+  public ArrayList<Float> getValuesPortfolio(String rootDir, String pfName,
+                                             String date1, String date2, int differenceDays)
           throws java.text.ParseException, FileNotFoundException {
-    ArrayList<Float>getValues = new ArrayList<>();
+    ArrayList<Float> getValues = new ArrayList<>();
     // if the difference is more than 5 and <= 30 print day wise.
     // if the difference is more than 30 days and <=150 days print for every 5 days.
-    if(differenceDays>=5 && differenceDays<=150){
-      ArrayList<String>datesList = getDatesDisplay(date1,date2, differenceDays);
-      for(int i =0;i<datesList.size();i++){
+    if (differenceDays >= 5 && differenceDays <= 150) {
+      ArrayList<String> datesList = getDatesDisplay(date1, date2, differenceDays);
+      for (int i = 0; i < datesList.size(); i++) {
         String date = datesList.get(i);
         getValues.add(portfolioValueDate(rootDir, pfName, date));
       }
@@ -452,66 +453,55 @@ public class FlexiblePortfolioImpl extends PortfolioImpl {
 
     // if the difference is more than 150 days and 900 days print in months.
     // if difference is more than 900 days and less than equal to 1800 days print on 3 mon basis.
-    else if(differenceDays>150 && differenceDays<=1800){
-      ArrayList<String>monYearList = getDatesDisplay(date1,date2, differenceDays);
-      ArrayList<String>datesList = new ArrayList<>();
-      for(int i =0;i< monYearList.size()-1;i++){
+    else if (differenceDays > 150 && differenceDays <= 1800) {
+      ArrayList<String> monYearList = getDatesDisplay(date1, date2, differenceDays);
+      ArrayList<String> datesList = new ArrayList<>();
+      for (int i = 0; i < monYearList.size() - 1; i++) {
         String date = monYearList.get(i);
         String StringDate[] = date.split(" ");
-        if(date.contains("Jan")){
-          datesList.add(StringDate[1]+"-01-31");
-        }
-        else if(date.contains("Feb")){
-          datesList.add(StringDate[1]+"-02-28");
-        }
-        else if(date.contains("Mar")){
-          datesList.add(StringDate[1]+"-03-31");
-        }
-        else if(date.contains("Apr")){
-          datesList.add(StringDate[1]+"-04-30");
-        }
-        else if(date.contains("May")){
-          datesList.add(StringDate[1]+"-05-31");
-        }
-        else if(date.contains("Jun")){
-          datesList.add(StringDate[1]+"-06-30");
-        }
-        else if(date.contains("Jul")){
-          datesList.add(StringDate[1]+"-07-31");
-        }
-        else if(date.contains("Aug")){
-          datesList.add(StringDate[1]+"-08-31");
-        }
-        else if(date.contains("Sep")){
-          datesList.add(StringDate[1]+"-09-30");
-        }
-        else if(date.contains("Oct")){
-          datesList.add(StringDate[1]+"-10-31");
-        }
-        else if(date.contains("Nov")){
-          datesList.add(StringDate[1]+"-11-30");
-        }
-        else if(date.contains("Dec")){
-          datesList.add(StringDate[1]+"-12-31");
+        if (date.contains("Jan")) {
+          datesList.add(StringDate[1] + "-01-31");
+        } else if (date.contains("Feb")) {
+          datesList.add(StringDate[1] + "-02-28");
+        } else if (date.contains("Mar")) {
+          datesList.add(StringDate[1] + "-03-31");
+        } else if (date.contains("Apr")) {
+          datesList.add(StringDate[1] + "-04-30");
+        } else if (date.contains("May")) {
+          datesList.add(StringDate[1] + "-05-31");
+        } else if (date.contains("Jun")) {
+          datesList.add(StringDate[1] + "-06-30");
+        } else if (date.contains("Jul")) {
+          datesList.add(StringDate[1] + "-07-31");
+        } else if (date.contains("Aug")) {
+          datesList.add(StringDate[1] + "-08-31");
+        } else if (date.contains("Sep")) {
+          datesList.add(StringDate[1] + "-09-30");
+        } else if (date.contains("Oct")) {
+          datesList.add(StringDate[1] + "-10-31");
+        } else if (date.contains("Nov")) {
+          datesList.add(StringDate[1] + "-11-30");
+        } else if (date.contains("Dec")) {
+          datesList.add(StringDate[1] + "-12-31");
         }
       }
       datesList.add(date2);
-      for(int i =0;i<datesList.size();i++){
+      for (int i = 0; i < datesList.size(); i++) {
         String date = datesList.get(i);
         getValues.add(portfolioValueDate(rootDir, pfName, date));
       }
     }
 
     // if difference is more than 1800 days then yearly.
-    else{
-      ArrayList<String>yearList = getDatesDisplay(date1,date2, differenceDays);
-      ArrayList<String>datesList = new ArrayList<>();
-      for(int i =0;i< yearList.size()-1;i++){
+    else {
+      ArrayList<String> yearList = getDatesDisplay(date1, date2, differenceDays);
+      ArrayList<String> datesList = new ArrayList<>();
+      for (int i = 0; i < yearList.size() - 1; i++) {
         String date = yearList.get(i);
-        datesList.add(date+"-12-31");
+        datesList.add(date + "-12-31");
       }
       datesList.add(date2);
-      for(int i =0;i<datesList.size();i++){
+      for (int i = 0; i < datesList.size(); i++) {
         String date = datesList.get(i);
         getValues.add(portfolioValueDate(rootDir, pfName, date));
       }
@@ -522,16 +512,17 @@ public class FlexiblePortfolioImpl extends PortfolioImpl {
 
   /**
    * List of days or months or years that needs to be displayed while checking the performance.
-   * @param date1 first input date
-   * @param date2 second input date
+   *
+   * @param date1          first input date
+   * @param date2          second input date
    * @param differenceDays number of days difference between date1 and date2
    * @return array list of dates to be printed for recording performance of the portfolio
    */
   @Override
-  public ArrayList<String>getDatesDisplay(String date1,String date2,int differenceDays){
-    ArrayList<String>totalDates = new ArrayList<>();
+  public ArrayList<String> getDatesDisplay(String date1, String date2, int differenceDays) {
+    ArrayList<String> totalDates = new ArrayList<>();
     // if the difference is more than 5 and <= 30 print day wise.
-    if(differenceDays>=5 && differenceDays<=30){
+    if (differenceDays >= 5 && differenceDays <= 30) {
       // get the date of the first entry in portfolio.
       LocalDate start = LocalDate.parse(date1);
       LocalDate end = LocalDate.parse(date2);
@@ -541,7 +532,7 @@ public class FlexiblePortfolioImpl extends PortfolioImpl {
       }
     }
     // if the difference is more than 30 days and <=150 days print for every 5 days.
-    else if(differenceDays>30 && differenceDays<=150){
+    else if (differenceDays > 30 && differenceDays <= 150) {
       // get the date of the first entry in portfolio.
       LocalDate start = LocalDate.parse(date1);
       LocalDate end = LocalDate.parse(date2);
@@ -551,112 +542,90 @@ public class FlexiblePortfolioImpl extends PortfolioImpl {
       }
     }
     // if the difference is more than 150 days and 900 days print in months.
-    else if(differenceDays>150 && differenceDays<=900){
+    else if (differenceDays > 150 && differenceDays <= 900) {
       DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM", Locale.ENGLISH);
       String stringDate1[] = date1.split("-");
       String stringDate2[] = date2.split("-");
-      YearMonth startDate = YearMonth.parse(stringDate1[0]+"-"+stringDate1[1], formatter);
-      YearMonth endDate = YearMonth.parse(stringDate2[0]+"-"+stringDate2[1], formatter);
+      YearMonth startDate = YearMonth.parse(stringDate1[0] + "-" + stringDate1[1], formatter);
+      YearMonth endDate = YearMonth.parse(stringDate2[0] + "-" + stringDate2[1], formatter);
 
-      while(startDate.isBefore(endDate)) {
+      while (startDate.isBefore(endDate)) {
         String stringDate = startDate.format(DateTimeFormatter.ofPattern("yyyy-MM"));
         String dateString[] = stringDate.split("-");
-        if(dateString[1].equals("01")){
-          totalDates.add("Jan "+dateString[0]);
-        }
-        else if(dateString[1].equals("02")){
-          totalDates.add("Feb "+dateString[0]);
-        }
-        else if(dateString[1].equals("03")){
-          totalDates.add("Mar "+dateString[0]);
-        }
-        else if(dateString[1].equals("04")){
-          totalDates.add("Apr "+dateString[0]);
-        }
-        else if(dateString[1].equals("05")){
-          totalDates.add("May "+dateString[0]);
-        }
-        else if(dateString[1].equals("06")){
-          totalDates.add("Jun "+dateString[0]);
-        }
-        else if(dateString[1].equals("07")){
-          totalDates.add("Jul "+dateString[0]);
-        }
-        else if(dateString[1].equals("08")){
-          totalDates.add("Aug "+dateString[0]);
-        }
-        else if(dateString[1].equals("09")){
-          totalDates.add("Sep "+dateString[0]);
-        }
-        else if(dateString[1].equals("10")){
-          totalDates.add("Oct "+dateString[0]);
-        }
-        else if(dateString[1].equals("11")){
-          totalDates.add("Nov "+dateString[0]);
-        }
-        else if(dateString[1].equals("12")){
-          totalDates.add("Dec "+dateString[0]);
+        if (dateString[1].equals("01")) {
+          totalDates.add("Jan " + dateString[0]);
+        } else if (dateString[1].equals("02")) {
+          totalDates.add("Feb " + dateString[0]);
+        } else if (dateString[1].equals("03")) {
+          totalDates.add("Mar " + dateString[0]);
+        } else if (dateString[1].equals("04")) {
+          totalDates.add("Apr " + dateString[0]);
+        } else if (dateString[1].equals("05")) {
+          totalDates.add("May " + dateString[0]);
+        } else if (dateString[1].equals("06")) {
+          totalDates.add("Jun " + dateString[0]);
+        } else if (dateString[1].equals("07")) {
+          totalDates.add("Jul " + dateString[0]);
+        } else if (dateString[1].equals("08")) {
+          totalDates.add("Aug " + dateString[0]);
+        } else if (dateString[1].equals("09")) {
+          totalDates.add("Sep " + dateString[0]);
+        } else if (dateString[1].equals("10")) {
+          totalDates.add("Oct " + dateString[0]);
+        } else if (dateString[1].equals("11")) {
+          totalDates.add("Nov " + dateString[0]);
+        } else if (dateString[1].equals("12")) {
+          totalDates.add("Dec " + dateString[0]);
         }
         startDate = startDate.plusMonths(1);
       }
     }
     // if difference is more than 900 days and less than equal to 1800 days print on 3 mon basis.
-    else if(differenceDays>900 && differenceDays<=1800){
+    else if (differenceDays > 900 && differenceDays <= 1800) {
       DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM", Locale.ENGLISH);
       String stringDate1[] = date1.split("-");
       String stringDate2[] = date2.split("-");
-      YearMonth startDate = YearMonth.parse(stringDate1[0]+"-"+stringDate1[1], formatter);
-      YearMonth endDate = YearMonth.parse(stringDate2[0]+"-"+stringDate2[1], formatter);
-      while(startDate.isBefore(endDate)) {
+      YearMonth startDate = YearMonth.parse(stringDate1[0] + "-" + stringDate1[1], formatter);
+      YearMonth endDate = YearMonth.parse(stringDate2[0] + "-" + stringDate2[1], formatter);
+      while (startDate.isBefore(endDate)) {
         String stringDate = startDate.format(DateTimeFormatter.ofPattern("yyyy-MM"));
         String dateString[] = stringDate.split("-");
-        if(dateString[1].equals("01")){
-          totalDates.add("Jan "+dateString[0]);
-        }
-        else if(dateString[1].equals("02")){
-          totalDates.add("Feb "+dateString[0]);
-        }
-        else if(dateString[1].equals("03")){
-          totalDates.add("Mar "+dateString[0]);
-        }
-        else if(dateString[1].equals("04")){
-          totalDates.add("Apr "+dateString[0]);
-        }
-        else if(dateString[1].equals("05")){
-          totalDates.add("May "+dateString[0]);
-        }
-        else if(dateString[1].equals("06")){
-          totalDates.add("Jun "+dateString[0]);
-        }
-        else if(dateString[1].equals("07")){
-          totalDates.add("Jul "+dateString[0]);
-        }
-        else if(dateString[1].equals("08")){
-          totalDates.add("Aug "+dateString[0]);
-        }
-        else if(dateString[1].equals("09")){
-          totalDates.add("Sep "+dateString[0]);
-        }
-        else if(dateString[1].equals("10")){
-          totalDates.add("Oct "+dateString[0]);
-        }
-        else if(dateString[1].equals("11")){
-          totalDates.add("Nov "+dateString[0]);
-        }
-        else if(dateString[1].equals("12")){
-          totalDates.add("Dec "+dateString[0]);
+        if (dateString[1].equals("01")) {
+          totalDates.add("Jan " + dateString[0]);
+        } else if (dateString[1].equals("02")) {
+          totalDates.add("Feb " + dateString[0]);
+        } else if (dateString[1].equals("03")) {
+          totalDates.add("Mar " + dateString[0]);
+        } else if (dateString[1].equals("04")) {
+          totalDates.add("Apr " + dateString[0]);
+        } else if (dateString[1].equals("05")) {
+          totalDates.add("May " + dateString[0]);
+        } else if (dateString[1].equals("06")) {
+          totalDates.add("Jun " + dateString[0]);
+        } else if (dateString[1].equals("07")) {
+          totalDates.add("Jul " + dateString[0]);
+        } else if (dateString[1].equals("08")) {
+          totalDates.add("Aug " + dateString[0]);
+        } else if (dateString[1].equals("09")) {
+          totalDates.add("Sep " + dateString[0]);
+        } else if (dateString[1].equals("10")) {
+          totalDates.add("Oct " + dateString[0]);
+        } else if (dateString[1].equals("11")) {
+          totalDates.add("Nov " + dateString[0]);
+        } else if (dateString[1].equals("12")) {
+          totalDates.add("Dec " + dateString[0]);
         }
         startDate = startDate.plusMonths(3);
       }
     }
     // if difference is more than 1800 days then yearly.
-    else{
+    else {
       DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy", Locale.ENGLISH);
       String stringDate1[] = date1.split("-");
       String stringDate2[] = date2.split("-");
       Year startDate = Year.parse(stringDate1[0], formatter);
       Year endDate = Year.parse(stringDate2[0], formatter);
-      while(startDate.isBefore(endDate)) {
+      while (startDate.isBefore(endDate)) {
         String stringDate = startDate.format(DateTimeFormatter.ofPattern("yyyy"));
         String dateString[] = stringDate.split("-");
         totalDates.add(dateString[0]);
@@ -668,34 +637,36 @@ public class FlexiblePortfolioImpl extends PortfolioImpl {
 
   /**
    * Compute the scale for the portfolio.
+   *
    * @param values list of values obtained on a given date or month or year
    * @return scale of type float
    */
   @Override
-  public float getScale(ArrayList<Float>values){
+  public float getScale(ArrayList<Float> values) {
     float scaleVal = 0;
-    for(int i =0;i<values.get(i);i++){
+    for (int i = 0; i < values.get(i); i++) {
       scaleVal += values.get(i);
     }
-    float finalScaleVal = (scaleVal/values.size());
+    float finalScaleVal = (scaleVal / values.size());
     return finalScaleVal;
   }
 
   /**
    * Get the number of points to be pointed in form of asterisks.
    * for getting the performance of portfolio.
+   *
    * @param scaleVal scale of the performance portfolio
-   * @param values list of performance portfolio values
+   * @param values   list of performance portfolio values
    * @return list of asterisks that needs to be printed
    */
   @Override
-  public ArrayList<String> getPoints(float scaleVal,ArrayList<Float>values){
-    ArrayList<String>points = new ArrayList<>();
-    for(int i =0;i<values.size();i++){
-      int numAsterisks = (int)(values.get(i)/scaleVal);
+  public ArrayList<String> getPoints(float scaleVal, ArrayList<Float> values) {
+    ArrayList<String> points = new ArrayList<>();
+    for (int i = 0; i < values.size(); i++) {
+      int numAsterisks = (int) (values.get(i) / scaleVal);
       String asteriskString = "";
-      for(int j = 0;j<numAsterisks;j++){
-        asteriskString +="*";
+      for (int j = 0; j < numAsterisks; j++) {
+        asteriskString += "*";
       }
       points.add(asteriskString);
     }
@@ -704,20 +675,20 @@ public class FlexiblePortfolioImpl extends PortfolioImpl {
 
   /**
    * Difference between dates.
+   *
    * @param date1 first input date
    * @param date2 second input date
    * @return difference value between dates date1 and date2
    */
   @Override
-  public int checkDifference(String date1,String date2) {
+  public int checkDifference(String date1, String date2) {
     int difference = 0;
-    try{
+    try {
       SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-DD", Locale.ENGLISH);
       Date newdate1 = formatter.parse(date1);
       Date newdate2 = formatter.parse(date2);
-      difference = (int) (newdate2.getTime()-newdate1.getTime());
-    }
-    catch (Exception e){
+      difference = (int) (newdate2.getTime() - newdate1.getTime());
+    } catch (Exception e) {
       e.printStackTrace();
     }
     return difference;
@@ -725,13 +696,14 @@ public class FlexiblePortfolioImpl extends PortfolioImpl {
 
   /**
    * Check if input date1 is prior to the date2.
+   *
    * @param date1 first input date
    * @param date2 second input date
    * @return true if date1 is prior to the date2 else return false
    */
   @Override
-  public boolean checkValidDates(String date1,String date2){
-    try{
+  public boolean checkValidDates(String date1, String date2) {
+    try {
       SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-DD", Locale.ENGLISH);
       Date newdate1 = formatter.parse(date1);
       Date newdate2 = formatter.parse(date2);
@@ -739,8 +711,7 @@ public class FlexiblePortfolioImpl extends PortfolioImpl {
         return true;
       }
       return false;
-    }
-    catch (Exception e){
+    } catch (Exception e) {
       e.printStackTrace();
       return false;
     }

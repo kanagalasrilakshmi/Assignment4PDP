@@ -9,7 +9,6 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.DateTimeException;
 import java.time.LocalDate;
@@ -17,12 +16,13 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
+
 /**
  * A class that helps to create Portfolio Object.
  */
 class PortfolioObj {
-  private String tickr;
-  private float numStocks;
+  private final String tickr;
+  private final float numStocks;
 
   public PortfolioObj(String tickr, int numStocks) {
     this.tickr = tickr;
@@ -51,8 +51,8 @@ class PortfolioObj {
 
 
 class StocksObj {
-  private String tickr;
-  private int numStocks;
+  private final String tickr;
+  private final int numStocks;
 
   public StocksObj(String tickr, int numStocks) {
     this.tickr = tickr;
@@ -77,12 +77,13 @@ class StocksObj {
     return this.numStocks;
   }
 }
+
 /**
  * Class for creating an object for creating arraylist objects.
  */
 class ArrayListObj {
-  private ArrayList<String> tickrSymbols;
-  private ArrayList<String> prices;
+  private final ArrayList<String> tickrSymbols;
+  private final ArrayList<String> prices;
 
   /**
    * Constructor for ArrayLiostObj.
@@ -121,15 +122,18 @@ class ArrayListObj {
 public class PortfolioImpl implements Portfolio {
   private ArrayList<String> objString = new ArrayList<>();
   private ArrayList<String> objNumStocks = new ArrayList<>();
+
   /**
    * Creates a stock object.
-   * @param tickr is company tickr symbol
+   *
+   * @param tickr        is company tickr symbol
    * @param numberStocks is number of stocks purchased
    * @return StocksObj type object
    */
-  public StocksObj makeStockObj(String tickr, String numberStocks){
-    return new StocksObj(tickr,Integer.valueOf(numberStocks));
+  public StocksObj makeStockObj(String tickr, String numberStocks) {
+    return new StocksObj(tickr, Integer.valueOf(numberStocks));
   }
+
   /**
    * Method for creating new portfolio by the user.
    * Dumps all the data entered by user, stores in ListObj to a .txt file.
@@ -142,8 +146,8 @@ public class PortfolioImpl implements Portfolio {
       listAdded.add("Company Tickr Symbol,Num Of Stocks");
       for (Object object : listObj) {
         // go through all the elements in the ListObj.
-        StocksObj obj = (StocksObj)object;
-        String toBeAppended = obj.getTickr() + "," + String.valueOf(obj.getNumStocks());
+        StocksObj obj = (StocksObj) object;
+        String toBeAppended = obj.getTickr() + "," + obj.getNumStocks();
         listAdded.add(toBeAppended);
       }
       for (int i = 0; i < listAdded.size(); i++) {
@@ -191,23 +195,23 @@ public class PortfolioImpl implements Portfolio {
     }
   }
 
-  public ArrayList<String> getTickrs(){
+  public ArrayList<String> getTickrs() {
     return this.objString;
   }
 
-  public ArrayList<String> getNumberStocks(){
+  public ArrayList<String> getNumberStocks() {
     return this.objNumStocks;
   }
 
-  public void viewPortfolioDisplay(String rootDir, String filename) throws IOException{
+  public void viewPortfolioDisplay(String rootDir, String filename) throws IOException {
     ArrayList<PortfolioObj> obj = viewPortfolio(rootDir, filename);
     ArrayList<String> tickrSymbols = new ArrayList<>();
     ArrayList<String> numStocks = new ArrayList<>();
-    for(PortfolioObj object: obj){
+    for (PortfolioObj object : obj) {
       tickrSymbols.add(object.getTickr());
       numStocks.add(String.valueOf(object.getNumStocks()));
     }
-    ArrayListObj objreturn = new ArrayListObj(tickrSymbols,numStocks);
+    ArrayListObj objreturn = new ArrayListObj(tickrSymbols, numStocks);
     this.objString = objreturn.getTickrSymbols();
     this.objNumStocks = objreturn.getPrices();
   }
@@ -450,41 +454,45 @@ public class PortfolioImpl implements Portfolio {
 
   /**
    * check if the number of stocks entered to be sold is valid or not.
+   *
    * @param numStocks is number stocks to be sold
-   * @param tickr is tickr symbol for which stocks need to be sold
+   * @param tickr     is tickr symbol for which stocks need to be sold
    * @return true if sale can be made else false
    */
-  public boolean checkValidSell(String pfPath, int numStocks, String tickr){
+  public boolean checkValidSell(String pfPath, int numStocks, String tickr) {
     return false;
   }
 
   /**
    * check if the tickr symbol exists in the portfolio.
+   *
    * @param pfPath path for the portfolio
-   * @param tickr is company tickr symbol
+   * @param tickr  is company tickr symbol
    * @return true if tickr exists else false
    */
-  public boolean checkTickrExists(String pfPath, String tickr){
+  public boolean checkTickrExists(String pfPath, String tickr) {
     return false;
   }
 
   /**
    * Check if the given input date is prior to the given input date for a given tickr.
-   * @param date is input date
-   * @param tickr is company tickr symbol
+   *
+   * @param date   is input date
+   * @param tickr  is company tickr symbol
    * @param pfPath is portfolio path
    * @return true not prior else false
    */
-  public boolean checkPriorDate(String date,String tickr, String pfPath){
+  public boolean checkPriorDate(String date, String tickr, String pfPath) {
     return false;
   }
 
   /**
    * check if the given number either an integer or a decimal number
+   *
    * @param num input string parameter
    * @return true if valid else return false
    */
-  public boolean checkValidNum(String num){
+  public boolean checkValidNum(String num) {
     return false;
   }
 
@@ -494,120 +502,131 @@ public class PortfolioImpl implements Portfolio {
    * @param fees   is the commision fees
    * @param num    num stocks willing to sell
    * @param date   date on which sale is to be made
-   * @param tickr company tickr symbol
+   * @param tickr  company tickr symbol
    * @param pfPath path for the location of the portfolio
    */
 
-  public void modifyJson(String fees, int num, String date, String tickr,String pfPath){}
+  public void modifyJson(String fees, int num, String date, String tickr, String pfPath) {
+  }
 
   /**
    * Get the cost basis of a portfolio till a date.
+   *
    * @param pfPath input portfolio path
-   * @param date input string date
+   * @param date   input string date
    * @return cost basis value
    */
-  public float getCostBasis(String pfPath,String date){
+  public float getCostBasis(String pfPath, String date) {
     return 0;
   }
 
   /**
    * create a json portfolio.
-   * @param pfPath portfolio path where json needs to be saved
+   *
+   * @param pfPath   portfolio path where json needs to be saved
    * @param addEntry add json entry
    */
-  public void createPortfolioJson(String pfPath, JSONObject addEntry){
+  public void createPortfolioJson(String pfPath, JSONObject addEntry) {
 
   }
 
   /**
    * check if the tickr symbol exists in a json array
+   *
    * @param tickrList of type JSONObject
-   * @param tickr company tickrsymbol
+   * @param tickr     company tickrsymbol
    * @return false if not found else return true
    */
-  public boolean checkTickrJSONArray(JSONObject tickrList,String tickr){
+  public boolean checkTickrJSONArray(JSONObject tickrList, String tickr) {
     return false;
   }
 
-  public boolean checkDateinJSONObject(String date, String existingDate){
+  public boolean checkDateinJSONObject(String date, String existingDate) {
     return false;
   }
 
   /**
    * Get the price of a stock on a date.
-   * @param date input date on which portfolio value is needed
+   *
+   * @param date        input date on which portfolio value is needed
    * @param tickrSymbol company tickr symbol
    * @return float value of the price
    */
-  public float getCallPriceDate(String date,String tickrSymbol){
+  public float getCallPriceDate(String date, String tickrSymbol) {
     return 0;
   }
 
   /**
    * Get the values of the porfolio for a particular day, month, year.
-   * @param date1 first input date
-   * @param date2 second input date
+   *
+   * @param date1          first input date
+   * @param date2          second input date
    * @param differenceDays number of days difference between date1 and date2
-   * @param pfName portfolio name for which performance need to be plotted
-   * @param rootDir root directory of portfolio
+   * @param pfName         portfolio name for which performance need to be plotted
+   * @param rootDir        root directory of portfolio
    * @return array list of values of the portfolio
    */
   @Override
-  public ArrayList<Float>getValuesPortfolio(String rootDir,String pfName,
-                                            String date1,String date2,int differenceDays)
+  public ArrayList<Float> getValuesPortfolio(String rootDir, String pfName,
+                                             String date1, String date2, int differenceDays)
           throws java.text.ParseException, FileNotFoundException {
     return new ArrayList<>();
   }
 
   /**
    * List of days or months or years that needs to be displayed while checking the performance.
-   * @param date1 first input date
-   * @param date2 second input date
+   *
+   * @param date1          first input date
+   * @param date2          second input date
    * @param differenceDays number of days difference between date1 and date2
    * @return array list of dates to be printed for recording performance of the portfolio
    */
 
-  public ArrayList<String>getDatesDisplay(String date1,String date2,int differenceDays){
+  public ArrayList<String> getDatesDisplay(String date1, String date2, int differenceDays) {
     return new ArrayList<String>();
   }
 
   /**
    * Compute the scale for the portfolio.
+   *
    * @param values list of values obtained on a given date or month or year
    * @return scale of type float
    */
-  public float getScale(ArrayList<Float>values){
+  public float getScale(ArrayList<Float> values) {
     return 0;
   }
 
   /**
    * Get the number of points to be pointed in form of asterisks.
    * for getting the performance of portfolio.
+   *
    * @param scaleVal scale of the performance portfolio
-   * @param values list of performance portfolio values
+   * @param values   list of performance portfolio values
    * @return list of asterisks that needs to be printed
    */
-  public ArrayList<String> getPoints(float scaleVal,ArrayList<Float>values){
+  public ArrayList<String> getPoints(float scaleVal, ArrayList<Float> values) {
     return new ArrayList<String>();
   }
 
   /**
    * Difference between dates.
+   *
    * @param date1 first input date
    * @param date2 second input date
    * @return difference value between dates date1 and date2
    */
-  public int checkDifference(String date1,String date2) {
+  public int checkDifference(String date1, String date2) {
     return 0;
   }
 
   /**
    * Check if input date1 is prior to the date2.
+   *
    * @param date1 first input date
    * @param date2 second input date
    * @return true if date1 is prior to the date2 else return false
    */
-  public boolean checkValidDates(String date1,String date2){
+  public boolean checkValidDates(String date1, String date2) {
     return false;
   }
 }
