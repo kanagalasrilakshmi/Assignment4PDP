@@ -224,17 +224,23 @@ public interface Portfolio {
    * @param date1 first input date
    * @param date2 second input date
    * @param differenceDays number of days difference between date1 and date2
+   * @param pfName portfolio name for which performance need to be plotted
+   * @param rootDir root directory of portfolio
    * @return array list of values of the portfolio
    */
-  public ArrayList<Float>getValuesPortfolio(String date1,String date2,int differenceDays);
+  public ArrayList<Float>getValuesPortfolio(String rootDir,String pfName,
+                                            String date1,String date2,int differenceDays)
+          throws ParseException, FileNotFoundException;
+
 
   /**
-   * List of days or months or years that needs to be displayed while checking the performance
+   * List of days or months or years that needs to be displayed while checking the performance.
    * @param date1 first input date
    * @param date2 second input date
    * @param differenceDays number of days difference between date1 and date2
    * @return array list of dates to be printed for recording performance of the portfolio
    */
+
   public ArrayList<String>getDatesDisplay(String date1,String date2,int differenceDays);
 
   /**

@@ -313,7 +313,8 @@ public class ControllerImplFlexible implements Controller {
             theView.showString("The difference is less than 5 days hence not valid");
             break;
           }
-          ArrayList<Float>values = thePortfolio.getValuesPortfolio(date1,date2,differenceDays);
+          ArrayList<Float>values = thePortfolio.getValuesPortfolio(this.rootDir,
+                  pfPerformance ,date1,date2,differenceDays);
           ArrayList<String>dates = thePortfolio.getDatesDisplay(date1,date2,differenceDays);
           float scaleVal = thePortfolio.getScale(values);
           ArrayList<String>points = thePortfolio.getPoints(scaleVal,values);

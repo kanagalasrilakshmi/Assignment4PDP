@@ -11,6 +11,10 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.Year;
+import java.time.YearMonth;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
@@ -427,25 +431,49 @@ public class FlexiblePortfolioImpl extends PortfolioImpl {
    * @param date1 first input date
    * @param date2 second input date
    * @param differenceDays number of days difference between date1 and date2
+   * @param pfName portfolio name for which performance need to be plotted
+   * @param rootDir root directory of portfolio
    * @return array list of values of the portfolio
    */
   @Override
-  public ArrayList<Float> getValuesPortfolio(String date1, String date2, int differenceDays){
+  public ArrayList<Float>getValuesPortfolio(String rootDir,String pfName,
+                                            String date1,String date2,int differenceDays)
+          throws java.text.ParseException, FileNotFoundException {
+    ArrayList<Float>getValues = new ArrayList<>();
     // if the difference is more than 5 and <= 30 print day wise.
-
+    if(differenceDays>=5 && differenceDays<=30){
+      ArrayList<String>datesList = getDatesDisplay(date1,date2, differenceDays);
+      for(int i =0;i<datesList.size();i++){
+        String date = datesList.get(i);
+        getValues.add(portfolioValueDate(rootDir, pfName, date));
+      }
+    }
     // if the difference is more than 30 days and <=150 days print for every 5 days.
+    else if(differenceDays>30 && differenceDays<=150){
+      // get the date of the first entry in portfolio.
+      ArrayList<String>datesList = getDatesDisplay(date1,date2, differenceDays);
+      for(int i =0;i<datesList.size();i++){
+        String date = datesList.get(i);
+        getValues.add(portfolioValueDate(rootDir, pfName, date));
+      }
+    }
+    // if the difference is more than 150 days and 900 days print in months.
+    else if(differenceDays>150 && differenceDays<=900){
 
-    // if the difference is more than 150 days and 900 days.
+    }
+    // if difference is more than 900 days and less than equal to 1800 days print on 3 mon basis.
+    else if(differenceDays>900 && differenceDays<=1800){
+    }
+    // if difference is more than 1800 days then yearly.
+    else{
 
-    // if difference is more than 900 days and less than equal to 1800 days.
-
-    // if difference is more than 1800 days than yearly.
-
-    return new ArrayList<Float>();
+    }
+    return getValues;
   }
 
+
   /**
-   * List of days or months or years that needs to be displayed while checking the performance
+   * List of days or months or years that needs to be displayed while checking the performance.
    * @param date1 first input date
    * @param date2 second input date
    * @param differenceDays number of days difference between date1 and date2
@@ -453,17 +481,141 @@ public class FlexiblePortfolioImpl extends PortfolioImpl {
    */
   @Override
   public ArrayList<String>getDatesDisplay(String date1,String date2,int differenceDays){
+    ArrayList<String>totalDates = new ArrayList<>();
     // if the difference is more than 5 and <= 30 print day wise.
-
+    if(differenceDays>=5 && differenceDays<=30){
+      // get the date of the first entry in portfolio.
+      LocalDate start = LocalDate.parse(date1);
+      LocalDate end = LocalDate.parse(date2);
+      while (!start.isAfter(end)) {
+        totalDates.add(start.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+        start = start.plusDays(1);
+      }
+    }
     // if the difference is more than 30 days and <=150 days print for every 5 days.
+    else if(differenceDays>30 && differenceDays<=150){
+      // get the date of the first entry in portfolio.
+      LocalDate start = LocalDate.parse(date1);
+      LocalDate end = LocalDate.parse(date2);
+      while (!start.isAfter(end)) {
+        totalDates.add(start.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+        start = start.plusDays(5);
+      }
+    }
+    // if the difference is more than 150 days and 900 days print in months.
+    else if(differenceDays>150 && differenceDays<=900){
+      DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM", Locale.ENGLISH);
+      String stringDate1[] = date1.split("-");
+      String stringDate2[] = date2.split("-");
+      YearMonth startDate = YearMonth.parse(stringDate1[0]+"-"+stringDate1[1], formatter);
+      YearMonth endDate = YearMonth.parse(stringDate2[0]+"-"+stringDate2[1], formatter);
 
-    // if the difference is more than 150 days and 900 days.
-
-    // if difference is more than 900 days and less than equal to 1800 days.
-
-    // if difference is more than 1800 days than yearly.
-
-    return new ArrayList<String>();
+      while(startDate.isBefore(endDate)) {
+        String stringDate = startDate.format(DateTimeFormatter.ofPattern("yyyy-MM"));
+        String dateString[] = stringDate.split("-");
+        if(dateString[1].equals("01")){
+          totalDates.add("Jan "+dateString[0]);
+        }
+        else if(dateString[1].equals("02")){
+          totalDates.add("Feb "+dateString[0]);
+        }
+        else if(dateString[1].equals("03")){
+          totalDates.add("Mar "+dateString[0]);
+        }
+        else if(dateString[1].equals("04")){
+          totalDates.add("Apr "+dateString[0]);
+        }
+        else if(dateString[1].equals("05")){
+          totalDates.add("May "+dateString[0]);
+        }
+        else if(dateString[1].equals("06")){
+          totalDates.add("Jun "+dateString[0]);
+        }
+        else if(dateString[1].equals("07")){
+          totalDates.add("Jul "+dateString[0]);
+        }
+        else if(dateString[1].equals("08")){
+          totalDates.add("Aug "+dateString[0]);
+        }
+        else if(dateString[1].equals("09")){
+          totalDates.add("Sep "+dateString[0]);
+        }
+        else if(dateString[1].equals("10")){
+          totalDates.add("Oct "+dateString[0]);
+        }
+        else if(dateString[1].equals("11")){
+          totalDates.add("Nov "+dateString[0]);
+        }
+        else if(dateString[1].equals("12")){
+          totalDates.add("Dec "+dateString[0]);
+        }
+        startDate = startDate.plusMonths(1);
+      }
+    }
+    // if difference is more than 900 days and less than equal to 1800 days print on 3 mon basis.
+    else if(differenceDays>900 && differenceDays<=1800){
+      DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM", Locale.ENGLISH);
+      String stringDate1[] = date1.split("-");
+      String stringDate2[] = date2.split("-");
+      YearMonth startDate = YearMonth.parse(stringDate1[0]+"-"+stringDate1[1], formatter);
+      YearMonth endDate = YearMonth.parse(stringDate2[0]+"-"+stringDate2[1], formatter);
+      while(startDate.isBefore(endDate)) {
+        String stringDate = startDate.format(DateTimeFormatter.ofPattern("yyyy-MM"));
+        String dateString[] = stringDate.split("-");
+        if(dateString[1].equals("01")){
+          totalDates.add("Jan "+dateString[0]);
+        }
+        else if(dateString[1].equals("02")){
+          totalDates.add("Feb "+dateString[0]);
+        }
+        else if(dateString[1].equals("03")){
+          totalDates.add("Mar "+dateString[0]);
+        }
+        else if(dateString[1].equals("04")){
+          totalDates.add("Apr "+dateString[0]);
+        }
+        else if(dateString[1].equals("05")){
+          totalDates.add("May "+dateString[0]);
+        }
+        else if(dateString[1].equals("06")){
+          totalDates.add("Jun "+dateString[0]);
+        }
+        else if(dateString[1].equals("07")){
+          totalDates.add("Jul "+dateString[0]);
+        }
+        else if(dateString[1].equals("08")){
+          totalDates.add("Aug "+dateString[0]);
+        }
+        else if(dateString[1].equals("09")){
+          totalDates.add("Sep "+dateString[0]);
+        }
+        else if(dateString[1].equals("10")){
+          totalDates.add("Oct "+dateString[0]);
+        }
+        else if(dateString[1].equals("11")){
+          totalDates.add("Nov "+dateString[0]);
+        }
+        else if(dateString[1].equals("12")){
+          totalDates.add("Dec "+dateString[0]);
+        }
+        startDate = startDate.plusMonths(3);
+      }
+    }
+    // if difference is more than 1800 days then yearly.
+    else{
+      DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy", Locale.ENGLISH);
+      String stringDate1[] = date1.split("-");
+      String stringDate2[] = date2.split("-");
+      Year startDate = Year.parse(stringDate1[0], formatter);
+      Year endDate = Year.parse(stringDate2[0], formatter);
+      while(startDate.isBefore(endDate)) {
+        String stringDate = startDate.format(DateTimeFormatter.ofPattern("yyyy"));
+        String dateString[] = stringDate.split("-");
+        totalDates.add(dateString[0]);
+        startDate = startDate.plusYears(1);
+      }
+    }
+    return totalDates;
   }
 
   /**
