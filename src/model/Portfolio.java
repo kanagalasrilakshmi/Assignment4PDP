@@ -296,12 +296,12 @@ public interface Portfolio {
    * and tickr symbol.
    * @param date is the date on which purchase or sale is made
    * @param commission is input commision for a transaction
-   * @param no_of_stocks is number stock bought or sold
+   * @param noofstocks is number stock bought or sold
    * @param tickr is company tickr symbol for which trasaction needs to be done
    * @return a json object entry that needs to be added to the portfolio
    */
 
   public JSONObject makeTransactionRecord(String date, float commission,
-                                          int no_of_stocks, String tickr);
+                                          int noofstocks, String tickr);
 }
 

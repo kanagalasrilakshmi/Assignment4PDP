@@ -46,6 +46,11 @@ public class ControllerImplFlexible implements Controller {
     this.rootDir = System.getProperty("user.home") + "/Desktop/PortfolioBucket/";
   }
 
+  /**
+   * Create a directory on the desktop if user gives invalid path.
+   *
+   * @param rootDirUser
+   */
   public void setDirectory(String rootDirUser) {
     if (new File(rootDirUser).exists()) {
       if (!thePortfolio.checkLastEndingCharacter(rootDirUser)) {
@@ -67,6 +72,14 @@ public class ControllerImplFlexible implements Controller {
   }
 
   //TODO: PUT IT IN VIEW
+
+  /**
+   * List all the portfolios with the given extension of the folder where portfolios are present.
+   *
+   * @param path      is the portfolio input folder
+   * @param extension is either, .json or .txt
+   * @return false if no portfolios are present in the given input folder else print all of them
+   */
   public boolean doneListingPortfolios(String path, String extension) {
     if (!thePortfolio.hasAtleastOnePortfolio(path, extension)) {
       theView.showString("No portfolio exists. Create a portfolio.");
@@ -78,6 +91,13 @@ public class ControllerImplFlexible implements Controller {
     return true;
   }
 
+  /**
+   * Check if the given portfolio already exists in the given input folder of portfolios.
+   *
+   * @param rootDir   is the input location where all the portfolios are present
+   * @param extension is either .json or .txt
+   * @return a valid portfolio name that exists in the given input folder
+   */
   public String getValidPfName(String rootDir, String extension) {
     theView.showString("Enter valid portfolio name:");
     String pfNameChosen = in.next();
@@ -88,6 +108,14 @@ public class ControllerImplFlexible implements Controller {
     return pfNameChosen;
   }
 
+  /**
+   * Used for creating a valid portfolio that is not too long or special characters.
+   * The same name does not already exist in the given input folder for the portfolio.
+   *
+   * @param rootDir   is the input root directory where all the created portfolios are stored
+   * @param extension is either .json or .txt
+   * @return a valid portfolio name given by the user
+   */
   public String createValidPf(String rootDir, String extension) {
     theView.showString("Give a valid name for the portfolio you want to create. The string " +
             "should not have spaces or special characters and the length must be less than " +
@@ -104,6 +132,12 @@ public class ControllerImplFlexible implements Controller {
     return pfName;
   }
 
+  /**
+   * Used to take in date from the user and check if right format date is entered,
+   * if the date entered is in future or entered before the stock market opened today
+   * @param message that asks the user to enter date in correct format
+   * @return valid date given by the user
+   */
   public String getAndValidateDate(String message) {
     theView.showString(message);
     String date = in.next();
@@ -119,6 +153,11 @@ public class ControllerImplFlexible implements Controller {
     return date;
   }
 
+  /**
+   * Takes in valid input for stocks which should allow only integer values.
+   * @param message is used to ask the user to enter the stock price
+   * @return valid stock price entered by the user
+   */
   public String getValidNumberStocks(String message) {
     theView.showString(message);
     String num = in.next();
@@ -129,6 +168,10 @@ public class ControllerImplFlexible implements Controller {
     return num;
   }
 
+  /**
+   * enter the commision fees for performing a transaction.
+   * @return valid value of the commission fees entered by the user in float type
+   */
   public Float getValidCommission() {
     theView.showString("Enter the commission fees");
     String commision = in.next();
@@ -140,6 +183,13 @@ public class ControllerImplFlexible implements Controller {
     return Float.valueOf(commision);
   }
 
+  /**
+   * Checks if the given input tickr symbol by the user exists by validating,
+   * in the list of valid symbols present in the tickrData.txt file.
+   *
+   * @return a valid tickr from the user that is also there in the tickrData.txt file
+   * @throws FileNotFoundException if there is a problem finding tickrData.txt file
+   */
   public String getValidTickr() throws FileNotFoundException {
     theView.showString("Enter Valid Stock company tickr symbol");
     String tickrpurchase = in.next();
@@ -150,7 +200,20 @@ public class ControllerImplFlexible implements Controller {
     return tickrpurchase;
   }
 
-  public boolean validSell(int num, String path, String tickr, String date) throws ParseException {
+  /**
+   * Check if for a given tickr symbol and date,
+   * the number of stocks present in the portfolio are more than or equal to input number of stocks.
+   * If given number of stocks are less than or equal to the stocks present,
+   * for the tickr symbol till date then sale can be made.
+   * @param num is the number of stocks that are to be sold
+   * @param path is the path for the portfolio over which transaction needs to be done
+   * @param tickr is company tickr symbol for which sale needs to be made
+   * @param date is date on which sale needs to be made
+   * @return true if the given stocks can be sold else return false
+   * @throws ParseException is thrown when error while parsing the input portfolio
+   */
+  public boolean validSell(int num, String path, String tickr, String date)
+          throws ParseException {
     if (!thePortfolio.checkValidSell(path, Integer.valueOf(num), tickr, date)) {
       theView.showString("The number entered for selling stocks is more than " +
               "stocks purchased");
@@ -159,6 +222,15 @@ public class ControllerImplFlexible implements Controller {
     return true;
   }
 
+  /**
+   * This is used to make a purchase or sell.
+   *
+   * @param tickr  ticker symbol for which transaction needs to be made
+   * @param path   is input path of the portfolio on which transaction needs to be made
+   * @param isSell make it true if sale is to be made, set to false if purchase needs to be made
+   * @return a message if the transaction is suceessful and portfolio is modified or not
+   * @throws java.text.ParseException if an error occurs while parsing the portfolio
+   */
   public String makeTransaction(String tickr, String path, boolean isSell) throws
           java.text.ParseException {
     Float fees = getValidCommission();
@@ -177,6 +249,16 @@ public class ControllerImplFlexible implements Controller {
     return "The portfolio is successfully modified";
   }
 
+  /**
+   * Print the performance of the portfolio for the given time range.
+   *
+   * @param pfPerformance  is the portfolio name for which performance needs to be plotted
+   * @param date1          initial argument in the time range
+   * @param date2          is the final argument in the time range
+   * @param differenceDays is the difference in days between date1 and date2
+   * @throws FileNotFoundException if no file is found
+   * @throws ParseException        if error occurs while parsing the input portfolio
+   */
   public void printBargraph(String pfPerformance, String date1, String date2, int differenceDays)
           throws FileNotFoundException, ParseException {
     ArrayList<Float> values = thePortfolio.getValuesPortfolio(this.rootDir,

@@ -22,6 +22,12 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.Locale;
 
+/**
+ * This class creates flexible portfolios and lets user to ,
+ * create new portfolio, modify existing portfolios,  get cost basis till a specific date,
+ * get value of the portfolio on a specific date,
+ * get whole composition of the portfolio.
+ */
 public class FlexiblePortfolioImpl extends PortfolioImpl {
 
   /**
