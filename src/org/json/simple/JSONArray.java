@@ -2,6 +2,7 @@
  * $Id: JSONArray.java,v 1.1 2006/04/15 14:10:48 platform Exp $
  * Created on 2006-4-10
  */
+
 package org.json.simple;
 
 import java.io.IOException;
@@ -14,7 +15,7 @@ import java.util.List;
 /**
  * A JSON array. JSONObject supports java.util.List interface.
  *
- * @author FangYidong<fangyidong @ yahoo.com.cn>
+ * @author FangYidong"<fangyidong @ yahoo.com.cn>".
  */
 public class JSONArray extends ArrayList implements List, JSONAware, JSONStreamAware {
   private static final long serialVersionUID = 3957988303675231981L;
@@ -24,8 +25,6 @@ public class JSONArray extends ArrayList implements List, JSONAware, JSONStreamA
    * If this list is also a JSONStreamAware or a JSONAware,
    * JSONStreamAware and JSONAware specific behaviours will be ignored at this top level.
    *
-   * @param list
-   * @param out
    * @see JSONValue#writeJSONString(Object, Writer)
    */
   public static void writeJSONString(List list, Writer out) throws IOException {
@@ -39,10 +38,12 @@ public class JSONArray extends ArrayList implements List, JSONAware, JSONStreamA
 
     out.write('[');
     while (iter.hasNext()) {
-      if (first)
+      if (first){
         first = false;
-      else
+      }
+      else{
         out.write(',');
+      }
 
       Object value = iter.next();
       if (value == null) {
