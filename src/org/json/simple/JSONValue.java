@@ -17,7 +17,7 @@ import java.util.Map;
 
 
 /**
- * @author FangYidong"<fangyidong @ yahoo.com.cn>"
+ * @author FangYidong fangyidong @ yahoo.com.cn.
  */
 public class JSONValue {
   /**
@@ -46,7 +46,6 @@ public class JSONValue {
 
   /**
    * Parse JSON text into java object from the input source.
-   *
    * org.json.simple.JSONObject,
    * org.json.simple.JSONArray,
    * java.lang.String,
@@ -66,10 +65,8 @@ public class JSONValue {
 
   /**
    * Encode an object into JSON text and write it to out.
-   *
    * If this object is a Map or a List, and it's also,
    * JSONStreamAware or a JSONAware, JSONStreamAware or JSONAware will be considered firstly.
-   *
    * DO NOT call this method from writeJSONString(Writer) of a class,
    * that implements both JSONStreamAware and (Map or List) with
    * "this" as the first parameter, use JSONObject.writeJSONString(Map, Writer) ,
@@ -141,10 +138,8 @@ public class JSONValue {
 
   /**
    * Convert an object to JSON text.
-   *
    * If this object is a Map or a List, and it's also a JSONAware,
    * JSONAware will be considered firstly.
-   *
    * DO NOT call this method from toJSONString() of a class that implements,
    * both JSONAware and Map or List with "this" as the parameter, use JSONObject.toJSONString(Map),
    * or JSONArray.toJSONString(List) instead.

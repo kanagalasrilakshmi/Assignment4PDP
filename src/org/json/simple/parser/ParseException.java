@@ -3,7 +3,7 @@ package org.json.simple.parser;
 /**
  * ParseException explains why and where the error occurs in source JSON text.
  *
- * @author FangYidong<fangyidong @ yahoo.com.cn>
+ * @author FangYidong fangyidong @ yahoo.com.cn .
  */
 public class ParseException extends Exception {
   private static final long serialVersionUID = -7880698968187728548L;
@@ -65,21 +65,24 @@ public class ParseException extends Exception {
     this.unexpectedObject = unexpectedObject;
   }
 
+  /**
+   * String method to convert to string.
+   */
   public String toString() {
     StringBuffer sb = new StringBuffer();
 
     switch (errorType) {
       case ERROR_UNEXPECTED_CHAR:
-        sb.append("Unexpected character (").append(unexpectedObject).
-                append(") at position ").append(position).append(".");
+        sb.append("Unexpected character (").append(unexpectedObject)
+                        .append(") at position ").append(position).append(".");
         break;
       case ERROR_UNEXPECTED_TOKEN:
-        sb.append("Unexpected token ").append(unexpectedObject).
-                append(" at position ").append(position).append(".");
+        sb.append("Unexpected token ").append(unexpectedObject)
+                .append(" at position ").append(position).append(".");
         break;
       case ERROR_UNEXPECTED_EXCEPTION:
-        sb.append("Unexpected exception at position ").append(position).append(": ").
-                append(unexpectedObject);
+        sb.append("Unexpected exception at position ").append(position).append(": ")
+                .append(unexpectedObject);
         break;
       default:
         sb.append("Unkown error at position ").append(position).append(".");

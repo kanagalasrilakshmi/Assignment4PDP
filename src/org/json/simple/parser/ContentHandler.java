@@ -26,8 +26,6 @@ public interface ContentHandler {
    * Receive notification of the beginning of a JSON object.
    *
    * @return false if the handler wants to stop parsing after return.
-   * @throws ParseException
-   *          - JSONParser will stop and throw the same exception to the caller when receiving this exception.
    * @see #endJSON
    */
   boolean startObject() throws ParseException, IOException;
@@ -86,12 +84,6 @@ public interface ContentHandler {
 
   /**
    * Receive notification of the JSON primitive values:
-   * java.lang.String,
-   * java.lang.Number,
-   * java.lang.Boolean,
-   * null.
-   *
-   * @param value - Instance of the following:
    * java.lang.String,
    * java.lang.Number,
    * java.lang.Boolean,
