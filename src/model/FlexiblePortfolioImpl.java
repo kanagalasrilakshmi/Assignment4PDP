@@ -96,11 +96,13 @@ public class FlexiblePortfolioImpl extends PortfolioImpl {
     // if ticker already exists in portfolio append to it else add new entry if it does not exist.
     if (portfolio.containsKey(tickr)) {
       JSONArray tickrRecord = (JSONArray) portfolio.get(tickr);
-      JSONObject newTransactionRecord = makeTransactionRecord(date, commissionFee, numOfStocks, tickr);
+      JSONObject newTransactionRecord = makeTransactionRecord(date, commissionFee, numOfStocks,
+              tickr);
       tickrRecord.add(newTransactionRecord);
       portfolio.put(tickr, tickrRecord);
     } else {
-      JSONObject newTransactionRecord = makeTransactionRecord(date, commissionFee, numOfStocks, tickr);
+      JSONObject newTransactionRecord = makeTransactionRecord(date, commissionFee, numOfStocks,
+              tickr);
       JSONArray newTickrRecord = new JSONArray();
       newTickrRecord.add(newTransactionRecord);
       portfolio.put(tickr, newTickrRecord);
