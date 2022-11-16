@@ -2,15 +2,16 @@ package view;
 
 import java.io.PrintStream;
 
-public class ViewImplFlexible extends ViewImpl{
+public class ViewImplFlexible extends ViewImpl {
   /**
    * Constructor for view.
    *
-   * @param out  takes in prinstream type object
+   * @param out takes in prinstream type object
    */
   public ViewImplFlexible(PrintStream out) {
     super(out);
   }
+
   @Override
   /**
    * Shows the options that can be used by the user to run the stocks program.

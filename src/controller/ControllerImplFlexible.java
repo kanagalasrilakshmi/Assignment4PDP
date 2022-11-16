@@ -3,11 +3,9 @@ package controller;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
@@ -17,7 +15,7 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import Model.Portfolio;
+import model.Portfolio;
 import view.View;
 
 /**
@@ -101,10 +99,11 @@ public class ControllerImplFlexible implements Controller {
     }
     while (new File(rootDir + pfName + extension).exists()) {
       theView.showString("Portfolio with this name already exists. Try again");
-      pfName = createValidPf(rootDir,extension);
+      pfName = createValidPf(rootDir, extension);
     }
     return pfName;
   }
+
   public String getAndValidateDate(String message) {
     theView.showString(message);
     String date = in.next();
@@ -133,7 +132,8 @@ public class ControllerImplFlexible implements Controller {
   public Float getValidCommission() {
     theView.showString("Enter the commission fees");
     String commision = in.next();
-    while (!(thePortfolio.checkValidInteger(commision)||thePortfolio.checkValidFloat(commision))) {
+    while (!(thePortfolio.checkValidInteger(commision) ||
+            thePortfolio.checkValidFloat(commision))) {
       theView.showString("Enter only float or integer values:");
       commision = in.next();
     }
@@ -150,29 +150,30 @@ public class ControllerImplFlexible implements Controller {
     return tickrpurchase;
   }
 
-  public boolean validSell(int num, String path,String tickr, String date) throws ParseException {
-    if (!thePortfolio.checkValidSell(path, Integer.valueOf(num), tickr,date)) {
+  public boolean validSell(int num, String path, String tickr, String date) throws ParseException {
+    if (!thePortfolio.checkValidSell(path, Integer.valueOf(num), tickr, date)) {
       theView.showString("The number entered for selling stocks is more than " +
               "stocks purchased");
       return false;
     }
     return true;
   }
-  public String makeTransaction(String tickr, String path,boolean isSell) throws
+
+  public String makeTransaction(String tickr, String path, boolean isSell) throws
           java.text.ParseException {
     Float fees = getValidCommission();
     String transactionDate = getAndValidateDate("Enter date of transaction:");
     int numberOfStocks = Integer.valueOf(getValidNumberStocks("Number of stocks:"));
     if (isSell) {
-      while(!validSell(numberOfStocks, path, tickr, transactionDate)){
+      while (!validSell(numberOfStocks, path, tickr, transactionDate)) {
         numberOfStocks = Integer.valueOf(getValidNumberStocks("Enter valid number of stocks:"));
-        if(numberOfStocks <= 0){
+        if (numberOfStocks <= 0) {
           return "This sale cannot be made!";
         }
       }
-      numberOfStocks = numberOfStocks*(-1);
+      numberOfStocks = numberOfStocks * (-1);
     }
-    thePortfolio.modifyJson(fees, numberOfStocks , transactionDate, tickr, path);
+    thePortfolio.modifyJson(fees, numberOfStocks, transactionDate, tickr, path);
     return "The portfolio is successfully modified";
   }
 
@@ -195,7 +196,7 @@ public class ControllerImplFlexible implements Controller {
           quit = true;
           break;
         case "M":
-          if(!doneListingPortfolios(this.rootDir, ".json")) {
+          if (!doneListingPortfolios(this.rootDir, ".json")) {
             break;
           }
           String pfJsonNameChosen = getValidPfName(this.rootDir, ".json");
@@ -208,16 +209,16 @@ public class ControllerImplFlexible implements Controller {
               case "1":
                 theView.showString("Enter Valid Stock company tickr symbol");
                 String tickr = in.next();
-                if(!thePortfolio.ifTickrInPf(pfPath, tickr)) {
+                if (!thePortfolio.ifTickrInPf(pfPath, tickr)) {
                   theView.showString("No stocks for this tickr exists to sell.");
                   break;
                 }
-                theView.showString(makeTransaction(tickr,pfPath, true));
+                theView.showString(makeTransaction(tickr, pfPath, true));
                 transDone = true;
                 break;
               case "2":
                 String tickrpurchase = getValidTickr();
-                theView.showString(makeTransaction(tickrpurchase,pfPath,false));
+                theView.showString(makeTransaction(tickrpurchase, pfPath, false));
                 transDone = true;
                 break;
               default:
@@ -252,7 +253,7 @@ public class ControllerImplFlexible implements Controller {
           String date2 = in.next();
           // if user first input date > second input date.
           // say it is not possible enter valid range.
-          while(!thePortfolio.checkValidDates(date1,date2)){
+          while (!thePortfolio.checkValidDates(date1, date2)) {
             theView.showString("The dates given cannot give a valid range please given valid " +
                     "input dates");
             date1 = in.next();
@@ -260,23 +261,23 @@ public class ControllerImplFlexible implements Controller {
           }
           // if the user enters valid range dates.
           // check difference between the dates.
-          int differenceDays = thePortfolio.checkDifference(date1,date2);
+          int differenceDays = thePortfolio.checkDifference(date1, date2);
           // if the difference is less than 5 return error.
-          if(differenceDays < 5){
+          if (differenceDays < 5) {
             theView.showString("The difference is less than 5 days hence not valid");
             break;
           }
-          ArrayList<Float>values = thePortfolio.getValuesPortfolio(this.rootDir,
-                  pfPerformance ,date1,date2,differenceDays);
-          ArrayList<String>dates = thePortfolio.getDatesDisplay(date1,date2,differenceDays);
+          ArrayList<Float> values = thePortfolio.getValuesPortfolio(this.rootDir,
+                  pfPerformance, date1, date2, differenceDays);
+          ArrayList<String> dates = thePortfolio.getDatesDisplay(date1, date2, differenceDays);
           float scaleVal = thePortfolio.getScale(values);
-          ArrayList<String>points = thePortfolio.getPoints(scaleVal,values);
-          theView.showString("Performance of the portfolio "+pfPerformance+" from "+date1+
-                  " to "+date2);
-          for(int i = 0;i<points.size();i++){
-            theView.showString(dates.get(i)+" : "+points.get(i));
+          ArrayList<String> points = thePortfolio.getPoints(scaleVal, values);
+          theView.showString("Performance of the portfolio " + pfPerformance + " from " + date1 +
+                  " to " + date2);
+          for (int i = 0; i < points.size(); i++) {
+            theView.showString(dates.get(i) + " : " + points.get(i));
           }
-          theView.showString("Scale: * = $"+scaleVal);
+          theView.showString("Scale: * = $" + scaleVal);
           break;
         case "V":
           if (!thePortfolio.hasAtleastOnePortfolio(this.rootDir, ".json")) {
@@ -299,7 +300,7 @@ public class ControllerImplFlexible implements Controller {
                         "fetch the portfolio in YYYY-MM-DD format only!");
                 float costBasis = thePortfolio.getCostBasis(this.rootDir + pfNameChosen
                         + ".json", date);
-                theView.showString("The cost basis till date, " + date + " is: "+ costBasis);
+                theView.showString("The cost basis till date, " + date + " is: " + costBasis);
                 viewDone = true;
                 break;
               case "D":
@@ -322,7 +323,7 @@ public class ControllerImplFlexible implements Controller {
           }
           break;
         case "C":
-          String pfName =  createValidPf(this.rootDir,".json");
+          String pfName = createValidPf(this.rootDir, ".json");
           boolean done = false;
           JSONObject addTickr = new JSONObject();
           while (!done) {
@@ -348,8 +349,7 @@ public class ControllerImplFlexible implements Controller {
                   JSONArray listEntry = new JSONArray();
                   listEntry.add(addEntry);
                   addTickr.put(tickrpurchase, listEntry);
-                }
-                else{
+                } else {
                   theView.showString("The given tickr symbol already exists, select M " +
                           "option to modify it");
                   break;

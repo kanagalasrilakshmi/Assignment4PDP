@@ -1,19 +1,10 @@
 package view;
 
-import com.sun.xml.internal.bind.v2.TODO;
-
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 
-import java.awt.*;
 import java.io.File;
-import java.io.FileReader;
 import java.io.PrintStream;
-
-import javax.swing.text.BadLocationException;
-import javax.swing.text.Position;
 
 
 /**
@@ -22,6 +13,7 @@ import javax.swing.text.Position;
 public class ViewImpl implements View {
 
   final PrintStream out;
+
   /**
    * Constructo for view.
    *
@@ -79,6 +71,7 @@ public class ViewImpl implements View {
 
   /**
    * List all the json files
+   *
    * @param rootDir is the path from which json files need to be searched
    */
   //TODO: Remove this func and add to previous func read text files, and rename it to list portfolios
@@ -101,8 +94,9 @@ public class ViewImpl implements View {
     this.showString("Press D to view portfolio value on specific date");
     this.showString("Press P to view portfolio composition");
   }
+
   public void viewFlexibleComposition(JSONObject portfolio) {
-  // view composition of portfolio
+    // view composition of portfolio
     for (Object tickrsym : portfolio.keySet()) {
       this.showString("TICKER SYMBOL : " + (String) tickrsym);
       this.showString("NUM OF STOCKS PURCHASED/SOLD    DATE OF PURCHASE/SELL   "

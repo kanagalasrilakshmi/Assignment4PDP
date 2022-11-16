@@ -33,10 +33,13 @@ public interface View {
 
   /**
    * List all the json files
+   *
    * @param rootDir is the path from which json files need to be searched
    */
   void listJSONFiles(String rootDir);
+
   void viewFlexibleComposition(JSONObject portfolio);
+
   void showFlexibleViewOptions();
 }
 

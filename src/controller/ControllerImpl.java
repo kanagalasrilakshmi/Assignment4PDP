@@ -10,7 +10,7 @@ import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import Model.Portfolio;
+import model.Portfolio;
 import view.View;
 
 /**
@@ -211,10 +211,11 @@ public class ControllerImpl implements Controller {
                 thePortfolio.viewPortfolioDisplay(this.rootDir, pfNameChosen);
                 // print the value.
                 theView.showString("Company Tickr Symbol" + " " + "Num Stocks");
-                ArrayList<String>tickrsymbols = thePortfolio.getTickrs();
-                ArrayList<String>numStocks= thePortfolio.getNumberStocks();
-                for(int i =0;i<tickrsymbols.size();i++){
-                  theView.showString(tickrsymbols.get(i)+ "                  " +numStocks.get(i));
+                ArrayList<String> tickrsymbols = thePortfolio.getTickrs();
+                ArrayList<String> numStocks = thePortfolio.getNumberStocks();
+                for (int i = 0; i < tickrsymbols.size(); i++) {
+                  theView.showString(tickrsymbols.get(i) + "                  " +
+                          numStocks.get(i));
                 }
                 viewDone = true;
                 break;
@@ -227,15 +228,15 @@ public class ControllerImpl implements Controller {
         default:
           theView.showOptionError();
           break;
-            }
-          }
       }
+    }
+  }
 
-  public void setDirectory(String rootDirUser){
+  public void setDirectory(String rootDirUser) {
 
   }
 
-  public String getValidPfName(String rootDir, String extension){
+  public String getValidPfName(String rootDir, String extension) {
     return "";
   }
 }

@@ -1,11 +1,10 @@
-package Model;
+package model;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -121,16 +120,16 @@ public class FlexiblePortfolioImpl extends PortfolioImpl {
     JSONObject portfolio = readPortfolio(pfPath);
     for (Object tickrsym : portfolio.keySet()) {
       JSONArray arrayObj = (JSONArray) portfolio.get(tickrsym);
-      for (int i = 0; i <=arrayObj.size(); i++) {
+      for (int i = 0; i <= arrayObj.size(); i++) {
         JSONObject tickrRecord = (JSONObject) arrayObj.get(i);
         if (checkIfBeforeDate(date, (String) tickrRecord.get("date"))) {
           double commision_fee = (double) tickrRecord.get("commision_fee");
-          Long stocksVal = (Long)tickrRecord.get("no_of_stocks");
+          Long stocksVal = (Long) tickrRecord.get("no_of_stocks");
           int intStocks = stocksVal.intValue();
-          finalCostBasis +=commision_fee;
-          double stockPrice = (double)tickrRecord.get("stock_price");
-          if(intStocks > 0){
-            finalCostBasis += stockPrice*intStocks;
+          finalCostBasis += commision_fee;
+          double stockPrice = (double) tickrRecord.get("stock_price");
+          if (intStocks > 0) {
+            finalCostBasis += (stockPrice * intStocks);
           }
         }
       }
@@ -153,31 +152,36 @@ public class FlexiblePortfolioImpl extends PortfolioImpl {
   public float portfolioValueDate(String rootDir, String fileName,
                                   String date) throws java.text.ParseException {
     float finalVal = 0;
+    int totStocks = 0;
     JSONObject portfolio = readPortfolio(rootDir + fileName + ".json");
     for (Object tickrsym : portfolio.keySet()) {
       ApiKey apiObj = new ApiKey((String) tickrsym);
       JSONArray arrayObj = (JSONArray) portfolio.get(tickrsym);
-      for (int i = arrayObj.size() - 1; i >= 0; i--) {
-        JSONObject tickrRecord = (JSONObject) arrayObj.get(i);
-        if (checkIfBeforeDate(date, (String) tickrRecord.get("date"))) {
-          Long val = (Long) tickrRecord.get("total_stocks");
-          int totStocks = val.intValue();
-          finalVal += totStocks * apiObj.callPriceDate(date);
-          break;
-        }
-      }
+      totStocks = getTotalStocks(arrayObj, date);
+      finalVal += totStocks * apiObj.callPriceDate(date);
     }
     return finalVal;
   }
 
-  private int getTotalStocks(JSONObject entry,String date) throws java.text.ParseException {
+  private int getTotalStocks(JSONArray arrayObj, String date) throws java.text.ParseException {
+    int totStocks = 0;
+    for (int i = 0; i < arrayObj.size(); i--) {
+      JSONObject tickrRecord = (JSONObject) arrayObj.get(i);
+      totStocks += getStocks(tickrRecord, date);
+    }
+    return totStocks;
+  }
+
+  private int getStocks(JSONObject entry, String date) throws java.text.ParseException {
     int valStocks = 0;
-    if (checkIfBeforeDate(date, (String) entry.get("date"))) {
+    if (checkIfBeforeDate(date, (String) entry.get("date")) ||
+            date.equals((String) entry.get("date"))) {
       Long val = (Long) entry.get("no_of_stocks");
       valStocks = val.intValue();
     }
     return valStocks;
   }
+
   /**
    * check if the number of stocks entered to be sold is valid or not.
    *
@@ -189,18 +193,15 @@ public class FlexiblePortfolioImpl extends PortfolioImpl {
 
   public boolean checkValidSell(String pfPath, int numStocks, String tickr, String date)
           throws java.text.ParseException {
-    int valStocks = 0;
+    int totStocks = 0;
     JSONObject portfolio = readPortfolio(pfPath);
     if (portfolio.containsKey(tickr)) {
       JSONArray tickr_record = (JSONArray) portfolio.get(tickr);
-      for (int i = 0; i < tickr_record.size(); i++) {
-        JSONObject entry = (JSONObject) tickr_record.get(i);
-        valStocks += getTotalStocks(entry,date);
-      }
-      if(valStocks == 0){
+      totStocks = getTotalStocks(tickr_record, date);
+      if (totStocks == 0) {
         return false;
       }
-      if (valStocks >= numStocks) {
+      if (totStocks >= numStocks) {
         return true;
       }
     }
@@ -228,7 +229,8 @@ public class FlexiblePortfolioImpl extends PortfolioImpl {
    * @return true not prior else false
    */
   @Override
-  public boolean checkPriorDate(String date, String tickr, String pfPath) throws java.text.ParseException {
+  public boolean checkPriorDate(String date, String tickr, String pfPath)
+          throws java.text.ParseException {
     JSONObject portfolio = readPortfolio(pfPath);
     if (portfolio.containsKey(tickr)) {
       JSONArray tickrrecord = (JSONArray) portfolio.get(tickr);

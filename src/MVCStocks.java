@@ -1,16 +1,11 @@
 import java.io.IOException;
 import java.text.ParseException;
 
-import Model.FlexiblePortfolioImpl;
+import model.FlexiblePortfolioImpl;
 import controller.Controller;
-import controller.ControllerImpl;
-import Model.Portfolio;
-import Model.PortfolioImpl;
-import controller.Controller;
-import controller.ControllerImpl;
+import model.Portfolio;
 import controller.ControllerImplFlexible;
 import view.View;
-import view.ViewImpl;
 import view.ViewImplFlexible;
 
 /**
