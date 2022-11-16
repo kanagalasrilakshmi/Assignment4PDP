@@ -1,7 +1,7 @@
 package model;
 
 
-import org.json.simple.JSONObject;
+import model.customJSON.JSONObject;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
