@@ -181,7 +181,6 @@ public class ControllerImplFlexible implements Controller {
           throws FileNotFoundException, ParseException {
     ArrayList<Float> values = thePortfolio.getValuesPortfolio(this.rootDir,
             pfPerformance, date1, date2, differenceDays);
-    System.out.println(values);
     ArrayList<String> dates = thePortfolio.getDatesDisplay(date1, date2, differenceDays);
     float scaleVal = thePortfolio.getScale(values);
     ArrayList<String> points = thePortfolio.getPoints(scaleVal, values);

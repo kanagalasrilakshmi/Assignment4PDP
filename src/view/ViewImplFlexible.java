@@ -2,6 +2,9 @@ package view;
 
 import java.io.PrintStream;
 
+/**
+ * View implementation that is used for displaying in flexible portfolio.
+ */
 public class ViewImplFlexible extends ViewImpl {
   /**
    * Constructor for view.
@@ -12,10 +15,10 @@ public class ViewImplFlexible extends ViewImpl {
     super(out);
   }
 
-  @Override
   /**
    * Shows the options that can be used by the user to run the stocks program.
    */
+  @Override
   public void showOptions() {
     //print the UI
     out.println("Menu: ");

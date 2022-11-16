@@ -141,16 +141,8 @@ public interface Portfolio {
    * @return true if sale can be made else false
    */
 
-  public boolean checkValidSell(String pfPath, int numStocks, String tickr, String date) throws ParseException;
-
-  /**
-   * check if the tickr symbol exists in the portfolio.
-   *
-   * @param pfPath path for the portfolio
-   * @param tickr  is company tickr symbol
-   * @return true if tickr exists else false
-   */
-  //isTickrinpf
+  public boolean checkValidSell(String pfPath, int numStocks, String tickr, String date)
+          throws ParseException;
 
   /**
    * Check if the given input date is prior to the given input date for a given tickr.
@@ -194,7 +186,7 @@ public interface Portfolio {
   public void savePortfolio(String pfPath, JSONObject data);
 
   /**
-   * check if the tickr symbol exists in a json array
+   * check if the tickr symbol exists in a json array.
    *
    * @param tickrList of type JSONObject
    * @param tickr     company tickrsymbol
@@ -282,10 +274,34 @@ public interface Portfolio {
    */
   public boolean checkValidDates(String date1, String date2) throws ParseException;
 
+  /**
+   * check if the tickr symbol exists in the portfolio.
+   *
+   * @param pfPath path for the portfolio
+   * @param tickr  is company tickr symbol
+   * @return true if tickr exists else false
+   */
+
   public boolean ifTickrInPf(String pfPath, String tickr);
 
+  /**
+   * Read the Portfolio for the given path for the portfolio.
+   * @param path portfolio absolute path
+   * @return a json object that consists of all the entries in the input portfolio path
+   */
   public JSONObject readPortfolio(String path);
 
-  public JSONObject makeTransactionRecord(String date, float commission, int no_of_stocks, String tickr);
+  /**
+   * Make a transaction of purchase or sell using the input values date,commision, no of stock,
+   * and tickr symbol.
+   * @param date is the date on which purchase or sale is made
+   * @param commission is input commision for a transaction
+   * @param no_of_stocks is number stock bought or sold
+   * @param tickr is company tickr symbol for which trasaction needs to be done
+   * @return a json object entry that needs to be added to the portfolio
+   */
+
+  public JSONObject makeTransactionRecord(String date, float commission,
+                                          int no_of_stocks, String tickr);
 }
 

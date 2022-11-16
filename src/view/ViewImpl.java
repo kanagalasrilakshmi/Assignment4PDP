@@ -8,7 +8,7 @@ import java.io.PrintStream;
 
 
 /**
- * Class for implementing View Interface.
+ * Class for implementing View Interface and used for displaying rigid portfolio.
  */
 public class ViewImpl implements View {
 
@@ -70,11 +70,10 @@ public class ViewImpl implements View {
   }
 
   /**
-   * List all the json files
+   * List all the json files.
    *
    * @param rootDir is the path from which json files need to be searched
    */
-  //TODO: Remove this func and add to previous func read text files, and rename it to list portfolios
   public void listJSONFiles(String rootDir) {
     File curDir = new File(rootDir);
     File[] filesList = curDir.listFiles();
@@ -88,6 +87,10 @@ public class ViewImpl implements View {
     }
   }
 
+  /**
+   * Displays the options for viewing the cost basis - I, value of portfolio on specific date - D.
+   * Composition of the whole portfolio for viewing the entire portfolio.
+   */
   public void showFlexibleViewOptions() {
     this.showString("Press I to view investment made in a portfolio by a " +
             "specific date");
@@ -95,6 +98,10 @@ public class ViewImpl implements View {
     this.showString("Press P to view portfolio composition");
   }
 
+  /**
+   * View the composition of the entire portfolio.
+   * @param portfolio is the json object of a tickr symbol that consists of values to be displayed.
+   */
   public void viewFlexibleComposition(JSONObject portfolio) {
     // view composition of portfolio
     for (Object tickrsym : portfolio.keySet()) {

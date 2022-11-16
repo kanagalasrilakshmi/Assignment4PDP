@@ -24,16 +24,30 @@ import java.util.Locale;
 
 public class FlexiblePortfolioImpl extends PortfolioImpl {
 
-  public JSONObject makeTransactionRecord(String date, float commission, int no_of_stocks,
+  /**
+   * Make a transaction of purchase or sell using the input values date,commision, no of stock,
+   * and tickr symbol.
+   * @param date is the date on which purchase or sale is made
+   * @param commission is input commision for a transaction
+   * @param noofstocks is number stock bought or sold
+   * @param tickr is company tickr symbol for which trasaction needs to be done
+   * @return a json object entry that needs to be added to the portfolio
+   */
+  public JSONObject makeTransactionRecord(String date, float commission, int noofstocks,
                                           String tickr) {
     JSONObject record = new JSONObject();
     record.put("date", date);
     record.put("commission_fee", commission);
-    record.put("no_of_stocks", no_of_stocks);
+    record.put("no_of_stocks", noofstocks);
     record.put("stock_price", getCallPriceDate(date, tickr));
     return record;
   }
 
+  /**
+   * Read the Portfolio for the given path for the portfolio.
+   * @param path portfolio absolute path
+   * @return a json object that consists of all the entries in the input portfolio path
+   */
   public JSONObject readPortfolio(String path) {
     JSONParser parser = new JSONParser();
     try (FileReader reader = new FileReader(path)) {
@@ -50,6 +64,12 @@ public class FlexiblePortfolioImpl extends PortfolioImpl {
     return null;
   }
 
+  /**
+   * Save a portfolio.
+   *
+   * @param path portfolio path where json needs to be saved
+   * @param data   portfolio json object
+   */
   public void savePortfolio(String path, JSONObject data) {
     try {
       FileWriter file = new FileWriter(path);
@@ -121,12 +141,16 @@ public class FlexiblePortfolioImpl extends PortfolioImpl {
     return finalCostBasis;
   }
 
+  /**
+   * check if the tickr symbol exists in the portfolio.
+   *
+   * @param pfPath path for the portfolio
+   * @param tickr  is company tickr symbol
+   * @return true if tickr exists else false
+   */
   public boolean ifTickrInPf(String pfPath, String tickr) {
     JSONObject portfolio = readPortfolio(pfPath);
-    if (portfolio.containsKey(tickr)) {
-      return true;
-    }
-    return false;
+    return portfolio.containsKey(tickr);
   }
 
   /**
@@ -198,10 +222,7 @@ public class FlexiblePortfolioImpl extends PortfolioImpl {
     SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
     Date newdate = formatter.parse(givenDate);
     Date checkrecentDate = formatter.parse(toBeChecked);
-    if (checkrecentDate.before(newdate)) {
-      return true;
-    }
-    return false;
+    return checkrecentDate.before(newdate);
   }
 
   /**
@@ -229,7 +250,7 @@ public class FlexiblePortfolioImpl extends PortfolioImpl {
 
 
   /**
-   * check if the tickr symbol exists in a json array
+   * check if the tickr symbol exists in a json array.
    *
    * @param tickrList of type JSONObject
    * @param tickr     company tickrsymbol
@@ -301,12 +322,12 @@ public class FlexiblePortfolioImpl extends PortfolioImpl {
       ArrayList<String> monYearList = getDatesDisplay(date1, date2, differenceDays);
       for (int i = 0; i < monYearList.size() - 1; i++) {
         String date = monYearList.get(i);
-        String StringDate[] = date.split(" ");
-        Date dateNew = new SimpleDateFormat("MMM", Locale.ENGLISH).parse(StringDate[0]);
+        String[] stringDate = date.split(" ");
+        Date dateNew = new SimpleDateFormat("MMM", Locale.ENGLISH).parse(stringDate[0]);
         Calendar cal = Calendar.getInstance();
         cal.setTime(dateNew);
         int month = cal.get(Calendar.MONTH) + 1;
-        LocalDate finalDate = YearMonth.of(Integer.valueOf(StringDate[1]), month).atEndOfMonth();
+        LocalDate finalDate = YearMonth.of(Integer.valueOf(stringDate[1]), month).atEndOfMonth();
         datesList.add(finalDate.toString());
       }
       datesList.add(date2);
@@ -360,8 +381,8 @@ public class FlexiblePortfolioImpl extends PortfolioImpl {
   private ArrayList<String> listOfDates(String date1, String date2, String labelCheck,
                                         int increment) {
     ArrayList<String> totalDates = new ArrayList<>();
-    String stringDate1[] = date1.split("-");
-    String stringDate2[] = date2.split("-");
+    String[] stringDate1 = date1.split("-");
+    String[] stringDate2 = date2.split("-");
     DateTimeFormatter formatter;
     LocalDate start = LocalDate.parse(date1);
     LocalDate end = LocalDate.parse(date2);
@@ -376,7 +397,7 @@ public class FlexiblePortfolioImpl extends PortfolioImpl {
       YearMonth endDate = YearMonth.parse(stringDate2[0] + "-" + stringDate2[1], formatter);
       while (startDate.isBefore(endDate)) {
         String stringDate = startDate.format(DateTimeFormatter.ofPattern("yyyy-MM"));
-        String dateString[] = stringDate.split("-");
+        String[] dateString = stringDate.split("-");
         int valMon = Integer.parseInt(dateString[1]);
         totalDates.add(new DateFormatSymbols().getShortMonths()[valMon - 1] + " " + dateString[0]);
         startDate = startDate.plusMonths(increment);
@@ -387,7 +408,7 @@ public class FlexiblePortfolioImpl extends PortfolioImpl {
       Year endDate = Year.parse(stringDate2[0], formatter);
       while (startDate.isBefore(endDate)) {
         String stringDate = startDate.format(DateTimeFormatter.ofPattern("yyyy"));
-        String dateString[] = stringDate.split("-");
+        String[] dateString = stringDate.split("-");
         totalDates.add(dateString[0]);
         startDate = startDate.plusYears(increment);
       }
@@ -508,10 +529,7 @@ public class FlexiblePortfolioImpl extends PortfolioImpl {
       SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
       Date newdate1 = formatter.parse(date1);
       Date newdate2 = formatter.parse(date2);
-      if (newdate1.before(newdate2)) {
-        return true;
-      }
-      return false;
+      return newdate1.before(newdate2);
     } catch (Exception e) {
       e.printStackTrace();
       return false;
