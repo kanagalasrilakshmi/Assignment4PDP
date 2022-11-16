@@ -61,29 +61,6 @@ public class FlexiblePortfolioImpl extends PortfolioImpl {
     }
   }
 
-  /*
-   * Method for creating new portfolio by the user.
-   * Dumps all the data entered by user, stores in ListObj to a .txt file.
-
-  public void createPortfolio(String rootDir, String fileName, ArrayList<Object> listObj) {
-    JSONObject portfolio = new JSONObject();
-    for (Object object : listObj) {
-      JSONArray arrayRecord = new JSONArray();
-      StocksObj obj = (StocksObj) object;
-      int stocks = obj.getNumStocks();
-      String tickr = obj.getTickr();
-      ApiKey apiObj = new ApiKey(tickr);
-      float commissionFee = Float.valueOf(fees);
-      float stockPrice = apiObj.callPriceDate(date);
-      JSONObject record = makeTransactionRecord(date, commission,stocks ,stocks*stcok ,
-              stocks,  000);
-      arrayRecord.add(record);
-      portfolio.put(tickr,arrayRecord);
-    }
-    savePortfolio( rootDir+fileName+".json", portfolio);
-  }*/
-
-
   /**
    * modify the json.
    *
@@ -94,7 +71,6 @@ public class FlexiblePortfolioImpl extends PortfolioImpl {
    */
   @Override
   public void modifyJson(Float fees, int numOfStocks, String date, String tickr, String pfPath) {
-    //TODO MODIFY PORTFOLIO not modify json, fees should not be string
     JSONObject portfolio = readPortfolio(pfPath);
     float commissionFee = fees;
     // if ticker already exists in portfolio append to it else add new entry if it does not exist.
