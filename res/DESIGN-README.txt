@@ -7,7 +7,7 @@
 # DESIGN:
 # Controller: The Controller of the program is implemented in the ControllerImplTest which has a function goStocks to run the complete program.
 # Switch cases are written in the control for the user to maneuver to different sections. The levels are given in detail further in this documentation.
-# Model/Portfolio: All the models are independent, fully decoupled and perform only one operation each which is called by the controller.
+# model/Portfolio: All the models are independent, fully decoupled and perform only one operation each which is called by the controller.
 # View: View does all the System.out operations in the program and implements no other methods.
 # MVCStocks: Contains the main runner for the program.
 # Step By Step rundown on commands and their operations.
