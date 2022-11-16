@@ -124,7 +124,7 @@ public class FlexiblePortfolioImpl extends PortfolioImpl {
       for (int i = 0; i <= arrayObj.size(); i++) {
         JSONObject tickrRecord = (JSONObject) arrayObj.get(i);
         if (checkIfBeforeDate(date, (String) tickrRecord.get("date"))) {
-          double commision_fee = (double) tickrRecord.get("commision_fee");
+          double commision_fee = (double) tickrRecord.get("commission_fee");
           Long stocksVal = (Long) tickrRecord.get("no_of_stocks");
           int intStocks = stocksVal.intValue();
           finalCostBasis += commision_fee;
