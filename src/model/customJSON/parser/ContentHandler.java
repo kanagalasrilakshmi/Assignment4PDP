@@ -11,7 +11,7 @@ public interface ContentHandler {
    * @throws ParseException
    * 			- JSONParser will stop and throw the same exception to the caller when receiving this exception.
    */
-  void startJSON() throws ParseException, IOException;
+  void startJSON() throws /**/ParseException, IOException;
 
   /**
    * Receive notification of the end of JSON processing.

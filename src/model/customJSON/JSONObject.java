@@ -13,9 +13,9 @@ import java.util.Map;
 /**
  * A JSON object. Key value pairs are unordered. JSONObject supports java.util.Map interface.
  *
- * @author FangYidong<fangyidong@yahoo.com.cn>
+ * @author FangYidong<fangyidong @ yahoo.com.cn>
  */
-public class JSONObject extends HashMap implements Map, JSONAware, JSONStreamAware{
+public class JSONObject extends HashMap implements Map, JSONAware, JSONStreamAware {
 
   private static final long serialVersionUID = -503443796854799292L;
 
@@ -37,29 +37,29 @@ public class JSONObject extends HashMap implements Map, JSONAware, JSONStreamAwa
 
   /**
    * Encode a map into JSON text and write it to out.
-   * If this map is also a JSONAware or JSONStreamAware, JSONAware or JSONStreamAware specific behaviours will be ignored at this top level.
-   *
-   * @see JSONValue#writeJSONString(Object, Writer)
+   * If this map is also a JSONAware or JSONStreamAware, JSONAware or ,
+   * JSONStreamAware specific behaviours will be ignored at this top level.
    *
    * @param map
    * @param out
+   * @see JSONValue#writeJSONString(Object, Writer)
    */
   public static void writeJSONString(Map map, Writer out) throws IOException {
-    if(map == null){
+    if (map == null) {
       out.write("null");
       return;
     }
 
     boolean first = true;
-    Iterator iter=map.entrySet().iterator();
+    Iterator iter = map.entrySet().iterator();
 
     out.write('{');
-    while(iter.hasNext()){
-      if(first)
+    while (iter.hasNext()) {
+      if (first)
         first = false;
       else
         out.write(',');
-      Map.Entry entry=(Map.Entry)iter.next();
+      Map.Entry entry = (Map.Entry) iter.next();
       out.write('\"');
       out.write(escape(String.valueOf(entry.getKey())));
       out.write('\"');
@@ -69,7 +69,7 @@ public class JSONObject extends HashMap implements Map, JSONAware, JSONStreamAwa
     out.write('}');
   }
 
-  public void writeJSONString(Writer out) throws IOException{
+  public void writeJSONString(Writer out) throws IOException {
     writeJSONString(this, out);
   }
 
@@ -77,40 +77,39 @@ public class JSONObject extends HashMap implements Map, JSONAware, JSONStreamAwa
    * Convert a map to JSON text. The result is a JSON object.
    * If this map is also a JSONAware, JSONAware specific behaviours will be omitted at this top level.
    *
-   * @see JSONValue#toJSONString(Object)
-   *
    * @param map
    * @return JSON text, or "null" if map is null.
+   * @see JSONValue#toJSONString(Object)
    */
-  public static String toJSONString(Map map){
-    if(map == null)
+  public static String toJSONString(Map map) {
+    if (map == null)
       return "null";
 
     StringBuffer sb = new StringBuffer();
     boolean first = true;
-    Iterator iter=map.entrySet().iterator();
+    Iterator iter = map.entrySet().iterator();
 
     sb.append('{');
-    while(iter.hasNext()){
-      if(first)
+    while (iter.hasNext()) {
+      if (first)
         first = false;
       else
         sb.append(',');
 
-      Map.Entry entry=(Map.Entry)iter.next();
-      toJSONString(String.valueOf(entry.getKey()),entry.getValue(), sb);
+      Map.Entry entry = (Map.Entry) iter.next();
+      toJSONString(String.valueOf(entry.getKey()), entry.getValue(), sb);
     }
     sb.append('}');
     return sb.toString();
   }
 
-  public String toJSONString(){
+  public String toJSONString() {
     return toJSONString(this);
   }
 
-  private static String toJSONString(String key,Object value, StringBuffer sb){
+  private static String toJSONString(String key, Object value, StringBuffer sb) {
     sb.append('\"');
-    if(key == null)
+    if (key == null)
       sb.append("null");
     else
       JSONValue.escape(key, sb);
@@ -121,17 +120,17 @@ public class JSONObject extends HashMap implements Map, JSONAware, JSONStreamAwa
     return sb.toString();
   }
 
-  public String toString(){
+  public String toString() {
     return toJSONString();
   }
 
-  public static String toString(String key,Object value){
+  public static String toString(String key, Object value) {
     StringBuffer sb = new StringBuffer();
     toJSONString(key, value, sb);
     return sb.toString();
   }
 
-  public static String escape(String s){
+  public static String escape(String s) {
     return JSONValue.escape(s);
   }
 }
