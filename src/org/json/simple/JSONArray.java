@@ -15,7 +15,7 @@ import java.util.List;
 /**
  * A JSON array. JSONObject supports java.util.List interface.
  *
- * @author FangYidong"<fangyidong @ yahoo.com.cn>".
+ * @author FangYidong fangyidong @ yahoo.com.cn.
  */
 public class JSONArray extends ArrayList implements List, JSONAware, JSONStreamAware {
   private static final long serialVersionUID = 3957988303675231981L;
@@ -38,10 +38,9 @@ public class JSONArray extends ArrayList implements List, JSONAware, JSONStreamA
 
     out.write('[');
     while (iter.hasNext()) {
-      if (first){
+      if (first) {
         first = false;
-      }
-      else{
+      } else {
         out.write(',');
       }
 
@@ -62,15 +61,17 @@ public class JSONArray extends ArrayList implements List, JSONAware, JSONStreamA
 
   /**
    * Convert a list to JSON text. The result is a JSON array.
-   * If this list is also a JSONAware, JSONAware specific behaviours will be omitted at this top level.
+   * If this list is also a JSONAware, JSONAware specific behaviours,
+   * will be omitted at this top level.
    *
-   * @param list
+   * @param list list to be converted to string
    * @return JSON text, or "null" if list is null.
    * @see JSONValue#toJSONString(Object)
    */
   public static String toJSONString(List list) {
-    if (list == null)
+    if (list == null) {
       return "null";
+    }
 
     boolean first = true;
     StringBuffer sb = new StringBuffer();
@@ -78,10 +79,11 @@ public class JSONArray extends ArrayList implements List, JSONAware, JSONStreamA
 
     sb.append('[');
     while (iter.hasNext()) {
-      if (first)
+      if (first) {
         first = false;
-      else
+      } else {
         sb.append(',');
+      }
 
       Object value = iter.next();
       if (value == null) {

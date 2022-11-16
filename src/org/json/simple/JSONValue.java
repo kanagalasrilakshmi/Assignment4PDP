@@ -23,8 +23,6 @@ public class JSONValue {
   /**
    * Parse JSON text into java object from the input source.
    * Please use parseWithException() if you don't want to ignore the exception.
-   * <p>
-   * <p>
    * org.json.simple.JSONObject,
    * org.json.simple.JSONArray,
    * java.lang.String,
@@ -49,17 +47,12 @@ public class JSONValue {
   /**
    * Parse JSON text into java object from the input source.
    *
-   * @param in
-   * @return Instance of the following:
    * org.json.simple.JSONObject,
    * org.json.simple.JSONArray,
    * java.lang.String,
    * java.lang.Number,
    * java.lang.Boolean,
-   * null
-   * @throws IOException
-   * @throws ParseException
-   * @see JSONParser
+   * null.
    */
   public static Object parseWithException(Reader in) throws IOException, ParseException {
     JSONParser parser = new JSONParser();
@@ -74,11 +67,9 @@ public class JSONValue {
   /**
    * Encode an object into JSON text and write it to out.
    *
-   * <p>
    * If this object is a Map or a List, and it's also,
    * JSONStreamAware or a JSONAware, JSONStreamAware or JSONAware will be considered firstly.
    *
-   * <p>
    * DO NOT call this method from writeJSONString(Writer) of a class,
    * that implements both JSONStreamAware and (Map or List) with
    * "this" as the first parameter, use JSONObject.writeJSONString(Map, Writer) ,
@@ -151,11 +142,9 @@ public class JSONValue {
   /**
    * Convert an object to JSON text.
    *
-   * <p>
    * If this object is a Map or a List, and it's also a JSONAware,
    * JSONAware will be considered firstly.
    *
-   * <p>
    * DO NOT call this method from toJSONString() of a class that implements,
    * both JSONAware and Map or List with "this" as the parameter, use JSONObject.toJSONString(Map),
    * or JSONArray.toJSONString(List) instead.
@@ -224,6 +213,7 @@ public class JSONValue {
   }
 
   /**
+   * Escape function.
    * @param s  - Must not be null
    * @param sb is String Buffer
    */
