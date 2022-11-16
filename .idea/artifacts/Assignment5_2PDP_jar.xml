@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="Assignment5_2PDP:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/Assignment5_2PDP_jar</output-path>
+    <root id="archive" name="Assignment4PDP.jar">
+      <element id="module-output" name="Assignment4PDP" />
+      <element id="extracted-dir" path="$USER_HOME$/Desktop/HerePortfolio/json-simple-1.1.1.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>
