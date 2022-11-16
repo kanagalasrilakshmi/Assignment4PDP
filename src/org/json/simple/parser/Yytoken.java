@@ -6,6 +6,7 @@
 package org.json.simple.parser;
 
 /**
+ * Yytoken implementation.
  * @author FangYidong fangyidong @ yahoo.com.cn .
  */
 public class Yytoken {

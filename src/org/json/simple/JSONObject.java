@@ -52,8 +52,7 @@ public class JSONObject extends HashMap implements Map, JSONAware, JSONStreamAwa
     while (iter.hasNext()) {
       if (first) {
         first = false;
-      }
-      else {
+      } else {
         out.write(',');
       }
       Map.Entry entry = (Map.Entry) iter.next();
@@ -72,11 +71,8 @@ public class JSONObject extends HashMap implements Map, JSONAware, JSONStreamAwa
 
   /**
    * Convert a map to JSON text. The result is a JSON object.
-   * If this map is also a JSONAware, JSONAware specific behaviours will be omitted at this top level.
-   *
-   * @param map
-   * @return JSON text, or "null" if map is null.
-   * @see JSONValue#toJSONString(Object)
+   * If this map is also a JSONAware, JSONAware specific behaviours ,
+   * will be omitted at this top level.
    */
   public static String toJSONString(Map map) {
     if (map == null) {
@@ -91,8 +87,7 @@ public class JSONObject extends HashMap implements Map, JSONAware, JSONStreamAwa
     while (iter.hasNext()) {
       if (first) {
         first = false;
-      }
-      else {
+      } else {
         sb.append(',');
       }
 
@@ -111,8 +106,7 @@ public class JSONObject extends HashMap implements Map, JSONAware, JSONStreamAwa
     sb.append('\"');
     if (key == null) {
       sb.append("null");
-    }
-    else {
+    } else {
       JSONValue.escape(key, sb);
     }
     sb.append('\"').append(':');
@@ -126,6 +120,9 @@ public class JSONObject extends HashMap implements Map, JSONAware, JSONStreamAwa
     return toJSONString();
   }
 
+  /**
+   * Convert to String.
+   */
   public static String toString(String key, Object value) {
     StringBuffer sb = new StringBuffer();
     toJSONString(key, value, sb);

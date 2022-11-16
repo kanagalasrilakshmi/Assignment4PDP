@@ -2,6 +2,7 @@
  * $Id: ItemList.java,v 1.1 2006/04/15 14:10:48 platform Exp $
  * Created on 2006-3-24
  */
+
 package org.json.simple;
 
 import java.util.ArrayList;
@@ -13,7 +14,7 @@ import java.util.StringTokenizer;
  * |:| => ||,||
  * |a:| => |a|,||
  *
- * @author FangYidong<fangyidong @ yahoo.com.cn>
+ * @author FangYidong fangyidong @ yahoo.com.cn.
  */
 public class ItemList {
   private String sp = ",";
@@ -21,6 +22,7 @@ public class ItemList {
 
 
   public ItemList() {
+    // nothing.
   }
 
 
@@ -45,9 +47,13 @@ public class ItemList {
     return (String[]) this.items.toArray();
   }
 
+  /**
+   * Split method 1.
+   */
   public void split(String s, String sp, List append, boolean isMultiToken) {
-    if (s == null || sp == null)
+    if (s == null || sp == null) {
       return;
+    }
     if (isMultiToken) {
       StringTokenizer tokens = new StringTokenizer(s, sp);
       while (tokens.hasMoreTokens()) {
@@ -58,19 +64,25 @@ public class ItemList {
     }
   }
 
+  /**
+   * Split method 2.
+   */
   public void split(String s, String sp, List append) {
-    if (s == null || sp == null)
+    if (s == null || sp == null) {
       return;
+    }
     int pos = 0;
     int prevPos = 0;
     do {
       prevPos = pos;
       pos = s.indexOf(sp, pos);
-      if (pos == -1)
+      if (pos == -1) {
         break;
+      }
       append.add(s.substring(prevPos, pos).trim());
       pos += sp.length();
-    } while (pos != -1);
+    }
+    while (pos != -1);
     append.add(s.substring(prevPos).trim());
   }
 
@@ -78,15 +90,23 @@ public class ItemList {
     this.sp = sp;
   }
 
+  /**
+   * add method string at an index.
+   */
   public void add(int i, String item) {
-    if (item == null)
+    if (item == null) {
       return;
+    }
     items.add(i, item.trim());
   }
 
+  /**
+   * add method for a string.
+   */
   public void add(String item) {
-    if (item == null)
+    if (item == null) {
       return;
+    }
     items.add(item.trim());
   }
 
@@ -107,6 +127,8 @@ public class ItemList {
   }
 
   /**
+   * Get method.
+   *
    * @param i 0-based
    * @return
    */
@@ -122,13 +144,16 @@ public class ItemList {
     return toString(sp);
   }
 
+  /**
+   * Convert to string.
+   */
   public String toString(String sp) {
     StringBuffer sb = new StringBuffer();
 
     for (int i = 0; i < items.size(); i++) {
-      if (i == 0)
+      if (i == 0) {
         sb.append(items.get(i));
-      else {
+      } else {
         sb.append(sp);
         sb.append(items.get(i));
       }
