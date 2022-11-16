@@ -1,7 +1,7 @@
 package model;
 
 
-import model.customJSON.JSONObject;
+import org.json.simple.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.File;

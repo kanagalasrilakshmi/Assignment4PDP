@@ -1,4 +1,4 @@
-package model.customJSON.parser;
+package org.json.simple.parser;
 
 /**
  * ParseException explains why and where the error occurs in source JSON text.
