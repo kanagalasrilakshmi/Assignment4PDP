@@ -25,6 +25,10 @@ public class Yytoken {
     this.value = value;
   }
 
+  /**
+   * Convert text to string.
+   * @return string
+   */
   public String toString() {
     StringBuffer sb = new StringBuffer();
     switch (type) {
@@ -51,6 +55,9 @@ public class Yytoken {
         break;
       case TYPE_EOF:
         sb.append("END OF FILE");
+        break;
+      default:
+        // if falls in no case then comes here.
         break;
     }
     return sb.toString();

@@ -150,10 +150,12 @@ public class JSONValue {
   /**
    * Convert an object to JSON text.
    * <p>
-   * If this object is a Map or a List, and it's also a JSONAware, JSONAware will be considered firstly.
+   * If this object is a Map or a List, and it's also a JSONAware,
+   * JSONAware will be considered firstly.
    * <p>
-   * DO NOT call this method from toJSONString() of a class that implements both JSONAware and Map or List with
-   * "this" as the parameter, use JSONObject.toJSONString(Map) or JSONArray.toJSONString(List) instead.
+   * DO NOT call this method from toJSONString() of a class that implements,
+   * both JSONAware and Map or List with "this" as the parameter, use JSONObject.toJSONString(Map),
+   * or JSONArray.toJSONString(List) instead.
    *
    * @param value
    * @return JSON text, or "null" if value is null or it's an NaN or an INF number.
@@ -202,20 +204,22 @@ public class JSONValue {
   /**
    * Escape quotes, \, /, \r, \n, \b, \f, \t and other control characters (U+0000 through U+001F).
    *
-   * @param s
-   * @return
+   * @param s is String
+   * @return null if string is else return final escape string
    */
   public static String escape(String s) {
-    if (s == null)
+    if (s == null){
       return null;
+    }
+
     StringBuffer sb = new StringBuffer();
     escape(s, sb);
     return sb.toString();
   }
 
   /**
-   * @param s  - Must not be null.
-   * @param sb
+   * @param s  - Must not be null
+   * @param sb is String Buffer
    */
   static void escape(String s, StringBuffer sb) {
     for (int i = 0; i < s.length(); i++) {
@@ -247,7 +251,8 @@ public class JSONValue {
           break;
         default:
           //Reference: http://www.unicode.org/versions/Unicode5.1.0/
-          if ((ch >= '\u0000' && ch <= '\u001F') || (ch >= '\u007F' && ch <= '\u009F') || (ch >= '\u2000' && ch <= '\u20FF')) {
+          if ((ch >= '\u0000' && ch <= '\u001F') || (ch >= '\u007F' && ch <= '\u009F')
+                  || (ch >= '\u2000' && ch <= '\u20FF')) {
             String ss = Integer.toHexString(ch);
             sb.append("\\u");
             for (int k = 0; k < 4 - ss.length(); k++) {
@@ -258,7 +263,7 @@ public class JSONValue {
             sb.append(ch);
           }
       }
-    }//for
+    }
   }
 
 }
