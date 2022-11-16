@@ -135,11 +135,12 @@ public class JSONParser {
             break;
 
           case S_IN_FINISHED_VALUE:
-            if (token.type == Yytoken.TYPE_EOF)
+            if (token.type == Yytoken.TYPE_EOF) {
               return valueStack.removeFirst();
-            else
+            }
+            else {
               throw new ParseException(getPosition(), ParseException.ERROR_UNEXPECTED_TOKEN, token);
-
+            }
           case S_IN_OBJECT:
             switch (token.type) {
               case Yytoken.TYPE_COMMA:
@@ -384,8 +385,9 @@ public class JSONParser {
                   String key = (String) token.value;
                   status = S_PASSED_PAIR_KEY;
                   statusStack.addFirst(new Integer(status));
-                  if (!contentHandler.startObjectEntry(key))
+                  if (!contentHandler.startObjectEntry(key)) {
                     return;
+                  }
                 } else {
                   status = S_IN_ERROR;
                 }
@@ -404,7 +406,7 @@ public class JSONParser {
               default:
                 status = S_IN_ERROR;
                 break;
-            }//inner switch
+            }
             break;
 
           case S_PASSED_PAIR_KEY:

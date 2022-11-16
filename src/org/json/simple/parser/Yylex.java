@@ -5,33 +5,33 @@ package org.json.simple.parser;
 class Yylex {
 
   /**
-   * This character denotes the end of file
+   * This character denotes the end of file.
    */
   public static final int YYEOF = -1;
 
   /**
-   * initial size of the lookahead buffer
+   * initial size of the lookahead buffer.
    */
   private static final int ZZ_BUFFERSIZE = 16384;
 
   /**
-   * lexical states
+   * lexical states.
    */
   public static final int YYINITIAL = 0;
   public static final int STRING_BEGIN = 2;
 
   /**
-   * ZZ_LEXSTATE[l] is the state in the DFA for the lexical state l
-   * ZZ_LEXSTATE[l+1] is the state in the DFA for the lexical state l
-   * at the beginning of a line
-   * l is of the form l = 2*k, k a non negative integer
+   * ZZ_LEXSTATE[l] is the state in the DFA for the lexical state l.
+   * ZZ_LEXSTATE[l+1] is the state in the DFA for the lexical state l.
+   * at the beginning of a line.
+   * l is of the form l = 2*k, k a non negative integer.
    */
   private static final int ZZ_LEXSTATE[] = {
           0, 0, 1, 1
   };
 
   /**
-   * Translates characters to character classes
+   * Translates characters to character classes.
    */
   private static final String ZZ_CMAP_PACKED =
           "\11\0\1\7\1\7\2\0\1\7\22\0\1\7\1\0\1\11\10\0" +
@@ -41,7 +41,7 @@ class Yylex {
                   "\5\0\1\25\1\0\1\26\uff82\0";
 
   /**
-   * Translates characters to character classes
+   * Translates characters to character classes.
    */
   private static final char[] ZZ_CMAP = zzUnpackCMap(ZZ_CMAP_PACKED);
 
@@ -78,7 +78,7 @@ class Yylex {
 
 
   /**
-   * Translates a state to a row index in the transition table
+   * Translates a state to a row index in the transition table.
    */
   private static final int[] ZZ_ROWMAP = zzUnpackRowMap();
 
@@ -109,7 +109,7 @@ class Yylex {
   }
 
   /**
-   * The transition table of the DFA
+   * The transition table of the DFA.
    */
   private static final int ZZ_TRANS[] = {
           2, 2, 3, 4, 2, 2, 2, 5, 2, 6,
@@ -195,7 +195,7 @@ class Yylex {
   };
 
   /**
-   * ZZ_ATTRIBUTE[aState] contains the attributes of state <code>aState</code>
+   * ZZ_ATTRIBUTE[aState] contains the attributes of state <code>aState</code>.
    */
   private static final int[] ZZ_ATTRIBUTE = zzUnpackAttribute();
 
@@ -224,70 +224,70 @@ class Yylex {
   }
 
   /**
-   * the input device
+   * the input device.
    */
   private java.io.Reader zzReader;
 
   /**
-   * the current state of the DFA
+   * the current state of the DFA.
    */
   private int zzState;
 
   /**
-   * the current lexical state
+   * the current lexical state.
    */
   private int zzLexicalState = YYINITIAL;
 
   /**
-   * this buffer contains the current text to be matched and is
-   * the source of the yytext() string
+   * this buffer contains the current text to be matched and is,
+   * the source of the yytext() string.
    */
   private char zzBuffer[] = new char[ZZ_BUFFERSIZE];
 
   /**
-   * the textposition at the last accepting state
+   * the textposition at the last accepting state.
    */
   private int zzMarkedPos;
 
   /**
-   * the current text position in the buffer
+   * the current text position in the buffer.
    */
   private int zzCurrentPos;
 
   /**
-   * startRead marks the beginning of the yytext() string in the buffer
+   * startRead marks the beginning of the yytext() string in the buffer.
    */
   private int zzStartRead;
 
   /**
-   * endRead marks the last character in the buffer, that has been read
-   * from input
+   * endRead marks the last character in the buffer, that has been read,
+   * from input.
    */
   private int zzEndRead;
 
   /**
-   * number of newlines encountered up to the start of the matched text
+   * number of newlines encountered up to the start of the matched text.
    */
   private int yyline;
 
   /**
-   * the number of characters up to the start of the matched text
+   * the number of characters up to the start of the matched text.
    */
   private int yychar;
 
   /**
-   * the number of characters from the last newline up to the start of the
-   * matched text
+   * the number of characters from the last newline up to the start of the,
+   * matched text.
    */
   private int yycolumn;
 
   /**
-   * zzAtBOL == true <=> the scanner is currently at the beginning of a line
+   * zzAtBOL == true <=> the scanner is currently at the beginning of a line.
    */
   private boolean zzAtBOL = true;
 
   /**
-   * zzAtEOF == true <=> the scanner is at the EOF
+   * zzAtEOF == true <=> the scanner is at the EOF.
    */
   private boolean zzAtEOF;
 
@@ -300,10 +300,10 @@ class Yylex {
 
 
   /**
-   * Creates a new scanner
+   * Creates a new scanner.
    * There is also a java.io.InputStream version of this constructor.
    *
-   * @param in the java.io.Reader to read input from.
+   * @param in the java.io.Reader to read input from
    */
   Yylex(java.io.Reader in) {
     this.zzReader = in;
@@ -313,7 +313,7 @@ class Yylex {
    * Creates a new scanner.
    * There is also java.io.Reader version of this constructor.
    *
-   * @param in the java.io.Inputstream to read input from.
+   * @param in the java.io.Inputstream to read input from
    */
   Yylex(java.io.InputStream in) {
     this(new java.io.InputStreamReader(in));
@@ -340,9 +340,6 @@ class Yylex {
 
   /**
    * Refills the input buffer.
-   *
-   * @return <code>false</code>, iff there was new input.
-   * @throws java.io.IOException if any I/O-Error occurs
    */
   private boolean zzRefill() throws java.io.IOException {
 
@@ -406,8 +403,7 @@ class Yylex {
   /**
    * Resets the scanner to read from a new input stream.
    * Does not close the old reader.
-   * <p>
-   * All internal variables are reset, the old input stream
+   * All internal variables are reset, the old input stream.
    * <b>cannot</b> be reused (internal buffer is discarded and lost).
    * Lexical state is set to <tt>ZZ_INITIAL</tt>.
    *
@@ -433,9 +429,9 @@ class Yylex {
 
 
   /**
-   * Enters a new lexical state
+   * Enters a new lexical state.
    *
-   * @param newState the new lexical state
+   * @param newState the new lexical state.
    */
   public final void yybegin(int newState) {
     zzLexicalState = newState;
@@ -451,10 +447,8 @@ class Yylex {
 
 
   /**
-   * Returns the character at position <tt>pos</tt> from the
-   * matched text.
-   * <p>
-   * It is equivalent to yytext().charAt(pos), but faster
+   * Returns the character at position <tt>pos</tt> from the matched text.
+   * It is equivalent to yytext().charAt(pos), but faster.
    *
    * @param pos the position of the character to fetch.
    *            A value from 0 to yylength()-1.
@@ -475,14 +469,12 @@ class Yylex {
 
   /**
    * Reports an error that occured while scanning.
-   * <p>
-   * In a wellformed scanner (no or only correct usage of
-   * yypushback(int) and a match-all fallback rule) this method
+   * In a wellformed scanner (no or only correct usage of,
+   * yypushback(int) and a match-all fallback rule) this method,
    * will only be called with things that "Can't Possibly Happen".
-   * If this method is called, something is seriously wrong
+   * If this method is called, something is seriously wrong,
    * (e.g. a JFlex bug producing a faulty scanner etc.).
-   * <p>
-   * Usual syntax/scanner level error handling should be done
+   * Usual syntax/scanner level error handling should be done,
    * in error fallback rules.
    *
    * @param errorCode the code of the errormessage to display
@@ -501,8 +493,7 @@ class Yylex {
 
   /**
    * Pushes the specified amount of characters back into the input stream.
-   * <p>
-   * They will be read again by then next call of the scanning method
+   * They will be read again by then next call of the scanning method.
    *
    * @param number the number of characters to be read again.
    *               This number must not be greater than yylength()!

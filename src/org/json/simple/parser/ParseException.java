@@ -28,6 +28,9 @@ public class ParseException extends Exception {
     this(-1, errorType, unexpectedObject);
   }
 
+  /**
+   * Parse Exception.
+   */
   public ParseException(int position, int errorType, Object unexpectedObject) {
     this.position = position;
     this.errorType = errorType;
