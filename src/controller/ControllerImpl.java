@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -45,7 +46,7 @@ public class ControllerImpl implements Controller {
    *
    * @throws IOException if invalid file is given
    */
-  public void goStocks() throws IOException {
+  public void goStocks() throws IOException, ParseException {
     boolean quit = false;
     theView.showString("Give a valid input path where you want to store your portfolios. " +
             "For example: /Users/PDP/PortfolioBucket/");
@@ -149,7 +150,7 @@ public class ControllerImpl implements Controller {
         case "V":
           // check if the output folder has .txt files or not.
           // if no portfolio exists say no portfolio has been added.
-          if (!thePortfolio.checkOutputFolder(this.rootDir)) {
+          if (!thePortfolio.hasAtleastOnePortfolio(this.rootDir, ".txt")) {
             theView.showString("No portfolio exists. Create a portfolio to view it.");
             break;
           }
@@ -229,5 +230,13 @@ public class ControllerImpl implements Controller {
             }
           }
       }
-    }
+
+  public void setDirectory(String rootDirUser){
+
+  }
+
+  public String getValidPfName(String rootDir, String extension){
+    return "";
+  }
+}
 

@@ -1,5 +1,7 @@
 package view;
 
+import org.json.simple.JSONObject;
+
 /**
  * View Interface that consists of all the methods to be implemented by the view.
  */
@@ -34,5 +36,7 @@ public interface View {
    * @param rootDir is the path from which json files need to be searched
    */
   void listJSONFiles(String rootDir);
+  void viewFlexibleComposition(JSONObject portfolio);
+  void showFlexibleViewOptions();
 }
 

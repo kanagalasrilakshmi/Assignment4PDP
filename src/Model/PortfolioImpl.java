@@ -216,7 +216,7 @@ public class PortfolioImpl implements Portfolio {
    * Get portfolio value for a given date.
    */
   public float portfolioValueDate(String rootDir, String fileName,
-                                  String date) throws FileNotFoundException {
+                                  String date) throws FileNotFoundException, ParseException {
     // initialize sum to 0.
     float finalSum = 0;
     // load the portfolio of the given input file name.
@@ -262,12 +262,12 @@ public class PortfolioImpl implements Portfolio {
    * @param rootDir is the path
    * @return true if there are any portfolios else false
    */
-  public boolean checkOutputFolder(String rootDir) {
+  public boolean hasAtleastOnePortfolio(String rootDir, String extension) {
     File curDir = new File(rootDir);
     File[] filesList = curDir.listFiles();
     for (File file : filesList) {
       if (file.isFile()) {
-        if (file.getName().contains(".txt")) {
+        if (file.getName().contains(extension)) {
           return true;
         }
       }
@@ -436,25 +436,42 @@ public class PortfolioImpl implements Portfolio {
   /**
    * Check if a given string is an integer.
    *
-   * @param numberStocks is number of stocks purchased by user in string format
+   * @param stringToCheck is number of stocks purchased by user in string format
    * @return true if integer else false
    */
-  public boolean checkValidInteger(String numberStocks) {
-    for (int i = 0; i < numberStocks.length(); i++) {
-      if (!Character.isDigit(numberStocks.charAt(i))) {
-        return false;
-      }
-    }
-    return true;
+  public boolean checkValidInteger(String stringToCheck) {
+    try {
+      Integer.parseInt(stringToCheck);
+      return true;
+    } catch(NumberFormatException e) {
+      return false;}
+  }
+
+  /**
+   * Check if a given string is an float.
+   *
+   * @param stringToCheck is number of stocks purchased by user in string format
+   * @return true if integer else false
+   */
+  public boolean checkValidFloat(String stringToCheck) {
+    try {
+      Float.parseFloat(stringToCheck);
+      return true;
+    } catch(NumberFormatException e) {
+      return false;}
   }
 
   /**
    * check if the number of stocks entered to be sold is valid or not.
+   *
    * @param numStocks is number stocks to be sold
-   * @param tickr is tickr symbol for which stocks need to be sold
+   * @param tickr     is tickr symbol for which stocks need to be sold
+   * @param date      is the date on which transaction is made
    * @return true if sale can be made else false
    */
-  public boolean checkValidSell(String pfPath, int numStocks, String tickr){
+
+  public boolean checkValidSell(String pfPath, int numStocks, String tickr, String date)
+          throws ParseException{
     return false;
   }
 
@@ -464,7 +481,7 @@ public class PortfolioImpl implements Portfolio {
    * @param tickr is company tickr symbol
    * @return true if tickr exists else false
    */
-  public boolean checkTickrExists(String pfPath, String tickr){
+  public boolean ifTickrInPf(String pfPath, String tickr){
     return false;
   }
 
@@ -475,18 +492,10 @@ public class PortfolioImpl implements Portfolio {
    * @param pfPath is portfolio path
    * @return true not prior else false
    */
-  public boolean checkPriorDate(String date,String tickr, String pfPath){
+  public boolean checkPriorDate(String date,String tickr, String pfPath) throws ParseException {
     return false;
   }
 
-  /**
-   * check if the given number either an integer or a decimal number
-   * @param num input string parameter
-   * @return true if valid else return false
-   */
-  public boolean checkValidNum(String num){
-    return false;
-  }
 
   /**
    * modify the json.
@@ -498,7 +507,7 @@ public class PortfolioImpl implements Portfolio {
    * @param pfPath path for the location of the portfolio
    */
 
-  public void modifyJson(String fees, int num, String date, String tickr,String pfPath){}
+  public void modifyJson(Float fees, int num, String date, String tickr,String pfPath){}
 
   /**
    * Get the cost basis of a portfolio till a date.
@@ -506,7 +515,7 @@ public class PortfolioImpl implements Portfolio {
    * @param date input string date
    * @return cost basis value
    */
-  public float getCostBasis(String pfPath,String date){
+  public float getCostBasis(String pfPath,String date) throws ParseException {
     return 0;
   }
 
@@ -515,8 +524,7 @@ public class PortfolioImpl implements Portfolio {
    * @param pfPath portfolio path where json needs to be saved
    * @param addEntry add json entry
    */
-  public void createPortfolioJson(String pfPath, JSONObject addEntry){
-
+  public void savePortfolio(String pfPath, JSONObject addEntry){
   }
 
   /**
@@ -609,6 +617,15 @@ public class PortfolioImpl implements Portfolio {
    */
   public boolean checkValidDates(String date1,String date2){
     return false;
+  }
+
+  public JSONObject makeTransactionRecord(String date, float commission, int no_of_stocks,
+                                          String tickr){
+    return new JSONObject();
+  }
+
+  public JSONObject readPortfolio(String path){
+    return new JSONObject();
   }
 }
 

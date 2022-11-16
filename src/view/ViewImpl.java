@@ -1,11 +1,20 @@
 package view;
 
+import com.sun.xml.internal.bind.v2.TODO;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+
 import java.awt.*;
 import java.io.File;
+import java.io.FileReader;
 import java.io.PrintStream;
 
 import javax.swing.text.BadLocationException;
 import javax.swing.text.Position;
+
 
 /**
  * Class for implementing View Interface.
@@ -13,7 +22,6 @@ import javax.swing.text.Position;
 public class ViewImpl implements View {
 
   final PrintStream out;
-
   /**
    * Constructo for view.
    *
@@ -73,6 +81,7 @@ public class ViewImpl implements View {
    * List all the json files
    * @param rootDir is the path from which json files need to be searched
    */
+  //TODO: Remove this func and add to previous func read text files, and rename it to list portfolios
   public void listJSONFiles(String rootDir) {
     File curDir = new File(rootDir);
     File[] filesList = curDir.listFiles();
@@ -82,6 +91,32 @@ public class ViewImpl implements View {
         if (f.getName().contains(".json")) {
           out.println(f.getName().split("\\.json")[0]);
         }
+      }
+    }
+  }
+
+  public void showFlexibleViewOptions() {
+    this.showString("Press I to view investment made in a portfolio by a " +
+            "specific date");
+    this.showString("Press D to view portfolio value on specific date");
+    this.showString("Press P to view portfolio composition");
+  }
+  public void viewFlexibleComposition(JSONObject portfolio) {
+  // view composition of portfolio
+    for (Object tickrsym : portfolio.keySet()) {
+      this.showString("TICKER SYMBOL : " + (String) tickrsym);
+      this.showString("NUM OF STOCKS PURCHASED/SOLD    DATE OF PURCHASE/SELL   "
+              + " COMMISION FEES    STOCK PRICE");
+      JSONArray arrayObj = (JSONArray) portfolio.get(tickrsym);
+      for (int i = 0; i < arrayObj.size(); i++) {
+        JSONObject tickrRecord = (JSONObject) arrayObj.get(i);
+        this.showString(
+                tickrRecord.get("no_of_stocks")
+                        + "                 " +
+                        "              " + (String) tickrRecord.get("date")
+                        + "            " +
+                        "     " + (Double) tickrRecord.get("commission_fee") +
+                        "                   " + tickrRecord.get("stock_price"));
       }
     }
   }
