@@ -10,9 +10,9 @@ import java.util.List;
 import java.util.StringTokenizer;
 
 /**
- * |a:b:c| => |a|,|b|,|c|
- * |:| => ||,||
- * |a:| => |a|,||
+ * |a:b:c| => |a|,|b|,|c|.
+ * |:| => ||,||.
+ * |a:| => |a|,||.
  *
  * @author FangYidong fangyidong @ yahoo.com.cn.
  */
