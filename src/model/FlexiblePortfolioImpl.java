@@ -20,7 +20,8 @@ import java.util.Locale;
 
 public class FlexiblePortfolioImpl extends PortfolioImpl {
 
-  public JSONObject makeTransactionRecord(String date, float commission, int no_of_stocks, String tickr) {
+  public JSONObject makeTransactionRecord(String date, float commission, int no_of_stocks,
+                                          String tickr) {
     JSONObject record = new JSONObject();
     record.put("date", date);
     record.put("commission_fee", commission);
@@ -211,7 +212,7 @@ public class FlexiblePortfolioImpl extends PortfolioImpl {
 
   private boolean checkIfBeforeDate(String givenDate, String toBeChecked)
           throws java.text.ParseException {
-    SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-DD", Locale.ENGLISH);
+    SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
     Date newdate = formatter.parse(givenDate);
     Date checkrecentDate = formatter.parse(toBeChecked);
     if (checkrecentDate.before(newdate)) {
@@ -269,7 +270,7 @@ public class FlexiblePortfolioImpl extends PortfolioImpl {
    * @return true if prior else false
    */
   public boolean checkDateinJSONObject(String date, String existingDate) {
-    SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-DD", Locale.ENGLISH);
+    SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
     try {
       Date newdate = formatter.parse(date);
       Date checkrecentDate = formatter.parse(existingDate);
@@ -552,7 +553,7 @@ public class FlexiblePortfolioImpl extends PortfolioImpl {
   public int checkDifference(String date1, String date2) {
     int difference = 0;
     try {
-      SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-DD", Locale.ENGLISH);
+      SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
       Date newdate1 = formatter.parse(date1);
       Date newdate2 = formatter.parse(date2);
       difference = (int) (newdate2.getTime() - newdate1.getTime());
@@ -572,7 +573,7 @@ public class FlexiblePortfolioImpl extends PortfolioImpl {
   @Override
   public boolean checkValidDates(String date1, String date2) {
     try {
-      SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-DD", Locale.ENGLISH);
+      SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
       Date newdate1 = formatter.parse(date1);
       Date newdate2 = formatter.parse(date2);
       if (newdate1.before(newdate2)) {
