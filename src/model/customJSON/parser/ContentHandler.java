@@ -1,4 +1,4 @@
-package org.json.simple.parser;
+package model.customJSON.parser;
 
 import java.io.IOException;
 

@@ -1,4 +1,4 @@
-package org.json.simple;
+package model.customJSON;
 
 import java.io.IOException;
 import java.io.Writer;

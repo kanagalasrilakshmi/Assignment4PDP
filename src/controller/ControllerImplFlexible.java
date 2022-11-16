@@ -1,10 +1,10 @@
 package controller;
 
 
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
+import model.customJSON.JSONArray;
+import model.customJSON.JSONObject;
+import model.customJSON.parser.JSONParser;
+import model.customJSON.parser.ParseException;
 
 import java.io.File;
 import java.io.FileReader;
