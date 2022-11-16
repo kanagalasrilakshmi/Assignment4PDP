@@ -11,10 +11,14 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.Period;
 import java.time.Year;
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
 import java.util.Locale;
 
@@ -515,12 +519,18 @@ public class FlexiblePortfolioImpl extends PortfolioImpl {
    */
   @Override
   public float getScale(ArrayList<Float> values) {
-    float scaleVal = 0;
-    for (int i = 0; i < values.get(i); i++) {
-      scaleVal += values.get(i);
+    // get the highest and lowest value
+    // find the difference between them.
+    // divide this value with every point.
+    float maxVal = Collections.max(values);
+    float minVal = Collections.min(values);
+    float diffValues = maxVal - minVal;
+    // put a limit of maximum 10 asterisks per line.
+    if(diffValues>10){
+      diffValues = (diffValues/10);
     }
-    float finalScaleVal = (scaleVal / values.size());
-    return finalScaleVal;
+    return diffValues;
+
   }
 
   /**
@@ -559,7 +569,8 @@ public class FlexiblePortfolioImpl extends PortfolioImpl {
       SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
       Date newdate1 = formatter.parse(date1);
       Date newdate2 = formatter.parse(date2);
-      difference = (int) (newdate2.getTime() - newdate1.getTime());
+      Long diff = ChronoUnit.DAYS.between(newdate1.toInstant(), newdate2.toInstant());
+      difference = diff.intValue();
     } catch (Exception e) {
       e.printStackTrace();
     }

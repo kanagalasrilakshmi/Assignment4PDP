@@ -177,10 +177,11 @@ public class ControllerImplFlexible implements Controller {
     return "The portfolio is successfully modified";
   }
 
-  public void  printBargraph(String pfPerformance,String date1,String date2,int differenceDays)
+  public void printBargraph(String pfPerformance, String date1, String date2, int differenceDays)
           throws FileNotFoundException, ParseException {
     ArrayList<Float> values = thePortfolio.getValuesPortfolio(this.rootDir,
             pfPerformance, date1, date2, differenceDays);
+    System.out.println(values);
     ArrayList<String> dates = thePortfolio.getDatesDisplay(date1, date2, differenceDays);
     float scaleVal = thePortfolio.getScale(values);
     ArrayList<String> points = thePortfolio.getPoints(scaleVal, values);
@@ -250,17 +251,19 @@ public class ControllerImplFlexible implements Controller {
           theView.showString("Enter the timespan range to view the " +
                   "performance of the portfolio");
           // take range of inputs from the user.
-          String date1 = getAndValidateDate("Enter the date for which you want to " +
-                  "fetch the portfolio in YYYY-MM-DD format only!");
-          String date2 = getAndValidateDate("Enter the date for which you want to " +
-                  "fetch the portfolio in YYYY-MM-DD format only!");
+          String date1 = getAndValidateDate("Enter the first date value in the timespan range " +
+                  "in YYYY-MM-DD format only!");
+          String date2 = getAndValidateDate("Enter the second date value in the timespan range " +
+                  "in YYYY-MM-DD format only!");
           // if user first input date > second input date.
           // say it is not possible enter valid range.
           while (!thePortfolio.checkValidDates(date1, date2)) {
             theView.showString("The dates given cannot give a valid range please given valid " +
                     "input dates");
-            date1 = in.next();
-            date2 = in.next();
+            date1 = getAndValidateDate("Enter the first date value in the timespan range " +
+                    "in YYYY-MM-DD format only!");
+            date2 = getAndValidateDate("Enter the second date value in the timespan range " +
+                    "in YYYY-MM-DD format only!");
           }
           // if the user enters valid range dates.
           // check difference between the dates.
@@ -270,7 +273,7 @@ public class ControllerImplFlexible implements Controller {
             theView.showString("The difference is less than 5 days hence not valid");
             break;
           }
-          printBargraph(pfPerformance,date1,date2,differenceDays);
+          printBargraph(pfPerformance, date1, date2, differenceDays);
           break;
         case "V":
           if (!thePortfolio.hasAtleastOnePortfolio(this.rootDir, ".json")) {
