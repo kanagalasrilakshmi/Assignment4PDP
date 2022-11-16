@@ -177,6 +177,22 @@ public class ControllerImplFlexible implements Controller {
     return "The portfolio is successfully modified";
   }
 
+  public void  printBargraph(String pfPerformance,String date1,String date2,int differenceDays)
+          throws FileNotFoundException, ParseException {
+    ArrayList<Float> values = thePortfolio.getValuesPortfolio(this.rootDir,
+            pfPerformance, date1, date2, differenceDays);
+    ArrayList<String> dates = thePortfolio.getDatesDisplay(date1, date2, differenceDays);
+    float scaleVal = thePortfolio.getScale(values);
+    ArrayList<String> points = thePortfolio.getPoints(scaleVal, values);
+    theView.showString("Performance of the portfolio " + pfPerformance + " from " + date1 +
+            " to " + date2);
+    for (int i = 0; i < points.size(); i++) {
+      theView.showString(dates.get(i) + " : " + points.get(i));
+    }
+    theView.showString("Scale: * = $" + scaleVal);
+  }
+
+
   /**
    * Function to run the Stocks app implementation.
    *
@@ -227,30 +243,17 @@ public class ControllerImplFlexible implements Controller {
           }
           break;
         case "B":
-          // display bar graph of the portfolio.
-          // ask the user input.
-          if (!thePortfolio.hasAtleastOnePortfolio(this.rootDir, ".json")) {
-            theView.showString("No portfolio exists. Create a portfolio to view it.");
+          if (!doneListingPortfolios(this.rootDir, ".json")) {
             break;
           }
-          // list the portfolios.
-          theView.showString("Enter the name of the portfolio you want to view from " +
-                  "the list of " +
-                  "portfolios displayed below:");
-          theView.listJSONFiles(this.rootDir);
-          // check if user enters valid file name.
-          String pfPerformance = in.next();
-
-          while (!new File(this.rootDir + pfPerformance + ".json").exists()) {
-            theView.showString("Please enter a valid Portfolio name from " +
-                    "the displayed list only!");
-            pfPerformance = in.next();
-          }
-          theView.showString("Choose one of the following timespan range to view the " +
+          String pfPerformance = getValidPfName(this.rootDir, ".json");
+          theView.showString("Enter the timespan range to view the " +
                   "performance of the portfolio");
           // take range of inputs from the user.
-          String date1 = in.next();
-          String date2 = in.next();
+          String date1 = getAndValidateDate("Enter the date for which you want to " +
+                  "fetch the portfolio in YYYY-MM-DD format only!");
+          String date2 = getAndValidateDate("Enter the date for which you want to " +
+                  "fetch the portfolio in YYYY-MM-DD format only!");
           // if user first input date > second input date.
           // say it is not possible enter valid range.
           while (!thePortfolio.checkValidDates(date1, date2)) {
@@ -267,28 +270,16 @@ public class ControllerImplFlexible implements Controller {
             theView.showString("The difference is less than 5 days hence not valid");
             break;
           }
-          ArrayList<Float> values = thePortfolio.getValuesPortfolio(this.rootDir,
-                  pfPerformance, date1, date2, differenceDays);
-          ArrayList<String> dates = thePortfolio.getDatesDisplay(date1, date2, differenceDays);
-          float scaleVal = thePortfolio.getScale(values);
-          ArrayList<String> points = thePortfolio.getPoints(scaleVal, values);
-          theView.showString("Performance of the portfolio " + pfPerformance + " from " + date1 +
-                  " to " + date2);
-          for (int i = 0; i < points.size(); i++) {
-            theView.showString(dates.get(i) + " : " + points.get(i));
-          }
-          theView.showString("Scale: * = $" + scaleVal);
+          printBargraph(pfPerformance,date1,date2,differenceDays);
           break;
         case "V":
           if (!thePortfolio.hasAtleastOnePortfolio(this.rootDir, ".json")) {
             theView.showString("No portfolio exists. Create a portfolio to view it.");
             break;
           }
-          // list the portfolios.
-          theView.showString("Enter the name of the portfolio you want to view from " +
-                  "the list of " +
-                  "portfolios displayed below:");
-          theView.listJSONFiles(this.rootDir);
+          if (!doneListingPortfolios(this.rootDir, ".json")) {
+            break;
+          }
           // check if user enters valid file name.'
           String pfNameChosen = getValidPfName(this.rootDir, ".json");
           boolean viewDone = false;
