@@ -50,6 +50,9 @@ class PortfolioObj {
 
 }
 
+/**
+ * A class for creating stocks object.
+ */
 
 class StocksObj {
   private String tickr;
@@ -204,6 +207,13 @@ public class PortfolioImpl implements Portfolio {
     return this.objNumStocks;
   }
 
+  /**
+   * this function helps to set the tickr symbols present in the portfolio,
+   * set the prices.
+   * @param rootDir is the root directory where all the rigid portfolios exist
+   * @param filename is the name of the portfolio that needs to be viewed
+   * @throws IOException is an exception occurs while parsing the input parameters
+   */
   public void viewPortfolioDisplay(String rootDir, String filename) throws IOException {
     ArrayList<PortfolioObj> obj = viewPortfolio(rootDir, filename);
     ArrayList<String> tickrSymbols = new ArrayList<>();
@@ -517,6 +527,7 @@ public class PortfolioImpl implements Portfolio {
    */
 
   public void modifyJson(Float fees, int num, String date, String tickr, String pfPath) {
+    // do nothing.
   }
 
   /**
@@ -537,10 +548,11 @@ public class PortfolioImpl implements Portfolio {
    * @param addEntry add json entry
    */
   public void savePortfolio(String pfPath, JSONObject addEntry) {
+    // do nothing.
   }
 
   /**
-   * check if the tickr symbol exists in a json array
+   * check if the tickr symbol exists in a json array.
    *
    * @param tickrList of type JSONObject
    * @param tickr     company tickrsymbol
@@ -639,7 +651,7 @@ public class PortfolioImpl implements Portfolio {
     return false;
   }
 
-  public JSONObject makeTransactionRecord(String date, float commission, int no_of_stocks,
+  public JSONObject makeTransactionRecord(String date, float commission, int noofstocks,
                                           String tickr) {
     return new JSONObject();
   }

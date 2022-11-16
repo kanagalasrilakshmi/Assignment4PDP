@@ -49,7 +49,7 @@ public class ControllerImplFlexible implements Controller {
   /**
    * Create a directory on the desktop if user gives invalid path.
    *
-   * @param rootDirUser
+   * @param rootDirUser is the root directory given by user to store all the created portfolios
    */
   public void setDirectory(String rootDirUser) {
     if (new File(rootDirUser).exists()) {
@@ -134,7 +134,7 @@ public class ControllerImplFlexible implements Controller {
 
   /**
    * Used to take in date from the user and check if right format date is entered,
-   * if the date entered is in future or entered before the stock market opened today
+   * if the date entered is in future or entered before the stock market opened today.
    * @param message that asks the user to enter date in correct format
    * @return valid date given by the user
    */
@@ -419,8 +419,8 @@ public class ControllerImplFlexible implements Controller {
                 String numpurchase = getValidNumberStocks("Enter the number of stocks:");
                 String datepurchase = getAndValidateDate("Enter the date of purchase:");
                 if (!thePortfolio.checkTickrJSONArray(addTickr, tickrpurchase)) {
-                  JSONObject addEntry = thePortfolio.makeTransactionRecord
-                          (datepurchase, commission, Integer.valueOf(numpurchase), tickrpurchase);
+                  JSONObject addEntry = thePortfolio.makeTransactionRecord(datepurchase,
+                          commission, Integer.valueOf(numpurchase), tickrpurchase);
                   JSONArray listEntry = new JSONArray();
                   listEntry.add(addEntry);
                   addTickr.put(tickrpurchase, listEntry);
