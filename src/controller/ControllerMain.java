@@ -9,7 +9,7 @@ import model.Portfolio;
 import view.View;
 import view.ViewMain;
 
-public class ControllerMain implements Controller{
+public class ControllerMain implements Controller {
   private View theViewFlex;
   private View theViewRigid;
   private View theViewMain;
@@ -17,8 +17,9 @@ public class ControllerMain implements Controller{
   private Portfolio thePortfolioRigid;
   private Scanner in;
   private String rootDir;
+
   public ControllerMain(Portfolio thePortfolioRigid, View theViewRigid,
-                 Portfolio thePortfolioFlex, View theViewFlex, InputStream in){
+                        Portfolio thePortfolioFlex, View theViewFlex, InputStream in) {
     this.thePortfolioRigid = thePortfolioRigid;
     this.thePortfolioFlex = thePortfolioFlex;
     this.theViewRigid = theViewRigid;
@@ -26,26 +27,27 @@ public class ControllerMain implements Controller{
     this.theViewMain = new ViewMain(System.out);
     this.in = new Scanner(in);
   }
+
   /**
    * function to run the Stocks implementation.
    *
    * @throws ParseException when parsing of a date fails.
    * @throws IOException    when given input is not valid
    */
-  public void goStocks() throws ParseException, IOException{
+  public void goStocks() throws ParseException, IOException {
     theViewMain.showString("Type F if you want to choose flexible portfolios");
     theViewMain.showString("Type R if you want to choose Rigid portfolios");
     Controller controller;
     boolean done = false;
-    while(!done){
-      switch (in.next()){
+    while (!done) {
+      switch (in.next()) {
         case "F":
-          controller = new ControllerImplFlexible(thePortfolioFlex,theViewFlex,System.in);
+          controller = new ControllerImplFlexible(thePortfolioFlex, theViewFlex, System.in);
           controller.goStocks();
-          done  = true;
+          done = true;
           break;
         case "R":
-          controller = new ControllerImpl(thePortfolioRigid,theViewRigid,System.in);
+          controller = new ControllerImpl(thePortfolioRigid, theViewRigid, System.in);
           controller.goStocks();
           done = true;
           break;
@@ -56,7 +58,10 @@ public class ControllerMain implements Controller{
     }
   }
 
-  public void setDirectory(String rootDirUser){}
+  public void setDirectory(String rootDirUser) {
+  }
 
-  public String getValidPfName(String rootDir, String extension){return "";}
+  public String getValidPfName(String rootDir, String extension) {
+    return "";
+  }
 }

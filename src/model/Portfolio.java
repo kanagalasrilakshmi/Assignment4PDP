@@ -8,6 +8,10 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
 
+import model.PortfolioImplHelper.ArrayListObj;
+import model.PortfolioImplHelper.PortfolioObj;
+import model.PortfolioImplHelper.StocksObj;
+
 /**
  * Model Interface that consists of all the methods to be implemented by the model.
  */
