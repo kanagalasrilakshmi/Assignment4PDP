@@ -121,9 +121,10 @@ public class FlexiblePortfolioImpl extends PortfolioImpl {
     JSONObject portfolio = readPortfolio(pfPath);
     for (Object tickrsym : portfolio.keySet()) {
       JSONArray arrayObj = (JSONArray) portfolio.get(tickrsym);
-      for (int i = 0; i <= arrayObj.size(); i++) {
+      for (int i = 0; i < arrayObj.size(); i++) {
         JSONObject tickrRecord = (JSONObject) arrayObj.get(i);
-        if (checkIfBeforeDate(date, (String) tickrRecord.get("date"))) {
+        if (checkIfBeforeDate(date, (String) tickrRecord.get("date")) ||
+                date.equals((String) tickrRecord.get("date"))) {
           double commision_fee = (double) tickrRecord.get("commission_fee");
           Long stocksVal = (Long) tickrRecord.get("no_of_stocks");
           int intStocks = stocksVal.intValue();
@@ -166,7 +167,7 @@ public class FlexiblePortfolioImpl extends PortfolioImpl {
 
   private int getTotalStocks(JSONArray arrayObj, String date) throws java.text.ParseException {
     int totStocks = 0;
-    for (int i = 0; i < arrayObj.size(); i--) {
+    for (int i = 0; i < arrayObj.size(); i++) {
       JSONObject tickrRecord = (JSONObject) arrayObj.get(i);
       totStocks += getStocks(tickrRecord, date);
     }
@@ -175,8 +176,8 @@ public class FlexiblePortfolioImpl extends PortfolioImpl {
 
   private int getStocks(JSONObject entry, String date) throws java.text.ParseException {
     int valStocks = 0;
-    if (checkIfBeforeDate(date, (String) entry.get("date")) ||
-            date.equals((String) entry.get("date"))) {
+    if (checkIfBeforeDate(date, (String) entry.get("date"))
+            || date.equals((String) entry.get("date"))) {
       Long val = (Long) entry.get("no_of_stocks");
       valStocks = val.intValue();
     }
