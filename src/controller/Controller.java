@@ -14,9 +14,4 @@ public interface Controller {
    * @throws IOException    when given input is not valid
    */
   void goStocks() throws ParseException, IOException;
-
-  void setDirectory(String rootDirUser);
-
-  String getValidPfName(String rootDir, String extension);
-
 }

@@ -65,7 +65,7 @@ public class ControllerImpl implements Controller {
           // initialized path only for saving the portfolios.
           ArrayList<String> storinglist = new ArrayList<>();
           // check if this same name portfolio exists.
-          String pfName= createValidPf(this.rootDir, ".txt");
+          String pfName = createValidPf(this.rootDir, ".txt");
           ArrayList<Object> objList = new ArrayList<>();
           boolean done = false;
           while (!done) {
@@ -74,7 +74,6 @@ public class ControllerImpl implements Controller {
             theView.showString("Press S to save the Portfolio.");
             switch (in.next()) {
               case "S":
-                //check if object list is empty nothing to save
                 if (objList.size() == 0) {
                   theView.showString("Portfolio must contain at least one entry!! ");
                 } else {
@@ -117,15 +116,12 @@ public class ControllerImpl implements Controller {
                 String date = getAndValidateDate("Enter the date for which you want to fetch " +
                         "the portfolio in YYYY-MM-DD format only!");
                 float finalVal = thePortfolio.portfolioValueDate(this.rootDir, pfNameChosen, date);
-                // print the value.
                 theView.showString("The total value of the portfolio " + pfNameChosen + " " +
                         "is $" + finalVal);
                 viewDone = true;
                 break;
               case "P":
-                // view the portfolio.
                 thePortfolio.viewPortfolioDisplay(this.rootDir, pfNameChosen);
-                // print the value.
                 theView.showString("Company Tickr Symbol" + " " + "Num Stocks");
                 ArrayList<String> tickrsymbols = thePortfolio.getTickrs();
                 ArrayList<String> numStocks = thePortfolio.getNumberStocks();
@@ -221,7 +217,7 @@ public class ControllerImpl implements Controller {
    * @return a valid tickr from the user that is also there in the tickrData.txt file
    * @throws FileNotFoundException if there is a problem finding tickrData.txt file
    */
-  public String getValidTickr(ArrayList<String>storinglist) throws FileNotFoundException {
+  public String getValidTickr(ArrayList<String> storinglist) throws FileNotFoundException {
     theView.showString("Enter Valid Stock company tickr symbol");
     String tickr = in.next();
     while (!thePortfolio.validateTickrSymbol(tickr)) {
@@ -238,6 +234,7 @@ public class ControllerImpl implements Controller {
 
   /**
    * Takes in valid input for stocks which should allow only integer values.
+   *
    * @param message is used to ask the user to enter the stock price
    * @return valid stock price entered by the user
    */
@@ -273,6 +270,7 @@ public class ControllerImpl implements Controller {
   /**
    * Used to take in date from the user and check if right format date is entered,
    * if the date entered is in future or entered before the stock market opened today.
+   *
    * @param message that asks the user to enter date in correct format
    * @return valid date given by the user
    */

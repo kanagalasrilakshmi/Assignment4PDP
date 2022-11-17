@@ -71,12 +71,4 @@ public class ControllerMain implements Controller {
       }
     }
   }
-
-  public void setDirectory(String rootDirUser) {
-    // do nothing.
-  }
-
-  public String getValidPfName(String rootDir, String extension) {
-    return "";
-  }
 }

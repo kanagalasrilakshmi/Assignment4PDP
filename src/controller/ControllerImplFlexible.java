@@ -25,7 +25,7 @@ import view.View;
  * Getting value of a portfolio on a given date.
  * And Quitting the program.
  */
-public class ControllerImplFlexible implements Controller {
+public class ControllerImplFlexible extends ControllerImpl implements Controller {
 
   private View theView;
   private Portfolio thePortfolio;
@@ -40,38 +40,13 @@ public class ControllerImplFlexible implements Controller {
    * @param in           of type InputStream
    */
   public ControllerImplFlexible(Portfolio thePortfolio, View theView, InputStream in) {
+    super(thePortfolio,theView,in);
     this.theView = theView;
     this.thePortfolio = thePortfolio;
     this.in = new Scanner(in);
     this.rootDir = System.getProperty("user.home") + "/Desktop/PortfolioBucket/";
   }
-
-  /**
-   * Create a directory on the desktop if user gives invalid path.
-   *
-   * @param rootDirUser is the root directory given by user to store all the created portfolios
-   */
-  public void setDirectory(String rootDirUser) {
-    if (new File(rootDirUser).exists()) {
-      if (!thePortfolio.checkLastEndingCharacter(rootDirUser)) {
-        rootDirUser = rootDirUser + "/";
-      }
-      this.rootDir = rootDirUser;
-    } else {
-      theView.showString("Invalid path given so portfolios will be stored in "
-              + this.rootDir + " by default. To change directory, quit and start again.");
-      if (!new File(this.rootDir).exists()) {
-        try {
-          Path path = Paths.get(this.rootDir);
-          Files.createDirectories(path);
-        } catch (Exception e) {
-          e.printStackTrace();
-        }
-      }
-    }
-  }
-
-  //TODO: PUT IT IN VIEW
+  
 
   /**
    * List all the portfolios with the given extension of the folder where portfolios are present.
@@ -80,6 +55,7 @@ public class ControllerImplFlexible implements Controller {
    * @param extension is either, .json or .txt
    * @return false if no portfolios are present in the given input folder else print all of them
    */
+  @Override
   public boolean doneListingPortfolios(String path, String extension) {
     if (!thePortfolio.hasAtleastOnePortfolio(path, extension)) {
       theView.showString("No portfolio exists. Create a portfolio.");
@@ -90,24 +66,7 @@ public class ControllerImplFlexible implements Controller {
     theView.listJSONFiles(this.rootDir);
     return true;
   }
-
-  /**
-   * Check if the given portfolio already exists in the given input folder of portfolios.
-   *
-   * @param rootDir   is the input location where all the portfolios are present
-   * @param extension is either .json or .txt
-   * @return a valid portfolio name that exists in the given input folder
-   */
-  public String getValidPfName(String rootDir, String extension) {
-    theView.showString("Enter valid portfolio name:");
-    String pfNameChosen = in.next();
-    while (!new File(rootDir + pfNameChosen + extension).exists()) {
-      theView.showString("Portfolio with this name doesn't exist. Try again");
-      pfNameChosen = in.next();
-    }
-    return pfNameChosen;
-  }
-
+  
   /**
    * Used for creating a valid portfolio that is not too long or special characters.
    * The same name does not already exist in the given input folder for the portfolio.
@@ -152,22 +111,7 @@ public class ControllerImplFlexible implements Controller {
     }
     return date;
   }
-
-  /**
-   * Takes in valid input for stocks which should allow only integer values.
-   * @param message is used to ask the user to enter the stock price
-   * @return valid stock price entered by the user
-   */
-  public String getValidNumberStocks(String message) {
-    theView.showString(message);
-    String num = in.next();
-    if (!thePortfolio.checkValidInteger(num)) {
-      theView.showString("Only Integer stock values are allowed. ");
-      getValidNumberStocks(message);
-    }
-    return num;
-  }
-
+  
   /**
    * enter the commision fees for performing a transaction.
    * @return valid value of the commission fees entered by the user in float type
@@ -259,7 +203,7 @@ public class ControllerImplFlexible implements Controller {
    * @throws FileNotFoundException if no file is found
    * @throws ParseException        if error occurs while parsing the input portfolio
    */
-  public void printBargraph(String pfPerformance, String date1, String date2, int differenceDays)
+  public void printPerformance(String pfPerformance, String date1, String date2, int differenceDays)
           throws FileNotFoundException, ParseException {
     ArrayList<Float> values = thePortfolio.getValuesPortfolio(this.rootDir,
             pfPerformance, date1, date2, differenceDays);
@@ -354,7 +298,7 @@ public class ControllerImplFlexible implements Controller {
             theView.showString("The difference is less than 5 days hence not valid");
             break;
           }
-          printBargraph(pfPerformance, date1, date2, differenceDays);
+          printPerformance(pfPerformance, date1, date2, differenceDays);
           break;
         case "V":
           if (!thePortfolio.hasAtleastOnePortfolio(this.rootDir, ".json")) {
