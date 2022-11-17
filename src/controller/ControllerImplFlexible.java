@@ -11,6 +11,7 @@ import java.io.InputStream;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.Scanner;
 
@@ -39,13 +40,13 @@ public class ControllerImplFlexible extends ControllerImpl implements Controller
    * @param in           of type InputStream
    */
   public ControllerImplFlexible(Portfolio thePortfolio, View theView, InputStream in) {
-    super(thePortfolio,theView,in);
+    super(thePortfolio, theView, in);
     this.theView = theView;
     this.thePortfolio = thePortfolio;
     this.in = new Scanner(in);
     this.rootDir = System.getProperty("user.home") + "/Desktop/PortfolioBucket/";
   }
-  
+
 
   /**
    * List all the portfolios with the given extension of the folder where portfolios are present.
@@ -65,7 +66,7 @@ public class ControllerImplFlexible extends ControllerImpl implements Controller
     theView.listJSONFiles(this.rootDir);
     return true;
   }
-  
+
   /**
    * Used for creating a valid portfolio that is not too long or special characters.
    * The same name does not already exist in the given input folder for the portfolio.
@@ -93,13 +94,14 @@ public class ControllerImplFlexible extends ControllerImpl implements Controller
   /**
    * Used to take in date from the user and check if right format date is entered,
    * if the date entered is in future or entered before the stock market opened today.
+   *
    * @param message that asks the user to enter date in correct format
    * @return valid date given by the user
    */
   public String getAndValidateDate(String message) throws ParseException {
     theView.showString(message);
     String date = in.next();
-    while (!thePortfolio.checkIfRightFormat(date) || date.length()<10) {
+    while (!thePortfolio.checkIfRightFormat(date) || date.length() < 10) {
       theView.showString("Please enter correct format for date:");
       date = in.next();
     }    // check if future date is entered or today's date but before 9.30 am
@@ -111,9 +113,10 @@ public class ControllerImplFlexible extends ControllerImpl implements Controller
     return date;
 
   }
-  
+
   /**
    * enter the commision fees for performing a transaction.
+   *
    * @return valid value of the commission fees entered by the user in float type
    */
   public Float getValidCommission() {
@@ -124,7 +127,7 @@ public class ControllerImplFlexible extends ControllerImpl implements Controller
       theView.showString("Enter only float or integer values:");
       commision = in.next();
     }
-    if (Float.valueOf(commision) <0) {
+    if (Float.valueOf(commision) < 0) {
       theView.showString("Negative commission values are not allowed!");
       getValidCommission();
     }
@@ -153,10 +156,11 @@ public class ControllerImplFlexible extends ControllerImpl implements Controller
    * the number of stocks present in the portfolio are more than or equal to input number of stocks.
    * If given number of stocks are less than or equal to the stocks present,
    * for the tickr symbol till date then sale can be made.
-   * @param num is the number of stocks that are to be sold
-   * @param path is the path for the portfolio over which transaction needs to be done
+   *
+   * @param num   is the number of stocks that are to be sold
+   * @param path  is the path for the portfolio over which transaction needs to be done
    * @param tickr is company tickr symbol for which sale needs to be made
-   * @param date is date on which sale needs to be made
+   * @param date  is date on which sale needs to be made
    * @return true if the given stocks can be sold else return false
    * @throws ParseException is thrown when error while parsing the input portfolio
    */
@@ -185,11 +189,8 @@ public class ControllerImplFlexible extends ControllerImpl implements Controller
     String transactionDate = getAndValidateDate("Enter date of transaction:");
     int numberOfStocks = Integer.valueOf(getValidNumberStocks("Number of stocks:"));
     if (isSell) {
-      while (!validSell(numberOfStocks, path, tickr, transactionDate)) {
-        numberOfStocks = Integer.valueOf(getValidNumberStocks("Enter valid number of stocks:"));
-        if (numberOfStocks <= 0) {
-          return "This sale cannot be made!";
-        }
+      if (!validSell(numberOfStocks, path, tickr, transactionDate)) {
+        return "This transaction is not valid.";
       }
       numberOfStocks = numberOfStocks * (-1);
     }
@@ -220,6 +221,7 @@ public class ControllerImplFlexible extends ControllerImpl implements Controller
       theView.showString(dates.get(i) + " : " + points.get(i));
     }
     theView.showString("Scale: * = $" + scaleVal);
+    theView.showString("Minimum price value in the graph is : $" + Collections.min(values));
   }
 
 
@@ -350,7 +352,6 @@ public class ControllerImplFlexible extends ControllerImpl implements Controller
                 thePortfolio.savePortfolio(this.rootDir + pfName + ".json",
                         addTickr);
                 done = true;
-                thePortfolio.savePortfolio(pfName, addTickr);
                 theView.showString("Successfully created the portfolio " + pfName);
                 break;
               case "Y":
