@@ -31,12 +31,12 @@ import java.util.Locale;
 public class FlexiblePortfolioImpl extends PortfolioImpl {
 
   /**
-   * Make a transaction of purchase or sell using the input values date,commision, no of stock,
+   * Make a transaction of purchase or sell using the input values date,commission, no of stock,
    * and tickr symbol.
    * @param date is the date on which purchase or sale is made
-   * @param commission is input commision for a transaction
+   * @param commission is input commission for a transaction
    * @param noofstocks is number stock bought or sold
-   * @param tickr is company tickr symbol for which trasaction needs to be done
+   * @param tickr is company tickr symbol for which transaction needs to be done
    * @return a json object entry that needs to be added to the portfolio
    */
   public JSONObject makeTransactionRecord(String date, float commission, int noofstocks,
@@ -470,9 +470,9 @@ public class FlexiblePortfolioImpl extends PortfolioImpl {
     float maxVal = Collections.max(values);
     float minVal = Collections.min(values);
     float diffValues = maxVal - minVal;
-    // put a limit of maximum 10 asterisks per line.
-    if (diffValues > 10) {
-      diffValues = (diffValues / 10);
+    // put a limit of maximum 50 asterisks per line.
+    if (diffValues > 50) {
+      diffValues = (diffValues / 50);
     }
     return diffValues;
 

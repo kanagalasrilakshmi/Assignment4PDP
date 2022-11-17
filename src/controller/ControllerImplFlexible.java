@@ -8,9 +8,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -273,25 +270,18 @@ public class ControllerImplFlexible extends ControllerImpl implements Controller
             break;
           }
           String pfPerformance = getValidPfName(this.rootDir, ".json");
-          theView.showString("Enter the timespan range to view the " +
+          theView.showString("Enter the time span range to view the " +
                   "performance of the portfolio");
-          // take range of inputs from the user.
-          String date1 = getAndValidateDate("Enter the first date value in the timespan range " +
-                  "in YYYY-MM-DD format only!");
-          String date2 = getAndValidateDate("Enter the second date value in the timespan range " +
-                  "in YYYY-MM-DD format only!");
-          // if user first input date > second input date.
-          // say it is not possible enter valid range.
+          String msgStart = "Enter the start date in YYYY-MM-DD format only:";
+          String msgEnd = "Enter the end date value in  YYYY-MM-DD format only:";
+          String date1 = getAndValidateDate(msgStart);
+          String date2 = getAndValidateDate(msgEnd);
+          // if user first input date > second input date prompt invalid range
           while (!thePortfolio.checkValidDates(date1, date2)) {
-            theView.showString("The dates given cannot give a valid range please given valid " +
-                    "input dates");
-            date1 = getAndValidateDate("Enter the first date value in the timespan range " +
-                    "in YYYY-MM-DD format only!");
-            date2 = getAndValidateDate("Enter the second date value in the timespan range " +
-                    "in YYYY-MM-DD format only!");
+            theView.showString("Invalid date range please give valid period:");
+            date1 = getAndValidateDate(msgStart);
+            date2 = getAndValidateDate(msgEnd);
           }
-          // if the user enters valid range dates.
-          // check difference between the dates.
           int differenceDays = thePortfolio.checkDifference(date1, date2);
           // if the difference is less than 5 return error.
           if (differenceDays < 5) {
@@ -346,8 +336,7 @@ public class ControllerImplFlexible extends ControllerImpl implements Controller
           boolean done = false;
           JSONObject addTickr = new JSONObject();
           while (!done) {
-            theView.showString("Press Y to add stocks " +
-                    "to the " + pfName + " portfolio.");
+            theView.showString("Press Y to add stocks to the " + pfName + " portfolio.");
             theView.showString("Press S to save the Portfolio.");
             switch (in.next()) {
               case "S":
