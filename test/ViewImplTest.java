@@ -119,7 +119,8 @@ public class ViewImplTest {
     assertEquals("Give a valid input path where you want to store your portfolios. " +
             "For example: /Users/PDP/PortfolioBucket/\n" +
             "Invalid path given so portfolios will be stored in " +
-            "/Users/srilakshmikanagala/Desktop/PortfolioBucket/ by default. " +
+            System.getProperty("user.home")+"/Desktop/PortfolioBucket/"+
+            " by default. " +
             "To change directory, quit and start again.\n" +
             "Menu: \n" +
             "C: To create a new Portfolio.\n" +
@@ -155,7 +156,7 @@ public class ViewImplTest {
     assertEquals("Give a valid input path where you want to store your portfolios. " +
             "For example: /Users/PDP/PortfolioBucket/\n" +
             "Invalid path given so portfolios will be stored in " +
-            "/Users/srilakshmikanagala/Desktop/PortfolioBucket/ by default. " +
+            System.getProperty("user.home") +"/Desktop/PortfolioBucket/ by default. "+
             "To change directory, quit and start again.\n" +
             "Menu: \n" +
             "C: To create a new Portfolio.\n" +
