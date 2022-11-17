@@ -104,7 +104,7 @@ public class ControllerImplFlexible extends ControllerImpl implements Controller
     while (thePortfolio.checkFutureDate(date) || thePortfolio.checkTodayDateAndTime(date)) {
       theView.showString("You can only enter past date or present(if after 9:30am)." +
               "! Please enter new date:");
-      getAndValidateDate(message);
+      date = getAndValidateDate(message);
     }
     return date;
   }
@@ -309,8 +309,8 @@ public class ControllerImplFlexible extends ControllerImpl implements Controller
             theView.showFlexibleViewOptions();
             switch (in.next()) {
               case "I":
-                String date = getAndValidateDate("Enter the date for which you want to " +
-                        "fetch the portfolio in YYYY-MM-DD format only!");
+                String date = getAndValidateDate("Enter the date at which you want to " +
+                        "get cost basis in YYYY-MM-DD format only!");
                 float costBasis = thePortfolio.getCostBasis(this.rootDir + pfNameChosen
                         + ".json", date);
                 theView.showString("The cost basis till date, " + date + " is: $" + costBasis);
@@ -318,7 +318,7 @@ public class ControllerImplFlexible extends ControllerImpl implements Controller
                 break;
               case "D":
                 String valdate = getAndValidateDate("Enter the date for which you want to " +
-                        "fetch the portfolio in YYYY-MM-DD format only!");
+                        "fetch the portfolio value in YYYY-MM-DD format only!");
                 float totVal = thePortfolio.portfolioValueDate(this.rootDir, pfNameChosen, valdate);
                 theView.showString("Portfolio Value on " + valdate + " is : $" + totVal);
                 viewDone = true;

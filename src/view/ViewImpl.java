@@ -64,8 +64,8 @@ public class ViewImpl implements View {
   public void showMainOptions() {
     //print the UI
     out.println("Menu: ");
-    out.println("F: To create Flexible Portfolios.");
-    out.println("R: To create Rigid Portfolios.");
+    out.println("F: For Flexible Portfolios.");
+    out.println("R: For Rigid Portfolios.");
     out.println("Q: Quit the program");
     out.print("Enter your choice: ");
   }
@@ -118,9 +118,9 @@ public class ViewImpl implements View {
    * Composition of the whole portfolio for viewing the entire portfolio.
    */
   public void showFlexibleViewOptions() {
-    this.showString("Press I to view investment made in a portfolio by a " +
-            "specific date");
-    this.showString("Press D to view portfolio value on specific date");
+    this.showString("Press I to view cost basis of a portfolio by a " +
+            "specific date.");
+    this.showString("Press D to view portfolio value on a specific date.");
     this.showString("Press P to view portfolio composition");
   }
 
@@ -131,13 +131,12 @@ public class ViewImpl implements View {
   public void viewFlexibleComposition(JSONObject portfolio) {
     // view composition of portfolio
     for (Object tickrsym : portfolio.keySet()) {
-      this.showString("TICKER SYMBOL : " + (String) tickrsym);
+      this.showString("TICKER SYMBOL : " + tickrsym);
       this.showString("NUM OF STOCKS        TYPE            DATE OF PURCHASE/SELL"
               + "     COMMISSION FEES       STOCK PRICE");
       JSONArray arrayObj = (JSONArray) portfolio.get(tickrsym);
       for (int i = 0; i < arrayObj.size(); i++) {
         JSONObject tickrRecord = (JSONObject) arrayObj.get(i);
-        Long intnumStocks = (Long)tickrRecord.get("no_of_stocks");
         int noOfStocks = ((Long) tickrRecord.get("no_of_stocks")).intValue();
         String type = "PURCHASED";
         if(noOfStocks<0){
@@ -145,8 +144,8 @@ public class ViewImpl implements View {
           type = "SOLD";
         }
         this.showString("     "+noOfStocks + "             " + type +
-                        "              " + (String) tickrRecord.get("date")
-                        + "            " + "     $" + (Double) tickrRecord.get("commission_fee") +
+                        "              " + tickrRecord.get("date")
+                        + "            " + "     $" + tickrRecord.get("commission_fee") +
                         "              $" + tickrRecord.get("stock_price"));
       }
     }
