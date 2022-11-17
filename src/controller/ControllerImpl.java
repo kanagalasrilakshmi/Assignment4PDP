@@ -83,11 +83,8 @@ public class ControllerImpl implements Controller {
                 }
                 break;
               case "Y":
-                theView.showString("Enter Valid Stock company tickr symbol");
                 String tickr = getValidTickr(storinglist);
                 storinglist.add(tickr);
-                theView.showString("Enter number of stocks purchased " +
-                        "(Integer Values are Only Allowed)");
                 String numberStocks = getValidNumberStocks("Enter number of stocks purchased " +
                         "(Integer Values are Only Allowed)");
                 objList.add(thePortfolio.makeStockObj(tickr, numberStocks));
