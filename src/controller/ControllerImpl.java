@@ -271,7 +271,7 @@ public class ControllerImpl implements Controller {
    * @param message that asks the user to enter date in correct format
    * @return valid date given by the user
    */
-  public String getAndValidateDate(String message) {
+  public String getAndValidateDate(String message) throws ParseException {
     theView.showString(message);
     String date = in.next();
     while (!thePortfolio.checkIfRightFormat(date)) {

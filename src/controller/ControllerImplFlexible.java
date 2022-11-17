@@ -9,7 +9,9 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Scanner;
 
 import model.Portfolio;
@@ -94,10 +96,10 @@ public class ControllerImplFlexible extends ControllerImpl implements Controller
    * @param message that asks the user to enter date in correct format
    * @return valid date given by the user
    */
-  public String getAndValidateDate(String message) {
+  public String getAndValidateDate(String message) throws ParseException {
     theView.showString(message);
     String date = in.next();
-    while (!thePortfolio.checkIfRightFormat(date)) {
+    while (!thePortfolio.checkIfRightFormat(date) || date.length()<10) {
       theView.showString("Please enter correct format for date:");
       date = in.next();
     }    // check if future date is entered or today's date but before 9.30 am
@@ -107,6 +109,7 @@ public class ControllerImplFlexible extends ControllerImpl implements Controller
       date = getAndValidateDate(message);
     }
     return date;
+
   }
   
   /**
