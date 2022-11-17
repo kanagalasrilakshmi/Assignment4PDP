@@ -139,4 +139,73 @@ public class FlexiblePortfolioImplTest {
     assertEquals(446.8783874511719,portfolioObj.getScale(values),0.01);
   }
 
+  @Test
+  public void checkDifferenceTest() throws ParseException {
+    Portfolio portfolioObj = new FlexiblePortfolioImpl();
+    JSONObject addTickr = new JSONObject();
+    JSONObject addEntry = portfolioObj.makeTransactionRecord("2022-01-01",
+            7, Integer.valueOf(8), "GOOG");
+    JSONArray listEntry = new JSONArray();
+    listEntry.add(addEntry);
+    addTickr.put("GOOG", listEntry);
+    String path = System.getProperty("user.home") + "/Desktop/PortfolioBucket/"+"pf.json";
+    portfolioObj.savePortfolio(path, addTickr);
+    assertEquals(520,portfolioObj.checkDifference("2021-01-01","2022-06-06"),0.01);
+  }
+
+  @Test
+  public void checkValidDatesTest1() throws ParseException {
+    Portfolio portfolioObj = new FlexiblePortfolioImpl();
+    JSONObject addTickr = new JSONObject();
+    JSONObject addEntry = portfolioObj.makeTransactionRecord("2022-01-01",
+            7, Integer.valueOf(8), "GOOG");
+    JSONArray listEntry = new JSONArray();
+    listEntry.add(addEntry);
+    addTickr.put("GOOG", listEntry);
+    String path = System.getProperty("user.home") + "/Desktop/PortfolioBucket/"+"pf.json";
+    portfolioObj.savePortfolio(path, addTickr);
+    assertEquals(false,portfolioObj.checkValidDates("2021-02-02","2021-01-17"));
+  }
+
+  @Test
+  public void checkValidDatesTest2() throws ParseException {
+    Portfolio portfolioObj = new FlexiblePortfolioImpl();
+    JSONObject addTickr = new JSONObject();
+    JSONObject addEntry = portfolioObj.makeTransactionRecord("2022-01-01",
+            7, Integer.valueOf(8), "GOOG");
+    JSONArray listEntry = new JSONArray();
+    listEntry.add(addEntry);
+    addTickr.put("GOOG", listEntry);
+    String path = System.getProperty("user.home") + "/Desktop/PortfolioBucket/"+"pf.json";
+    portfolioObj.savePortfolio(path, addTickr);
+    assertEquals(true,portfolioObj.checkValidDates("2021-01-17","2021-02-02"));
+  }
+
+  @Test
+  public void checkDatesDisplay1(){
+
+  }
+
+  @Test
+  public void checkDatesDisplay2(){
+
+  }
+
+  @Test
+  public void checkDatesDisplay3(){
+
+  }
+
+  @Test
+  public void checkDatesDisplay4(){
+
+  }
+
+  @Test
+  public void checkDatesDisplay5(){
+
+  }
+
+
+
 }
