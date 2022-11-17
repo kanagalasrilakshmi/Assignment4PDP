@@ -8,9 +8,9 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
 
-import model.portfolioImplHelper.ArrayListObj;
-import model.portfolioImplHelper.PortfolioObj;
-import model.portfolioImplHelper.StocksObj;
+import model.portfolioimplhelper.ArrayListObj;
+import model.portfolioimplhelper.PortfolioObj;
+import model.portfolioimplhelper.StocksObj;
 
 /**
  * Model Interface that consists of all the methods to be implemented by the model.

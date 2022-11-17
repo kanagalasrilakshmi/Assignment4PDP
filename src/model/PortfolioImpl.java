@@ -18,9 +18,9 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 
-import model.portfolioImplHelper.ArrayListObj;
-import model.portfolioImplHelper.PortfolioObj;
-import model.portfolioImplHelper.StocksObj;
+import model.portfolioimplhelper.ArrayListObj;
+import model.portfolioimplhelper.PortfolioObj;
+import model.portfolioimplhelper.StocksObj;
 
 /**
  * Implementing the Portfolio Interface and coded the implementation.

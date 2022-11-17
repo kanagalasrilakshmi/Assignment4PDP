@@ -1,4 +1,4 @@
-package model.portfolioImplHelper;
+package model.portfolioimplhelper;
 
 /**
  * A class for creating stocks object.

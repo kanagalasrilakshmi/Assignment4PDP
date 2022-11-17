@@ -1,4 +1,4 @@
-package model.portfolioImplHelper;
+package model.portfolioimplhelper;
 
 import java.util.ArrayList;
 

@@ -1,4 +1,4 @@
-package model.portfolioImplHelper;
+package model.portfolioimplhelper;
 
 /**
  * A class that helps to create Portfolio Object.

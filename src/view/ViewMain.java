@@ -4,6 +4,9 @@ import org.json.simple.JSONObject;
 
 import java.io.PrintStream;
 
+/**
+ * View implementation that is used for displaying in main controller.
+ */
 
 public class ViewMain implements View {
   final PrintStream out;
