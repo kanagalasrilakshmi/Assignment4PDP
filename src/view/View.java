@@ -49,5 +49,15 @@ public interface View {
    * Shows the options that can be used by the user to run the stocks program.
    */
   void showFlexibleViewOptions();
+
+  /**
+   * Shows the options that can be used by the controller main to run the stocks program.
+   */
+  void showMainOptions();
+
+  /**
+   * Shows the options that can be used in flexible portfolios.
+   */
+  void showFlexibleOptions();
 }
 

@@ -45,6 +45,32 @@ public class ViewImpl implements View {
   }
 
   /**
+   * Shows the options that can be used in flexible portfolios.
+   */
+  public void showFlexibleOptions() {
+    //print the UI
+    out.println("Menu: ");
+    out.println("C: To create a new Portfolio.");
+    out.println("M: To modify an existing Portfolio.");
+    out.println("V: View existing Portfolio.");
+    out.println("Q: Quit the program.");
+    out.println("B: Get Bar graph of the program.");
+    out.print("Enter your choice: ");
+  }
+
+  /**
+   * Shows the options that can be used by the controller main to run the stocks program.
+   */
+  public void showMainOptions() {
+    //print the UI
+    out.println("Menu: ");
+    out.println("F: To create Flexible Portfolios.");
+    out.println("R: To create Rigid Portfolios.");
+    out.println("Q: Quit the program");
+    out.print("Enter your choice: ");
+  }
+
+  /**
    * Displays the list of .txt file present in the given input directory argument.
    *
    * @param rootDir is the directory where .txt files needs to be listed down
@@ -106,18 +132,22 @@ public class ViewImpl implements View {
     // view composition of portfolio
     for (Object tickrsym : portfolio.keySet()) {
       this.showString("TICKER SYMBOL : " + (String) tickrsym);
-      this.showString("NUM OF STOCKS PURCHASED/SOLD    DATE OF PURCHASE/SELL   "
-              + " COMMISION FEES    STOCK PRICE");
+      this.showString("NUM OF STOCKS        TYPE            DATE OF PURCHASE/SELL"
+              + "     COMMISSION FEES       STOCK PRICE");
       JSONArray arrayObj = (JSONArray) portfolio.get(tickrsym);
       for (int i = 0; i < arrayObj.size(); i++) {
         JSONObject tickrRecord = (JSONObject) arrayObj.get(i);
-        this.showString(
-                tickrRecord.get("no_of_stocks")
-                        + "                 " +
+        Long intnumStocks = (Long)tickrRecord.get("no_of_stocks");
+        int noOfStocks = ((Long) tickrRecord.get("no_of_stocks")).intValue();
+        String type = "PURCHASED";
+        if(noOfStocks<0){
+          noOfStocks = noOfStocks*(-1);
+          type = "SOLD";
+        }
+        this.showString("     "+noOfStocks + "             " + type +
                         "              " + (String) tickrRecord.get("date")
-                        + "            " +
-                        "     " + (Double) tickrRecord.get("commission_fee") +
-                        "                   " + tickrRecord.get("stock_price"));
+                        + "            " + "     $" + (Double) tickrRecord.get("commission_fee") +
+                        "              $" + tickrRecord.get("stock_price"));
       }
     }
   }

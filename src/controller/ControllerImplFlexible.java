@@ -114,12 +114,16 @@ public class ControllerImplFlexible extends ControllerImpl implements Controller
    * @return valid value of the commission fees entered by the user in float type
    */
   public Float getValidCommission() {
-    theView.showString("Enter the commission fees");
+    theView.showString("Enter the commission fees:");
     String commision = in.next();
     while (!(thePortfolio.checkValidInteger(commision) ||
             thePortfolio.checkValidFloat(commision))) {
       theView.showString("Enter only float or integer values:");
       commision = in.next();
+    }
+    if (Float.valueOf(commision) <0) {
+      theView.showString("Negative commission values are not allowed!");
+      getValidCommission();
     }
     return Float.valueOf(commision);
   }
@@ -229,7 +233,7 @@ public class ControllerImplFlexible extends ControllerImpl implements Controller
     String rootDirUser = in.nextLine();
     setDirectory(rootDirUser);
     while (!quit) {
-      theView.showOptions();
+      theView.showFlexibleOptions();
       switch (in.next()) {
         case "Q":
           quit = true;
@@ -309,14 +313,14 @@ public class ControllerImplFlexible extends ControllerImpl implements Controller
                         "fetch the portfolio in YYYY-MM-DD format only!");
                 float costBasis = thePortfolio.getCostBasis(this.rootDir + pfNameChosen
                         + ".json", date);
-                theView.showString("The cost basis till date, " + date + " is: " + costBasis);
+                theView.showString("The cost basis till date, " + date + " is: $" + costBasis);
                 viewDone = true;
                 break;
               case "D":
                 String valdate = getAndValidateDate("Enter the date for which you want to " +
                         "fetch the portfolio in YYYY-MM-DD format only!");
                 float totVal = thePortfolio.portfolioValueDate(this.rootDir, pfNameChosen, valdate);
-                theView.showString("Portfolio Value on " + valdate + " is : " + totVal);
+                theView.showString("Portfolio Value on " + valdate + " is : $" + totVal);
                 viewDone = true;
                 break;
               case "P":

@@ -8,7 +8,6 @@ import model.Portfolio;
 import model.PortfolioImpl;
 import view.View;
 import view.ViewImpl;
-import view.ViewImplFlexible;
 
 /**
  * Main Stocks class that implements Controllor, PortfolioObj(Model), View.
@@ -25,11 +24,9 @@ public class MVCStocks {
    */
   public static void main(String[] args) throws ParseException, IOException {
     Portfolio modelRigid = new PortfolioImpl();
-    View viewRigid = new ViewImpl(System.out);
+    View view = new ViewImpl(System.out);
     Portfolio modelFlex = new FlexiblePortfolioImpl();
-    View viewFlex = new ViewImplFlexible(System.out);
-    Controller controller = new ControllerMain(modelRigid, viewRigid, modelFlex,
-            viewFlex, System.in);
+    Controller controller = new ControllerMain(modelRigid, view, modelFlex, System.in);
     controller.goStocks();
   }
 }
