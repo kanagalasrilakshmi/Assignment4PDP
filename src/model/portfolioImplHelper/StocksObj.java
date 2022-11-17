@@ -1,13 +1,14 @@
-package model.PortfolioImplHelper;
+package model.portfolioImplHelper;
 
 /**
- * A class that helps to create Portfolio Object.
+ * A class for creating stocks object.
  */
-public class PortfolioObj {
-  private String tickr;
-  private float numStocks;
 
-  public PortfolioObj(String tickr, int numStocks) {
+public class StocksObj {
+  private String tickr;
+  private int numStocks;
+
+  public StocksObj(String tickr, int numStocks) {
     this.tickr = tickr;
     this.numStocks = numStocks;
   }
@@ -26,8 +27,7 @@ public class PortfolioObj {
    *
    * @return float type of number of stocks
    */
-  public float getNumStocks() {
+  public int getNumStocks() {
     return this.numStocks;
   }
-
 }

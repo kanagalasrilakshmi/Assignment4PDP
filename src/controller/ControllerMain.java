@@ -9,6 +9,12 @@ import model.Portfolio;
 import view.View;
 import view.ViewMain;
 
+/**
+ * Main controller that takes in input from the user if he wants to create,
+ * flexible or rigid portfolios.
+ * Based on users input it goes runs controller goStocks method,
+ * for flexible or rigid portfolios.
+ */
 public class ControllerMain implements Controller {
   private View theViewFlex;
   private View theViewRigid;
@@ -18,6 +24,14 @@ public class ControllerMain implements Controller {
   private Scanner in;
   private String rootDir;
 
+  /**
+   * Main controller that takes in flexible portfolio objects, rigid portfolio objects.
+   * @param thePortfolioRigid is the model object for creating rigid portfolio
+   * @param theViewRigid is the view object for rigid portfolio
+   * @param thePortfolioFlex is the model object for creating flexible portfolio
+   * @param theViewFlex is the view object for flexible portfolio
+   * @param in of type InputStream
+   */
   public ControllerMain(Portfolio thePortfolioRigid, View theViewRigid,
                         Portfolio thePortfolioFlex, View theViewFlex, InputStream in) {
     this.thePortfolioRigid = thePortfolioRigid;
@@ -59,6 +73,7 @@ public class ControllerMain implements Controller {
   }
 
   public void setDirectory(String rootDirUser) {
+    // do nothing.
   }
 
   public String getValidPfName(String rootDir, String extension) {
