@@ -62,11 +62,6 @@ PROMPT invalid if anything other than above is entered
 # If the user enters a valid format, and the date falls on saturday or sunday then friday date's stock value is used to calculate the value of the porfolio.This feature works fine.
 # If the user gives a future date, then the user is notified saying that the date is in future and stock price value for future cannot be available. This feature works fine.
 # If the user gives today's date and that falls on mon to friday : If time is before 9:30 am the user is notified with a message saying that stock market is yet to be opened so no price is available. Th the time is after 9:30 am and before midnight 12 the closing price for that day is taken for calculation of portfolio value. This feature works fine.
-# API Key has a restriction on number of calls to be made. So, a work around was done inorder to overcome this problem. "tickrData.txt" has prices too for every tickr symbol in the porfolio. After an api call if there is no value returned due to number of calls made over an api has exceeded it will use the prices from "tickrData.txt" file for calculating the value.
-# This feature does not completely work fine since the stock price values taken here belong to some date that is not specified by the user.
-# Instead of making immediate api calls, a timer should be setup that limits the api calls at a given time.
-# If a date when the stock was not even present was given still it takes arbitary values which needs to be taken care of.
-
 
 # EXIT USING "Q": Works correctly, When entered user exists the program.Works perfectly.
 
@@ -108,10 +103,7 @@ PROMPT invalid if anything other than above is entered
 # User is prompted to input date.
 # If the user enters a valid format, and the date falls on saturday or sunday then friday date's stock value is used to calculate the value of the portfolio.This feature works fine.
 # If the user gives a future date, then the user is notified saying that the date is in future and stock price value for future cannot be available. This feature works fine.
-# If the user gives today's date and that falls on mon to friday : If time is before 9:30 am the user is notified with a message saying that stock market is yet to be opened so no price is available. Th the time is after 9:30 am and before midnight 12 the closing price for that day is taken for calculation of portfolio value. This feature works fine.
-# API Key has a restriction on number of calls to be made. So, a work around was done inorder to overcome this problem. "tickrData.txt" has prices too for every tickr symbol in the porfolio. After an api call if there is no value returned due to number of calls made over an api has exceeded it will use the prices from "tickrData.txt" file for calculating the value.
-# This feature does not completely work fine since the stock price values taken here belong to some date that is not specified by the user.
-# Instead of making immediate api calls, a timer should be setup that limits the api calls at a given time.
+# If the user gives today's date and that falls on mon to friday : If time is before 9:30 am the user is notified with a message saying that stock market is yet to be opened so no price is available. The the time is after 9:30 am and before midnight 12 the closing price for that day is taken for calculation of portfolio value. This feature works fine.
 # If a date when the stock was not even present was given still it takes arbitary values which needs to be taken care of.
 # If the user enters a date before the first purchase made in the portfolio then it returns a value of 0.
 4. Show Cost Basis (I):
@@ -132,9 +124,9 @@ PROMPT invalid if anything other than above is entered
 # Modify Portfolio "M":
 # User is prompted if he wants to sell or purchase stocks.
 # If user wants to sell stocks on a particular date for a particular tickr symbol, if the tickr symbol exists in the portfolio is checked initially, if not present user is prompted to enter valid tickr symbol that is in portfolio.
-# number of stocks till that date are checked. If its number is less then the stocks to be sold then user prompted that this transaction cannot be made.
+# number of stocks till that date are checked. If its number is less than the stocks to be sold then user prompted that this transaction cannot be made.
 # If user wants to purchase stocks on a particular date for a particular tickr symbol, tickr symbol is checked against the NASDAQ symbols. If not valid user is prompted to add a valid tickr symbol.
-# If user gives a negative commission fees then promted to give wither float or integer values only.
+# If user gives a negative commission fees then prompted to give wither float or integer values only.
 # if the user gives the date of purchase in wrong format or a future date or a today's date before stock market opens(9:30 am) then he is prompted to give a valid date.
 
 
@@ -150,7 +142,7 @@ PROMPT invalid if anything other than above is entered
 # if the difference in dates is more than 1800 days then performance is computed for every year in this range is displayed in format - eg:"2016,2017..."
 # Scale is computed by doing the following :
 # Range of values (Max value of portfolio - Min Value of Portfolio) of the portfolio is calculated and divided 50(To not exceed 50 asterisks per line).
-# Min value of the portfolio is subtracted from the portfolio values in that range and they are divided by the scale obtained previously.
+# Min value of the portfolio is subtracted from the portfolio values in that range, then they are divided by the scale obtained previously.
 # These values are used for plotting performance of the portfolio.
 
 
