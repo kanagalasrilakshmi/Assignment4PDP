@@ -14,9 +14,7 @@ import java.text.ParseException;
 
 import controller.Controller;
 import controller.ControllerImpl;
-import Model.PortfolioImpl;
-import controller.Controller;
-import controller.ControllerImpl;
+import model.PortfolioImpl;
 import view.ViewImpl;
 
 import static org.junit.Assert.assertEquals;
@@ -121,17 +119,16 @@ public class ViewImplTest {
     assertEquals("Give a valid input path where you want to store your portfolios. " +
             "For example: /Users/PDP/PortfolioBucket/\n" +
             "Invalid path given so portfolios will be stored in " +
-            System.getProperty("user.home") +
-            "/Desktop/PortfolioBucket/ by default. To change directory, " +
-            "quit and start again.\n" +
+            System.getProperty("user.home") + "/Desktop/PortfolioBucket/" +
+            " by default. " +
+            "To change directory, quit and start again.\n" +
             "Menu: \n" +
             "C: To create a new Portfolio.\n" +
             "V: View existing Portfolio.\n" +
             "Q: Quit the program\n" +
             "Enter your choice: Give a valid name for the portfolio you want to create. " +
-            "The string should not have spaces or special characters and the length must " +
-            "be less than 25 characters.\n" +
-            "Please enter a valid portfolio name:\n" +
+            "The string should not have spaces or special characters and the length must be " +
+            "less than 25 characters.\n" +
             "Press Y to add stocks to the retirementpf portfolio.\n" +
             "Press S to save the Portfolio.\n" +
             "Enter Valid Stock company tickr symbol\n" +
@@ -159,17 +156,15 @@ public class ViewImplTest {
     assertEquals("Give a valid input path where you want to store your portfolios. " +
             "For example: /Users/PDP/PortfolioBucket/\n" +
             "Invalid path given so portfolios will be stored in " +
-            System.getProperty("user.home") +
-            "/Desktop/PortfolioBucket/ by default. To change directory, " +
-            "quit and start again.\n" +
+            System.getProperty("user.home") + "/Desktop/PortfolioBucket/ by default. " +
+            "To change directory, quit and start again.\n" +
             "Menu: \n" +
             "C: To create a new Portfolio.\n" +
             "V: View existing Portfolio.\n" +
             "Q: Quit the program\n" +
-            "Enter your choice: Give a valid name for the portfolio you want to create. " +
-            "The string should not have spaces or special characters and the length must be " +
-            "less than 25 characters.\n" +
-            "Please enter a valid portfolio name:\n" +
+            "Enter your choice: Give a valid name for the portfolio you want to create." +
+            " The string should not have spaces or special characters and the length must " +
+            "be less than 25 characters.\n" +
             "Press Y to add stocks to the retirementpf portfolio.\n" +
             "Press S to save the Portfolio.\n" +
             "Enter Valid Stock company tickr symbol\n" +
@@ -181,12 +176,12 @@ public class ViewImplTest {
             "C: To create a new Portfolio.\n" +
             "V: View existing Portfolio.\n" +
             "Q: Quit the program\n" +
-            "Enter your choice: Give a valid name for the portfolio you want to create. " +
-            "The string should not have spaces or special characters and the length must be " +
-            "less than 25 characters.\n" +
-            "Please enter a valid portfolio name:\n" +
-            "Portfolio with this name already exists! \n" +
-            "Give another name for the portfolio you want to create:\n" +
+            "Enter your choice: Give a valid name for the portfolio you want to create." +
+            " The string should not have spaces or special characters and the length " +
+            "must be less than 25 characters.\n" +
+            "Portfolio with this name already exists. Try again\n" +
+            "Give a valid name for the portfolio you want to create. The string should not " +
+            "have spaces or special characters and the length must be less than 25 characters.\n" +
             "Press Y to add stocks to the health portfolio.\n" +
             "Press S to save the Portfolio.\n" +
             "Enter Valid Stock company tickr symbol\n" +
@@ -210,20 +205,19 @@ public class ViewImplTest {
     PrintStream out = new PrintStream(bytes);
     Controller controlObj = new ControllerImpl(new PortfolioImpl(), new ViewImpl(out), in);
     controlObj.goStocks();
-    assertEquals("Give a valid input path where you want to store your portfolios. " +
-            "For example: /Users/PDP/PortfolioBucket/\n" +
+    assertEquals("Give a valid input path where you want to store your portfolios." +
+            " For example: /Users/PDP/PortfolioBucket/\n" +
             "Invalid path given so portfolios will be stored in " +
             System.getProperty("user.home") +
-            "/Desktop/PortfolioBucket/ by default. To change directory, " +
+            "/Desktop/PortfolioBucket/" + " by default. To change directory, " +
             "quit and start again.\n" +
             "Menu: \n" +
             "C: To create a new Portfolio.\n" +
             "V: View existing Portfolio.\n" +
             "Q: Quit the program\n" +
             "Enter your choice: Give a valid name for the portfolio you want to create. " +
-            "The string should not have spaces or special characters and the length must be less " +
-            "than 25 characters.\n" +
-            "Please enter a valid portfolio name:\n" +
+            "The string should not have spaces or special characters and the length must be" +
+            " less than 25 characters.\n" +
             "Press Y to add stocks to the retirementpf portfolio.\n" +
             "Press S to save the Portfolio.\n" +
             "Portfolio must contain at least one entry!! \n" +
@@ -265,14 +259,10 @@ public class ViewImplTest {
             "Enter your choice: Give a valid name for the portfolio you want to create. " +
             "The string should not have spaces or special characters and the length must be " +
             "less than 25 characters.\n" +
-            "Please enter a valid portfolio name:\n" +
             "Press Y to add stocks to the retirementpf portfolio.\n" +
-            "Press S to save the Portfolio.\n" +
-            "Enter Valid Stock company tickr symbol\n" +
-            "Invalid Tickr Symbol is entered!\n" +
-            "Enter Valid Stock company tickr symbol\n" +
-            "Invalid Tickr Symbol is entered!\n" +
-            "Enter Valid Stock company tickr symbol\n" +
+            "Press S to save the Portfolio.\n" + "Enter Valid Stock company tickr symbol\n" +
+            "Invalid Tickr Symbol! Enter valid company tickr symbol:\n" +
+            "Invalid Tickr Symbol! Enter valid company tickr symbol:\n" +
             "Enter number of stocks purchased (Integer Values are Only Allowed)\n" +
             "Only Integer Stock values are allowed. Please enter a valid Integer number.\n" +
             "Only Integer Stock values are allowed. Please enter a valid Integer number.\n" +
@@ -305,9 +295,8 @@ public class ViewImplTest {
             "V: View existing Portfolio.\n" +
             "Q: Quit the program\n" +
             "Enter your choice: Give a valid name for the portfolio you want to create. " +
-            "The string should not have spaces or special characters and the length must be " +
-            "less than 25 characters.\n" +
-            "Please enter a valid portfolio name:\n" +
+            "The string should not have spaces or special characters and the length must be less " +
+            "than 25 characters.\n" +
             "Press Y to add stocks to the pfOne portfolio.\n" +
             "Press S to save the Portfolio.\n" +
             "Enter Valid Stock company tickr symbol\n" +
@@ -319,9 +308,10 @@ public class ViewImplTest {
             "C: To create a new Portfolio.\n" +
             "V: View existing Portfolio.\n" +
             "Q: Quit the program\n" +
-            "Enter your choice: Enter the name of the portfolio you want to view from the " +
-            "list of portfolios displayed below:\n" +
+            "Enter your choice: Enter the name of the portfolio you want, from the list " +
+            "of portfolios displayed below:\n" +
             "pfOne\n" +
+            "Enter valid portfolio name:\n" +
             "Press D to view portfolio value by date\n" +
             "Press P to view portfolio composition\n" +
             "Company Tickr Symbol Num Stocks\n" +
@@ -331,9 +321,8 @@ public class ViewImplTest {
             "V: View existing Portfolio.\n" +
             "Q: Quit the program\n" +
             "Enter your choice: Give a valid name for the portfolio you want to create. " +
-            "The string should not have spaces or special characters and the length must be less " +
-            "than 25 characters.\n" +
-            "Please enter a valid portfolio name:\n" +
+            "The string should not have spaces or special characters and the length must be " +
+            "less than 25 characters.\n" +
             "Press Y to add stocks to the pfTwo portfolio.\n" +
             "Press S to save the Portfolio.\n" +
             "Enter Valid Stock company tickr symbol\n" +
@@ -345,10 +334,11 @@ public class ViewImplTest {
             "C: To create a new Portfolio.\n" +
             "V: View existing Portfolio.\n" +
             "Q: Quit the program\n" +
-            "Enter your choice: Enter the name of the portfolio you want to view from the " +
-            "list of portfolios displayed below:\n" +
+            "Enter your choice: Enter the name of the portfolio you want, from the list of " +
+            "portfolios displayed below:\n" +
             "pfTwo\n" +
             "pfOne\n" +
+            "Enter valid portfolio name:\n" +
             "Press D to view portfolio value by date\n" +
             "Press P to view portfolio composition\n" +
             "Company Tickr Symbol Num Stocks\n" +
@@ -378,7 +368,6 @@ public class ViewImplTest {
             "Enter your choice: Give a valid name for the portfolio you want to create. " +
             "The string should not have spaces or special characters and the length must be less " +
             "than 25 characters.\n" +
-            "Please enter a valid portfolio name:\n" +
             "Press Y to add stocks to the healthpf portfolio.\n" +
             "Press S to save the Portfolio.\n" +
             "Enter Valid Stock company tickr symbol\n" +
@@ -390,10 +379,11 @@ public class ViewImplTest {
             "C: To create a new Portfolio.\n" +
             "V: View existing Portfolio.\n" +
             "Q: Quit the program\n" +
-            "Enter your choice: Enter the name of the portfolio you want to view from the list " +
-            "of portfolios displayed below:\n" +
+            "Enter your choice: Enter the name of the portfolio you want, from the list of " +
+            "portfolios displayed below:\n" +
             "healthpf\n" +
-            "Please enter a valid Portfolio name from the displayed list only!\n" +
+            "Enter valid portfolio name:\n" +
+            "Portfolio with this name doesn't exist. Try again\n" +
             "Press D to view portfolio value by date\n" +
             "Press P to view portfolio composition\n" +
             "Company Tickr Symbol Num Stocks\n" +
@@ -424,7 +414,6 @@ public class ViewImplTest {
             "Enter your choice: Give a valid name for the portfolio you want to create. " +
             "The string should not have spaces or special characters and the length must be " +
             "less than 25 characters.\n" +
-            "Please enter a valid portfolio name:\n" +
             "Press Y to add stocks to the healthpf portfolio.\n" +
             "Press S to save the Portfolio.\n" +
             "Enter Valid Stock company tickr symbol\n" +
@@ -436,24 +425,22 @@ public class ViewImplTest {
             "C: To create a new Portfolio.\n" +
             "V: View existing Portfolio.\n" +
             "Q: Quit the program\n" +
-            "Enter your choice: Enter the name of the portfolio you want to view from the " +
-            "list of portfolios displayed below:\n" +
+            "Enter your choice: Enter the name of the portfolio you want, from the list of " +
+            "portfolios displayed below:\n" +
             "healthpf\n" +
-            "Please enter a valid Portfolio name from the displayed list only!\n" +
+            "Enter valid portfolio name:\n" +
+            "Portfolio with this name doesn't exist. Try again\n" +
             "Press D to view portfolio value by date\n" +
             "Press P to view portfolio composition\n" +
             "Enter the date for which you want to fetch the portfolio in YYYY-MM-DD " +
             "format only!\n" +
-            "Please enter correct format for date\n" +
-            "Please enter correct format for date\n" +
-            "Please enter correct format for date\n" +
-            "Please enter correct format for date\n" +
-            "Please enter correct format for date\n" +
-            "Please enter correct format for date\n" +
-            "Please enter correct format for date\n" +
-            "Please enter correct format for date\n" +
-            "Please enter correct format for date\n" +
-            "The total value of the portfolio healthpf is 143423.0\n" +
+            "Please enter correct format for date:\n" +
+            "Please enter correct format for date:\n" +
+            "Please enter correct format for date:\n" +
+            "Please enter correct format for date:\n" +
+            "Please enter correct format for date:\n" +
+            "Please enter correct format for date:\n" +
+            "The total value of the portfolio healthpf is $143423.0\n" +
             "Menu: \n" +
             "C: To create a new Portfolio.\n" +
             "V: View existing Portfolio.\n" +
@@ -478,9 +465,8 @@ public class ViewImplTest {
             "V: View existing Portfolio.\n" +
             "Q: Quit the program\n" +
             "Enter your choice: Give a valid name for the portfolio you want to create. " +
-            "The string should not have spaces or special characters and the length must " +
-            "be less than 25 characters.\n" +
-            "Please enter a valid portfolio name:\n" +
+            "The string should not have spaces or special characters and the length must be " +
+            "less than 25 characters.\n" +
             "Press Y to add stocks to the healthpf portfolio.\n" +
             "Press S to save the Portfolio.\n" +
             "Enter Valid Stock company tickr symbol\n" +
@@ -492,9 +478,10 @@ public class ViewImplTest {
             "C: To create a new Portfolio.\n" +
             "V: View existing Portfolio.\n" +
             "Q: Quit the program\n" +
-            "Enter your choice: Enter the name of the portfolio you want to view from the " +
-            "list of portfolios displayed below:\n" +
+            "Enter your choice: Enter the name of the portfolio you want, from the list of " +
+            "portfolios displayed below:\n" +
             "healthpf\n" +
+            "Enter valid portfolio name:\n" +
             "Press D to view portfolio value by date\n" +
             "Press P to view portfolio composition\n" +
             "Company Tickr Symbol Num Stocks\n" +
@@ -506,7 +493,6 @@ public class ViewImplTest {
             "Enter your choice: Give a valid name for the portfolio you want to create. " +
             "The string should not have spaces or special characters and the length must be " +
             "less than 25 characters.\n" +
-            "Please enter a valid portfolio name:\n" +
             "Press Y to add stocks to the health portfolio.\n" +
             "Press S to save the Portfolio.\n" +
             "Enter Valid Stock company tickr symbol\n" +
@@ -518,10 +504,11 @@ public class ViewImplTest {
             "C: To create a new Portfolio.\n" +
             "V: View existing Portfolio.\n" +
             "Q: Quit the program\n" +
-            "Enter your choice: Enter the name of the portfolio you want to view from the " +
-            "list of portfolios displayed below:\n" +
+            "Enter your choice: Enter the name of the portfolio you want, from the list of " +
+            "portfolios displayed below:\n" +
             "health\n" +
             "healthpf\n" +
+            "Enter valid portfolio name:\n" +
             "Press D to view portfolio value by date\n" +
             "Press P to view portfolio composition\n" +
             "Company Tickr Symbol Num Stocks\n" +
@@ -543,16 +530,15 @@ public class ViewImplTest {
     PrintStream out = new PrintStream(bytes);
     Controller controlObj = new ControllerImpl(new PortfolioImpl(), new ViewImpl(out), in);
     controlObj.goStocks();
-    assertEquals("Give a valid input path where you want to store your portfolios. " +
-            "For example: /Users/PDP/PortfolioBucket/\n" +
+    assertEquals("Give a valid input path where you want to store your portfolios." +
+            " For example: /Users/PDP/PortfolioBucket/\n" +
             "Menu: \n" +
             "C: To create a new Portfolio.\n" +
             "V: View existing Portfolio.\n" +
             "Q: Quit the program\n" +
             "Enter your choice: Give a valid name for the portfolio you want to create. " +
-            "The string should not have spaces or special characters and the length must " +
-            "be less than 25 characters.\n" +
-            "Please enter a valid portfolio name:\n" +
+            "The string should not have spaces or special characters and the length must be " +
+            "less than 25 characters.\n" +
             "Press Y to add stocks to the healthpf portfolio.\n" +
             "Press S to save the Portfolio.\n" +
             "Enter Valid Stock company tickr symbol\n" +
@@ -564,9 +550,10 @@ public class ViewImplTest {
             "C: To create a new Portfolio.\n" +
             "V: View existing Portfolio.\n" +
             "Q: Quit the program\n" +
-            "Enter your choice: Enter the name of the portfolio you want to view from the " +
-            "list of portfolios displayed below:\n" +
+            "Enter your choice: Enter the name of the portfolio you want, from the list of " +
+            "portfolios displayed below:\n" +
             "healthpf\n" +
+            "Enter valid portfolio name:\n" +
             "Press D to view portfolio value by date\n" +
             "Press P to view portfolio composition\n" +
             "Company Tickr Symbol Num Stocks\n" +
@@ -578,7 +565,6 @@ public class ViewImplTest {
             "Enter your choice: Give a valid name for the portfolio you want to create. " +
             "The string should not have spaces or special characters and the length must be " +
             "less than 25 characters.\n" +
-            "Please enter a valid portfolio name:\n" +
             "Press Y to add stocks to the health portfolio.\n" +
             "Press S to save the Portfolio.\n" +
             "Enter Valid Stock company tickr symbol\n" +
@@ -590,10 +576,11 @@ public class ViewImplTest {
             "C: To create a new Portfolio.\n" +
             "V: View existing Portfolio.\n" +
             "Q: Quit the program\n" +
-            "Enter your choice: Enter the name of the portfolio you want to view from the " +
-            "list of portfolios displayed below:\n" +
+            "Enter your choice: Enter the name of the portfolio you want, " +
+            "from the list of portfolios displayed below:\n" +
             "health\n" +
             "healthpf\n" +
+            "Enter valid portfolio name:\n" +
             "Press D to view portfolio value by date\n" +
             "Press P to view portfolio composition\n" +
             "Company Tickr Symbol Num Stocks\n" +

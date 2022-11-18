@@ -13,16 +13,17 @@ import java.nio.file.Paths;
 import java.text.ParseException;
 
 import controller.Controller;
-import controller.ControllerImpl;
+import controller.ControllerMain;
+import model.FlexiblePortfolioImpl;
 import model.PortfolioImpl;
 import view.ViewImpl;
 
 import static org.junit.Assert.assertEquals;
 
 /**
- * Test class for testing  Controllor functions.
+ * Test class for testing  Main Controller functions to choose flexible/rigid portfolio.
  */
-public class ControllerImplTest {
+public class ControllerMainTest {
 
   @Before
   public void setUp() {
@@ -47,17 +48,16 @@ public class ControllerImplTest {
   @Test
   public void testGoQuitAtStart() throws ParseException, IOException {
     String rootDir = System.getProperty("user.home") + "/Desktop/PortfolioBucket/";
-    String inputStream = rootDir + "\nQ";
+    String inputStream = "Q";
     InputStream in = new ByteArrayInputStream(inputStream.getBytes());
     ByteArrayOutputStream bytes = new ByteArrayOutputStream();
     PrintStream out = new PrintStream(bytes);
-    Controller controlObj = new ControllerImpl(new PortfolioImpl(), new ViewImpl(out), in);
+    Controller controlObj = new ControllerMain(new PortfolioImpl(),
+            new ViewImpl(out), new FlexiblePortfolioImpl(), in);
     controlObj.goStocks();
-    assertEquals("Give a valid input path where you want to store your portfolios. " +
-            "For example: /Users/PDP/PortfolioBucket/\n" +
-            "Menu: \n" +
-            "C: To create a new Portfolio.\n" +
-            "V: View existing Portfolio.\n" +
+    assertEquals("Menu: \n" +
+            "F: For Flexible Portfolios.\n" +
+            "R: For Rigid Portfolios.\n" +
             "Q: Quit the program\n" +
             "Enter your choice: ", bytes.toString());
   }

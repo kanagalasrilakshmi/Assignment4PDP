@@ -16,8 +16,8 @@ import java.time.LocalDate;
 
 import controller.Controller;
 import controller.ControllerImpl;
-import Model.Portfolio;
-import Model.PortfolioImpl;
+import model.Portfolio;
+import model.PortfolioImpl;
 import view.ViewImpl;
 
 import static org.junit.Assert.assertEquals;
