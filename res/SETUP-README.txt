@@ -16,46 +16,7 @@
 # To Create a Flexible or Rigid portfolios following commands are used.
 
 # 1. Run the MVCStocks main program.
-# 2. Enter R.
-
-# If you Select R then follow the following commands:
-
-# TO CREATE a portfolio with 3 different stocks, a second portfolio with 2 different stocks and query their value on a specific date.
-Note: Click enter after entering an answer throughout.
-# 1. Enter valid absolute path eg: "/Users/[yourSystemName]/Desktop/"
-#    (or) give invalid eg "fh" it will create a default folder on your Desktop named "PortfolioBucket".
-# 2. Enter C
-# 3. Enter healthPf
-# 4. Enter Y
-# 5. Enter GOOG
-# 6. Enter 10
-# 7. Enter Y
-# 8. Enter UBER
-# 9. Enter 20
-# 10. Enter Y
-# 11. Enter AAL
-# 12. Enter 30
-# 13. Enter S
-# 14. Enter C
-# 15. Enter retirementPf
-# 16. Enter Y
-# 17. Enter TSLA
-# 18. Enter 10
-# 19. Enter Y
-# 20. Enter MSFT
-# 21. Enter 20
-# 22. Enter S
-# 23. Enter V
-# 24. Enter healthPf
-# 25. Enter D
-# 26. Enter 2022-02-02
-# 27. Enter V
-# 28. Enter retirementPf
-# 29. Enter D
-# 30. Enter 2022-02-02
-# 31. Enter Q
-
-# 3. Enter F
+# 2. Enter F
 
 # If you Select F then follow the following commands:
 
@@ -97,11 +58,10 @@ Note: Click enter after entering an answer throughout.
 # 34. Enter V
 # 35. Enter healthFlexiblePf
 # 36. Enter I
-# 37. Enter 2020-06-06
+# 37. Enter 2021-02-07
 # 38. Enter V
 # 39. Enter healthFlexiblePf
 # 40. Enter D
-# 41. Enter 2020-06-06
+# 41. Enter 2021-02-07
 # 42. Enter Q
-
-# 4. Enter Q.
+# 43. Enter Q.
