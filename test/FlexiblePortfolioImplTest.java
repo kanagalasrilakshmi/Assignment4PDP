@@ -276,4 +276,18 @@ public class FlexiblePortfolioImplTest {
             portfolioObj.checkDifference("2016-01-17", "2021-02-02")).toString());
   }
 
+  @Test
+  public void costBasisTest() throws ParseException {
+    Portfolio portfolioObj = new FlexiblePortfolioImpl();
+    JSONObject addTickr = new JSONObject();
+    JSONObject addEntry = portfolioObj.makeTransactionRecord("2022-01-01",
+            7, Integer.valueOf(8), "GOOG");
+    JSONArray listEntry = new JSONArray();
+    listEntry.add(addEntry);
+    addTickr.put("GOOG", listEntry);
+    String path = System.getProperty("user.home") + "/Desktop/PortfolioBucket/" + "pf.json";
+    portfolioObj.savePortfolio(path, addTickr);
+    Float costBasis = portfolioObj.getCostBasis(path, "2022-02-02");
+    assertEquals(23155.7, costBasis,0.9);
+  }
 }

@@ -15,7 +15,7 @@ import model.Portfolio;
 import view.View;
 
 /**
- * Implements Controller inteface for running the stocks program for.
+ * Implements Controller interface for running the stocks program for (rigid).
  * creation of portfolio.
  * Viewing created portfolios.
  * Getting value of a portfolio on a given date.
@@ -28,13 +28,14 @@ public class ControllerImpl implements Controller {
   private Scanner in;
   private String rootDir;
 
-  /*
+  /**
    * Constructor for the ControllerImpl.
    *
    * @param thePortfolio of type Portfolio Object
    * @param theView      of type View Object
    * @param in           of type InputStream
    */
+
   public ControllerImpl(Portfolio thePortfolio, View theView, InputStream in) {
     this.theView = theView;
     this.thePortfolio = thePortfolio;

@@ -1,5 +1,3 @@
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -17,13 +15,12 @@ import java.text.ParseException;
 import controller.Controller;
 import controller.ControllerImplFlexible;
 import model.FlexiblePortfolioImpl;
-import model.Portfolio;
 import view.ViewImpl;
 
 import static org.junit.Assert.assertEquals;
 
 /**
- * Test class for testing  Controller functions.
+ * Test class for testing  the flexible portfolio's controller functions.
  */
 public class ControllerImplFlexibleTest {
 
@@ -45,6 +42,22 @@ public class ControllerImplFlexibleTest {
         file.delete();
       }
     }
+  }
+
+  @Test
+  public void testGetAndValidDateSell() throws ParseException {
+    String inputStream = "20/36/22\n2022/22/23\n2023-02-02\n2022-02-02";
+    InputStream in = new ByteArrayInputStream(inputStream.getBytes());
+    ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+    PrintStream out = new PrintStream(bytes);
+    Controller controlObj = new ControllerImplFlexible(new FlexiblePortfolioImpl(), new ViewImpl(out), in);
+    ((ControllerImplFlexible) controlObj).getAndValidateDate("Please enter correct format for date:");
+    // Ends only when valid date is entered.
+    assertEquals("Please enter correct format for date:\n" +
+            "Please enter correct format for date:\n" +
+            "Please enter correct format for date:\n" +
+            "You can only enter past date or present(if after 9:30am).! Please enter new date:\n" +
+            "Please enter correct format for date:\n", bytes.toString());
   }
 
   @Test

@@ -29,7 +29,7 @@ public class ControllerMain implements Controller {
    * @param thePortfolioFlex  is the model object for creating flexible portfolio
    * @param in                of type InputStream
    */
-  public ControllerMain(Portfolio thePortfolioRigid,View view,
+  public ControllerMain(Portfolio thePortfolioRigid, View view,
                         Portfolio thePortfolioFlex, InputStream in) {
     this.thePortfolioRigid = thePortfolioRigid;
     this.thePortfolioFlex = thePortfolioFlex;
