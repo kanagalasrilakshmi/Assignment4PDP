@@ -14,8 +14,6 @@ import java.text.ParseException;
 
 import controller.Controller;
 import controller.ControllerImpl;
-import controller.ControllerMain;
-import model.FlexiblePortfolioImpl;
 import model.PortfolioImpl;
 import view.ViewImpl;
 
@@ -121,7 +119,7 @@ public class ViewImplTest {
     assertEquals("Give a valid input path where you want to store your portfolios. " +
             "For example: /Users/PDP/PortfolioBucket/\n" +
             "Invalid path given so portfolios will be stored in " +
-            System.getProperty("user.home")+"/Desktop/PortfolioBucket/"+
+            System.getProperty("user.home") + "/Desktop/PortfolioBucket/" +
             " by default. " +
             "To change directory, quit and start again.\n" +
             "Menu: \n" +
@@ -158,7 +156,7 @@ public class ViewImplTest {
     assertEquals("Give a valid input path where you want to store your portfolios. " +
             "For example: /Users/PDP/PortfolioBucket/\n" +
             "Invalid path given so portfolios will be stored in " +
-            System.getProperty("user.home") +"/Desktop/PortfolioBucket/ by default. "+
+            System.getProperty("user.home") + "/Desktop/PortfolioBucket/ by default. " +
             "To change directory, quit and start again.\n" +
             "Menu: \n" +
             "C: To create a new Portfolio.\n" +
@@ -593,19 +591,4 @@ public class ViewImplTest {
             "Q: Quit the program\n" +
             "Enter your choice: ", bytes.toString());
   }
-
-  /*@Test
-  public void testCreate() throws ParseException, IOException {
-    String inputStream = "F\nk\nC\npf\nS\nM\npf\n2\nGOOG\n2\n2022-01-01\n30\nQ";
-    InputStream in = new ByteArrayInputStream(inputStream.getBytes());
-    ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-    PrintStream out = new PrintStream(bytes);
-    Controller controlObj = new ControllerMain(new PortfolioImpl(), new ViewImpl(out), new FlexiblePortfolioImpl(), in);
-    controlObj.goStocks();
-    assertEquals("Menu: \n" +
-            "F: For Flexible Portfolios.\n" +
-            "R: For Rigid Portfolios.\n" +
-            "Q: Quit the program\n" +
-            "Enter your choice: ", bytes.toString());
-  }*/
 }

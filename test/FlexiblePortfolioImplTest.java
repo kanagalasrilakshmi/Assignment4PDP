@@ -19,6 +19,9 @@ import model.Portfolio;
 
 import static org.junit.Assert.assertEquals;
 
+/**
+ * Test class for testing the Flexible portfolios.
+ */
 public class FlexiblePortfolioImplTest {
 
   @Before

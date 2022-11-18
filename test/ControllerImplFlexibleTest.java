@@ -50,8 +50,10 @@ public class ControllerImplFlexibleTest {
     InputStream in = new ByteArrayInputStream(inputStream.getBytes());
     ByteArrayOutputStream bytes = new ByteArrayOutputStream();
     PrintStream out = new PrintStream(bytes);
-    Controller controlObj = new ControllerImplFlexible(new FlexiblePortfolioImpl(), new ViewImpl(out), in);
-    ((ControllerImplFlexible) controlObj).getAndValidateDate("Please enter correct format for date:");
+    Controller controlObj = new ControllerImplFlexible(new FlexiblePortfolioImpl(),
+            new ViewImpl(out), in);
+    ((ControllerImplFlexible)
+            controlObj).getAndValidateDate("Please enter correct format for date:");
     // Ends only when valid date is entered.
     assertEquals("Please enter correct format for date:\n" +
             "Please enter correct format for date:\n" +
@@ -67,9 +69,11 @@ public class ControllerImplFlexibleTest {
     InputStream in = new ByteArrayInputStream(inputStream.getBytes());
     ByteArrayOutputStream bytes = new ByteArrayOutputStream();
     PrintStream out = new PrintStream(bytes);
-    Controller controlObj = new ControllerImplFlexible(new FlexiblePortfolioImpl(), new ViewImpl(out), in);
+    Controller controlObj = new ControllerImplFlexible(new FlexiblePortfolioImpl(),
+            new ViewImpl(out), in);
     controlObj.goStocks();
-    assertEquals("Give a valid input path where you want to store your portfolios. For example: /Users/PDP/PortfolioBucket/\n" +
+    assertEquals("Give a valid input path where you want to" +
+            " store your portfolios. For example: /Users/PDP/PortfolioBucket/\n" +
             "Menu: \n" +
             "C: To create a new Portfolio.\n" +
             "M: To modify an existing Portfolio.\n" +
@@ -86,7 +90,8 @@ public class ControllerImplFlexibleTest {
     InputStream in = new ByteArrayInputStream(inputStream.getBytes());
     ByteArrayOutputStream bytes = new ByteArrayOutputStream();
     PrintStream out = new PrintStream(bytes);
-    Controller controlObj = new ControllerImplFlexible(new FlexiblePortfolioImpl(), new ViewImpl(out), in);
+    Controller controlObj = new ControllerImplFlexible(new FlexiblePortfolioImpl(),
+            new ViewImpl(out), in);
     ((ControllerImplFlexible) controlObj).getValidCommission();
     assertEquals("Enter the commission fees:\n" +
             "Enter only float or integer values:\n" +
@@ -100,8 +105,10 @@ public class ControllerImplFlexibleTest {
     InputStream in = new ByteArrayInputStream(inputStream.getBytes());
     ByteArrayOutputStream bytes = new ByteArrayOutputStream();
     PrintStream out = new PrintStream(bytes);
-    Controller controlObj = new ControllerImplFlexible(new FlexiblePortfolioImpl(), new ViewImpl(out), in);
-    ((ControllerImplFlexible) controlObj).getAndValidateDate("Please enter correct format for date:");
+    Controller controlObj = new ControllerImplFlexible(new FlexiblePortfolioImpl(),
+            new ViewImpl(out), in);
+    ((ControllerImplFlexible) controlObj).getAndValidateDate("Please enter correct " +
+            "format for date:");
     // Ends only when valid date is entered.
     assertEquals("Please enter correct format for date:\n" +
             "Please enter correct format for date:\n" +

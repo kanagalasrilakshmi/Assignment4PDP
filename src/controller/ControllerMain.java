@@ -7,7 +7,6 @@ import java.util.Scanner;
 
 import model.Portfolio;
 import view.View;
-import view.ViewImpl;
 
 /**
  * Main controller that takes in input from the user if he wants to create,
@@ -16,10 +15,10 @@ import view.ViewImpl;
  * for flexible or rigid portfolios.
  */
 public class ControllerMain implements Controller {
-  private View theView;
-  private Portfolio thePortfolioFlex;
-  private Portfolio thePortfolioRigid;
-  private Scanner in;
+  private final View theView;
+  private final Portfolio thePortfolioFlex;
+  private final Portfolio thePortfolioRigid;
+  private final Scanner in;
   private String rootDir;
 
   /**

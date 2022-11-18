@@ -126,6 +126,7 @@ public class ViewImpl implements View {
 
   /**
    * View the composition of the entire portfolio.
+   *
    * @param portfolio is the json object of a tickr symbol that consists of values to be displayed.
    */
   public void viewFlexibleComposition(JSONObject portfolio) {
@@ -139,14 +140,14 @@ public class ViewImpl implements View {
         JSONObject tickrRecord = (JSONObject) arrayObj.get(i);
         int noOfStocks = ((Long) tickrRecord.get("no_of_stocks")).intValue();
         String type = "PURCHASED";
-        if(noOfStocks<0){
-          noOfStocks = noOfStocks*(-1);
+        if (noOfStocks < 0) {
+          noOfStocks = noOfStocks * (-1);
           type = "SOLD";
         }
-        this.showString("     "+noOfStocks + "             " + type +
-                        "              " + tickrRecord.get("date")
-                        + "            " + "     $" + tickrRecord.get("commission_fee") +
-                        "              $" + tickrRecord.get("stock_price"));
+        this.showString("     " + noOfStocks + "             " + type +
+                "              " + tickrRecord.get("date")
+                + "            " + "     $" + tickrRecord.get("commission_fee") +
+                "              $" + tickrRecord.get("stock_price"));
       }
     }
   }
