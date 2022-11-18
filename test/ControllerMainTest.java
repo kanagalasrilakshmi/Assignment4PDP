@@ -52,7 +52,8 @@ public class ControllerMainTest {
     InputStream in = new ByteArrayInputStream(inputStream.getBytes());
     ByteArrayOutputStream bytes = new ByteArrayOutputStream();
     PrintStream out = new PrintStream(bytes);
-    Controller controlObj = new ControllerMain(new PortfolioImpl(), new ViewImpl(out), new FlexiblePortfolioImpl(), in);
+    Controller controlObj = new ControllerMain(new PortfolioImpl(),
+            new ViewImpl(out), new FlexiblePortfolioImpl(), in);
     controlObj.goStocks();
     assertEquals("Menu: \n" +
             "F: For Flexible Portfolios.\n" +
