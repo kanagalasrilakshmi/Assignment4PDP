@@ -28,7 +28,7 @@ public class ControllerImpl implements Controller {
   private Scanner in;
   private String rootDir;
 
-  /**
+  /*
    * Constructor for the ControllerImpl.
    *
    * @param thePortfolio of type Portfolio Object

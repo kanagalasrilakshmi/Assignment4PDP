@@ -8,6 +8,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -175,6 +178,25 @@ public class ControllerImplFlexible extends ControllerImpl implements Controller
   }
 
   /**
+   * Check if the given portfolio already exists in the given input folder of portfolios.
+   *
+   * @param rootDir   is the input location where all the portfolios are present
+   * @param extension is either .json or .txt
+   * @return a valid portfolio name that exists in the given input folder
+   */
+  @Override
+  public String getValidPfName(String rootDir, String extension) {
+    theView.showString("Enter valid portfolio name:");
+    String pfNameChosen = in.next();
+    while (!new File(rootDir + pfNameChosen + extension).exists()) {
+      theView.showString("Portfolio with this name doesn't exist. Try again");
+      pfNameChosen = in.next();
+    }
+    return pfNameChosen;
+  }
+
+
+  /**
    * This is used to make a purchase or sell.
    *
    * @param tickr  ticker symbol for which transaction needs to be made
@@ -196,6 +218,31 @@ public class ControllerImplFlexible extends ControllerImpl implements Controller
     }
     thePortfolio.modifyJson(fees, numberOfStocks, transactionDate, tickr, path);
     return "The portfolio is successfully modified";
+  }
+
+  /**
+   * Create a directory on the desktop if user gives invalid path.
+   *
+   * @param rootDirUser is the root directory given by user to store all the created portfolios
+   */
+  public void setDirectory(String rootDirUser) {
+    if (new File(rootDirUser).exists()) {
+      if (!thePortfolio.checkLastEndingCharacter(rootDirUser)) {
+        rootDirUser = rootDirUser + "/";
+      }
+      this.rootDir = rootDirUser;
+    } else {
+      theView.showString("Invalid path given so portfolios will be stored in "
+              + this.rootDir + " by default. To change directory, quit and start again.");
+      if (!new File(this.rootDir).exists()) {
+        try {
+          Path path = Paths.get(this.rootDir);
+          Files.createDirectories(path);
+        } catch (Exception e) {
+          e.printStackTrace();
+        }
+      }
+    }
   }
 
   /**

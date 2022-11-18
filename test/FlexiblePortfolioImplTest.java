@@ -68,10 +68,13 @@ public class FlexiblePortfolioImplTest {
     String path = System.getProperty("user.home") + "/Desktop/PortfolioBucket/" + "pf.json";
     portfolioObj.savePortfolio(path, addTickr);
     boolean isValid = portfolioObj.checkValidSell(path, 9, "GOOG", "2022-02-02");
+    // Sell more than purchase
     assertEquals(false, isValid);
     isValid = portfolioObj.checkValidSell(path, 8, "GOOG", "2022-02-02");
+    // Sell equal to  purchase
     assertEquals(true, isValid);
     isValid = portfolioObj.checkValidSell(path, 1, "GOOG", "2022-02-02");
+    // Sell lesser than  purchase
     assertEquals(true, isValid);
   }
 

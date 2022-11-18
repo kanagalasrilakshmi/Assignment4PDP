@@ -14,6 +14,8 @@ import java.text.ParseException;
 
 import controller.Controller;
 import controller.ControllerImpl;
+import controller.ControllerMain;
+import model.FlexiblePortfolioImpl;
 import model.PortfolioImpl;
 import view.ViewImpl;
 
@@ -591,4 +593,19 @@ public class ViewImplTest {
             "Q: Quit the program\n" +
             "Enter your choice: ", bytes.toString());
   }
+
+  /*@Test
+  public void testCreate() throws ParseException, IOException {
+    String inputStream = "F\nk\nC\npf\nS\nM\npf\n2\nGOOG\n2\n2022-01-01\n30\nQ";
+    InputStream in = new ByteArrayInputStream(inputStream.getBytes());
+    ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+    PrintStream out = new PrintStream(bytes);
+    Controller controlObj = new ControllerMain(new PortfolioImpl(), new ViewImpl(out), new FlexiblePortfolioImpl(), in);
+    controlObj.goStocks();
+    assertEquals("Menu: \n" +
+            "F: For Flexible Portfolios.\n" +
+            "R: For Rigid Portfolios.\n" +
+            "Q: Quit the program\n" +
+            "Enter your choice: ", bytes.toString());
+  }*/
 }
