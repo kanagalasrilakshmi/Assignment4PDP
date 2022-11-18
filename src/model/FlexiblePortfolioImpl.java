@@ -33,10 +33,11 @@ public class FlexiblePortfolioImpl extends PortfolioImpl {
   /**
    * Make a transaction of purchase or sell using the input values date,commission, no of stock,
    * and tickr symbol.
-   * @param date is the date on which purchase or sale is made
+   *
+   * @param date       is the date on which purchase or sale is made
    * @param commission is input commission for a transaction
    * @param noofstocks is number stock bought or sold
-   * @param tickr is company tickr symbol for which transaction needs to be done
+   * @param tickr      is company tickr symbol for which transaction needs to be done
    * @return a json object entry that needs to be added to the portfolio
    */
   public JSONObject makeTransactionRecord(String date, float commission, int noofstocks,
@@ -51,6 +52,7 @@ public class FlexiblePortfolioImpl extends PortfolioImpl {
 
   /**
    * Read the Portfolio for the given path for the portfolio.
+   *
    * @param path portfolio absolute path
    * @return a json object that consists of all the entries in the input portfolio path
    */
@@ -74,7 +76,7 @@ public class FlexiblePortfolioImpl extends PortfolioImpl {
    * Save a portfolio.
    *
    * @param path portfolio path where json needs to be saved
-   * @param data   portfolio json object
+   * @param data portfolio json object
    */
   public void savePortfolio(String path, JSONObject data) {
     try {
@@ -213,14 +215,14 @@ public class FlexiblePortfolioImpl extends PortfolioImpl {
     if (portfolio.containsKey(tickr)) {
       JSONArray tickr_record = (JSONArray) portfolio.get(tickr);
       boolean flag = false;
-      for(int i=0;i<tickr_record.size();i++){
+      for (int i = 0; i < tickr_record.size(); i++) {
         JSONObject record = (JSONObject) tickr_record.get(i);
-        String dateCheck = (String)record.get("date");
-        if(checkIfBeforeDate(date,dateCheck)|| dateCheck.equals(date)){
+        String dateCheck = (String) record.get("date");
+        if (checkIfBeforeDate(date, dateCheck) || dateCheck.equals(date)) {
           flag = true;
         }
       }
-      if(!flag){
+      if (!flag) {
         return false;
       }
       totStocks = getTotalStocks(tickr_record, date);
@@ -502,7 +504,7 @@ public class FlexiblePortfolioImpl extends PortfolioImpl {
   public ArrayList<String> getPoints(float scaleVal, ArrayList<Float> values) {
     ArrayList<String> points = new ArrayList<>();
     for (int i = 0; i < values.size(); i++) {
-      int numAsterisks = (int) ((values.get(i) - Collections.min(values))/ scaleVal);
+      int numAsterisks = (int) ((values.get(i) - Collections.min(values)) / scaleVal);
       String asteriskString = "";
       for (int j = 0; j < numAsterisks; j++) {
         asteriskString += "*";
