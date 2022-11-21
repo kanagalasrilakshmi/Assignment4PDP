@@ -2,10 +2,13 @@ import java.io.IOException;
 import java.text.ParseException;
 
 import controller.Controller;
+import controller.ControllerImplGUI;
 import controller.ControllerMain;
 import model.FlexiblePortfolioImpl;
 import model.Portfolio;
 import model.PortfolioImpl;
+import view.GUIView;
+import view.GUIViewImpl;
 import view.View;
 import view.ViewImpl;
 
@@ -23,10 +26,14 @@ public class MVCStocks {
    * @throws IOException    if given input is not valid
    */
   public static void main(String[] args) throws ParseException, IOException {
-    Portfolio modelRigid = new PortfolioImpl();
-    View view = new ViewImpl(System.out);
+    //Portfolio modelRigid = new PortfolioImpl();
+    //View view = new ViewImpl(System.out);
     Portfolio modelFlex = new FlexiblePortfolioImpl();
-    Controller controller = new ControllerMain(modelRigid, view, modelFlex, System.in);
-    controller.goStocks();
+    GUIView guiView = new GUIViewImpl() ;
+    //Controller controller = new ControllerMain(modelRigid, view, modelFlex, System.in);
+    //controller.goStocks();
+    Controller controllerGui = new ControllerImplGUI(modelFlex,guiView);
+    controllerGui.goStocks();
+
   }
 }
