@@ -1,14 +1,22 @@
 package view;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.File;
 
 import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
-public class GUIViewImpl implements GUIView{
+import controller.Controller;
+import controller.ControllerImplGUI;
+
+public class GUIViewImpl extends JFrame implements GUIView {
   private JFrame frame;
   private JLabel pathStore;
 
   private JLabel pfName;
+  private String h;
   private JLabel tickrSymbol;
   private JLabel noStocks;
   private JLabel commisionFees;
@@ -23,6 +31,7 @@ public class GUIViewImpl implements GUIView{
   private JButton createPath;
   private JButton addStocks;
   private JButton savePf;
+  JButton inputButton;
 
   private JPanel userJPanel;
   private JPanel createJPanel;
@@ -32,38 +41,39 @@ public class GUIViewImpl implements GUIView{
   private JPanel viewJPanel;
   private JPanel quitJPanel;
   private JPanel mainJPanel;
-  public GUIViewImpl(){
-    frame = new JFrame("Stocks Program");
-    this.createJFrame();
-    frame.add(mainJPanel);
-    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    frame.setSize(1000,1000);
-    frame.setLocationRelativeTo(null);
-    frame.setVisible(true);
-  }
-  public void createJFrame(){
+  public GUIViewImpl (){
+    super();
+    setTitle("Stocks Program");
+    // main panel.
     mainJPanel = new JPanel();
-    userJPanel = createUserPanel();
-    mainJPanel.add(userJPanel);
-    createJPanel = new JPanel();
-    createJPanel.setLayout(new FlowLayout());
-    pfName = new JLabel("Enter Portfolio Name :");
-    createJPanel.add(pfName);
-    pfNameText = new JTextField(25);
-    createJPanel.add(pfNameText);
-    mainJPanel.add(createJPanel);
-
+    // user panel.
+    JPanel userPanel = new JPanel();
+    userPanel.setBorder(BorderFactory.createTitledBorder("User Path"));
+    inputButton = new JButton("Create User Path");
+    inputButton.setActionCommand("Input");
+    userPanel.add(inputButton);
+    pathStore = new JLabel();
+    userPanel.add(pathStore);
+    // adding quit button.
+    // adding user panel.
+    mainJPanel.add(userPanel);
+    add(mainJPanel);
+    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    setSize(1000,1000);
+    setLocationRelativeTo(null);
+  }
+  @Override
+  public void setCommandButtonListener(ActionListener actionEvent) {
+    inputButton.addActionListener(actionEvent);
   }
 
-  public JPanel createUserPanel(){
-    JPanel user = new JPanel();
-    user.setLayout(new FlowLayout());
-    pathStore = new JLabel("Enter User Path :");
-    user.add(pathStore);
-    userPath = new JTextField(25);
-    user.add(userPath);
-    createPath = new JButton("Create Path");
-    user.add(createPath);
-    return user;
+  @Override
+  public void makeVisible() {
+    this.setVisible(true);
   }
+
+  public void setpathStore(String setMessage){
+    pathStore.setText(setMessage);
+  }
+
 }
