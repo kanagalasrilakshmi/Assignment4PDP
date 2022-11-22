@@ -1,5 +1,7 @@
 package controller;
 
+import org.json.simple.JSONObject;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -18,20 +20,22 @@ public class ControllerImplGUI implements Controller, ActionListener {
   private GUIView guiView;
   private Portfolio portfolio;
   private String rootDir;
-  public ControllerImplGUI(Portfolio portfolio,GUIView guiView){
+
+  public ControllerImplGUI(Portfolio portfolio, GUIView guiView) {
     this.guiView = guiView;
     this.portfolio = portfolio;
     this.rootDir = System.getProperty("user.home") + "/Desktop/PortfolioBucket/";
   }
+
   public void setDirectory(String rootDirUser) {
     if (new File(rootDirUser).exists()) {
-      guiView.setpathStore("Portfolios can be accessed in the " + rootDirUser+"location ");
+      guiView.setpathStore("Portfolios can be accessed in the " + rootDirUser + "location ");
       if (!portfolio.checkLastEndingCharacter(rootDirUser)) {
         rootDirUser = rootDirUser + "/";
       }
       this.rootDir = rootDirUser;
     } else {
-      guiView.setpathStore("Invalid path given so portfolios will be stored in "+
+      guiView.setpathStore("Invalid path given so portfolios will be stored in " +
               this.rootDir + " by default.");
       if (!new File(this.rootDir).exists()) {
         try {
@@ -43,10 +47,12 @@ public class ControllerImplGUI implements Controller, ActionListener {
       }
     }
   }
-  public void goStocks() throws ParseException, IOException{
+
+  public void goStocks() throws ParseException, IOException {
     guiView.makeVisible();
     guiView.setCommandButtonListener(this);
   }
+
   public void actionPerformed(ActionEvent arg0) {
     // TODO Auto-generated method stub
     switch (arg0.getActionCommand()) {
@@ -54,6 +60,30 @@ public class ControllerImplGUI implements Controller, ActionListener {
         String rootDirUser = JOptionPane.showInputDialog("Please enter path to store portfolios");
         setDirectory(rootDirUser);
         break;
+      case "Create Portfolio": {
+        JSONObject addTickr = new JSONObject();
+        String pfName = JOptionPane.showInputDialog("Enter the name of the portfolio you " +
+                "want to create : ");
+        String tickr = JOptionPane.showInputDialog("Enter the Tickr symbol to be added : ");
+        String numStocks = JOptionPane.showInputDialog("Enter the Tickr symbol to be added : ");
+        String dateOfPurchase = JOptionPane.showInputDialog("Enter the date of purchase of " +
+                "stocks : ");
+        String commisionFees = JOptionPane.showInputDialog("Enter the commission fees : ");
+        switch (arg0.getActionCommand()) {
+          case "Add":
+            if (pfName == null || tickr == null || numStocks == null || dateOfPurchase == null) {
+              
+            }
+            break;
+          case "Save":
+            portfolio.savePortfolio(this.rootDir + pfName + ".json",
+                    addTickr);
+            break;
+        }
+      }
+
+
+      break;
     }
   }
 
