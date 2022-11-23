@@ -45,8 +45,8 @@ public class GUIViewImpl extends JFrame implements GUIView {
   private JTextField tickrcreate;
   private JTextField numstockscreate;
   private JTextField commissionfeescreate;
-  private JButton add;
-  private JButton save;
+  private JButton add = new JButton("Add");
+  private JButton save = new JButton("Save");
 
   // fields for modify.
   private JTextField pfnamemodify;
@@ -54,13 +54,13 @@ public class GUIViewImpl extends JFrame implements GUIView {
   private JTextField tickrmodify;
   private JTextField numstocksmodify;
   private JTextField commissionfessmodify;
-  private JButton purchase;
-  private JButton sell;
+  private JButton purchase = new JButton("Purchase");
+  private JButton sell =  new JButton("Sell");
 
   // fields for value.
   private JTextField pfnamevalue;
   private JTextField datevalue;
-  private JButton computeval;
+  private JButton computeval = new JButton("Compute Value of Portfolio");
 
   // fields for cost basis.
   private JTextField pfnamebasis;
@@ -80,6 +80,13 @@ public class GUIViewImpl extends JFrame implements GUIView {
     getCostBasis.addActionListener(actionEvent);
     costBasisButton.addActionListener(actionEvent);
     createPfButton.addActionListener(actionEvent);
+    add.addActionListener(actionEvent);
+    save.addActionListener(actionEvent);
+    getModifyButton.addActionListener(actionEvent);
+    purchase.addActionListener(actionEvent);
+    sell.addActionListener(actionEvent);
+    getValueButton.addActionListener(actionEvent);
+    computeval.addActionListener(actionEvent);
   }
 
   @Override
@@ -107,8 +114,6 @@ public class GUIViewImpl extends JFrame implements GUIView {
     tickrcreate = new JTextField(25);
     JLabel commissionLabel = new JLabel("Enter commission fees: ");
     commissionfeescreate = new JTextField(25);
-    add = new JButton("Add");
-    save = new JButton("Save");
     add.setActionCommand("Add");
     save.setActionCommand("Save");
     createPanelDialog.setLayout(new BoxLayout(createPanelDialog,BoxLayout.Y_AXIS));
@@ -142,6 +147,48 @@ public class GUIViewImpl extends JFrame implements GUIView {
     costBasisDialog.add(setCostBasis);
     return costBasisDialog;
   }
+  private JPanel getModifyPanelDialog(){
+    JPanel modifyDialog = new JPanel();
+    pfnamemodify = new JTextField(25);
+    JLabel pfNameLabel = new JLabel("Enter Portfolio name to be modified: ");
+    dateofmodify = new JTextField(25);
+    JLabel dateLabel = new JLabel("Enter the date of purchase/sell: ");
+    tickrmodify = new JTextField(25);
+    JLabel tickrlabel = new JLabel("Enter tickr symbol: ");
+    numstocksmodify = new JTextField(25);
+    JLabel numstockslabel = new JLabel("Enter the number of stocks to be purchased/sold: ");
+    commissionfessmodify = new JTextField(25);
+    JLabel commissionLabel = new JLabel("Enter commission fees: ");
+    modifyDialog.setLayout(new BoxLayout(modifyDialog,BoxLayout.Y_AXIS));
+    modifyDialog.add(pfNameLabel);
+    modifyDialog.add(pfnamemodify);
+    modifyDialog.add(dateLabel);
+    modifyDialog.add(dateofmodify);
+    modifyDialog.add(tickrlabel);
+    modifyDialog.add(tickrmodify);
+    modifyDialog.add(numstockslabel);
+    modifyDialog.add(numstocksmodify);
+    modifyDialog.add(commissionLabel);
+    modifyDialog.add(commissionfessmodify);
+    modifyDialog.add(purchase);
+    modifyDialog.add(sell);
+    return modifyDialog;
+  }
+  private JPanel getValuePanelDialog(){
+    JPanel valDialog = new JPanel();
+    pfnamevalue = new JTextField(25);
+    JLabel pfNameLabel = new JLabel("Enter Portfolio Name: ");
+    datevalue = new JTextField(25);
+    JLabel dateLabel = new JLabel("Enter date to compute value of the portfolio:");
+    computeval.setActionCommand("Compute Value of Pf");
+    valDialog.setLayout(new BoxLayout(valDialog,BoxLayout.Y_AXIS));
+    valDialog.add(pfNameLabel);
+    valDialog.add(pfnamevalue);
+    valDialog.add(dateLabel);
+    valDialog.add(datevalue);
+    valDialog.add(computeval);
+    return valDialog;
+  }
 
   public String pfNameCostBasis(){
     return pfName.getText();
@@ -168,6 +215,20 @@ public class GUIViewImpl extends JFrame implements GUIView {
     JOptionPane optionPane = new JOptionPane(getCreatePfDialog(),JOptionPane.PLAIN_MESSAGE,
             JOptionPane.DEFAULT_OPTION, null, new Object[] {}, null);
     dialog = optionPane.createDialog("Create Portfolio");
+    dialog.setVisible(true);
+  }
+  public void displayModifyPf(){
+    JDialog dialog;
+    JOptionPane optionPane = new JOptionPane(getModifyPanelDialog(),JOptionPane.PLAIN_MESSAGE,
+            JOptionPane.DEFAULT_OPTION, null, new Object[] {}, null);
+    dialog = optionPane.createDialog("Modify Portfolio");
+    dialog.setVisible(true);
+  }
+  public void displayValuepf(){
+    JDialog dialog;
+    JOptionPane optionPane = new JOptionPane(getValuePanelDialog(),JOptionPane.PLAIN_MESSAGE,
+            JOptionPane.DEFAULT_OPTION, null, new Object[] {}, null);
+    dialog = optionPane.createDialog("Modify Portfolio");
     dialog.setVisible(true);
   }
 
@@ -219,7 +280,6 @@ public class GUIViewImpl extends JFrame implements GUIView {
     costBasisResult = new JLabel();
     costBasisPanel.add(costBasisResult);
   }
-
   private void getQuitPanel(){
     quitPanel = new JPanel();
     quitPanel.setBorder(BorderFactory.createTitledBorder("Quit the stocks program"));
@@ -246,7 +306,6 @@ public class GUIViewImpl extends JFrame implements GUIView {
     dollarCostNew.setActionCommand("Start-to-Finish");
     dollarPanelNew.add(dollarCostNew);
   }
-
   private void finalPanel(){
     setTitle("Stocks Program");
     getMainPanel();

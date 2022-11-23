@@ -14,5 +14,7 @@ public interface GUIView {
   String getDate();
   void setLabelCostBasis(String message);
   void displayCreatePf();
+  void displayModifyPf();
+  void displayValuepf();
 
 }

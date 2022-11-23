@@ -79,7 +79,18 @@ public class ControllerImplGUI implements Controller, ActionListener {
          }*/
         break;
       }
-      
+      case "Modify Portfolio":{
+        guiView.displayModifyPf();
+        break;
+      }
+      case "Get Value":{
+        guiView.displayValuepf();
+        break;
+      }
+      case "Get Cost Basis":{
+        guiView.displayCostBasis();
+        break;
+      }
     }
   }
 
