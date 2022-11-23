@@ -9,5 +9,9 @@ public interface GUIView {
   void makeVisible();
   void setpathStore(String setMessage);
   void setCostBasisResult(String message);
+  void displayCostBasis();
+  String pfNameCostBasis();
+  String getDate();
+  void setLabelCostBasis(String message);
 
 }

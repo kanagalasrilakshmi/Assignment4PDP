@@ -60,7 +60,19 @@ public class ControllerImplGUI implements Controller, ActionListener {
         String rootDirUser = JOptionPane.showInputDialog("Please enter path to store portfolios");
         setDirectory(rootDirUser);
         break;
+
       case "Get Cost Basis":
+        guiView.displayCostBasis();
+        break;
+      case "Compute Cost Basis":
+        try {
+          float costBasis = portfolio.getCostBasis(this.rootDir + guiView.pfNameCostBasis()
+                  + ".json", guiView.getDate());
+          guiView.setLabelCostBasis("The cost basis till date, " +
+                  guiView.getDate()+ " is: $" + costBasis);
+        } catch (ParseException e) {
+          throw new RuntimeException(e);
+        }
         break;
     }
   }
