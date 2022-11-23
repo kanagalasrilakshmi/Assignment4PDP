@@ -62,11 +62,6 @@ public class GUIViewImpl extends JFrame implements GUIView {
   private JTextField datevalue;
   private JButton computeval = new JButton("Compute Value of Portfolio");
 
-  // fields for cost basis.
-  private JTextField pfnamebasis;
-  private JTextField datebasis;
-  private JTextField computebasis;
-
 
 
   private JLabel setCostBasis = new JLabel();
