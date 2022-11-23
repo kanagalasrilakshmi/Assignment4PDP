@@ -66,17 +66,7 @@ public class ControllerImplGUI implements Controller, ActionListener {
         break;
       }
       case "Create Portfolio": {
-        // display the dialog box for create portfolio.
-        // take the inputs from the dialog box.
         guiView.displayCreatePf();
-        /**
-         JSONObject addTickr = new JSONObject();
-         switch (arg0.getActionCommand()){
-         case "Add":
-         break;
-         case "Save":
-         break;
-         }*/
         break;
       }
       case "Modify Portfolio":{
