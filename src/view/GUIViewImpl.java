@@ -14,11 +14,14 @@ import controller.ControllerImplGUI;
 public class GUIViewImpl extends JFrame implements GUIView {
   private JLabel pathStore;
   private JButton inputButton;
+  private JButton costBasisButton;
   private JButton quitButton;
   private JButton createPfButton;
   private JPanel mainJPanel;
   private JPanel userPanel;
   private JPanel createPanel;
+  private JPanel viewPanel;
+  private JLabel costBasisResult;
   private JPanel quitPanel;
 
   public GUIViewImpl (){
@@ -47,7 +50,15 @@ public class GUIViewImpl extends JFrame implements GUIView {
 
     // adding modify portfolio panel.
 
-    // adding cost basis of a portfolio panel.
+    // adding cost basis and value of a portfolio panel.
+    viewPanel = new JPanel();
+    viewPanel.setBorder(BorderFactory.createTitledBorder("Get Cost Basis and value of a " +
+            "portfolio"));
+    costBasisButton = new JButton("Get cost basis");
+    costBasisButton.setActionCommand("Get Cost Basis");
+    viewPanel.add(costBasisButton);
+    costBasisResult = new JLabel();
+    viewPanel.add(costBasisResult);
 
     // adding value of a portfolio panel.
 
@@ -67,6 +78,7 @@ public class GUIViewImpl extends JFrame implements GUIView {
     // adding panels.
     mainJPanel.add(userPanel);
     mainJPanel.add(quitPanel);
+    mainJPanel.add(viewPanel);
     add(mainJPanel);
 
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -77,6 +89,7 @@ public class GUIViewImpl extends JFrame implements GUIView {
   public void setCommandButtonListener(ActionListener actionEvent) {
     inputButton.addActionListener(actionEvent);
     createPfButton.addActionListener(actionEvent);
+    costBasisButton.addActionListener(actionEvent);
   }
 
   @Override
@@ -86,6 +99,10 @@ public class GUIViewImpl extends JFrame implements GUIView {
 
   public void setpathStore(String setMessage){
     pathStore.setText(setMessage);
+  }
+
+  public void setCostBasisResult(String message){
+    costBasisResult.setText(message);
   }
 
 }

@@ -64,6 +64,7 @@ public class ControllerImplGUI implements Controller, ActionListener {
         JSONObject addTickr = new JSONObject();
         String pfName = JOptionPane.showInputDialog("Enter the name of the portfolio you " +
                 "want to create : ");
+
         String tickr = JOptionPane.showInputDialog("Enter the Tickr symbol to be added : ");
         String numStocks = JOptionPane.showInputDialog("Enter the Tickr symbol to be added : ");
         String dateOfPurchase = JOptionPane.showInputDialog("Enter the date of purchase of " +
@@ -80,7 +81,7 @@ public class ControllerImplGUI implements Controller, ActionListener {
             }
             // check if commission fees is null.
             // check if commission fees is float or integer.
-            else if(commisionFees == null){
+            else if (commisionFees == null) {
 
             }
             break;
@@ -95,8 +96,22 @@ public class ControllerImplGUI implements Controller, ActionListener {
       case "Modify Portfolio":
         break;
       case "Get Cost Basis":
+        String pfNameChosen = JOptionPane.showInputDialog("Enter valid portfolio name:");
+        String dateCostBasis = JOptionPane.showInputDialog("Enter the date at which you want to " +
+                "get cost basis in YYYY-MM-DD format only!");
+        // check pfname exists.
+        // check if date is in valid format, future date, today's date before 9:30 am.
+        try {
+          float costBasis = portfolio.getCostBasis(this.rootDir + pfNameChosen + ".json",
+                  dateCostBasis);
+          guiView.setCostBasisResult("The cost basis till date, " + dateCostBasis
+                  + " is: $" + costBasis);
+        } catch (ParseException e) {
+          throw new RuntimeException(e);
+        }
         break;
       case "Get Value by Date":
+
         break;
       case "dollar-cost":
         break;

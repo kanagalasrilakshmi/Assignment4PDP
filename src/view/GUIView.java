@@ -8,5 +8,6 @@ public interface GUIView {
   void setCommandButtonListener(ActionListener actionEvent);
   void makeVisible();
   void setpathStore(String setMessage);
+  void setCostBasisResult(String message);
 
 }

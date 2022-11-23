@@ -3,14 +3,10 @@ import java.text.ParseException;
 
 import controller.Controller;
 import controller.ControllerImplGUI;
-import controller.ControllerMain;
 import model.FlexiblePortfolioImpl;
 import model.Portfolio;
-import model.PortfolioImpl;
 import view.GUIView;
 import view.GUIViewImpl;
-import view.View;
-import view.ViewImpl;
 
 /**
  * Main Stocks class that implements Controllor, PortfolioObj(Model), View.
@@ -27,8 +23,8 @@ public class MVCStocks {
    */
   public static void main(String[] args) throws ParseException, IOException {
     Portfolio modelFlex = new FlexiblePortfolioImpl();
-    GUIView guiView = new GUIViewImpl() ;
-    Controller controllerGui = new ControllerImplGUI(modelFlex,guiView);
+    GUIView guiView = new GUIViewImpl();
+    Controller controllerGui = new ControllerImplGUI(modelFlex, guiView);
     controllerGui.goStocks();
 
   }
