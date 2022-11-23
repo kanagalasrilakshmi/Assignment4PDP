@@ -20,7 +20,7 @@ public class GUIViewImpl extends JFrame implements GUIView {
   private JPanel mainJPanel;
   private JPanel userPanel;
   private JPanel createPanel;
-  private JPanel viewPanel;
+  private JPanel costBasisPanel;
   private JLabel costBasisResult;
   private JPanel quitPanel;
 
@@ -42,23 +42,18 @@ public class GUIViewImpl extends JFrame implements GUIView {
     userPanel.add(pathStore);
 
     // adding create new portfolio panel.
-    createPanel = new JPanel();
-    createPanel.setBorder(BorderFactory.createTitledBorder("Create a New Portfolio"));
-    createPfButton = new JButton("Create New Portfolio");
-    createPfButton.setActionCommand("Create Portfolio");
-    createPanel.add(createPfButton);
 
     // adding modify portfolio panel.
 
     // adding cost basis and value of a portfolio panel.
-    viewPanel = new JPanel();
-    viewPanel.setBorder(BorderFactory.createTitledBorder("Get Cost Basis and value of a " +
+    costBasisPanel = new JPanel();
+    costBasisPanel.setBorder(BorderFactory.createTitledBorder("Get Cost Basis and value of a " +
             "portfolio"));
     costBasisButton = new JButton("Get cost basis");
     costBasisButton.setActionCommand("Get Cost Basis");
-    viewPanel.add(costBasisButton);
+    costBasisPanel.add(costBasisButton);
     costBasisResult = new JLabel();
-    viewPanel.add(costBasisResult);
+    costBasisPanel.add(costBasisResult);
 
     // adding value of a portfolio panel.
 
@@ -78,7 +73,7 @@ public class GUIViewImpl extends JFrame implements GUIView {
     // adding panels.
     mainJPanel.add(userPanel);
     mainJPanel.add(quitPanel);
-    mainJPanel.add(viewPanel);
+    mainJPanel.add(costBasisPanel);
     add(mainJPanel);
 
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
