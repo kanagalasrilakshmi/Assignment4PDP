@@ -28,13 +28,18 @@ public class ControllerImplGUI implements Controller, ActionListener {
   }
 
   public void setDirectory(String rootDirUser) {
-    if (new File(rootDirUser).exists()) {
+    if(rootDirUser.length() == 0){
+      guiView.setpathStore("No path is given hence " +
+              this.rootDir + " is set by default.");
+    }
+    else if (new File(rootDirUser).exists()) {
       guiView.setpathStore("Portfolios can be accessed in the " + rootDirUser + "location ");
       if (!portfolio.checkLastEndingCharacter(rootDirUser)) {
         rootDirUser = rootDirUser + "/";
       }
       this.rootDir = rootDirUser;
-    } else {
+    }
+    else {
       guiView.setpathStore("Invalid path given so portfolios will be stored in " +
               this.rootDir + " by default.");
       if (!new File(this.rootDir).exists()) {
@@ -54,26 +59,27 @@ public class ControllerImplGUI implements Controller, ActionListener {
   }
 
   public void actionPerformed(ActionEvent arg0) {
-    // TODO Auto-generated method stub
     switch (arg0.getActionCommand()) {
-      case "Input":
+      case "Input": {
         String rootDirUser = JOptionPane.showInputDialog("Please enter path to store portfolios");
         setDirectory(rootDirUser);
         break;
-
-      case "Get Cost Basis":
-        guiView.displayCostBasis();
+      }
+      case "Create Portfolio": {
+        // display the dialog box for create portfolio.
+        // take the inputs from the dialog box.
+        guiView.displayCreatePf();
+        /**
+         JSONObject addTickr = new JSONObject();
+         switch (arg0.getActionCommand()){
+         case "Add":
+         break;
+         case "Save":
+         break;
+         }*/
         break;
-      case "Compute Cost Basis":
-        try {
-          float costBasis = portfolio.getCostBasis(this.rootDir + guiView.pfNameCostBasis()
-                  + ".json", guiView.getDate());
-          guiView.setLabelCostBasis("The cost basis till date, " +
-                  guiView.getDate()+ " is: $" + costBasis);
-        } catch (ParseException e) {
-          throw new RuntimeException(e);
-        }
-        break;
+      }
+      
     }
   }
 

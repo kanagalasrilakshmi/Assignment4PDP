@@ -39,6 +39,36 @@ public class GUIViewImpl extends JFrame implements GUIView {
   private JTextField pfName;
   private JTextField date;
 
+  // fields for create.
+  private JTextField pfnamecreate;
+  private JTextField dateofcreation;
+  private JTextField tickrcreate;
+  private JTextField numstockscreate;
+  private JTextField commissionfeescreate;
+  private JButton add;
+  private JButton save;
+
+  // fields for modify.
+  private JTextField pfnamemodify;
+  private JTextField dateofmodify;
+  private JTextField tickrmodify;
+  private JTextField numstocksmodify;
+  private JTextField commissionfessmodify;
+  private JButton purchase;
+  private JButton sell;
+
+  // fields for value.
+  private JTextField pfnamevalue;
+  private JTextField datevalue;
+  private JButton computeval;
+
+  // fields for cost basis.
+  private JTextField pfnamebasis;
+  private JTextField datebasis;
+  private JTextField computebasis;
+
+
+
   private JLabel setCostBasis = new JLabel();
   public GUIViewImpl (){
     super();
@@ -49,6 +79,7 @@ public class GUIViewImpl extends JFrame implements GUIView {
     inputButton.addActionListener(actionEvent);
     getCostBasis.addActionListener(actionEvent);
     costBasisButton.addActionListener(actionEvent);
+    createPfButton.addActionListener(actionEvent);
   }
 
   @Override
@@ -64,6 +95,37 @@ public class GUIViewImpl extends JFrame implements GUIView {
     costBasisResult.setText(message);
   }
 
+  private JPanel getCreatePfDialog(){
+    JPanel createPanelDialog = new JPanel();
+    pfnamecreate = new JTextField(25);
+    JLabel pfNameLabel = new JLabel("Enter Portfolio Name to be created: ");
+    dateofcreation = new JTextField(25);
+    JLabel dateLabel = new JLabel("Enter the date of purchase in YYYY-MM-DD format: ");
+    JLabel numstocksLabel = new JLabel("Enter number of stocks to purchase: ");
+    numstockscreate = new JTextField(25);
+    JLabel tickrLabel = new JLabel("Enter Tickr symbol: ");
+    tickrcreate = new JTextField(25);
+    JLabel commissionLabel = new JLabel("Enter commission fees: ");
+    commissionfeescreate = new JTextField(25);
+    add = new JButton("Add");
+    save = new JButton("Save");
+    add.setActionCommand("Add");
+    save.setActionCommand("Save");
+    createPanelDialog.setLayout(new BoxLayout(createPanelDialog,BoxLayout.Y_AXIS));
+    createPanelDialog.add(pfNameLabel);
+    createPanelDialog.add(pfnamecreate);
+    createPanelDialog.add(dateLabel);
+    createPanelDialog.add(dateofcreation);
+    createPanelDialog.add(numstocksLabel);
+    createPanelDialog.add(numstockscreate);
+    createPanelDialog.add(tickrLabel);
+    createPanelDialog.add(tickrcreate);
+    createPanelDialog.add(commissionLabel);
+    createPanelDialog.add(commissionfeescreate);
+    createPanelDialog.add(add);
+    createPanelDialog.add(save);
+    return createPanelDialog;
+  }
   private JPanel getCostBasisPanelDialog(){
     JPanel costBasisDialog = new JPanel();
     pfName = new JTextField(25);
@@ -99,6 +161,13 @@ public class GUIViewImpl extends JFrame implements GUIView {
             JOptionPane.PLAIN_MESSAGE, JOptionPane.DEFAULT_OPTION, null,
             new Object[] {}, null);
     dialog = optionPane.createDialog("Get Cost Basis");
+    dialog.setVisible(true);
+  }
+  public void displayCreatePf(){
+    JDialog dialog;
+    JOptionPane optionPane = new JOptionPane(getCreatePfDialog(),JOptionPane.PLAIN_MESSAGE,
+            JOptionPane.DEFAULT_OPTION, null, new Object[] {}, null);
+    dialog = optionPane.createDialog("Create Portfolio");
     dialog.setVisible(true);
   }
 
