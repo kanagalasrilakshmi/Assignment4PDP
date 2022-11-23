@@ -1,7 +1,5 @@
 package controller;
 
-import org.json.simple.JSONObject;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -28,18 +26,16 @@ public class ControllerImplGUI implements Controller, ActionListener {
   }
 
   public void setDirectory(String rootDirUser) {
-    if(rootDirUser.length() == 0){
+    if (rootDirUser.length() == 0) {
       guiView.setpathStore("No path is given hence " +
               this.rootDir + " is set by default.");
-    }
-    else if (new File(rootDirUser).exists()) {
+    } else if (new File(rootDirUser).exists()) {
       guiView.setpathStore("Portfolios can be accessed in the " + rootDirUser + "location ");
       if (!portfolio.checkLastEndingCharacter(rootDirUser)) {
         rootDirUser = rootDirUser + "/";
       }
       this.rootDir = rootDirUser;
-    }
-    else {
+    } else {
       guiView.setpathStore("Invalid path given so portfolios will be stored in " +
               this.rootDir + " by default.");
       if (!new File(this.rootDir).exists()) {
@@ -69,15 +65,15 @@ public class ControllerImplGUI implements Controller, ActionListener {
         guiView.displayCreatePf();
         break;
       }
-      case "Modify Portfolio":{
+      case "Modify Portfolio": {
         guiView.displayModifyPf();
         break;
       }
-      case "Get Value":{
+      case "Get Value": {
         guiView.displayValuepf();
         break;
       }
-      case "Get Cost Basis":{
+      case "Get Cost Basis": {
         guiView.displayCostBasis();
         break;
       }

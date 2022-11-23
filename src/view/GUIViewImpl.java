@@ -1,15 +1,9 @@
 package view;
 
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
 
 import javax.swing.*;
-import javax.swing.filechooser.FileNameExtensionFilter;
-
-import controller.Controller;
-import controller.ControllerImplGUI;
 
 public class GUIViewImpl extends JFrame implements GUIView {
   private JLabel pathStore;
@@ -55,7 +49,7 @@ public class GUIViewImpl extends JFrame implements GUIView {
   private JTextField numstocksmodify;
   private JTextField commissionfessmodify;
   private JButton purchase = new JButton("Purchase");
-  private JButton sell =  new JButton("Sell");
+  private JButton sell = new JButton("Sell");
 
   // fields for value.
   private JTextField pfnamevalue;
@@ -63,12 +57,13 @@ public class GUIViewImpl extends JFrame implements GUIView {
   private JButton computeval = new JButton("Compute Value of Portfolio");
 
 
-
   private JLabel setCostBasis = new JLabel();
-  public GUIViewImpl (){
+
+  public GUIViewImpl() {
     super();
     finalPanel();
   }
+
   @Override
   public void setCommandButtonListener(ActionListener actionEvent) {
     inputButton.addActionListener(actionEvent);
@@ -89,15 +84,15 @@ public class GUIViewImpl extends JFrame implements GUIView {
     this.setVisible(true);
   }
 
-  public void setpathStore(String setMessage){
+  public void setpathStore(String setMessage) {
     pathStore.setText(setMessage);
   }
 
-  public void setCostBasisResult(String message){
+  public void setCostBasisResult(String message) {
     costBasisResult.setText(message);
   }
 
-  private JPanel getCreatePfDialog(){
+  private JPanel getCreatePfDialog() {
     JPanel createPanelDialog = new JPanel();
     pfnamecreate = new JTextField(25);
     JLabel pfNameLabel = new JLabel("Enter Portfolio Name to be created: ");
@@ -111,7 +106,7 @@ public class GUIViewImpl extends JFrame implements GUIView {
     commissionfeescreate = new JTextField(25);
     add.setActionCommand("Add");
     save.setActionCommand("Save");
-    createPanelDialog.setLayout(new BoxLayout(createPanelDialog,BoxLayout.Y_AXIS));
+    createPanelDialog.setLayout(new BoxLayout(createPanelDialog, BoxLayout.Y_AXIS));
     createPanelDialog.add(pfNameLabel);
     createPanelDialog.add(pfnamecreate);
     createPanelDialog.add(dateLabel);
@@ -126,14 +121,15 @@ public class GUIViewImpl extends JFrame implements GUIView {
     createPanelDialog.add(save);
     return createPanelDialog;
   }
-  private JPanel getCostBasisPanelDialog(){
+
+  private JPanel getCostBasisPanelDialog() {
     JPanel costBasisDialog = new JPanel();
     pfName = new JTextField(25);
     JLabel pfNameLabel = new JLabel("Enter Portfolio Name:");
     date = new JTextField(25);
     JLabel dateLabel = new JLabel("Enter date to compute cost basis:");
     getCostBasis.setActionCommand("Compute Cost Basis");
-    costBasisDialog.setLayout(new BoxLayout(costBasisDialog,BoxLayout.Y_AXIS));
+    costBasisDialog.setLayout(new BoxLayout(costBasisDialog, BoxLayout.Y_AXIS));
     costBasisDialog.add(pfNameLabel);
     costBasisDialog.add(pfName);
     costBasisDialog.add(dateLabel);
@@ -142,7 +138,8 @@ public class GUIViewImpl extends JFrame implements GUIView {
     costBasisDialog.add(setCostBasis);
     return costBasisDialog;
   }
-  private JPanel getModifyPanelDialog(){
+
+  private JPanel getModifyPanelDialog() {
     JPanel modifyDialog = new JPanel();
     pfnamemodify = new JTextField(25);
     JLabel pfNameLabel = new JLabel("Enter Portfolio name to be modified: ");
@@ -154,7 +151,7 @@ public class GUIViewImpl extends JFrame implements GUIView {
     JLabel numstockslabel = new JLabel("Enter the number of stocks to be purchased/sold: ");
     commissionfessmodify = new JTextField(25);
     JLabel commissionLabel = new JLabel("Enter commission fees: ");
-    modifyDialog.setLayout(new BoxLayout(modifyDialog,BoxLayout.Y_AXIS));
+    modifyDialog.setLayout(new BoxLayout(modifyDialog, BoxLayout.Y_AXIS));
     modifyDialog.add(pfNameLabel);
     modifyDialog.add(pfnamemodify);
     modifyDialog.add(dateLabel);
@@ -169,14 +166,15 @@ public class GUIViewImpl extends JFrame implements GUIView {
     modifyDialog.add(sell);
     return modifyDialog;
   }
-  private JPanel getValuePanelDialog(){
+
+  private JPanel getValuePanelDialog() {
     JPanel valDialog = new JPanel();
     pfnamevalue = new JTextField(25);
     JLabel pfNameLabel = new JLabel("Enter Portfolio Name: ");
     datevalue = new JTextField(25);
     JLabel dateLabel = new JLabel("Enter date to compute value of the portfolio:");
     computeval.setActionCommand("Compute Value of Pf");
-    valDialog.setLayout(new BoxLayout(valDialog,BoxLayout.Y_AXIS));
+    valDialog.setLayout(new BoxLayout(valDialog, BoxLayout.Y_AXIS));
     valDialog.add(pfNameLabel);
     valDialog.add(pfnamevalue);
     valDialog.add(dateLabel);
@@ -185,53 +183,57 @@ public class GUIViewImpl extends JFrame implements GUIView {
     return valDialog;
   }
 
-  public String pfNameCostBasis(){
+  public String pfNameCostBasis() {
     return pfName.getText();
   }
 
-  public String getDate(){
+  public String getDate() {
     return date.getText();
   }
 
-  public void setLabelCostBasis(String message){
+  public void setLabelCostBasis(String message) {
     setCostBasis.setText(message);
   }
 
-  public void displayCostBasis(){
+  public void displayCostBasis() {
     JDialog dialog;
     JOptionPane optionPane = new JOptionPane(getCostBasisPanelDialog(),
             JOptionPane.PLAIN_MESSAGE, JOptionPane.DEFAULT_OPTION, null,
-            new Object[] {}, null);
+            new Object[]{}, null);
     dialog = optionPane.createDialog("Get Cost Basis");
     dialog.setVisible(true);
   }
-  public void displayCreatePf(){
+
+  public void displayCreatePf() {
     JDialog dialog;
-    JOptionPane optionPane = new JOptionPane(getCreatePfDialog(),JOptionPane.PLAIN_MESSAGE,
-            JOptionPane.DEFAULT_OPTION, null, new Object[] {}, null);
+    JOptionPane optionPane = new JOptionPane(getCreatePfDialog(), JOptionPane.PLAIN_MESSAGE,
+            JOptionPane.DEFAULT_OPTION, null, new Object[]{}, null);
     dialog = optionPane.createDialog("Create Portfolio");
     dialog.setVisible(true);
   }
-  public void displayModifyPf(){
+
+  public void displayModifyPf() {
     JDialog dialog;
-    JOptionPane optionPane = new JOptionPane(getModifyPanelDialog(),JOptionPane.PLAIN_MESSAGE,
-            JOptionPane.DEFAULT_OPTION, null, new Object[] {}, null);
-    dialog = optionPane.createDialog("Modify Portfolio");
-    dialog.setVisible(true);
-  }
-  public void displayValuepf(){
-    JDialog dialog;
-    JOptionPane optionPane = new JOptionPane(getValuePanelDialog(),JOptionPane.PLAIN_MESSAGE,
-            JOptionPane.DEFAULT_OPTION, null, new Object[] {}, null);
+    JOptionPane optionPane = new JOptionPane(getModifyPanelDialog(), JOptionPane.PLAIN_MESSAGE,
+            JOptionPane.DEFAULT_OPTION, null, new Object[]{}, null);
     dialog = optionPane.createDialog("Modify Portfolio");
     dialog.setVisible(true);
   }
 
-  private void getMainPanel(){
-    mainJPanel = new JPanel();
-    mainJPanel.setLayout(new BoxLayout(mainJPanel,BoxLayout.Y_AXIS));
+  public void displayValuepf() {
+    JDialog dialog;
+    JOptionPane optionPane = new JOptionPane(getValuePanelDialog(), JOptionPane.PLAIN_MESSAGE,
+            JOptionPane.DEFAULT_OPTION, null, new Object[]{}, null);
+    dialog = optionPane.createDialog("Modify Portfolio");
+    dialog.setVisible(true);
   }
-  private void getUserPanel(){
+
+  private void getMainPanel() {
+    mainJPanel = new JPanel();
+    mainJPanel.setLayout(new BoxLayout(mainJPanel, BoxLayout.Y_AXIS));
+  }
+
+  private void getUserPanel() {
     userPanel = new JPanel();
     userPanel.setBorder(BorderFactory.createTitledBorder("User Path"));
     inputButton = new JButton("Create User Path");
@@ -240,7 +242,8 @@ public class GUIViewImpl extends JFrame implements GUIView {
     pathStore = new JLabel();
     userPanel.add(pathStore);
   }
-  private void getCreatePanel(){
+
+  private void getCreatePanel() {
     createPanel = new JPanel();
     createPanel.setBorder(BorderFactory.createTitledBorder("Create Flexible Portfolio"));
     createPfButton = new JButton("Create a New Portfolio");
@@ -248,7 +251,8 @@ public class GUIViewImpl extends JFrame implements GUIView {
     createStatus = new JLabel();
     createPanel.add(createPfButton);
   }
-  private void getModifyPanel(){
+
+  private void getModifyPanel() {
     modifyPanel = new JPanel();
     getModifyButton = new JButton("Modify a Portfolio");
     modifyPanel.setBorder(BorderFactory.createTitledBorder("Modify a specific Portfolio"));
@@ -256,7 +260,8 @@ public class GUIViewImpl extends JFrame implements GUIView {
     modifyPanel.add(getModifyButton);
 
   }
-  private void getValueDatePanel(){
+
+  private void getValueDatePanel() {
     valueDatePanel = new JPanel();
     getValueButton = new JButton("Get Value of Portfolio on a Specific Date");
     valueDatePanel.setBorder(BorderFactory.createTitledBorder("Get Value of  portfolio on a " +
@@ -264,7 +269,8 @@ public class GUIViewImpl extends JFrame implements GUIView {
     getValueButton.setActionCommand("Get Value");
     valueDatePanel.add(getValueButton);
   }
-  private void getCostBasisPanel(){
+
+  private void getCostBasisPanel() {
     getCostBasis = new JButton("Compute Cost Basis");
     costBasisPanel = new JPanel();
     costBasisPanel.setBorder(BorderFactory.createTitledBorder("Get Cost Basis and value of a " +
@@ -275,16 +281,18 @@ public class GUIViewImpl extends JFrame implements GUIView {
     costBasisResult = new JLabel();
     costBasisPanel.add(costBasisResult);
   }
-  private void getQuitPanel(){
+
+  private void getQuitPanel() {
     quitPanel = new JPanel();
     quitPanel.setBorder(BorderFactory.createTitledBorder("Quit the stocks program"));
     quitButton = new JButton("Quit the Program");
-    quitButton.addActionListener((ActionEvent e)->{
+    quitButton.addActionListener((ActionEvent e) -> {
       System.exit(0);
     });
     quitPanel.add(quitButton);
   }
-  private void getDollarCostExisting(){
+
+  private void getDollarCostExisting() {
     dollarPanelExisting = new JPanel();
     dollarCostExisting = new JButton("Calculate dollar cost averaging for existing portfolio");
     dollarPanelExisting.setBorder(BorderFactory.createTitledBorder("Create dollar cost " +
@@ -292,7 +300,8 @@ public class GUIViewImpl extends JFrame implements GUIView {
     dollarCostExisting.setActionCommand("Calculate dollar cost");
     dollarPanelExisting.add(dollarCostExisting);
   }
-  private void getDollarCostNew(){
+
+  private void getDollarCostNew() {
     dollarPanelNew = new JPanel();
     dollarPanelNew.setBorder(BorderFactory.createTitledBorder("Create a start-to-finish dollar " +
             "cost averaging portfolio"));
@@ -301,7 +310,8 @@ public class GUIViewImpl extends JFrame implements GUIView {
     dollarCostNew.setActionCommand("Start-to-Finish");
     dollarPanelNew.add(dollarCostNew);
   }
-  private void finalPanel(){
+
+  private void finalPanel() {
     setTitle("Stocks Program");
     getMainPanel();
     getUserPanel();
@@ -322,7 +332,7 @@ public class GUIViewImpl extends JFrame implements GUIView {
     mainJPanel.add(quitPanel);
     add(mainJPanel);
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    setSize(1000,1000);
+    setSize(1000, 1000);
     setLocationRelativeTo(null);
   }
 
