@@ -18,6 +18,7 @@ public class ControllerImplGUI implements Controller, ActionListener {
   private GUIView guiView;
   private Portfolio portfolio;
   private String rootDir;
+  private String rootDirUser;
 
   public ControllerImplGUI(Portfolio portfolio, GUIView guiView) {
     this.guiView = guiView;
@@ -57,26 +58,60 @@ public class ControllerImplGUI implements Controller, ActionListener {
   public void actionPerformed(ActionEvent arg0) {
     switch (arg0.getActionCommand()) {
       case "Input": {
-        String rootDirUser = JOptionPane.showInputDialog("Please enter path to store portfolios");
+        rootDirUser = JOptionPane.showInputDialog("Please enter path to store portfolios");
         setDirectory(rootDirUser);
-        break;
       }
+      break;
       case "Create Portfolio": {
+        // in create portfolio.
+        // if path is null then ask the user to first specify the root directory and
+        // then only click on buttons
+        // check pf name,date,numStocksLabel,tickr Label,commission label.
+        // if commission value is not given take it as zero only.
+        // if pf name||date label|| numStocks Label|| tickr label is null then take return a ,
+        // message that all values are not given.
+        // if pf name exists then print already exists.
+        // validate date.
+        // validate num of stocks.
+        // validate tickr symbol.
         guiView.displayCreatePf();
-        break;
       }
+      break;
       case "Modify Portfolio": {
+        // in modify portfolio.
+        // if path is null then ask the user to first specify the root directory and.
+        // then only click on buttons.
+        // check pf name,date,numStocksLabel,tickr Label,commission label.
+        // if commission value is not given take it as zero only.
+        // if pf name||date label|| numStocks Label|| tickr label is null then take return a ,
+        // message that all values are not given.
+        // if pf does not exist then print does not exist.
+        // validate date.
+        // validate num of stocks.
+        // validate tickr symbol.
+        // if purchase validate differently.
+        // if sell validate differently.
         guiView.displayModifyPf();
-        break;
       }
+      break;
       case "Get Value": {
+        // if path is null then ask the user to first specify the root directory and.
+        // then only click on buttons.
+        // if pf name||date label is null then return a message that all values are not given.
+        // validate date.
+        // validate num of stocks.
         guiView.displayValuepf();
-        break;
       }
+      break;
       case "Get Cost Basis": {
+        // if path is null then ask the user to first specify the root directory and.
+        // then only click on buttons.
+        // if pf name||date label is null then return a message that all values are not given.
+        // validate date.
+        // validate num of stocks.
         guiView.displayCostBasis();
-        break;
       }
+      break;
     }
   }
 
