@@ -8,6 +8,7 @@ import javax.swing.*;
 public class GUIViewImpl extends JFrame implements GUIView {
   private JLabel pathStore;
   private JLabel createStatus;
+  private JLabel modifyStatus = new JLabel();
   private JButton inputButton;
   private JButton costBasisButton;
   private JButton quitButton;
@@ -59,6 +60,7 @@ public class GUIViewImpl extends JFrame implements GUIView {
 
   private JLabel setCostBasis = new JLabel();
   private JLabel createDialogStatus = new JLabel();
+  private JLabel modifyDialogStatus = new JLabel();
 
   public GUIViewImpl() {
     super();
@@ -144,8 +146,32 @@ public class GUIViewImpl extends JFrame implements GUIView {
     return this.commissionfeescreate.getText();
   }
 
+  public String getModifyPfValue(){
+    return this.pfnamemodify.getText();
+  }
+
+  public String getdateofmodifynValue(){
+    return this.dateofmodify.getText();
+  }
+
+  public String getnumstocksmodifyValue(){
+    return this.numstocksmodify.getText();
+  }
+
+  public String gettickrmodifyValue(){
+    return this.tickrmodify.getText();
+  }
+
+  public String getcommissionfeesmodifyValue(){
+    return this.commissionfessmodify.getText();
+  }
+
   public void setcreateDialogStatus(String message){
     createDialogStatus.setText(message);
+  }
+
+  public void setmodifyDialogStatus(String message){
+    modifyDialogStatus.setText(message);
   }
 
   private JPanel getCostBasisPanelDialog() {
@@ -190,6 +216,7 @@ public class GUIViewImpl extends JFrame implements GUIView {
     modifyDialog.add(commissionfessmodify);
     modifyDialog.add(purchase);
     modifyDialog.add(sell);
+    modifyDialog.add(modifyDialogStatus);
     return modifyDialog;
   }
 
@@ -283,13 +310,17 @@ public class GUIViewImpl extends JFrame implements GUIView {
     this.createStatus.setText(message);
   }
 
+  public void setModifyLabelStatus(String message){
+    this.modifyStatus.setText(message);
+  }
+
   private void getModifyPanel() {
     modifyPanel = new JPanel();
     getModifyButton = new JButton("Modify a Portfolio");
     modifyPanel.setBorder(BorderFactory.createTitledBorder("Modify a specific Portfolio"));
     getModifyButton.setActionCommand("Modify Portfolio");
     modifyPanel.add(getModifyButton);
-
+    modifyPanel.add(modifyStatus);
   }
 
   private void getValueDatePanel() {

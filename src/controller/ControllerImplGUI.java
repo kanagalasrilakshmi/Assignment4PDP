@@ -38,7 +38,7 @@ public class ControllerImplGUI implements Controller, ActionListener {
   }
 
   private void setDirectory() {
-    if (this.rootDirUser.length() == 0) {
+    if (this.rootDirUser == null || this.rootDirUser.length() == 0) {
       this.rootDirUser = this.rootDir;
       guiView.setpathStore("No path is given hence " +
               this.rootDir + " is set by default.");
@@ -170,6 +170,64 @@ public class ControllerImplGUI implements Controller, ActionListener {
     return true;
   }
 
+  private boolean modifyValidate(String pfNameModify, String tickrModify,String numStocksModify,
+                              String dateModify,String commissionModify){
+    // check pf name,date,numStocksLabel,tickr Label,commission label.
+    // if commission value is not given take it as zero only.
+    boolean checkModify = true;
+    if (pfNameModify.length() == 0 || tickrModify.length() == 0 ||
+            numStocksModify.length() == 0 ||
+            dateModify.length() == 0) {
+      guiView.setmodifyDialogStatus("All the fields are not given!!");
+      checkModify = false;
+    }
+    else{
+      Float commission = 0.0f;
+      if (!checkValidpfName(pfNameModify)) {
+        guiView.setmodifyDialogStatus("Please enter a valid Portfolio name!!");
+        checkModify = false;
+      }
+      else if (!(new File(this.rootDir
+              + pfNameModify + ".json").exists())){
+        guiView.setmodifyDialogStatus("Portfolio with this name" +
+                pfNameModify + "does not exist!!");
+        checkModify = false;
+      }
+      // validate commission fees.
+      else if (commissionModify.length() > 0){
+        if(portfolio.checkValidInteger(commissionModify) ||
+                portfolio.checkValidFloat(commissionModify)){
+          guiView.setmodifyDialogStatus("Commission fees given is not a valid number");
+          checkModify = false;
+        }
+        else if(Float.valueOf(commissionModify)<0){
+          guiView.setmodifyDialogStatus("Commission fees cannot be negative!");
+          checkModify = false;
+        }
+        else{
+          commission = Float.valueOf(commissionModify);
+        }
+      }
+      // validate date.
+      else if (!portfolio.checkIfRightFormat(dateModify) || dateModify.length() < 10) {
+        guiView.setmodifyDialogStatus("Date is not entered in YYYY-DD-MM format!");
+        checkModify = false;
+      }
+      else if (portfolio.checkFutureDate(dateModify) ||
+              portfolio.checkTodayDateAndTime(dateModify)) {
+        guiView.setmodifyDialogStatus("You can only enter past date or present(if after " +
+                "9:30am).! Please enter new date");
+        checkModify = false;
+      }
+      // validate num of stocks.
+      else if (!portfolio.checkValidInteger(numStocksModify)) {
+        guiView.setmodifyDialogStatus("Number of stocks given is not a valid integer");
+        checkModify = false;
+      }
+    }
+    return checkModify;
+  }
+
   public void goStocks() throws ParseException, IOException {
     guiView.makeVisible();
     guiView.setCommandButtonListener(this);
@@ -183,7 +241,7 @@ public class ControllerImplGUI implements Controller, ActionListener {
       }
       break;
       case "Create Portfolio": {
-        if (this.rootDirUser.length() == 0) {
+        if (this.rootDirUser == null || this.rootDirUser.length() == 0) {
           guiView.setCreateLabelStatus("Please specify the root directory path!!");
         } else {
           this.addTickr = new JSONObject();
@@ -202,23 +260,32 @@ public class ControllerImplGUI implements Controller, ActionListener {
       }
       break;
       case "Modify Portfolio": {
-        if (this.rootDirUser.length() == 0) {
-          guiView.setCreateLabelStatus("Please specify the root directory path!!");
+        if (this.rootDirUser == null || this.rootDirUser.length() == 0) {
+          guiView.setModifyLabelStatus("Please specify the root directory path!!");
         }
         else{
           guiView.displayModifyPf();
         }
-        // check pf name,date,numStocksLabel,tickr Label,commission label.
-        // if commission value is not given take it as zero only.
-        // if pf name||date label|| numStocks Label|| tickr label is null then take return a ,
-        // message that all values are not given.
-        // if pf does not exist then print does not exist.
-        // validate date.
-        // validate num of stocks.
-        // validate tickr symbol.
+      }
+      break;
+      case "Purchase":{
         // if purchase validate differently.
+        if(modifyValidate(guiView.getModifyPfValue(),guiView.gettickrmodifyValue(),
+                guiView.getnumstocksmodifyValue(), guiView.getdateofmodifynValue(),
+                guiView.getcommissionfeesmodifyValue())){
+          // validate the tickr symbol.
+          // if yes make addition.
+        }
+      }
+      break;
+      case "Sell":{
         // if sell validate differently.
-        guiView.displayModifyPf();
+        if(modifyValidate(guiView.getModifyPfValue(),guiView.gettickrmodifyValue(),
+                guiView.getnumstocksmodifyValue(), guiView.getdateofmodifynValue(),
+                guiView.getcommissionfeesmodifyValue())){
+          // check if the tickr symbol exists in the given pf.
+          // if yes then make an addition.
+        }
       }
       break;
       case "Get Value": {
