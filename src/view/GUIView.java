@@ -24,5 +24,12 @@ public interface GUIView {
   void displayModifyPf();
 
   void displayValuepf();
+  void setCreateLabelStatus(String message);
+  public String getCreatePfValue();
+  String getdateofcreationValue();
+  String getnumstockscreateValue();
+  String gettickrcreateValue();
+  String getcommissionfeescreateValue();
+  void setcreateDialogStatus(String message);
 
 }

@@ -58,6 +58,7 @@ public class GUIViewImpl extends JFrame implements GUIView {
 
 
   private JLabel setCostBasis = new JLabel();
+  private JLabel createDialogStatus = new JLabel();
 
   public GUIViewImpl() {
     super();
@@ -94,7 +95,7 @@ public class GUIViewImpl extends JFrame implements GUIView {
 
   private JPanel getCreatePfDialog() {
     JPanel createPanelDialog = new JPanel();
-    pfnamecreate = new JTextField(25);
+    this.pfnamecreate = new JTextField(25);
     JLabel pfNameLabel = new JLabel("Enter Portfolio Name to be created: ");
     dateofcreation = new JTextField(25);
     JLabel dateLabel = new JLabel("Enter the date of purchase in YYYY-MM-DD format: ");
@@ -119,7 +120,32 @@ public class GUIViewImpl extends JFrame implements GUIView {
     createPanelDialog.add(commissionfeescreate);
     createPanelDialog.add(add);
     createPanelDialog.add(save);
+    createPanelDialog.add(createDialogStatus);
     return createPanelDialog;
+  }
+
+  public String getCreatePfValue(){
+    return this.pfnamecreate.getText();
+  }
+
+  public String getdateofcreationValue(){
+    return this.dateofcreation.getText();
+  }
+
+  public String getnumstockscreateValue(){
+    return this.numstockscreate.getText();
+  }
+
+  public String gettickrcreateValue(){
+    return this.tickrcreate.getText();
+  }
+
+  public String getcommissionfeescreateValue(){
+    return this.commissionfeescreate.getText();
+  }
+
+  public void setcreateDialogStatus(String message){
+    createDialogStatus.setText(message);
   }
 
   private JPanel getCostBasisPanelDialog() {
@@ -250,6 +276,11 @@ public class GUIViewImpl extends JFrame implements GUIView {
     createPfButton.setActionCommand("Create Portfolio");
     createStatus = new JLabel();
     createPanel.add(createPfButton);
+    createPanel.add(createStatus);
+  }
+
+  public void setCreateLabelStatus(String message){
+    this.createStatus.setText(message);
   }
 
   private void getModifyPanel() {
