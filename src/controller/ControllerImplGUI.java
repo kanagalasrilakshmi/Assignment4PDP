@@ -21,6 +21,7 @@ import view.GUIView;
 public class ControllerImplGUI implements Controller, ActionListener {
   private GUIView guiView;
   private Portfolio portfolio;
+  private Float commisionModify;
   private String rootDir;
   private String rootDirUser;
   private String pfNameCreate;
@@ -158,6 +159,9 @@ public class ControllerImplGUI implements Controller, ActionListener {
 
   }
 
+  private void setCommision(Float commision){
+    this.commisionModify = commision;
+  }
   public boolean checkValidpfName(String pfName) {
     if (pfName == null || pfName.length() > 25 || pfName.isEmpty() || pfName.contains(" ")) {
       return false;
@@ -207,6 +211,7 @@ public class ControllerImplGUI implements Controller, ActionListener {
         else{
           commission = Float.valueOf(commissionModify);
         }
+        setCommision(commission);
       }
       // validate date.
       else if (!portfolio.checkIfRightFormat(dateModify) || dateModify.length() < 10) {
@@ -226,6 +231,32 @@ public class ControllerImplGUI implements Controller, ActionListener {
       }
     }
     return checkModify;
+  }
+
+  private void validateTickrModify(String pfNameModify, String tickrModify,String numStocksModify,
+                              String dateModify,Float commissionModify, boolean label){
+    if(label){
+      // check if the tickr symbol exists in the given pf.
+      // if yes then make an addition.
+    }
+    else{
+      try {
+        if(!portfolio.validateTickrSymbol(pfNameModify)){
+          guiView.setmodifyDialogStatus("Invalid Tickr Symbol! Enter valid company " +
+                  "tickr symbol!");
+        }
+        else{
+          portfolio.modifyJson(commissionModify, Integer.valueOf(numStocksModify), dateModify,
+                  tickrModify, this.rootDir+pfNameModify+".json");
+          guiView.setmodifyDialogStatus("The portfolio "+ pfNameModify+
+                  "is successfully modified");
+        }
+      } catch (FileNotFoundException e) {
+        guiView.setmodifyDialogStatus("Exception while validating tickr symbol.");
+        throw new RuntimeException(e);
+      }
+    }
+
   }
 
   public void goStocks() throws ParseException, IOException {
@@ -273,8 +304,10 @@ public class ControllerImplGUI implements Controller, ActionListener {
         if(modifyValidate(guiView.getModifyPfValue(),guiView.gettickrmodifyValue(),
                 guiView.getnumstocksmodifyValue(), guiView.getdateofmodifynValue(),
                 guiView.getcommissionfeesmodifyValue())){
-          // validate the tickr symbol.
-          // if yes make addition.
+          // validate tickr symbol.
+          validateTickrModify(guiView.getModifyPfValue(),guiView.gettickrmodifyValue(),
+                  guiView.getnumstocksmodifyValue(), guiView.getdateofmodifynValue(),
+                  this.commisionModify, false);
         }
       }
       break;
@@ -283,8 +316,9 @@ public class ControllerImplGUI implements Controller, ActionListener {
         if(modifyValidate(guiView.getModifyPfValue(),guiView.gettickrmodifyValue(),
                 guiView.getnumstocksmodifyValue(), guiView.getdateofmodifynValue(),
                 guiView.getcommissionfeesmodifyValue())){
-          // check if the tickr symbol exists in the given pf.
-          // if yes then make an addition.
+          validateTickrModify(guiView.getModifyPfValue(),guiView.gettickrmodifyValue(),
+                  guiView.getnumstocksmodifyValue(), guiView.getdateofmodifynValue(),
+                  this.commisionModify, true);
         }
       }
       break;
