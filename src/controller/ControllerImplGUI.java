@@ -324,25 +324,30 @@ public class ControllerImplGUI implements Controller, ActionListener {
       }
       break;
       case "Get Value": {
-        // if path is null then ask the user to first specify the root directory and.
-        // then only click on buttons.
-        // if pf name||date label is null then return a message that all values are not given.
-        // validate date.
-        // validate num of stocks.
-        guiView.displayValuepf();
+        if (this.rootDirUser == null || this.rootDirUser.length() == 0) {
+          //guiView.setCreateLabelStatus("Please specify the root directory path!!");
+        }
+        else{
+          // if pf name||date label is null then return a message that all values are not given.
+          // validate date.
+          // validate num of stocks.
+          guiView.displayValuepf();
+        }
+
       }
       break;
       case "Get Cost Basis": {
-        // if path is null then ask the user to first specify the root directory and.
-        // then only click on buttons.
-        // if pf name||date label is null then return a message that all values are not given.
-        // validate date.
-        // validate num of stocks.
-        guiView.displayCostBasis();
+        if (this.rootDirUser == null || this.rootDirUser.length() == 0) {
+          //guiView.setCreateLabelStatus("Please specify the root directory path!!");
+        }
+        else{
+          // if pf name||date label is null then return a message that all values are not given.
+          // validate date.
+          // validate num of stocks.
+          guiView.displayCostBasis();
+        }
       }
       break;
     }
   }
-
-
 }
