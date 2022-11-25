@@ -241,6 +241,10 @@ public class ControllerImplGUI implements Controller, ActionListener {
                 guiView.setcreateDialogStatus("Entry added sucessfully!. Click Add to add more " +
                         "entries or Save to save the portfolio.");
                 guiView.setCreatePfValue(null);
+                guiView.settickrcreateValue(null);
+                guiView.setnumstockscreateValue(null);
+                guiView.setdateofcreationValue(null);
+                guiView.setcommissionfeescreateValue(null);
               }
             }
           }
