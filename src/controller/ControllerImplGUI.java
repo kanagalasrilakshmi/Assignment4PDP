@@ -149,8 +149,10 @@ public class ControllerImplGUI implements Controller, ActionListener {
     if (!portfolio.checkValidInteger(numStocks)) {
       if (label.equals("add")) {
         guiView.setcreateDialogStatus("Number of stocks given is not a valid integer");
+        guiView.setnumstockscreateValue(null);
       } else if (label.equals("modify")) {
         guiView.setmodifyDialogStatus("Number of stocks given is not a valid integer");
+        guiView.setnumstocksmodifyValue(null);
       }
       return false;
     }
@@ -195,6 +197,7 @@ public class ControllerImplGUI implements Controller, ActionListener {
               !(portfolio.checkValidFloat(commissionCreate))) {
         if (label.equals("add")) {
           guiView.setcreateDialogStatus("Commission fees given is not a valid number");
+
         } else if (label.equals("modify")) {
           guiView.setmodifyDialogStatus("Commission fees given is not a valid number");
         }
