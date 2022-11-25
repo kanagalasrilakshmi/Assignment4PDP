@@ -357,6 +357,50 @@ public class ControllerImplGUI implements Controller, ActionListener {
     }
   }
 
+  private void displayDialogPane(String label){
+    if (this.rootDirUser == null || this.rootDirUser.length() == 0) {
+      if(label.equals("costBasis")){
+        guiView.setLabelCostBasisStatus("Please specify the root directory path!!");
+      }
+      else if(label.equals("modify")){
+        guiView.setModifyLabelStatus("Please specify the root directory path!!");
+      }
+      else if(label.equals("getDateVal")){
+        guiView.setValueLabelStatus("Please specify the root directory path!!");
+      }
+      else if(label.equals("create")){
+        guiView.setCreateLabelStatus("Please specify the root directory path!!");
+      }
+    }
+    else{
+      String message = portfolio.listJSONfiles(this.rootDir);
+      if(message == null || message.length() == 0){
+        message = "No portfolio exists in the given path. Create a new portfolio.";
+      }
+      if(label.equals("create")){
+        this.addTickr = new JSONObject();
+        guiView.setCreateLabelStatus(null);
+        guiView.setcreateDialogStatus(null);
+        guiView.displayCreatePf();
+      }
+      else if(label.equals("costBasis")){
+        guiView.setLabelCostBasisStatus(null);
+        guiView.setPortfoliosListBasis(message);
+        guiView.displayCostBasis();
+      }
+      else if(label.equals("modify")){
+        guiView.setModifyLabelStatus(null);
+        guiView.setportfoliosListModify(message);
+        guiView.displayModifyPf();
+      }
+      else if(label.equals("getDateVal")){
+        guiView.setValueLabelStatus(null);
+        guiView.setPortfoliosListVal(message);
+        guiView.displayValuepf();
+      }
+    }
+  }
+
   public void goStocks() throws ParseException, IOException {
     guiView.makeVisible();
     guiView.setCommandButtonListener(this);
@@ -370,14 +414,7 @@ public class ControllerImplGUI implements Controller, ActionListener {
       }
       break;
       case "Create Portfolio": {
-        if (this.rootDirUser == null || this.rootDirUser.length() == 0) {
-          guiView.setCreateLabelStatus("Please specify the root directory path!!");
-        } else {
-          this.addTickr = new JSONObject();
-          guiView.setCreateLabelStatus(null);
-          guiView.setcreateDialogStatus(null);
-          guiView.displayCreatePf();
-        }
+        displayDialogPane("create");
       }
       break;
       case "Add": {
@@ -395,18 +432,7 @@ public class ControllerImplGUI implements Controller, ActionListener {
       }
       break;
       case "Modify Portfolio": {
-        if (this.rootDirUser == null || this.rootDirUser.length() == 0) {
-          guiView.setModifyLabelStatus("Please specify the root directory path!!");
-        } else {
-          guiView.setModifyLabelStatus(null);
-          // list all the portfolios in the directory and save them in the label
-          String message = portfolio.listJSONfiles(this.rootDir);
-          if(message == null || message.length() == 0){
-            message = "No portfolio exists in the given path. Create a new portfolio.";
-          }
-          guiView.setportfoliosListModify(message);
-          guiView.displayModifyPf();
-        }
+        displayDialogPane("modify");
       }
       break;
       case "Purchase": {
@@ -434,17 +460,7 @@ public class ControllerImplGUI implements Controller, ActionListener {
       }
       break;
       case "Get Value": {
-        if (this.rootDirUser == null || this.rootDirUser.length() == 0) {
-          guiView.setValueLabelStatus("Please specify the root directory path!!");
-        } else {
-          guiView.setValueLabelStatus(null);
-          String message = portfolio.listJSONfiles(this.rootDir);
-          if(message == null || message.length() == 0){
-            message = "No portfolio exists in the given path. Create a new portfolio.";
-          }
-          guiView.setPortfoliosListVal(message);
-          guiView.displayValuepf();
-        }
+        displayDialogPane("getDateVal");
       }
       break;
       case "Compute Value of Pf": {
@@ -458,17 +474,7 @@ public class ControllerImplGUI implements Controller, ActionListener {
       }
       break;
       case "Get Cost Basis": {
-        if (this.rootDirUser == null || this.rootDirUser.length() == 0) {
-          guiView.setLabelCostBasisStatus("Please specify the root directory path!!");
-        } else {
-          guiView.setLabelCostBasisStatus(null);
-          String message = portfolio.listJSONfiles(this.rootDir);
-          if(message == null || message.length() == 0){
-            message = "No portfolio exists in the given path. Create a new portfolio.";
-          }
-          guiView.setPortfoliosListBasis(message);
-          guiView.displayCostBasis();
-        }
+        displayDialogPane("costBasis");
       }
       break;
       case "Compute Cost Basis": {
