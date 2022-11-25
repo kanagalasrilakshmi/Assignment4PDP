@@ -359,6 +359,7 @@ public class ControllerImplGUI implements Controller, ActionListener {
           guiView.setCreateLabelStatus("Please specify the root directory path!!");
         } else {
           this.addTickr = new JSONObject();
+          guiView.setCreateLabelStatus(null);
           guiView.displayCreatePf();
         }
       }
@@ -381,6 +382,7 @@ public class ControllerImplGUI implements Controller, ActionListener {
         if (this.rootDirUser == null || this.rootDirUser.length() == 0) {
           guiView.setModifyLabelStatus("Please specify the root directory path!!");
         } else {
+          guiView.setModifyLabelStatus(null);
           guiView.displayModifyPf();
         }
       }
@@ -413,6 +415,7 @@ public class ControllerImplGUI implements Controller, ActionListener {
         if (this.rootDirUser == null || this.rootDirUser.length() == 0) {
           guiView.setValueLabelStatus("Please specify the root directory path!!");
         } else {
+          guiView.setValueLabelStatus(null);
           guiView.displayValuepf();
         }
       }
@@ -431,6 +434,7 @@ public class ControllerImplGUI implements Controller, ActionListener {
         if (this.rootDirUser == null || this.rootDirUser.length() == 0) {
           guiView.setLabelCostBasisStatus("Please specify the root directory path!!");
         } else {
+          guiView.setLabelCostBasisStatus(null);
           guiView.displayCostBasis();
         }
       }
