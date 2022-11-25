@@ -37,15 +37,27 @@ public class ControllerImplGUI implements Controller, ActionListener {
       this.rootDirUser = this.rootDir;
       guiView.setpathStore("No path is given hence " +
               this.rootDir + " is set by default.");
+      guiView.setCreateLabelStatus(null);
+      guiView.setModifyLabelStatus(null);
+      guiView.setValueLabelStatus(null);
+      guiView.setLabelCostBasisStatus(null);
     } else if (new File(this.rootDirUser).exists()) {
       guiView.setpathStore("Portfolios can be accessed in the " + this.rootDirUser + " location ");
       if (!portfolio.checkLastEndingCharacter(this.rootDirUser)) {
         this.rootDirUser = this.rootDirUser + "/";
       }
       this.rootDir = this.rootDirUser;
+      guiView.setCreateLabelStatus(null);
+      guiView.setModifyLabelStatus(null);
+      guiView.setValueLabelStatus(null);
+      guiView.setLabelCostBasisStatus(null);
     } else {
       guiView.setpathStore("Invalid path given so portfolios will be stored in " +
               this.rootDir + " by default.");
+      guiView.setCreateLabelStatus(null);
+      guiView.setModifyLabelStatus(null);
+      guiView.setValueLabelStatus(null);
+      guiView.setLabelCostBasisStatus(null);
       if (!new File(this.rootDir).exists()) {
         try {
           Path path = Paths.get(this.rootDir);
@@ -364,6 +376,7 @@ public class ControllerImplGUI implements Controller, ActionListener {
         } else {
           this.addTickr = new JSONObject();
           guiView.setCreateLabelStatus(null);
+          guiView.setcreateDialogStatus(null);
           guiView.displayCreatePf();
         }
       }
