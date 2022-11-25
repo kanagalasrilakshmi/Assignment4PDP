@@ -46,5 +46,10 @@ public interface GUIView {
   String getdateVal();
   void setCostBasisDialogStatus(String message);
   void setCreatePfValue(String message);
+  void settickrmodifyValue(String message);
+  void settickrcreateValue(String message);
+  void setnumstockscreateValue(String message);
+  void setdateofcreationValue(String message);
+  void setcommissionfeescreateValue(String message);
 
 }

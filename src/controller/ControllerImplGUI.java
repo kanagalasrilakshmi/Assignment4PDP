@@ -219,6 +219,7 @@ public class ControllerImplGUI implements Controller, ActionListener {
                 this.addTickr.put(tickrCreate, listEntry);
                 guiView.setcreateDialogStatus("Entry added sucessfully!. Click Add to add more " +
                         "entries or Save to save the portfolio.");
+                guiView.setCreatePfValue(null);
               }
             }
           }

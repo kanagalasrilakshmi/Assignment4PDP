@@ -135,16 +135,32 @@ public class GUIViewImpl extends JFrame implements GUIView {
     return this.dateofcreation.getText();
   }
 
+  public void setdateofcreationValue(String message){
+    this.dateofcreation.setText(message);
+  }
+
   public String getnumstockscreateValue(){
     return this.numstockscreate.getText();
+  }
+
+  public void setnumstockscreateValue(String message){
+    this.numstockscreate.setText(message);
   }
 
   public String gettickrcreateValue(){
     return this.tickrcreate.getText();
   }
 
+  public void settickrcreateValue(String message){
+    this.tickrcreate.setText(message);
+  }
+
   public String getcommissionfeescreateValue(){
     return this.commissionfeescreate.getText();
+  }
+
+  public void setcommissionfeescreateValue(String message){
+    this.commissionfeescreate.setText(message);
   }
 
   public String getModifyPfValue(){
@@ -161,6 +177,10 @@ public class GUIViewImpl extends JFrame implements GUIView {
 
   public String gettickrmodifyValue(){
     return this.tickrmodify.getText();
+  }
+
+  public void settickrmodifyValue(String message){
+    this.tickrmodify.setText(message);
   }
 
   public String getcommissionfeesmodifyValue(){
