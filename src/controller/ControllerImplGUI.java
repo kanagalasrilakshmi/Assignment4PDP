@@ -162,14 +162,17 @@ public class ControllerImplGUI implements Controller, ActionListener {
       if (label.equals("add")) {
         guiView.setcreateDialogStatus("Invalid Tickr Symbol! Enter valid company " +
                 "tickr symbol!");
+        guiView.settickrcreateValue(null);
       } else if (label.equals("modify")) {
         guiView.setmodifyDialogStatus("Invalid Tickr Symbol! Enter valid company " +
                 "tickr symbol!");
+        guiView.settickrmodifyValue(null);
       }
       return false;
     } else if (portfolio.checkTickrJSONArray(this.addTickr, tickr)) {
       if (label.equals("add")) {
         guiView.setcreateDialogStatus("The tickr symbol already exists");
+        guiView.settickrcreateValue(null);
         return false;
       }
     }
