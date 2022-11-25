@@ -78,28 +78,32 @@ public class ControllerImplGUI implements Controller, ActionListener {
 
   private boolean checkPortfolioField(String pfName, String label) {
     boolean fileCheck = new File(this.rootDir + pfName + ".json").exists();
-    if (!checkValidpfName(pfName)) {
-      if (label.equals("add") || label.equals("save")) {
+    if (label.equals("add") || label.equals("save")) {
+      if (!checkValidpfName(pfName)) {
         guiView.setcreateDialogStatus("Please enter a valid Portfolio name!!");
         guiView.setCreatePfValue(null);
-      } else if (label.equals("modify")) {
-        guiView.setmodifyDialogStatus("Please enter a valid Portfolio name!!");
+        return false;
       }
-      return false;
+    }
+    if (fileCheck) {
+      if (label.equals("add") || label.equals("save")) {
+        guiView.setcreateDialogStatus("Portfolio with this name" +
+                pfName + " already exists!!");
+        guiView.setCreatePfValue(null);
+        return false;
+      }
     } else {
-      if (fileCheck) {
-        if (label.equals("add") || label.equals("save")) {
-          guiView.setcreateDialogStatus("Portfolio with this name" +
-                  pfName + " already exists!!");
-          guiView.setCreatePfValue(null);
-          return false;
-        }
-      } else {
-        if (label.equals("modify")) {
-          guiView.setmodifyDialogStatus("Portfolio with this name" +
-                  pfName + " does not exist!!");
-          return false;
-        }
+      if (label.equals("modify")) {
+        guiView.setmodifyDialogStatus("Portfolio with this name" +
+                pfName + " does not exist!!");
+        return false;
+      } else if (label.equals("costBasis")) {
+        guiView.setCostBasisDialogStatus("Portfolio with this name" +
+                pfName + " does not exist!!");
+        return false;
+      } else if (label.equals("valDate")) {
+        guiView.setvalueDialogStatus("Portfolio with this name" +
+                pfName + "does not exist!!");
       }
     }
     return true;
@@ -111,6 +115,10 @@ public class ControllerImplGUI implements Controller, ActionListener {
         guiView.setcreateDialogStatus("Date is not entered in YYYY-DD-MM format!");
       } else if (label.equals("modify")) {
         guiView.setmodifyDialogStatus("Date is not entered in YYYY-DD-MM format!");
+      } else if (label.equals("costBasis")) {
+        guiView.setCostBasisDialogStatus("Date is not entered in YYYY-DD-MM format!");
+      } else if (label.equals("valDate")) {
+        guiView.setvalueDialogStatus("Date is not entered in YYYY-DD-MM format!");
       }
       return false;
     } else if (portfolio.checkFutureDate(date) || portfolio.checkTodayDateAndTime(date)) {
@@ -119,6 +127,12 @@ public class ControllerImplGUI implements Controller, ActionListener {
                 "9:30am).! Please enter new date");
       } else if (label.equals("modify")) {
         guiView.setmodifyDialogStatus("You can only enter past date or present(if after " +
+                "9:30am).! Please enter new date");
+      } else if (label.equals("costBasis")) {
+        guiView.setCostBasisDialogStatus("You can only enter past date or present(if after " +
+                "9:30am).! Please enter new date");
+      } else if (label.equals("valDate")) {
+        guiView.setvalueDialogStatus("You can only enter past date or present(if after " +
                 "9:30am).! Please enter new date");
       }
       return false;
@@ -287,21 +301,11 @@ public class ControllerImplGUI implements Controller, ActionListener {
             dateValue == null || dateValue.length() == 0) {
       guiView.setvalueDialogStatus("All the values are not given!!");
     } else {
-      if (!checkValidpfName(pfNamedate)) {
-        guiView.setmodifyDialogStatus("Please enter a valid Portfolio name!!");
-      } else if (!(new File(this.rootDir
-              + pfNamedate + ".json").exists())) {
-        guiView.setvalueDialogStatus("Portfolio with this name" +
-                pfNamedate + "does not exist!!");
-      } else if (!portfolio.checkIfRightFormat(dateValue) || dateValue.length() < 10) {
-        guiView.setvalueDialogStatus("Date is not entered in YYYY-DD-MM format!");
-      } else if (portfolio.checkFutureDate(dateValue) ||
-              portfolio.checkTodayDateAndTime(dateValue)) {
-        guiView.setvalueDialogStatus("You can only enter past date or present(if after " +
-                "9:30am).! Please enter new date");
-      } else {
-        float totVal = portfolio.portfolioValueDate(this.rootDir, pfNamedate, dateValue);
-        guiView.setvalueDialogStatus("Portfolio Value on " + dateValue + " is : $" + totVal);
+      if (checkPortfolioField(pfNamedate, "valDate")) {
+        if (checkDateField(dateValue, "valDate")) {
+          float totVal = portfolio.portfolioValueDate(this.rootDir, pfNamedate, dateValue);
+          guiView.setvalueDialogStatus("Portfolio Value on " + dateValue + " is : $" + totVal);
+        }
       }
     }
   }
@@ -311,23 +315,13 @@ public class ControllerImplGUI implements Controller, ActionListener {
             dateBasis == null || dateBasis.length() == 0) {
       guiView.setCostBasisDialogStatus("All the values are not given!!");
     } else {
-      if (!checkValidpfName(pfNameBasis)) {
-        guiView.setCostBasisDialogStatus("Please enter a valid Portfolio name!!");
-      } else if (!(new File(this.rootDir
-              + pfNameBasis + ".json").exists())) {
-        guiView.setCostBasisDialogStatus("Portfolio with this name" +
-                pfNameBasis + "does not exist!!");
-      } else if (!portfolio.checkIfRightFormat(dateBasis) || dateBasis.length() < 10) {
-        guiView.setCostBasisDialogStatus("Date is not entered in YYYY-DD-MM format!");
-      } else if (portfolio.checkFutureDate(dateBasis) ||
-              portfolio.checkTodayDateAndTime(dateBasis)) {
-        guiView.setCostBasisDialogStatus("You can only enter past date or present(if after " +
-                "9:30am).! Please enter new date");
-      } else {
-        float costBasis = portfolio.getCostBasis(this.rootDir + pfNameBasis
-                + ".json", dateBasis);
-        guiView.setCostBasisDialogStatus("The cost basis till date, " + dateBasis + " is: $" +
-                costBasis);
+      if (checkPortfolioField(pfNameBasis, "costBasis")) {
+        if (checkDateField(dateBasis, "costBasis")) {
+          float costBasis = portfolio.getCostBasis(this.rootDir + pfNameBasis
+                  + ".json", dateBasis);
+          guiView.setCostBasisDialogStatus("The cost basis till date, " + dateBasis + " is: $" +
+                  costBasis);
+        }
       }
     }
   }
@@ -377,9 +371,9 @@ public class ControllerImplGUI implements Controller, ActionListener {
       break;
       case "Purchase": {
         try {
-          modifyValidate(guiView.getModifyPfValue(),guiView.gettickrmodifyValue(),
-                  guiView.getnumstocksmodifyValue(),guiView.getdateofmodifynValue(),
-                  guiView.getcommissionfeesmodifyValue(),"purchase");
+          modifyValidate(guiView.getModifyPfValue(), guiView.gettickrmodifyValue(),
+                  guiView.getnumstocksmodifyValue(), guiView.getdateofmodifynValue(),
+                  guiView.getcommissionfeesmodifyValue(), "purchase");
         } catch (FileNotFoundException e) {
           throw new RuntimeException(e);
         } catch (ParseException e) {
@@ -389,9 +383,9 @@ public class ControllerImplGUI implements Controller, ActionListener {
       break;
       case "Sell": {
         try {
-          modifyValidate(guiView.getModifyPfValue(),guiView.gettickrmodifyValue(),
-                  guiView.getnumstocksmodifyValue(),guiView.getdateofmodifynValue(),
-                  guiView.getcommissionfeesmodifyValue(),"sell");
+          modifyValidate(guiView.getModifyPfValue(), guiView.gettickrmodifyValue(),
+                  guiView.getnumstocksmodifyValue(), guiView.getdateofmodifynValue(),
+                  guiView.getcommissionfeesmodifyValue(), "sell");
         } catch (FileNotFoundException e) {
           throw new RuntimeException(e);
         } catch (ParseException e) {
