@@ -326,7 +326,7 @@ public class ControllerImplGUI implements ControllerGUI {
     }
   }
 
-  private void validateDateVal(String pfNamedate, String dateValue)
+  public void validateDateVal(String pfNamedate, String dateValue)
           throws FileNotFoundException, ParseException {
     if (pfNamedate == null || pfNamedate.length() == 0 ||
             dateValue == null || dateValue.length() == 0) {
@@ -341,7 +341,7 @@ public class ControllerImplGUI implements ControllerGUI {
     }
   }
 
-  private void validateCostBasis(String pfNameBasis, String dateBasis) throws ParseException {
+  public void validateCostBasis(String pfNameBasis, String dateBasis) throws ParseException {
     if (pfNameBasis == null || pfNameBasis.length() == 0 ||
             dateBasis == null || dateBasis.length() == 0) {
       guiView.setCostBasisDialogStatus("All the values are not given!!");
@@ -404,32 +404,5 @@ public class ControllerImplGUI implements ControllerGUI {
   public void goStocks() throws ParseException, IOException {
     guiView.makeVisible();
     guiView.addFeatures(this);
-  }
-
-  public void actionPerformed(ActionEvent arg0) {
-    switch (arg0.getActionCommand()) {
-      case "Compute Value of Pf": {
-        try {
-          validateDateVal(guiView.getpfnameVal(), guiView.getdateVal());
-        } catch (FileNotFoundException e) {
-          throw new RuntimeException(e);
-        } catch (ParseException e) {
-          throw new RuntimeException(e);
-        }
-      }
-      break;
-      case "Get Cost Basis": {
-        displayDialogPane("costBasis");
-      }
-      break;
-      case "Compute Cost Basis": {
-        try {
-          validateCostBasis(guiView.pfNameCostBasis(), guiView.getDate());
-        } catch (ParseException e) {
-          throw new RuntimeException(e);
-        }
-      }
-      break;
-    }
   }
 }

@@ -13,7 +13,10 @@ public interface ControllerGUI extends Controller{
   void addOperation(String pfNameCreate, String tickrCreate, String numStocksCreate,
                     String dateCreate, String commissionCreate) throws FileNotFoundException;
   void saveOperation(String pfNameCreate);
-  public void modifyValidate(String pfNameModify, String tickrModify, String numStocksModify,
+  void modifyValidate(String pfNameModify, String tickrModify, String numStocksModify,
                              String dateModify, String commissionModify, String statuslabel)
           throws FileNotFoundException, ParseException;
+  void validateDateVal(String pfNamedate, String dateValue)
+          throws FileNotFoundException, ParseException;
+  public void validateCostBasis(String pfNameBasis, String dateBasis) throws ParseException;
 }

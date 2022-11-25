@@ -277,31 +277,15 @@ public class GUIViewImpl extends JFrame implements GUIView {
     return valDialog;
   }
 
-  public String getpfnameVal(){
-    return pfnamevalue.getText();
-  }
-
   public void setpfnameVal(String message){
     pfnamevalue.setText(message);
   }
-
-  public String getdateVal(){
-    return datevalue.getText();
-  }
-
   public void setdateVal(String message){
     this.datevalue.setText(message);
-  }
-  public String pfNameCostBasis() {
-    return pfName.getText();
   }
 
   public void setpfNameCostBasis(String message){
     pfName.setText(message);
-  }
-
-  public String getDate() {
-    return date.getText();
   }
 
   public void setDate(String message){
@@ -503,5 +487,22 @@ public class GUIViewImpl extends JFrame implements GUIView {
       }
     });
     getValueButton.addActionListener(evt ->features.displayDialogPane("getDateVal"));
+    computeval.addActionListener(evt -> {
+      try {
+        features.validateDateVal(this.pfnamevalue.getText(),this.datevalue.getText());
+      } catch (FileNotFoundException e) {
+        throw new RuntimeException(e);
+      } catch (ParseException e) {
+        throw new RuntimeException(e);
+      }
+    });
+    costBasisButton.addActionListener(evt ->features.displayDialogPane("costBasis"));
+    getCostBasis.addActionListener(evt -> {
+      try {
+        features.validateCostBasis(this.pfName.getText(), this.date.getText());
+      } catch (ParseException e) {
+        throw new RuntimeException(e);
+      }
+    });
 }
 }
