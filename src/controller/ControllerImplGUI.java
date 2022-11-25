@@ -58,17 +58,11 @@ public class ControllerImplGUI implements Controller, ActionListener {
   }
 
   private void saveOperation(String pfNameCreate) {
-    if (pfNameCreate.length() == 0) {
+    if (pfNameCreate == null || pfNameCreate.length() == 0) {
       guiView.setcreateDialogStatus("Portfolio Name is to be given!!");
-    } else if (pfNameCreate.length() > 0) {
-      // validate pf name.
-      if (!checkValidpfName(pfNameCreate)) {
-        guiView.setcreateDialogStatus("Please enter a valid Portfolio name!!");
-      } else if (new File(this.rootDir
-              + pfNameCreate + ".json").exists()) {
-        guiView.setcreateDialogStatus("Portfolio with this name" +
-                pfNameCreate + "already exists!!");
-      } else {
+    }
+    else{
+      if(checkPortfolioField(pfNameCreate,"save")){
         portfolio.savePortfolio(this.rootDir + pfNameCreate + ".json",
                 this.addTickr);
         guiView.setcreateDialogStatus("Successfully created the portfolio " + pfNameCreate);
