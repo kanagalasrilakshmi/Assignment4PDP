@@ -18,7 +18,7 @@ import javax.swing.*;
 import model.PortfolioStratergy;
 import view.GUIView;
 
-public class ControllerImplGUI implements Controller, ActionListener {
+public class ControllerImplGUI implements ControllerGUI {
   private GUIView guiView;
   private PortfolioStratergy portfolio;
   private String rootDir;
@@ -32,7 +32,8 @@ public class ControllerImplGUI implements Controller, ActionListener {
     this.rootDir = System.getProperty("user.home") + "/Desktop/PortfolioBucket/";
   }
 
-  private void setDirectory() {
+  public void setDirectory() {
+    this.rootDirUser = JOptionPane.showInputDialog("Please enter path to store portfolios");
     if (this.rootDirUser == null || this.rootDirUser.length() == 0) {
       this.rootDirUser = this.rootDir;
       guiView.setpathStore("No path is given hence " +
@@ -69,7 +70,7 @@ public class ControllerImplGUI implements Controller, ActionListener {
     }
   }
 
-  private void saveOperation(String pfNameCreate) {
+  public void saveOperation(String pfNameCreate) {
     if (pfNameCreate == null || pfNameCreate.length() == 0) {
       guiView.setcreateDialogStatus("Portfolio Name is to be given!!");
     }
@@ -230,9 +231,8 @@ public class ControllerImplGUI implements Controller, ActionListener {
     return true;
   }
 
-  private void addOperation(String pfNameCreate, String tickrCreate, String numStocksCreate,
-                            String dateCreate, String commissionCreate)
-          throws FileNotFoundException {
+  public void addOperation(String pfNameCreate, String tickrCreate, String numStocksCreate,
+                            String dateCreate, String commissionCreate) throws FileNotFoundException {
     if (checkAllfields(pfNameCreate, tickrCreate, numStocksCreate, dateCreate)) {
       guiView.setcreateDialogStatus("All the fields are not given!!");
     } else {
@@ -303,7 +303,7 @@ public class ControllerImplGUI implements Controller, ActionListener {
     }
   }
 
-  private void modifyValidate(String pfNameModify, String tickrModify, String numStocksModify,
+  public void modifyValidate(String pfNameModify, String tickrModify, String numStocksModify,
                               String dateModify, String commissionModify, String statuslabel)
           throws FileNotFoundException, ParseException {
     if (checkAllfields(pfNameModify, tickrModify, numStocksModify, dateModify)) {
@@ -357,7 +357,7 @@ public class ControllerImplGUI implements Controller, ActionListener {
     }
   }
 
-  private void displayDialogPane(String label){
+  public void displayDialogPane(String label){
     if (this.rootDirUser == null || this.rootDirUser.length() == 0) {
       if(label.equals("costBasis")){
         guiView.setLabelCostBasisStatus("Please specify the root directory path!!");
@@ -403,66 +403,11 @@ public class ControllerImplGUI implements Controller, ActionListener {
 
   public void goStocks() throws ParseException, IOException {
     guiView.makeVisible();
-    guiView.setCommandButtonListener(this);
+    guiView.addFeatures(this);
   }
 
   public void actionPerformed(ActionEvent arg0) {
     switch (arg0.getActionCommand()) {
-      case "Input": {
-        this.rootDirUser = JOptionPane.showInputDialog("Please enter path to store portfolios");
-        setDirectory();
-      }
-      break;
-      case "Create Portfolio": {
-        displayDialogPane("create");
-      }
-      break;
-      case "Add": {
-        try {
-          addOperation(guiView.getCreatePfValue(), guiView.gettickrcreateValue(),
-                  guiView.getnumstockscreateValue(), guiView.getdateofcreationValue(),
-                  guiView.getcommissionfeescreateValue());
-        } catch (FileNotFoundException e) {
-          throw new RuntimeException(e);
-        }
-      }
-      break;
-      case "Save": {
-        saveOperation(guiView.getCreatePfValue());
-      }
-      break;
-      case "Modify Portfolio": {
-        displayDialogPane("modify");
-      }
-      break;
-      case "Purchase": {
-        try {
-          modifyValidate(guiView.getModifyPfValue(), guiView.gettickrmodifyValue(),
-                  guiView.getnumstocksmodifyValue(), guiView.getdateofmodifynValue(),
-                  guiView.getcommissionfeesmodifyValue(), "purchase");
-        } catch (FileNotFoundException e) {
-          throw new RuntimeException(e);
-        } catch (ParseException e) {
-          throw new RuntimeException(e);
-        }
-      }
-      break;
-      case "Sell": {
-        try {
-          modifyValidate(guiView.getModifyPfValue(), guiView.gettickrmodifyValue(),
-                  guiView.getnumstocksmodifyValue(), guiView.getdateofmodifynValue(),
-                  guiView.getcommissionfeesmodifyValue(), "sell");
-        } catch (FileNotFoundException e) {
-          throw new RuntimeException(e);
-        } catch (ParseException e) {
-          throw new RuntimeException(e);
-        }
-      }
-      break;
-      case "Get Value": {
-        displayDialogPane("getDateVal");
-      }
-      break;
       case "Compute Value of Pf": {
         try {
           validateDateVal(guiView.getpfnameVal(), guiView.getdateVal());

@@ -2,8 +2,11 @@ package view;
 
 import java.awt.event.ActionListener;
 
+import controller.Controller;
+import controller.ControllerGUI;
+import controller.ControllerImplGUI;
+
 public interface GUIView {
-  void setCommandButtonListener(ActionListener actionEvent);
 
   void makeVisible();
 
@@ -22,24 +25,10 @@ public interface GUIView {
   void displayModifyPf();
 
   void displayValuepf();
-  public String getCreatePfValue();
-  String getdateofcreationValue();
-  String getnumstockscreateValue();
-  String gettickrcreateValue();
-  String getcommissionfeescreateValue();
   void setCreateLabelStatus(String message);
   void setcreateDialogStatus(String message);
   void setModifyLabelStatus(String message);
   void setmodifyDialogStatus(String message);
-  String getModifyPfValue();
-
-  String getdateofmodifynValue();
-
-  String getnumstocksmodifyValue();
-
-  String gettickrmodifyValue();
-
-  String getcommissionfeesmodifyValue();
   void setValueLabelStatus(String message);
   void setvalueDialogStatus(String message);
   String getpfnameVal();
@@ -62,5 +51,7 @@ public interface GUIView {
   void setportfoliosListModify(String message);
   void setPortfoliosListVal(String message);
   void setPortfoliosListBasis(String message);
+  void addFeatures(ControllerGUI features);
+
 
 }
