@@ -16,11 +16,12 @@ import java.text.ParseException;
 import javax.swing.*;
 
 import model.Portfolio;
+import model.PortfolioStratergy;
 import view.GUIView;
 
 public class ControllerImplGUI implements Controller, ActionListener {
   private GUIView guiView;
-  private Portfolio portfolio;
+  private PortfolioStratergy portfolio;
   private Float commisionModify;
   private String rootDir;
   private String rootDirUser;

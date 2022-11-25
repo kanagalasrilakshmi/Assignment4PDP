@@ -5,6 +5,8 @@ import controller.Controller;
 import controller.ControllerImplGUI;
 import model.FlexiblePortfolioImpl;
 import model.Portfolio;
+import model.PortfolioNewStratergy;
+import model.PortfolioStratergy;
 import view.GUIView;
 import view.GUIViewImpl;
 
@@ -22,7 +24,7 @@ public class MVCStocks {
    * @throws IOException    if given input is not valid
    */
   public static void main(String[] args) throws ParseException, IOException {
-    Portfolio modelFlex = new FlexiblePortfolioImpl();
+    PortfolioStratergy modelFlex = new PortfolioNewStratergy();
     GUIView guiView = new GUIViewImpl();
     Controller controllerGui = new ControllerImplGUI(modelFlex, guiView);
     controllerGui.goStocks();
