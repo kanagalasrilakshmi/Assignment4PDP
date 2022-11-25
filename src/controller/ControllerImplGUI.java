@@ -197,16 +197,20 @@ public class ControllerImplGUI implements Controller, ActionListener {
               !(portfolio.checkValidFloat(commissionCreate))) {
         if (label.equals("add")) {
           guiView.setcreateDialogStatus("Commission fees given is not a valid number");
+          guiView.setcommissionfeescreateValue(null);
 
         } else if (label.equals("modify")) {
           guiView.setmodifyDialogStatus("Commission fees given is not a valid number");
+          guiView.setcommissionfeesmodifyValue(null);
         }
         return false;
       } else if (Float.valueOf(commissionCreate) < 0) {
         if (label.equals("add")) {
           guiView.setcreateDialogStatus("Commission fees cannot be negative!");
+          guiView.setcommissionfeescreateValue(null);
         } else if (label.equals("modify")) {
           guiView.setmodifyDialogStatus("Commission fees cannot be negative!");
+          guiView.setcommissionfeesmodifyValue(null);
         }
         return false;
       }
