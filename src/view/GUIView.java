@@ -45,5 +45,6 @@ public interface GUIView {
   String getpfnameVal();
   String getdateVal();
   void setCostBasisDialogStatus(String message);
+  void setCreatePfValue(String message);
 
 }

@@ -128,6 +128,9 @@ public class GUIViewImpl extends JFrame implements GUIView {
     return this.pfnamecreate.getText();
   }
 
+  public void setCreatePfValue(String message){
+    this.pfnamecreate.setText(message);
+  }
   public String getdateofcreationValue(){
     return this.dateofcreation.getText();
   }

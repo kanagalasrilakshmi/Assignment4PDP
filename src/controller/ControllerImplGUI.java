@@ -15,7 +15,6 @@ import java.text.ParseException;
 
 import javax.swing.*;
 
-import model.Portfolio;
 import model.PortfolioStratergy;
 import view.GUIView;
 
@@ -40,7 +39,7 @@ public class ControllerImplGUI implements Controller, ActionListener {
       guiView.setpathStore("No path is given hence " +
               this.rootDir + " is set by default.");
     } else if (new File(this.rootDirUser).exists()) {
-      guiView.setpathStore("Portfolios can be accessed in the " + this.rootDirUser + "location ");
+      guiView.setpathStore("Portfolios can be accessed in the " + this.rootDirUser + " location ");
       if (!portfolio.checkLastEndingCharacter(this.rootDirUser)) {
         this.rootDirUser = this.rootDirUser + "/";
       }
@@ -70,84 +69,148 @@ public class ControllerImplGUI implements Controller, ActionListener {
               + pfNameCreate + ".json").exists()) {
         guiView.setcreateDialogStatus("Portfolio with this name" +
                 pfNameCreate + "already exists!!");
+      } else {
+        portfolio.savePortfolio(this.rootDir + pfNameCreate + ".json",
+                this.addTickr);
+        guiView.setcreateDialogStatus("Successfully created the portfolio " + pfNameCreate);
       }
-    } else {
-      portfolio.savePortfolio(this.rootDir + pfNameCreate + ".json",
-              this.addTickr);
-      guiView.setcreateDialogStatus("Successfully created the portfolio " + pfNameCreate);
     }
   }
-
-  private void addOperation(String pfNameCreate, String tickrCreate, String numStocksCreate,
-                            String dateCreate, String commissionCreate) {
-    if (pfNameCreate == null || tickrCreate == null || numStocksCreate == null ||
-            dateCreate == null || pfNameCreate.length() == 0 || tickrCreate.length() == 0 ||
-            numStocksCreate.length() == 0 ||
-            dateCreate.length() == 0) {
-      guiView.setcreateDialogStatus("All the fields are not given!!");
-    } else {
-      Float commission = 0.0f;
-      // validate pf name.
-      if (!checkValidpfName(pfNameCreate)) {
+  private boolean checkPortfolioField(String pfName, String label) {
+    boolean fileCheck = new File(this.rootDir + pfName + ".json").exists();
+    if (!checkValidpfName(pfName)) {
+      if (label.equals("add") || label.equals("save")) {
         guiView.setcreateDialogStatus("Please enter a valid Portfolio name!!");
-      } else if (new File(this.rootDir
-              + pfNameCreate + ".json").exists()) {
-        guiView.setcreateDialogStatus("Portfolio with this name" +
-                pfNameCreate + "already exists!!");
+        guiView.setCreatePfValue(null);
       }
-      else if(commissionCreate == null || commissionCreate.length() == 0){
-        commission = 0.0f;
+      else if(label.equals("modify")){
+        guiView.setmodifyDialogStatus("Please enter a valid Portfolio name!!");
       }
-      // validate commission fees.
-      else if (commissionCreate.length() > 0) {
-        if (portfolio.checkValidInteger(commissionCreate) ||
-                portfolio.checkValidFloat(commissionCreate)) {
-          guiView.setcreateDialogStatus("Commission fees given is not a valid number");
-        } else if (Float.valueOf(commissionCreate) < 0) {
-          guiView.setcreateDialogStatus("Commission fees cannot be negative!");
-        } else {
-          commission = Float.valueOf(commissionCreate);
+      return false;
+    }
+    else{
+      if(fileCheck){
+        if (label.equals("add") || label.equals("save")) {
+          guiView.setcreateDialogStatus("Portfolio with this name" +
+                  pfName + " already exists!!");
+          guiView.setCreatePfValue(null);
+          return false;
         }
       }
-      // validate date.
-      else if (!portfolio.checkIfRightFormat(dateCreate) || dateCreate.length() < 10) {
+      else{
+        if(label.equals("modify")){
+          guiView.setmodifyDialogStatus("Portfolio with this name" +
+                  pfName + " does not exist!!");
+          return false;
+        }
+      }
+    }
+    return true;
+  }
+  private boolean checkDateField(String date, String label) {
+    if (!(portfolio.checkIfRightFormat(date)) || date.length() < 10) {
+      if (label.equals("add")) {
         guiView.setcreateDialogStatus("Date is not entered in YYYY-DD-MM format!");
-      } else if
-      (portfolio.checkFutureDate(dateCreate) ||
-                      portfolio.checkTodayDateAndTime(dateCreate)) {
+      }
+      else if(label.equals("modify")){
+        guiView.setmodifyDialogStatus("Date is not entered in YYYY-DD-MM format!");
+      }
+      return false;
+    } else if (portfolio.checkFutureDate(date) || portfolio.checkTodayDateAndTime(date)) {
+      if (label.equals("add")) {
         guiView.setcreateDialogStatus("You can only enter past date or present(if after " +
                 "9:30am).! Please enter new date");
       }
-      // validate num of stocks.
-      else if (!portfolio.checkValidInteger(numStocksCreate)) {
+      else if(label.equals("modify")){
+        guiView.setmodifyDialogStatus("You can only enter past date or present(if after " +
+                "9:30am).! Please enter new date");
+      }
+      return false;
+    }
+    return true;
+  }
+  private boolean checkStocksField(String numStocks, String label) {
+    if (!portfolio.checkValidInteger(numStocks)) {
+      if (label.equals("add")) {
         guiView.setcreateDialogStatus("Number of stocks given is not a valid integer");
       }
-      // validate tickr symbol.
-      else {
-        try {
-          if (!portfolio.validateTickrSymbol(tickrCreate)) {
-            guiView.setcreateDialogStatus("Invalid Tickr Symbol! Enter valid company " +
-                    "tickr symbol!");
-          } else {
-            if (portfolio.checkTickrJSONArray(this.addTickr, tickrCreate)) {
-              guiView.setcreateDialogStatus("The tickr symbol already exists");
-            } else {
-              JSONObject addEntry = portfolio.makeTransactionRecord(dateCreate,
-                      commission, Integer.valueOf(numStocksCreate), tickrCreate);
-              JSONArray listEntry = new JSONArray();
-              listEntry.add(addEntry);
-              this.addTickr.put(tickrCreate, listEntry);
-              guiView.setcreateDialogStatus("Entry added sucessfully!. Click Add to add more " +
-                      "entries or Save to save the portfolio.");
+      else if(label.equals("modify")){
+        guiView.setmodifyDialogStatus("Number of stocks given is not a valid integer");
+      }
+      return false;
+    }
+    return true;
+  }
+  private boolean checkTickrField(String tickr, String label) throws FileNotFoundException {
+    if (!portfolio.validateTickrSymbol(tickr)) {
+      if (label.equals("add")) {
+        guiView.setcreateDialogStatus("Invalid Tickr Symbol! Enter valid company " +
+                "tickr symbol!");
+      }
+      return false;
+    } else if (portfolio.checkTickrJSONArray(this.addTickr, tickr)) {
+      if (label.equals("add")) {
+        guiView.setcreateDialogStatus("The tickr symbol already exists");
+      }
+      return false;
+    }
+    return true;
+  }
+  private boolean checkAllfields(String pfName, String tickr, String numStocks,
+                                 String date) {
+    if (pfName == null || tickr == null || numStocks == null || date == null ||
+            pfName.length() == 0 || tickr.length() == 0 || numStocks.length() == 0 ||
+            date.length() == 0) {
+      return true;
+    }
+    return false;
+  }
+  private boolean checkCommissionField(String commissionCreate, String label) {
+    if (commissionCreate != null && commissionCreate.length() > 0) {
+      if (!(portfolio.checkValidInteger(commissionCreate)) ||
+              !(portfolio.checkValidFloat(commissionCreate))) {
+        if (label.equals("add")) {
+          guiView.setcreateDialogStatus("Commission fees given is not a valid number");
+        }
+        return false;
+      } else if (Float.valueOf(commissionCreate) < 0) {
+        if (label.equals("add")) {
+          guiView.setcreateDialogStatus("Commission fees cannot be negative!");
+        }
+        return false;
+      }
+    }
+    return true;
+  }
+
+  private void addOperation(String pfNameCreate, String tickrCreate, String numStocksCreate,
+                            String dateCreate, String commissionCreate)
+          throws FileNotFoundException {
+    if (checkAllfields(pfNameCreate, tickrCreate, numStocksCreate, dateCreate)) {
+      guiView.setcreateDialogStatus("All the fields are not given!!");
+    } else {
+      Float commission = 0.0f;
+      if (checkPortfolioField(pfNameCreate, "add")) {
+        if (checkDateField(dateCreate, "add")) {
+          if (checkStocksField(numStocksCreate, "add")) {
+            if (checkTickrField(tickrCreate, "add")) {
+              if (checkCommissionField(commissionCreate, "add")) {
+                if (commissionCreate != null || commissionCreate.length() > 0) {
+                  commission = Float.valueOf(commissionCreate);
+                }
+                JSONObject addEntry = portfolio.makeTransactionRecord(dateCreate,
+                        commission, Integer.valueOf(numStocksCreate), tickrCreate);
+                JSONArray listEntry = new JSONArray();
+                listEntry.add(addEntry);
+                this.addTickr.put(tickrCreate, listEntry);
+                guiView.setcreateDialogStatus("Entry added sucessfully!. Click Add to add more " +
+                        "entries or Save to save the portfolio.");
+              }
             }
           }
-        } catch (FileNotFoundException e) {
-          guiView.setcreateDialogStatus("Exception while validating tickr symbol.");
-          throw new RuntimeException(e);
         }
       }
     }
-
   }
 
   private void setCommision(Float commision) {
@@ -166,63 +229,41 @@ public class ControllerImplGUI implements Controller, ActionListener {
     return true;
   }
 
-  private boolean modifyValidate(String pfNameModify, String tickrModify, String numStocksModify,
+
+  private void modifyValidate(String pfNameModify, String tickrModify, String numStocksModify,
                                  String dateModify, String commissionModify) {
     // check pf name,date,numStocksLabel,tickr Label,commission label.
     // if commission value is not given take it as zero only.
-    boolean checkModify = true;
-    if (pfNameModify == null || tickrModify == null || numStocksModify == null ||
-            dateModify == null || pfNameModify.length() == 0 || tickrModify.length() == 0 ||
-            numStocksModify.length() == 0 ||
-            dateModify.length() == 0) {
+    if (checkAllfields(pfNameModify, tickrModify, numStocksModify, dateModify)) {
       guiView.setmodifyDialogStatus("All the fields are not given!!");
-      checkModify = false;
     } else {
       Float commission = 0.0f;
-      if (!checkValidpfName(pfNameModify)) {
-        guiView.setmodifyDialogStatus("Please enter a valid Portfolio name!!");
-        checkModify = false;
-      } else if (!(new File(this.rootDir
-              + pfNameModify + ".json").exists())) {
-        guiView.setmodifyDialogStatus("Portfolio with this name" +
-                pfNameModify + "does not exist!!");
-        checkModify = false;
+      if(checkPortfolioField(pfNameModify,"modify")){
+        if(checkDateField(dateModify,"modify")){
+          if(checkStocksField(numStocksModify,"modify")){
+
+          }
+        }
       }
-      else if(commissionModify == null || commissionModify.length() == 0){
-        checkModify = false;
+      }
+    if (commissionModify == null || commissionModify.length() == 0) {
+
       }
       // validate commission fees.
       else if (commissionModify.length() > 0) {
         if (portfolio.checkValidInteger(commissionModify) ||
                 portfolio.checkValidFloat(commissionModify)) {
           guiView.setmodifyDialogStatus("Commission fees given is not a valid number");
-          checkModify = false;
+
         } else if (Float.valueOf(commissionModify) < 0) {
           guiView.setmodifyDialogStatus("Commission fees cannot be negative!");
-          checkModify = false;
+
         } else {
-          commission = Float.valueOf(commissionModify);
+          //commission = Float.valueOf(commissionModify);
         }
-        setCommision(commission);
-      }
-      // validate date.
-      else if (!portfolio.checkIfRightFormat(dateModify) || dateModify.length() < 10) {
-        guiView.setmodifyDialogStatus("Date is not entered in YYYY-DD-MM format!");
-        checkModify = false;
-      } else if (portfolio.checkFutureDate(dateModify) ||
-              portfolio.checkTodayDateAndTime(dateModify)) {
-        guiView.setmodifyDialogStatus("You can only enter past date or present(if after " +
-                "9:30am).! Please enter new date");
-        checkModify = false;
-      }
-      // validate num of stocks.
-      else if (!portfolio.checkValidInteger(numStocksModify)) {
-        guiView.setmodifyDialogStatus("Number of stocks given is not a valid integer");
-        checkModify = false;
+        //setCommision(commission);
       }
     }
-    return checkModify;
-  }
 
   private void validateTickrModify(String pfNameModify, String tickrModify, String numStocksModify,
                                    String dateModify, Float commissionModify, boolean label)
@@ -258,29 +299,26 @@ public class ControllerImplGUI implements Controller, ActionListener {
     }
 
   }
+
   private void validateDateVal(String pfNamedate, String dateValue)
           throws FileNotFoundException, ParseException {
-    if(pfNamedate == null || pfNamedate.length() == 0 ||
-            dateValue == null || dateValue.length() == 0 ){
+    if (pfNamedate == null || pfNamedate.length() == 0 ||
+            dateValue == null || dateValue.length() == 0) {
       guiView.setvalueDialogStatus("All the values are not given!!");
-    }
-    else{
+    } else {
       if (!checkValidpfName(pfNamedate)) {
         guiView.setmodifyDialogStatus("Please enter a valid Portfolio name!!");
-      }
-      else if (!(new File(this.rootDir
+      } else if (!(new File(this.rootDir
               + pfNamedate + ".json").exists())) {
         guiView.setvalueDialogStatus("Portfolio with this name" +
                 pfNamedate + "does not exist!!");
-      }
-      else if (!portfolio.checkIfRightFormat(dateValue) || dateValue.length() < 10) {
+      } else if (!portfolio.checkIfRightFormat(dateValue) || dateValue.length() < 10) {
         guiView.setvalueDialogStatus("Date is not entered in YYYY-DD-MM format!");
       } else if (portfolio.checkFutureDate(dateValue) ||
               portfolio.checkTodayDateAndTime(dateValue)) {
         guiView.setvalueDialogStatus("You can only enter past date or present(if after " +
                 "9:30am).! Please enter new date");
-      }
-      else{
+      } else {
         float totVal = portfolio.portfolioValueDate(this.rootDir, pfNamedate, dateValue);
         guiView.setvalueDialogStatus("Portfolio Value on " + dateValue + " is : $" + totVal);
       }
@@ -288,28 +326,23 @@ public class ControllerImplGUI implements Controller, ActionListener {
   }
 
   private void validateCostBasis(String pfNameBasis, String dateBasis) throws ParseException {
-    if(pfNameBasis == null || pfNameBasis.length() == 0 ||
-            dateBasis == null || dateBasis.length() == 0 ){
+    if (pfNameBasis == null || pfNameBasis.length() == 0 ||
+            dateBasis == null || dateBasis.length() == 0) {
       guiView.setCostBasisDialogStatus("All the values are not given!!");
-    }
-    else{
+    } else {
       if (!checkValidpfName(pfNameBasis)) {
         guiView.setCostBasisDialogStatus("Please enter a valid Portfolio name!!");
-      }
-      else if (!(new File(this.rootDir
+      } else if (!(new File(this.rootDir
               + pfNameBasis + ".json").exists())) {
         guiView.setCostBasisDialogStatus("Portfolio with this name" +
                 pfNameBasis + "does not exist!!");
-      }
-      else if(!portfolio.checkIfRightFormat(dateBasis) || dateBasis.length() < 10){
+      } else if (!portfolio.checkIfRightFormat(dateBasis) || dateBasis.length() < 10) {
         guiView.setCostBasisDialogStatus("Date is not entered in YYYY-DD-MM format!");
-      }
-      else if (portfolio.checkFutureDate(dateBasis) ||
+      } else if (portfolio.checkFutureDate(dateBasis) ||
               portfolio.checkTodayDateAndTime(dateBasis)) {
         guiView.setCostBasisDialogStatus("You can only enter past date or present(if after " +
                 "9:30am).! Please enter new date");
-      }
-      else{
+      } else {
         float costBasis = portfolio.getCostBasis(this.rootDir + pfNameBasis
                 + ".json", dateBasis);
         guiView.setCostBasisDialogStatus("The cost basis till date, " + dateBasis + " is: $" +
@@ -340,9 +373,13 @@ public class ControllerImplGUI implements Controller, ActionListener {
       }
       break;
       case "Add": {
-        addOperation(guiView.getCreatePfValue(), guiView.gettickrcreateValue(),
-                guiView.getnumstockscreateValue(), guiView.getdateofcreationValue(),
-                guiView.getcommissionfeescreateValue());
+        try {
+          addOperation(guiView.getCreatePfValue(), guiView.gettickrcreateValue(),
+                  guiView.getnumstockscreateValue(), guiView.getdateofcreationValue(),
+                  guiView.getcommissionfeescreateValue());
+        } catch (FileNotFoundException e) {
+          throw new RuntimeException(e);
+        }
       }
       break;
       case "Save": {
@@ -358,6 +395,7 @@ public class ControllerImplGUI implements Controller, ActionListener {
       }
       break;
       case "Purchase": {
+        /**
         if (modifyValidate(guiView.getModifyPfValue(), guiView.gettickrmodifyValue(),
                 guiView.getnumstocksmodifyValue(), guiView.getdateofmodifynValue(),
                 guiView.getcommissionfeesmodifyValue())) {
@@ -369,10 +407,12 @@ public class ControllerImplGUI implements Controller, ActionListener {
           } catch (ParseException e) {
             throw new RuntimeException(e);
           }
-        }
+        }*/
       }
       break;
       case "Sell": {
+        /**
+      }
         if (modifyValidate(guiView.getModifyPfValue(), guiView.gettickrmodifyValue(),
                 guiView.getnumstocksmodifyValue(), guiView.getdateofmodifynValue(),
                 guiView.getcommissionfeesmodifyValue())) {
@@ -383,21 +423,20 @@ public class ControllerImplGUI implements Controller, ActionListener {
           } catch (ParseException e) {
             throw new RuntimeException(e);
           }
-        }
+        }*/
       }
       break;
       case "Get Value": {
         if (this.rootDirUser == null || this.rootDirUser.length() == 0) {
           guiView.setValueLabelStatus("Please specify the root directory path!!");
-        }
-        else{
+        } else {
           guiView.displayValuepf();
         }
       }
       break;
-      case "Compute Value of Pf":{
+      case "Compute Value of Pf": {
         try {
-          validateDateVal(guiView.getpfnameVal(),guiView.getdateVal());
+          validateDateVal(guiView.getpfnameVal(), guiView.getdateVal());
         } catch (FileNotFoundException e) {
           throw new RuntimeException(e);
         } catch (ParseException e) {
@@ -408,15 +447,14 @@ public class ControllerImplGUI implements Controller, ActionListener {
       case "Get Cost Basis": {
         if (this.rootDirUser == null || this.rootDirUser.length() == 0) {
           guiView.setLabelCostBasisStatus("Please specify the root directory path!!");
-        }
-        else{
+        } else {
           guiView.displayCostBasis();
         }
       }
       break;
-      case "Compute Cost Basis":{
+      case "Compute Cost Basis": {
         try {
-          validateCostBasis(guiView.pfNameCostBasis(),guiView.getDate());
+          validateCostBasis(guiView.pfNameCostBasis(), guiView.getDate());
         } catch (ParseException e) {
           throw new RuntimeException(e);
         }
