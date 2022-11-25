@@ -33,7 +33,7 @@ public class ControllerImplGUI implements Controller, ActionListener {
   private JSONObject addTickr;
 
 
-  public ControllerImplGUI(Portfolio portfolio, GUIView guiView) {
+  public ControllerImplGUI(PortfolioStratergy portfolio, GUIView guiView) {
     this.guiView = guiView;
     this.portfolio = portfolio;
     this.rootDir = System.getProperty("user.home") + "/Desktop/PortfolioBucket/";
