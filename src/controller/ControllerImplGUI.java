@@ -110,27 +110,35 @@ public class ControllerImplGUI implements Controller, ActionListener {
     if (!(portfolio.checkIfRightFormat(date)) || date.length() < 10) {
       if (label.equals("add")) {
         guiView.setcreateDialogStatus("Date is not entered in YYYY-DD-MM format!");
+        guiView.setdateofcreationValue(null);
       } else if (label.equals("modify")) {
         guiView.setmodifyDialogStatus("Date is not entered in YYYY-DD-MM format!");
+        guiView.setdateofmodifynValue(null);
       } else if (label.equals("costBasis")) {
         guiView.setCostBasisDialogStatus("Date is not entered in YYYY-DD-MM format!");
+        guiView.setDate(null);
       } else if (label.equals("valDate")) {
         guiView.setvalueDialogStatus("Date is not entered in YYYY-DD-MM format!");
+        guiView.setdateVal(null);
       }
       return false;
     } else if (portfolio.checkFutureDate(date) || portfolio.checkTodayDateAndTime(date)) {
       if (label.equals("add")) {
         guiView.setcreateDialogStatus("You can only enter past date or present(if after " +
                 "9:30am).! Please enter new date");
+        guiView.setdateofcreationValue(null);
       } else if (label.equals("modify")) {
         guiView.setmodifyDialogStatus("You can only enter past date or present(if after " +
                 "9:30am).! Please enter new date");
+        guiView.setdateofmodifynValue(null);
       } else if (label.equals("costBasis")) {
         guiView.setCostBasisDialogStatus("You can only enter past date or present(if after " +
                 "9:30am).! Please enter new date");
+        guiView.setDate(null);
       } else if (label.equals("valDate")) {
         guiView.setvalueDialogStatus("You can only enter past date or present(if after " +
                 "9:30am).! Please enter new date");
+        guiView.setdateVal(null);
       }
       return false;
     }
