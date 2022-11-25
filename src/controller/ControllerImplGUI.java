@@ -401,6 +401,9 @@ public class ControllerImplGUI implements Controller, ActionListener {
           guiView.setModifyLabelStatus(null);
           // list all the portfolios in the directory and save them in the label
           String message = portfolio.listJSONfiles(this.rootDir);
+          if(message == null || message.length() == 0){
+            message = "No portfolio exists in the given path. Create a new portfolio.";
+          }
           guiView.setportfoliosListModify(message);
           guiView.displayModifyPf();
         }
@@ -436,6 +439,9 @@ public class ControllerImplGUI implements Controller, ActionListener {
         } else {
           guiView.setValueLabelStatus(null);
           String message = portfolio.listJSONfiles(this.rootDir);
+          if(message == null || message.length() == 0){
+            message = "No portfolio exists in the given path. Create a new portfolio.";
+          }
           guiView.setPortfoliosListVal(message);
           guiView.displayValuepf();
         }
@@ -457,6 +463,9 @@ public class ControllerImplGUI implements Controller, ActionListener {
         } else {
           guiView.setLabelCostBasisStatus(null);
           String message = portfolio.listJSONfiles(this.rootDir);
+          if(message == null || message.length() == 0){
+            message = "No portfolio exists in the given path. Create a new portfolio.";
+          }
           guiView.setPortfoliosListBasis(message);
           guiView.displayCostBasis();
         }
