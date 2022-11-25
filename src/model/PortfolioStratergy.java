@@ -3,6 +3,7 @@ package model;
 import java.util.ArrayList;
 
 public interface PortfolioStratergy extends Portfolio{
+  String listJSONfiles(String rootDir);
   void dollarCostExisting(ArrayList<String>stocksList,ArrayList<Float>weightsList,
                           Float commissionfees,Float money, String date);
   void startToFinishDollarCost(ArrayList<String>stocksList,ArrayList<Float>weightsList,

@@ -1,5 +1,6 @@
 package view;
 
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -24,14 +25,11 @@ public class GUIViewImpl extends JFrame implements GUIView {
   private JPanel quitPanel;
   private JPanel costBasisPanel;
   private JButton getCostBasis;
-  private JButton createPf;
   private JButton getValueButton;
   private JButton getModifyButton;
   private JButton dollarCostExisting;
   private JButton dollarCostNew;
-
   private JLabel costBasisStatus = new JLabel();
-
   private JTextField pfName;
   private JTextField date;
 
@@ -41,6 +39,7 @@ public class GUIViewImpl extends JFrame implements GUIView {
   private JTextField tickrcreate;
   private JTextField numstockscreate;
   private JTextField commissionfeescreate;
+  private JTextArea portfoliosListModify = new JTextArea();
   private JButton add = new JButton("Add");
   private JButton save = new JButton("Save");
 
@@ -107,7 +106,9 @@ public class GUIViewImpl extends JFrame implements GUIView {
     commissionfeescreate = new JTextField(25);
     add.setActionCommand("Add");
     save.setActionCommand("Save");
+    createPanelDialog.setPreferredSize(new Dimension(700,300));
     createPanelDialog.setLayout(new BoxLayout(createPanelDialog, BoxLayout.Y_AXIS));
+
     createPanelDialog.add(pfNameLabel);
     createPanelDialog.add(pfnamecreate);
     createPanelDialog.add(dateLabel);
@@ -121,6 +122,7 @@ public class GUIViewImpl extends JFrame implements GUIView {
     createPanelDialog.add(add);
     createPanelDialog.add(save);
     createPanelDialog.add(createDialogStatus);
+
     return createPanelDialog;
   }
 
@@ -234,9 +236,14 @@ public class GUIViewImpl extends JFrame implements GUIView {
     costBasisDialog.add(costBasisDialogStatus);
     return costBasisDialog;
   }
+  public void setportfoliosListModify(String message){
+    this.portfoliosListModify.append(message);
+  }
 
   private JPanel getModifyPanelDialog() {
     JPanel modifyDialog = new JPanel();
+    JLabel listPortfolios = new JLabel("List of all the portfolios in the given path:");
+    portfoliosListModify.setEditable(false);
     pfnamemodify = new JTextField(25);
     JLabel pfNameLabel = new JLabel("Enter Portfolio name to be modified: ");
     dateofmodify = new JTextField(25);
@@ -248,6 +255,11 @@ public class GUIViewImpl extends JFrame implements GUIView {
     commissionfessmodify = new JTextField(25);
     JLabel commissionLabel = new JLabel("Enter commission fees: ");
     modifyDialog.setLayout(new BoxLayout(modifyDialog, BoxLayout.Y_AXIS));
+    modifyDialog.setPreferredSize(new Dimension(1000,700));
+    modifyDialog.setMaximumSize(new Dimension(700,500));
+    modifyDialog.setMinimumSize(new Dimension(500,500));
+    modifyDialog.add(listPortfolios);
+    modifyDialog.add(portfoliosListModify);
     modifyDialog.add(pfNameLabel);
     modifyDialog.add(pfnamemodify);
     modifyDialog.add(dateLabel);

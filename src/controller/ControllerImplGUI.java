@@ -252,7 +252,6 @@ public class ControllerImplGUI implements Controller, ActionListener {
                 this.addTickr.put(tickrCreate, listEntry);
                 guiView.setcreateDialogStatus("Entry added sucessfully!. Click Add to add more " +
                         "entries or Save to save the portfolio.");
-                guiView.setCreatePfValue(null);
                 guiView.settickrcreateValue(null);
                 guiView.setnumstockscreateValue(null);
                 guiView.setdateofcreationValue(null);
@@ -400,6 +399,9 @@ public class ControllerImplGUI implements Controller, ActionListener {
           guiView.setModifyLabelStatus("Please specify the root directory path!!");
         } else {
           guiView.setModifyLabelStatus(null);
+          // list all the portfolios in the directory and save them in the label
+          String message = portfolio.listJSONfiles(this.rootDir);
+          guiView.setportfoliosListModify(message);
           guiView.displayModifyPf();
         }
       }

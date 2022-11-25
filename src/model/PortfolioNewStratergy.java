@@ -1,5 +1,6 @@
 package model;
 
+import java.io.File;
 import java.util.ArrayList;
 
 public class PortfolioNewStratergy extends FlexiblePortfolioImpl implements PortfolioStratergy {
@@ -23,6 +24,20 @@ public class PortfolioNewStratergy extends FlexiblePortfolioImpl implements Port
     // make transaction for every specified frequency range in the given time range.
     // if end date is not given then, do the transaction till today.
     // if future date is given do transaction till today.
+  }
+  public String listJSONfiles(String rootDir){
+    String message = "";
+    File curDir = new File(rootDir);
+    File[] filesList = curDir.listFiles();
+    for (File f : filesList) {
+      if (f.isFile()) {
+        // list only .json files.
+        if (f.getName().contains(".json")) {
+          message += f.getName().split("\\.json")[0] +"\n";
+        }
+      }
+    }
+    return message;
   }
 
 }

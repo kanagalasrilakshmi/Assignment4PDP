@@ -59,5 +59,6 @@ public interface GUIView {
   void setdateVal(String message);
   void setpfNameCostBasis(String message);
   void setDate(String message);
+  void setportfoliosListModify(String message);
 
 }
