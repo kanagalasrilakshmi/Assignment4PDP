@@ -60,5 +60,7 @@ public interface GUIView {
   void setpfNameCostBasis(String message);
   void setDate(String message);
   void setportfoliosListModify(String message);
+  void setPortfoliosListVal(String message);
+  void setPortfoliosListBasis(String message);
 
 }

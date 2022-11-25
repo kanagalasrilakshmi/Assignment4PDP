@@ -435,6 +435,8 @@ public class ControllerImplGUI implements Controller, ActionListener {
           guiView.setValueLabelStatus("Please specify the root directory path!!");
         } else {
           guiView.setValueLabelStatus(null);
+          String message = portfolio.listJSONfiles(this.rootDir);
+          guiView.setPortfoliosListVal(message);
           guiView.displayValuepf();
         }
       }
@@ -454,6 +456,8 @@ public class ControllerImplGUI implements Controller, ActionListener {
           guiView.setLabelCostBasisStatus("Please specify the root directory path!!");
         } else {
           guiView.setLabelCostBasisStatus(null);
+          String message = portfolio.listJSONfiles(this.rootDir);
+          guiView.setPortfoliosListBasis(message);
           guiView.displayCostBasis();
         }
       }

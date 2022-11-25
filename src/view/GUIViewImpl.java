@@ -40,6 +40,8 @@ public class GUIViewImpl extends JFrame implements GUIView {
   private JTextField numstockscreate;
   private JTextField commissionfeescreate;
   private JTextArea portfoliosListModify = new JTextArea();
+  private JTextArea portfoliosListVal = new JTextArea();
+  private JTextArea portfoliosListBasis = new JTextArea();
   private JButton add = new JButton("Add");
   private JButton save = new JButton("Save");
 
@@ -221,6 +223,8 @@ public class GUIViewImpl extends JFrame implements GUIView {
   }
 
   private JPanel getCostBasisPanelDialog() {
+    JLabel listPortfolios = new JLabel("List of all the portfolios in the given path:");
+    portfoliosListBasis.setEditable(false);
     JPanel costBasisDialog = new JPanel();
     pfName = new JTextField(25);
     JLabel pfNameLabel = new JLabel("Enter Portfolio Name:");
@@ -228,6 +232,11 @@ public class GUIViewImpl extends JFrame implements GUIView {
     JLabel dateLabel = new JLabel("Enter date to compute cost basis:");
     getCostBasis.setActionCommand("Compute Cost Basis");
     costBasisDialog.setLayout(new BoxLayout(costBasisDialog, BoxLayout.Y_AXIS));
+    costBasisDialog.setPreferredSize(new Dimension(700,700));
+    costBasisDialog.setMaximumSize(new Dimension(900,500));
+    costBasisDialog.setMinimumSize(new Dimension(400,400));
+    costBasisDialog.add(listPortfolios);
+    costBasisDialog.add(portfoliosListBasis);
     costBasisDialog.add(pfNameLabel);
     costBasisDialog.add(pfName);
     costBasisDialog.add(dateLabel);
@@ -238,6 +247,14 @@ public class GUIViewImpl extends JFrame implements GUIView {
   }
   public void setportfoliosListModify(String message){
     this.portfoliosListModify.append(message);
+  }
+
+  public void setPortfoliosListVal(String message){
+    this.portfoliosListVal.append(message);
+  }
+
+  public void setPortfoliosListBasis(String message){
+    this.portfoliosListBasis.append(message);
   }
 
   private JPanel getModifyPanelDialog() {
@@ -278,12 +295,19 @@ public class GUIViewImpl extends JFrame implements GUIView {
 
   private JPanel getValuePanelDialog() {
     JPanel valDialog = new JPanel();
+    JLabel listPortfolios = new JLabel("List of all the portfolios in the given path:");
+    portfoliosListVal.setEditable(false);
     pfnamevalue = new JTextField(25);
     JLabel pfNameLabel = new JLabel("Enter Portfolio Name: ");
     datevalue = new JTextField(25);
     JLabel dateLabel = new JLabel("Enter date to compute value of the portfolio:");
     computeval.setActionCommand("Compute Value of Pf");
     valDialog.setLayout(new BoxLayout(valDialog, BoxLayout.Y_AXIS));
+    valDialog.setPreferredSize(new Dimension(700,700));
+    valDialog.setMaximumSize(new Dimension(900,500));
+    valDialog.setMinimumSize(new Dimension(400,400));
+    valDialog.add(listPortfolios);
+    valDialog.add(portfoliosListVal);
     valDialog.add(pfNameLabel);
     valDialog.add(pfnamevalue);
     valDialog.add(dateLabel);
