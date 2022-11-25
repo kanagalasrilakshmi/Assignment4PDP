@@ -25,11 +25,6 @@ public class ControllerImplGUI implements Controller, ActionListener {
   private Float commisionModify;
   private String rootDir;
   private String rootDirUser;
-  private String pfNameCreate;
-  private String tickrCreate;
-  private String numStocksCreate;
-  private String dateCreate;
-  private String commissionCreate;
   private JSONObject addTickr;
 
 
@@ -298,7 +293,6 @@ public class ControllerImplGUI implements Controller, ActionListener {
       guiView.setCostBasisDialogStatus("All the values are not given!!");
     }
     else{
-      // validate pf name.
       if (!checkValidpfName(pfNameBasis)) {
         guiView.setCostBasisDialogStatus("Please enter a valid Portfolio name!!");
       }
@@ -307,7 +301,6 @@ public class ControllerImplGUI implements Controller, ActionListener {
         guiView.setCostBasisDialogStatus("Portfolio with this name" +
                 pfNameBasis + "does not exist!!");
       }
-      // validate date.
       else if(!portfolio.checkIfRightFormat(dateBasis) || dateBasis.length() < 10){
         guiView.setCostBasisDialogStatus("Date is not entered in YYYY-DD-MM format!");
       }
