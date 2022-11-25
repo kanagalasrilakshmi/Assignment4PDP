@@ -42,5 +42,9 @@ public interface GUIView {
   String gettickrmodifyValue();
 
   String getcommissionfeesmodifyValue();
+  void setValueLabelStatus(String message);
+  void setvalueDialogStatus(String message);
+  String getpfnameVal();
+  String getdateVal();
 
 }

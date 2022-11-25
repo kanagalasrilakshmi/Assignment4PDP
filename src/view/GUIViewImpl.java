@@ -9,6 +9,7 @@ public class GUIViewImpl extends JFrame implements GUIView {
   private JLabel pathStore;
   private JLabel createStatus;
   private JLabel modifyStatus = new JLabel();
+  private JLabel valueStatus = new JLabel();
   private JButton inputButton;
   private JButton costBasisButton;
   private JButton quitButton;
@@ -61,6 +62,7 @@ public class GUIViewImpl extends JFrame implements GUIView {
   private JLabel setCostBasis = new JLabel();
   private JLabel createDialogStatus = new JLabel();
   private JLabel modifyDialogStatus = new JLabel();
+  private JLabel valDialogStatus = new JLabel();
 
   public GUIViewImpl() {
     super();
@@ -173,6 +175,9 @@ public class GUIViewImpl extends JFrame implements GUIView {
   public void setmodifyDialogStatus(String message){
     modifyDialogStatus.setText(message);
   }
+  public void setvalueDialogStatus(String message){
+    valDialogStatus.setText(message);
+  }
 
   private JPanel getCostBasisPanelDialog() {
     JPanel costBasisDialog = new JPanel();
@@ -233,9 +238,17 @@ public class GUIViewImpl extends JFrame implements GUIView {
     valDialog.add(dateLabel);
     valDialog.add(datevalue);
     valDialog.add(computeval);
+    valDialog.add(valDialogStatus);
     return valDialog;
   }
 
+  public String getpfnameVal(){
+    return pfnamevalue.getText();
+  }
+
+  public String getdateVal(){
+    return datevalue.getText();
+  }
   public String pfNameCostBasis() {
     return pfName.getText();
   }
@@ -314,6 +327,10 @@ public class GUIViewImpl extends JFrame implements GUIView {
     this.modifyStatus.setText(message);
   }
 
+  public void setValueLabelStatus(String message){
+    this.valueStatus.setText(message);
+  }
+
   private void getModifyPanel() {
     modifyPanel = new JPanel();
     getModifyButton = new JButton("Modify a Portfolio");
@@ -330,6 +347,7 @@ public class GUIViewImpl extends JFrame implements GUIView {
             "specific date"));
     getValueButton.setActionCommand("Get Value");
     valueDatePanel.add(getValueButton);
+    valueDatePanel.add(valueStatus);
   }
 
   private void getCostBasisPanel() {
