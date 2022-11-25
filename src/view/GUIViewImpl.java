@@ -167,12 +167,24 @@ public class GUIViewImpl extends JFrame implements GUIView {
     return this.pfnamemodify.getText();
   }
 
+  public void setModifyPfValue(String message){
+    this.pfnamemodify.setText(message);
+  }
+
   public String getdateofmodifynValue(){
     return this.dateofmodify.getText();
   }
 
+  public void setdateofmodifynValue(String message){
+    this.dateofmodify.setText(message);
+  }
+
   public String getnumstocksmodifyValue(){
     return this.numstocksmodify.getText();
+  }
+
+  public void setnumstocksmodifyValue(String message){
+    this.numstocksmodify.setText(message);
   }
 
   public String gettickrmodifyValue(){
@@ -185,6 +197,10 @@ public class GUIViewImpl extends JFrame implements GUIView {
 
   public String getcommissionfeesmodifyValue(){
     return this.commissionfessmodify.getText();
+  }
+
+  public void setcommissionfeesmodifyValue(String message){
+    this.commissionfessmodify.setText(message);
   }
 
   public void setcreateDialogStatus(String message){
@@ -269,15 +285,31 @@ public class GUIViewImpl extends JFrame implements GUIView {
     return pfnamevalue.getText();
   }
 
+  public void setpfnameVal(String message){
+    pfnamevalue.setText(message);
+  }
+
   public String getdateVal(){
     return datevalue.getText();
+  }
+
+  public void setdateVal(String message){
+    this.datevalue.setText(message);
   }
   public String pfNameCostBasis() {
     return pfName.getText();
   }
 
+  public void setpfNameCostBasis(String message){
+    pfName.setText(message);
+  }
+
   public String getDate() {
     return date.getText();
+  }
+
+  public void setDate(String message){
+    date.setText(message);
   }
 
   public void setLabelCostBasisStatus(String message) {

@@ -90,14 +90,17 @@ public class ControllerImplGUI implements Controller, ActionListener {
       if (label.equals("modify")) {
         guiView.setmodifyDialogStatus("Portfolio with this name" +
                 pfName + " does not exist!!");
+        guiView.setModifyPfValue(null);
         return false;
       } else if (label.equals("costBasis")) {
         guiView.setCostBasisDialogStatus("Portfolio with this name" +
                 pfName + " does not exist!!");
+        guiView.setpfNameCostBasis(null);
         return false;
       } else if (label.equals("valDate")) {
         guiView.setvalueDialogStatus("Portfolio with this name" +
                 pfName + "does not exist!!");
+        guiView.setpfnameVal(null);
       }
     }
     return true;

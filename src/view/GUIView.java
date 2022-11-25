@@ -51,5 +51,13 @@ public interface GUIView {
   void setnumstockscreateValue(String message);
   void setdateofcreationValue(String message);
   void setcommissionfeescreateValue(String message);
+  void setModifyPfValue(String message);
+  void setnumstocksmodifyValue(String message);
+  void setdateofmodifynValue(String message);
+  void setcommissionfeesmodifyValue(String message);
+  void setpfnameVal(String message);
+  void setdateVal(String message);
+  void setpfNameCostBasis(String message);
+  void setDate(String message);
 
 }
