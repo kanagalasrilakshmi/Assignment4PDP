@@ -262,10 +262,10 @@ public class ControllerImplGUI implements Controller, ActionListener {
     }
 
   }
-  private void validateDate(String pfNamedate, String dateValue)
+  private void validateDateVal(String pfNamedate, String dateValue)
           throws FileNotFoundException, ParseException {
-    if(guiView.getpfnameVal() == null || guiView.getpfnameVal().length() == 0 ||
-            guiView.getdateVal() == null || guiView.getdateVal().length() == 0 ){
+    if(pfNamedate == null || pfNamedate.length() == 0 ||
+            dateValue == null || dateValue.length() == 0 ){
       guiView.setvalueDialogStatus("All the values are not given!!");
     }
     else{
@@ -287,6 +287,39 @@ public class ControllerImplGUI implements Controller, ActionListener {
       else{
         float totVal = portfolio.portfolioValueDate(this.rootDir, pfNamedate, dateValue);
         guiView.setvalueDialogStatus("Portfolio Value on " + dateValue + " is : $" + totVal);
+      }
+    }
+  }
+
+  private void validateCostBasis(String pfNameBasis, String dateBasis) throws ParseException {
+    if(pfNameBasis == null || pfNameBasis.length() == 0 ||
+            dateBasis == null || dateBasis.length() == 0 ){
+      guiView.setCostBasisDialogStatus("All the values are not given!!");
+    }
+    else{
+      // validate pf name.
+      if (!checkValidpfName(pfNameBasis)) {
+        guiView.setCostBasisDialogStatus("Please enter a valid Portfolio name!!");
+      }
+      else if (!(new File(this.rootDir
+              + pfNameBasis + ".json").exists())) {
+        guiView.setCostBasisDialogStatus("Portfolio with this name" +
+                pfNameBasis + "does not exist!!");
+      }
+      // validate date.
+      else if(!portfolio.checkIfRightFormat(dateBasis) || dateBasis.length() < 10){
+        guiView.setCostBasisDialogStatus("Date is not entered in YYYY-DD-MM format!");
+      }
+      else if (portfolio.checkFutureDate(dateBasis) ||
+              portfolio.checkTodayDateAndTime(dateBasis)) {
+        guiView.setCostBasisDialogStatus("You can only enter past date or present(if after " +
+                "9:30am).! Please enter new date");
+      }
+      else{
+        float costBasis = portfolio.getCostBasis(this.rootDir + pfNameBasis
+                + ".json", dateBasis);
+        guiView.setCostBasisDialogStatus("The cost basis till date, " + dateBasis + " is: $" +
+                costBasis);
       }
     }
   }
@@ -370,7 +403,7 @@ public class ControllerImplGUI implements Controller, ActionListener {
       break;
       case "Compute Value of Pf":{
         try {
-          validateDate(guiView.getpfnameVal(),guiView.getdateVal());
+          validateDateVal(guiView.getpfnameVal(),guiView.getdateVal());
         } catch (FileNotFoundException e) {
           throw new RuntimeException(e);
         } catch (ParseException e) {
@@ -380,13 +413,18 @@ public class ControllerImplGUI implements Controller, ActionListener {
       break;
       case "Get Cost Basis": {
         if (this.rootDirUser == null || this.rootDirUser.length() == 0) {
-          // guiView.setCreateLabelStatus("Please specify the root directory path!!");
+          guiView.setLabelCostBasisStatus("Please specify the root directory path!!");
         }
         else{
-          // if pf name||date label is null then return a message that all values are not given.
-          // validate date.
-          // validate num of stocks.
           guiView.displayCostBasis();
+        }
+      }
+      break;
+      case "Compute Cost Basis":{
+        try {
+          validateCostBasis(guiView.pfNameCostBasis(),guiView.getDate());
+        } catch (ParseException e) {
+          throw new RuntimeException(e);
         }
       }
       break;

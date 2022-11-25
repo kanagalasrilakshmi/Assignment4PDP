@@ -30,7 +30,7 @@ public class GUIViewImpl extends JFrame implements GUIView {
   private JButton dollarCostExisting;
   private JButton dollarCostNew;
 
-  private JLabel costBasisResult;
+  private JLabel costBasisStatus = new JLabel();
 
   private JTextField pfName;
   private JTextField date;
@@ -59,10 +59,10 @@ public class GUIViewImpl extends JFrame implements GUIView {
   private JButton computeval = new JButton("Compute Value of Portfolio");
 
 
-  private JLabel setCostBasis = new JLabel();
   private JLabel createDialogStatus = new JLabel();
   private JLabel modifyDialogStatus = new JLabel();
   private JLabel valDialogStatus = new JLabel();
+  private JLabel costBasisDialogStatus = new JLabel();
 
   public GUIViewImpl() {
     super();
@@ -91,10 +91,6 @@ public class GUIViewImpl extends JFrame implements GUIView {
 
   public void setpathStore(String setMessage) {
     pathStore.setText(setMessage);
-  }
-
-  public void setCostBasisResult(String message) {
-    costBasisResult.setText(message);
   }
 
   private JPanel getCreatePfDialog() {
@@ -179,6 +175,10 @@ public class GUIViewImpl extends JFrame implements GUIView {
     valDialogStatus.setText(message);
   }
 
+  public void setCostBasisDialogStatus(String message){
+    costBasisDialogStatus.setText(message);
+  }
+
   private JPanel getCostBasisPanelDialog() {
     JPanel costBasisDialog = new JPanel();
     pfName = new JTextField(25);
@@ -192,7 +192,7 @@ public class GUIViewImpl extends JFrame implements GUIView {
     costBasisDialog.add(dateLabel);
     costBasisDialog.add(date);
     costBasisDialog.add(getCostBasis);
-    costBasisDialog.add(setCostBasis);
+    costBasisDialog.add(costBasisDialogStatus);
     return costBasisDialog;
   }
 
@@ -257,8 +257,8 @@ public class GUIViewImpl extends JFrame implements GUIView {
     return date.getText();
   }
 
-  public void setLabelCostBasis(String message) {
-    setCostBasis.setText(message);
+  public void setLabelCostBasisStatus(String message) {
+    costBasisStatus.setText(message);
   }
 
   public void displayCostBasis() {
@@ -358,8 +358,8 @@ public class GUIViewImpl extends JFrame implements GUIView {
     costBasisButton = new JButton("Get cost basis");
     costBasisButton.setActionCommand("Get Cost Basis");
     costBasisPanel.add(costBasisButton);
-    costBasisResult = new JLabel();
-    costBasisPanel.add(costBasisResult);
+    costBasisStatus = new JLabel();
+    costBasisPanel.add(costBasisStatus);
   }
 
   private void getQuitPanel() {

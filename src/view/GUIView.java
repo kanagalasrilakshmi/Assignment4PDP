@@ -9,15 +9,13 @@ public interface GUIView {
 
   void setpathStore(String setMessage);
 
-  void setCostBasisResult(String message);
-
   void displayCostBasis();
 
   String pfNameCostBasis();
 
   String getDate();
 
-  void setLabelCostBasis(String message);
+  void setLabelCostBasisStatus(String message);
 
   void displayCreatePf();
 
@@ -46,5 +44,6 @@ public interface GUIView {
   void setvalueDialogStatus(String message);
   String getpfnameVal();
   String getdateVal();
+  void setCostBasisDialogStatus(String message);
 
 }
