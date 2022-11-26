@@ -392,6 +392,8 @@ public class ControllerImplGUI implements ControllerGUI {
     }
     else{
       if (checkPortfolioField(pfNameComposition, "composition")){
+        JSONObject portfolioObj = portfolio.readPortfolio(this.rootDir +
+                pfNameComposition + ".json");
         guiView.setPortfoliosListComposition("");
       }
     }
