@@ -9,11 +9,21 @@ import controller.ControllerImplGUI;
 public interface GUIView {
 
   void makeVisible();
+
   void setpathStore(String setMessage);
+
   void displayCostBasis();
+
+  String pfNameCostBasis();
+
+  String getDate();
+
   void setLabelCostBasisStatus(String message);
+
   void displayCreatePf();
+
   void displayModifyPf();
+
   void displayValuepf();
   void setCreateLabelStatus(String message);
   void setcreateDialogStatus(String message);
@@ -21,6 +31,8 @@ public interface GUIView {
   void setmodifyDialogStatus(String message);
   void setValueLabelStatus(String message);
   void setvalueDialogStatus(String message);
+  String getpfnameVal();
+  String getdateVal();
   void setCostBasisDialogStatus(String message);
   void setCreatePfValue(String message);
   void settickrmodifyValue(String message);
