@@ -394,6 +394,9 @@ public class ControllerImplGUI implements ControllerGUI {
       } else if (label.equals("create")) {
         guiView.setCreateLabelStatus("Please specify the root directory path!!");
       }
+      else if(label.equals("composition")){
+        guiView.setRetrievePanelStatus("Please specify the root directory path!!");
+      }
     } else {
       String message = portfolio.listJSONfiles(this.rootDir);
       if (message == null || message.length() == 0) {
@@ -416,6 +419,10 @@ public class ControllerImplGUI implements ControllerGUI {
         guiView.setValueLabelStatus(null);
         guiView.setPortfoliosListVal(message);
         guiView.displayValuepf();
+      }
+      else if(label.equals("composition")){
+        guiView.setRetrievePanelStatus(null);
+        guiView.displayRetrievepf();
       }
     }
   }

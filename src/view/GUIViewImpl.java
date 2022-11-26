@@ -544,7 +544,7 @@ public class GUIViewImpl extends JFrame implements GUIView {
         throw new RuntimeException(e);
       }
     });
-    //retrievePf;
+    retrievePf.addActionListener(evt->features.displayDialogPane("composition"));
     //computecomposition;
   }
 }
