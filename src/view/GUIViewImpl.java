@@ -356,7 +356,7 @@ public class GUIViewImpl extends JFrame implements GUIView {
     JLabel createpf = new JLabel("Enter the name of the portfolio name to be created");
     dollarnewcreatepfname = new JTextField(25);
     JLabel stocksweights = new JLabel("Enter the stocks and corresponding weights");
-    stocksweightsnew = new JTextField(1000);
+    stocksweightsnew = new JTextField(100);
     JLabel stockweightdesc = new JLabel("For ex-GOOG-10,UBER-12....");
     JLabel money = new JLabel("Enter the money to be invested in the portfolio");
     dollarnewval = new JTextField(25);
@@ -406,7 +406,7 @@ public class GUIViewImpl extends JFrame implements GUIView {
     stratergydollarexistname = new JTextField(25);
     JLabel stocksweights = new JLabel("Enter the stocks and corresponding weights");
     JLabel stockweightdesc = new JLabel("For ex-GOOG-10,UBER-12....");
-    stocksweightexist = new JTextField(1000);
+    stocksweightexist = new JTextField(100);
     JLabel money = new JLabel("Enter the money to be invested in the portfolio");
     dollarexistval = new JTextField(25);
     JLabel date = new JLabel("Enter the date of investment");
