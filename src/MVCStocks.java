@@ -2,7 +2,6 @@ import java.io.IOException;
 import java.text.ParseException;
 
 import controller.Controller;
-import controller.ControllerGUI;
 import controller.ControllerImplGUI;
 import model.FlexiblePortfolioImpl;
 import model.Portfolio;
@@ -27,7 +26,7 @@ public class MVCStocks {
   public static void main(String[] args) throws ParseException, IOException {
     PortfolioStratergy modelFlex = new PortfolioNewStratergy();
     GUIView guiView = new GUIViewImpl();
-    ControllerGUI controllerGui = new ControllerImplGUI(modelFlex, guiView);
+    Controller controllerGui = new ControllerImplGUI(modelFlex, guiView);
     controllerGui.goStocks();
 
   }

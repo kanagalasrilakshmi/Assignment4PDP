@@ -3,13 +3,8 @@ package view;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.FileNotFoundException;
-import java.text.ParseException;
 
 import javax.swing.*;
-
-import controller.Controller;
-import controller.ControllerGUI;
 
 public class GUIViewImpl extends JFrame implements GUIView {
   private JLabel pathStore;
@@ -75,9 +70,18 @@ public class GUIViewImpl extends JFrame implements GUIView {
     finalPanel();
   }
 
+  @Override
   public void setCommandButtonListener(ActionListener actionEvent) {
+    inputButton.addActionListener(actionEvent);
     getCostBasis.addActionListener(actionEvent);
     costBasisButton.addActionListener(actionEvent);
+    createPfButton.addActionListener(actionEvent);
+    add.addActionListener(actionEvent);
+    save.addActionListener(actionEvent);
+    getModifyButton.addActionListener(actionEvent);
+    purchase.addActionListener(actionEvent);
+    sell.addActionListener(actionEvent);
+    getValueButton.addActionListener(actionEvent);
     computeval.addActionListener(actionEvent);
   }
 
@@ -124,31 +128,63 @@ public class GUIViewImpl extends JFrame implements GUIView {
     return createPanelDialog;
   }
 
+  public String getCreatePfValue(){
+    return this.pfnamecreate.getText();
+  }
+
   public void setCreatePfValue(String message){
     this.pfnamecreate.setText(message);
+  }
+  public String getdateofcreationValue(){
+    return this.dateofcreation.getText();
   }
 
   public void setdateofcreationValue(String message){
     this.dateofcreation.setText(message);
   }
 
+  public String getnumstockscreateValue(){
+    return this.numstockscreate.getText();
+  }
+
   public void setnumstockscreateValue(String message){
     this.numstockscreate.setText(message);
+  }
+
+  public String gettickrcreateValue(){
+    return this.tickrcreate.getText();
   }
 
   public void settickrcreateValue(String message){
     this.tickrcreate.setText(message);
   }
 
+  public String getcommissionfeescreateValue(){
+    return this.commissionfeescreate.getText();
+  }
+
   public void setcommissionfeescreateValue(String message){
     this.commissionfeescreate.setText(message);
+  }
+
+  public String getModifyPfValue(){
+    return this.pfnamemodify.getText();
   }
 
   public void setModifyPfValue(String message){
     this.pfnamemodify.setText(message);
   }
+
+  public String getdateofmodifynValue(){
+    return this.dateofmodify.getText();
+  }
+
   public void setdateofmodifynValue(String message){
     this.dateofmodify.setText(message);
+  }
+
+  public String getnumstocksmodifyValue(){
+    return this.numstocksmodify.getText();
   }
 
   public void setnumstocksmodifyValue(String message){
@@ -161,6 +197,10 @@ public class GUIViewImpl extends JFrame implements GUIView {
 
   public void settickrmodifyValue(String message){
     this.tickrmodify.setText(message);
+  }
+
+  public String getcommissionfeesmodifyValue(){
+    return this.commissionfessmodify.getText();
   }
 
   public void setcommissionfeesmodifyValue(String message){
@@ -466,42 +506,5 @@ public class GUIViewImpl extends JFrame implements GUIView {
     setSize(1000, 1000);
     setLocationRelativeTo(null);
   }
-  public void addFeatures(ControllerGUI features){
-    inputButton.addActionListener(evt ->features.setDirectory());
-    createPfButton.addActionListener(evt ->features.displayDialogPane("create"));
-    add.addActionListener(evt -> {
-      try {
-        features.addOperation(this.pfnamecreate.getText(),
-                this.tickrcreate.getText(), this.numstockscreate.getText(),
-                this.dateofcreation.getText(), this.commissionfeescreate.getText());
-      } catch (FileNotFoundException e) {
-        throw new RuntimeException(e);
-      }
-    });
-    save.addActionListener(evt -> features.saveOperation(this.pfnamecreate.getText()));
-    getModifyButton.addActionListener(evt ->features.displayDialogPane("modify"));
-    purchase.addActionListener(evt -> {
-      try {
-        features.modifyValidate(this.pfnamemodify.getText(), this.tickrmodify.getText(),
-                this.numstocksmodify.getText(),this.dateofmodify.getText(),
-                this.commissionfessmodify.getText(),"purchase");
-      } catch (FileNotFoundException e) {
-        throw new RuntimeException(e);
-      } catch (ParseException e) {
-        throw new RuntimeException(e);
-      }
-    });
-    sell.addActionListener( evt -> {
-      try {
-        features.modifyValidate(this.pfnamemodify.getText(), this.tickrmodify.getText(),
-                this.numstocksmodify.getText(),this.dateofmodify.getText(),
-                this.commissionfessmodify.getText(),"sell");
-      } catch (FileNotFoundException e) {
-        throw new RuntimeException(e);
-      } catch (ParseException e) {
-        throw new RuntimeException(e);
-      }
-    });
-    getValueButton.addActionListener(evt ->features.displayDialogPane("getDateVal"));
-}
+
 }
