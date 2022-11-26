@@ -27,6 +27,9 @@ public class GUIViewImpl extends JFrame implements GUIView {
   private JPanel dollarPanelNew;
   private JPanel quitPanel;
   private JPanel costBasisPanel;
+  private JLabel retrievePanelStatus;
+  private JPanel retrievePanel;
+  private JButton retrievePf = new JButton("Retrieve Portfolio");
   private JButton getCostBasis;
   private JButton getValueButton;
   private JButton getModifyButton;
@@ -45,6 +48,7 @@ public class GUIViewImpl extends JFrame implements GUIView {
   private final JTextArea portfoliosListModify = new JTextArea();
   private final JTextArea portfoliosListVal = new JTextArea();
   private final JTextArea portfoliosListBasis = new JTextArea();
+  private final JTextArea portfoliosListRetrieve = new JTextArea();
   private final JButton add = new JButton("Add");
   private final JButton save = new JButton("Save");
 
@@ -60,13 +64,15 @@ public class GUIViewImpl extends JFrame implements GUIView {
   // fields for value.
   private JTextField pfnamevalue;
   private JTextField datevalue;
+  private JTextField pfnameretrieve;
   private final JButton computeval = new JButton("Compute Value of Portfolio");
-
+  private final JButton computecomposition = new JButton("Get Portfolio Composition");
 
   private final JLabel createDialogStatus = new JLabel();
   private final JLabel modifyDialogStatus = new JLabel();
   private final JLabel valDialogStatus = new JLabel();
   private final JLabel costBasisDialogStatus = new JLabel();
+  private final JLabel retrieveDialogStatus = new JLabel();
 
   public GUIViewImpl() {
     super();
@@ -164,6 +170,9 @@ public class GUIViewImpl extends JFrame implements GUIView {
   public void setvalueDialogStatus(String message) {
     valDialogStatus.setText(message);
   }
+  public void setretrieveDialogStatus(String message){
+    retrieveDialogStatus.setText(message);
+  }
 
   public void setCostBasisDialogStatus(String message) {
     costBasisDialogStatus.setText(message);
@@ -202,6 +211,9 @@ public class GUIViewImpl extends JFrame implements GUIView {
 
   public void setPortfoliosListBasis(String message) {
     this.portfoliosListBasis.append(message);
+  }
+  public void setPortfoliosListRetrieve(String message){
+    this.portfoliosListRetrieve.append(message);
   }
 
   private JPanel getModifyPanelDialog() {
@@ -264,6 +276,25 @@ public class GUIViewImpl extends JFrame implements GUIView {
     return valDialog;
   }
 
+  private JPanel getRetrievePanelDialog(){
+    JPanel retrievePfDialog = new JPanel();
+    JLabel listPortfolios = new JLabel("List of all the portfolios in the given path:");
+    portfoliosListRetrieve.setEditable(false);
+    JLabel pfNameLabel = new JLabel("Enter Portfolio Name");
+    pfnameretrieve = new JTextField(25);
+    retrievePfDialog.setLayout(new BoxLayout(retrievePfDialog, BoxLayout.Y_AXIS));
+    retrievePfDialog.setPreferredSize(new Dimension(700, 700));
+    retrievePfDialog.setMaximumSize(new Dimension(900, 500));
+    retrievePfDialog.setMinimumSize(new Dimension(400, 400));
+    retrievePfDialog.add(listPortfolios);
+    retrievePfDialog.add(portfoliosListRetrieve);
+    retrievePfDialog.add(pfNameLabel);
+    retrievePfDialog.add(pfnameretrieve);
+    retrievePfDialog.add(computecomposition);
+    retrievePfDialog.add(retrieveDialogStatus);
+    return retrievePfDialog;
+  }
+
   public void setpfnameVal(String message) {
     pfnamevalue.setText(message);
   }
@@ -282,6 +313,9 @@ public class GUIViewImpl extends JFrame implements GUIView {
 
   public void setLabelCostBasisStatus(String message) {
     costBasisStatus.setText(message);
+  }
+  public void setRetrievePanelStatus(String message){
+    retrievePanelStatus.setText(message);
   }
 
   public void displayCostBasis() {
@@ -314,6 +348,14 @@ public class GUIViewImpl extends JFrame implements GUIView {
     JOptionPane optionPane = new JOptionPane(getValuePanelDialog(), JOptionPane.PLAIN_MESSAGE,
             JOptionPane.DEFAULT_OPTION, null, new Object[]{}, null);
     dialog = optionPane.createDialog("Value of the Portfolio");
+    dialog.setVisible(true);
+  }
+
+  public void displayRetrievepf(){
+    JDialog dialog;
+    JOptionPane optionPane = new JOptionPane(getRetrievePanelDialog(), JOptionPane.PLAIN_MESSAGE,
+            JOptionPane.DEFAULT_OPTION, null, new Object[]{}, null);
+    dialog = optionPane.createDialog("Composition of the Portfolio");
     dialog.setVisible(true);
   }
 
@@ -380,6 +422,16 @@ public class GUIViewImpl extends JFrame implements GUIView {
     costBasisPanel.add(costBasisStatus);
   }
 
+  private void getRetrievePfPanel(){
+    retrievePanel = new JPanel();
+    retrievePf = new JButton("Retrieve Portfolio");
+    retrievePanel.setBorder(BorderFactory.createTitledBorder("Retrieve Composition of a " +
+            "Portfolio"));
+    retrievePanel.add(retrievePf);
+    retrievePanelStatus = new JLabel();
+    retrievePanel.add(retrievePanelStatus);
+  }
+
   private void getQuitPanel() {
     quitPanel = new JPanel();
     quitPanel.setBorder(BorderFactory.createTitledBorder("Quit the stocks program"));
@@ -409,10 +461,6 @@ public class GUIViewImpl extends JFrame implements GUIView {
     dollarPanelNew.add(dollarCostNew);
   }
 
-  private void getRetrievePanel(){
-
-  }
-
   private void finalPanel() {
     setTitle("Stocks Program");
     getMainPanel();
@@ -421,6 +469,7 @@ public class GUIViewImpl extends JFrame implements GUIView {
     getModifyPanel();
     getValueDatePanel();
     getCostBasisPanel();
+    getRetrievePfPanel();
     getDollarCostExisting();
     getDollarCostNew();
     getQuitPanel();
@@ -429,6 +478,7 @@ public class GUIViewImpl extends JFrame implements GUIView {
     mainJPanel.add(modifyPanel);
     mainJPanel.add(costBasisPanel);
     mainJPanel.add(valueDatePanel);
+    mainJPanel.add(retrievePanel);
     mainJPanel.add(dollarPanelExisting);
     mainJPanel.add(dollarPanelNew);
     mainJPanel.add(quitPanel);
@@ -494,5 +544,7 @@ public class GUIViewImpl extends JFrame implements GUIView {
         throw new RuntimeException(e);
       }
     });
+    //retrievePf;
+    //computecomposition;
   }
 }

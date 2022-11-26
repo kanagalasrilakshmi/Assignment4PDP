@@ -67,5 +67,9 @@ public interface GUIView {
   void setPortfoliosListBasis(String message);
 
   void addFeatures(ControllerGUI features);
+  void setRetrievePanelStatus(String message);
+  void setPortfoliosListRetrieve(String message);
+  void displayRetrievepf();
+  void setretrieveDialogStatus(String message);
 
 }
