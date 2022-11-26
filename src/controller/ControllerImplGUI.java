@@ -3,8 +3,6 @@ package controller;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -25,62 +23,10 @@ public class ControllerImplGUI implements ControllerGUI {
   private String rootDirUser;
   private JSONObject addTickr;
 
-
   public ControllerImplGUI(PortfolioStratergy portfolio, GUIView guiView) {
     this.guiView = guiView;
     this.portfolio = portfolio;
     this.rootDir = System.getProperty("user.home") + "/Desktop/PortfolioBucket/";
-  }
-
-  public void setDirectory() {
-    this.rootDirUser = JOptionPane.showInputDialog("Please enter path to store portfolios");
-    if (this.rootDirUser == null || this.rootDirUser.length() == 0) {
-      this.rootDirUser = this.rootDir;
-      guiView.setpathStore("No path is given hence " +
-              this.rootDir + " is set by default.");
-      guiView.setCreateLabelStatus(null);
-      guiView.setModifyLabelStatus(null);
-      guiView.setValueLabelStatus(null);
-      guiView.setLabelCostBasisStatus(null);
-    } else if (new File(this.rootDirUser).exists()) {
-      guiView.setpathStore("Portfolios can be accessed in the " + this.rootDirUser + " location ");
-      if (!portfolio.checkLastEndingCharacter(this.rootDirUser)) {
-        this.rootDirUser = this.rootDirUser + "/";
-      }
-      this.rootDir = this.rootDirUser;
-      guiView.setCreateLabelStatus(null);
-      guiView.setModifyLabelStatus(null);
-      guiView.setValueLabelStatus(null);
-      guiView.setLabelCostBasisStatus(null);
-    } else {
-      guiView.setpathStore("Invalid path given so portfolios will be stored in " +
-              this.rootDir + " by default.");
-      guiView.setCreateLabelStatus(null);
-      guiView.setModifyLabelStatus(null);
-      guiView.setValueLabelStatus(null);
-      guiView.setLabelCostBasisStatus(null);
-      if (!new File(this.rootDir).exists()) {
-        try {
-          Path path = Paths.get(this.rootDir);
-          Files.createDirectories(path);
-        } catch (Exception e) {
-          e.printStackTrace();
-        }
-      }
-    }
-  }
-
-  public void saveOperation(String pfNameCreate) {
-    if (pfNameCreate == null || pfNameCreate.length() == 0) {
-      guiView.setcreateDialogStatus("Portfolio Name is to be given!!");
-    }
-    else{
-      if(checkPortfolioField(pfNameCreate,"save")){
-        portfolio.savePortfolio(this.rootDir + pfNameCreate + ".json",
-                this.addTickr);
-        guiView.setcreateDialogStatus("Successfully created the portfolio " + pfNameCreate);
-      }
-    }
   }
 
   private boolean checkPortfolioField(String pfName, String label) {
@@ -169,9 +115,8 @@ public class ControllerImplGUI implements ControllerGUI {
         guiView.setnumstocksmodifyValue(null);
       }
       return false;
-    }
-    else{
-      if(Integer.valueOf(numStocks)<0){
+    } else {
+      if (Integer.valueOf(numStocks) < 0) {
         if (label.equals("add")) {
           guiView.setcreateDialogStatus("Number of stocks cannot be negative");
           guiView.setnumstockscreateValue(null);
@@ -218,7 +163,7 @@ public class ControllerImplGUI implements ControllerGUI {
   }
 
   private boolean checkCommissionField(String commissionCreate, String label) {
-    if (commissionCreate == null || commissionCreate.length() == 0){
+    if (commissionCreate == null || commissionCreate.length() == 0) {
       return true;
     }
     if (commissionCreate != null || commissionCreate.length() > 0) {
@@ -247,8 +192,109 @@ public class ControllerImplGUI implements ControllerGUI {
     return true;
   }
 
+  private void validateTickrModify(String pfNameModify, String tickrModify, String numStocksModify,
+                                   String dateModify, Float commission, String label,
+                                   String labelStatus) throws FileNotFoundException,
+          ParseException {
+    if (labelStatus.equals("sell") || labelStatus.equals("purchase")) {
+      boolean checkLabel = true;
+      if (labelStatus.equals("sell")) {
+        if (!portfolio.ifTickrInPf(this.rootDir + pfNameModify + ".json", tickrModify)) {
+          guiView.setmodifyDialogStatus("No stocks for this tickr exists to sell.");
+          checkLabel = false;
+          guiView.settickrmodifyValue(null);
+        } else if (!portfolio.checkValidSell(this.rootDir + pfNameModify + ".json",
+                Integer.valueOf(numStocksModify), tickrModify, dateModify)) {
+          guiView.setmodifyDialogStatus("The number entered for selling stocks is more than " +
+                  "stocks purchased");
+          checkLabel = false;
+          guiView.setnumstocksmodifyValue(null);
+        } else {
+          portfolio.modifyJson(commission, Integer.valueOf(numStocksModify) * (-1),
+                  dateModify, tickrModify, this.rootDir + pfNameModify + ".json");
+        }
+      } else if (labelStatus.equals("purchase")) {
+        portfolio.modifyJson(commission, Integer.valueOf(numStocksModify), dateModify,
+                tickrModify, this.rootDir + pfNameModify + ".json");
+      }
+      if (checkLabel) {
+        guiView.setmodifyDialogStatus("The portfolio " + pfNameModify +
+                " is successfully modified");
+        guiView.setdateofmodifynValue(null);
+        guiView.settickrmodifyValue(null);
+        guiView.setnumstocksmodifyValue(null);
+        if (commission != 0.0f) {
+          guiView.setcommissionfeescreateValue(null);
+        }
+      }
+    }
+  }
+
+  public void setDirectory() {
+    this.rootDirUser = JOptionPane.showInputDialog("Please enter path to store portfolios");
+    if (this.rootDirUser == null || this.rootDirUser.length() == 0) {
+      this.rootDirUser = this.rootDir;
+      guiView.setpathStore("No path is given hence " +
+              this.rootDir + " is set by default.");
+      guiView.setCreateLabelStatus(null);
+      guiView.setModifyLabelStatus(null);
+      guiView.setValueLabelStatus(null);
+      guiView.setLabelCostBasisStatus(null);
+    } else if (new File(this.rootDirUser).exists()) {
+      guiView.setpathStore("Portfolios can be accessed in the " + this.rootDirUser + " location ");
+      if (!portfolio.checkLastEndingCharacter(this.rootDirUser)) {
+        this.rootDirUser = this.rootDirUser + "/";
+      }
+      this.rootDir = this.rootDirUser;
+      guiView.setCreateLabelStatus(null);
+      guiView.setModifyLabelStatus(null);
+      guiView.setValueLabelStatus(null);
+      guiView.setLabelCostBasisStatus(null);
+    } else {
+      guiView.setpathStore("Invalid path given so portfolios will be stored in " +
+              this.rootDir + " by default.");
+      guiView.setCreateLabelStatus(null);
+      guiView.setModifyLabelStatus(null);
+      guiView.setValueLabelStatus(null);
+      guiView.setLabelCostBasisStatus(null);
+      if (!new File(this.rootDir).exists()) {
+        try {
+          Path path = Paths.get(this.rootDir);
+          Files.createDirectories(path);
+        } catch (Exception e) {
+          e.printStackTrace();
+        }
+      }
+    }
+  }
+
+  public void saveOperation(String pfNameCreate) {
+    if (pfNameCreate == null || pfNameCreate.length() == 0) {
+      guiView.setcreateDialogStatus("Portfolio Name is to be given!!");
+    } else {
+      if (checkPortfolioField(pfNameCreate, "save")) {
+        portfolio.savePortfolio(this.rootDir + pfNameCreate + ".json",
+                this.addTickr);
+        guiView.setcreateDialogStatus("Successfully created the portfolio " + pfNameCreate);
+      }
+    }
+  }
+
+  public boolean checkValidpfName(String pfName) {
+    if (pfName == null || pfName.length() > 25 || pfName.isEmpty() || pfName.contains(" ")) {
+      return false;
+    }
+    for (int i = 0; i < pfName.length(); i++) {
+      if (!Character.isLetter(pfName.charAt(i))) {
+        return false;
+      }
+    }
+    return true;
+  }
+
   public void addOperation(String pfNameCreate, String tickrCreate, String numStocksCreate,
-                            String dateCreate, String commissionCreate) throws FileNotFoundException {
+                           String dateCreate, String commissionCreate)
+          throws FileNotFoundException {
     if (checkAllfields(pfNameCreate, tickrCreate, numStocksCreate, dateCreate)) {
       guiView.setcreateDialogStatus("All the fields are not given!!");
     } else {
@@ -280,59 +326,8 @@ public class ControllerImplGUI implements ControllerGUI {
     }
   }
 
-  public boolean checkValidpfName(String pfName) {
-    if (pfName == null || pfName.length() > 25 || pfName.isEmpty() || pfName.contains(" ")) {
-      return false;
-    }
-    for (int i = 0; i < pfName.length(); i++) {
-      if (!Character.isLetter(pfName.charAt(i))) {
-        return false;
-      }
-    }
-    return true;
-  }
-
-  private void validateTickrModify(String pfNameModify, String tickrModify, String numStocksModify,
-                                   String dateModify, Float commission, String label,
-                                   String labelStatus) throws FileNotFoundException,
-          ParseException {
-    if(labelStatus.equals("sell") || labelStatus.equals("purchase")){
-      boolean checkLabel = true;
-      if (labelStatus.equals("sell")) {
-        if (!portfolio.ifTickrInPf(this.rootDir + pfNameModify + ".json", tickrModify)) {
-          guiView.setmodifyDialogStatus("No stocks for this tickr exists to sell.");
-          checkLabel = false;
-          guiView.settickrmodifyValue(null);
-        } else if (!portfolio.checkValidSell(this.rootDir + pfNameModify + ".json",
-                Integer.valueOf(numStocksModify), tickrModify, dateModify)) {
-          guiView.setmodifyDialogStatus("The number entered for selling stocks is more than " +
-                  "stocks purchased");
-          checkLabel = false;
-          guiView.setnumstocksmodifyValue(null);
-        } else {
-          portfolio.modifyJson(commission, Integer.valueOf(numStocksModify) * (-1),
-                  dateModify, tickrModify, this.rootDir + pfNameModify + ".json");
-        }
-      }
-      else if (labelStatus.equals("purchase")) {
-        portfolio.modifyJson(commission, Integer.valueOf(numStocksModify), dateModify,
-                tickrModify, this.rootDir + pfNameModify + ".json");
-      }
-      if(checkLabel){
-        guiView.setmodifyDialogStatus("The portfolio " + pfNameModify +
-                " is successfully modified");
-        guiView.setdateofmodifynValue(null);
-        guiView.settickrmodifyValue(null);
-        guiView.setnumstocksmodifyValue(null);
-        if(commission != 0.0f){
-          guiView.setcommissionfeescreateValue(null);
-        }
-      }
-    }
-  }
-
   public void modifyValidate(String pfNameModify, String tickrModify, String numStocksModify,
-                              String dateModify, String commissionModify, String statuslabel)
+                             String dateModify, String commissionModify, String statuslabel)
           throws FileNotFoundException, ParseException {
     if (checkAllfields(pfNameModify, tickrModify, numStocksModify, dateModify)) {
       guiView.setmodifyDialogStatus("All the fields are not given!!");
@@ -385,43 +380,36 @@ public class ControllerImplGUI implements ControllerGUI {
     }
   }
 
-  public void displayDialogPane(String label){
+  public void displayDialogPane(String label) {
     if (this.rootDirUser == null || this.rootDirUser.length() == 0) {
-      if(label.equals("costBasis")){
+      if (label.equals("costBasis")) {
         guiView.setLabelCostBasisStatus("Please specify the root directory path!!");
-      }
-      else if(label.equals("modify")){
+      } else if (label.equals("modify")) {
         guiView.setModifyLabelStatus("Please specify the root directory path!!");
-      }
-      else if(label.equals("getDateVal")){
+      } else if (label.equals("getDateVal")) {
         guiView.setValueLabelStatus("Please specify the root directory path!!");
-      }
-      else if(label.equals("create")){
+      } else if (label.equals("create")) {
         guiView.setCreateLabelStatus("Please specify the root directory path!!");
       }
-    }
-    else{
+    } else {
       String message = portfolio.listJSONfiles(this.rootDir);
-      if(message == null || message.length() == 0){
+      if (message == null || message.length() == 0) {
         message = "No portfolio exists in the given path. Create a new portfolio.";
       }
-      if(label.equals("create")){
+      if (label.equals("create")) {
         this.addTickr = new JSONObject();
         guiView.setCreateLabelStatus(null);
         guiView.setcreateDialogStatus(null);
         guiView.displayCreatePf();
-      }
-      else if(label.equals("costBasis")){
+      } else if (label.equals("costBasis")) {
         guiView.setLabelCostBasisStatus(null);
         guiView.setPortfoliosListBasis(message);
         guiView.displayCostBasis();
-      }
-      else if(label.equals("modify")){
+      } else if (label.equals("modify")) {
         guiView.setModifyLabelStatus(null);
         guiView.setportfoliosListModify(message);
         guiView.displayModifyPf();
-      }
-      else if(label.equals("getDateVal")){
+      } else if (label.equals("getDateVal")) {
         guiView.setValueLabelStatus(null);
         guiView.setPortfoliosListVal(message);
         guiView.displayValuepf();
