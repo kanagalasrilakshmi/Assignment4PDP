@@ -75,12 +75,6 @@ public class GUIViewImpl extends JFrame implements GUIView {
     finalPanel();
   }
 
-  public void setCommandButtonListener(ActionListener actionEvent) {
-    getCostBasis.addActionListener(actionEvent);
-    costBasisButton.addActionListener(actionEvent);
-    computeval.addActionListener(actionEvent);
-  }
-
   @Override
   public void makeVisible() {
     this.setVisible(true);
@@ -102,11 +96,8 @@ public class GUIViewImpl extends JFrame implements GUIView {
     tickrcreate = new JTextField(25);
     JLabel commissionLabel = new JLabel("Enter commission fees: ");
     commissionfeescreate = new JTextField(25);
-    add.setActionCommand("Add");
-    save.setActionCommand("Save");
     createPanelDialog.setPreferredSize(new Dimension(700,300));
     createPanelDialog.setLayout(new BoxLayout(createPanelDialog, BoxLayout.Y_AXIS));
-
     createPanelDialog.add(pfNameLabel);
     createPanelDialog.add(pfnamecreate);
     createPanelDialog.add(dateLabel);
@@ -190,7 +181,6 @@ public class GUIViewImpl extends JFrame implements GUIView {
     JLabel pfNameLabel = new JLabel("Enter Portfolio Name:");
     date = new JTextField(25);
     JLabel dateLabel = new JLabel("Enter date to compute cost basis:");
-    getCostBasis.setActionCommand("Compute Cost Basis");
     costBasisDialog.setLayout(new BoxLayout(costBasisDialog, BoxLayout.Y_AXIS));
     costBasisDialog.setPreferredSize(new Dimension(700,700));
     costBasisDialog.setMaximumSize(new Dimension(900,500));
@@ -261,7 +251,6 @@ public class GUIViewImpl extends JFrame implements GUIView {
     JLabel pfNameLabel = new JLabel("Enter Portfolio Name: ");
     datevalue = new JTextField(25);
     JLabel dateLabel = new JLabel("Enter date to compute value of the portfolio:");
-    computeval.setActionCommand("Compute Value of Pf");
     valDialog.setLayout(new BoxLayout(valDialog, BoxLayout.Y_AXIS));
     valDialog.setPreferredSize(new Dimension(700,700));
     valDialog.setMaximumSize(new Dimension(900,500));
@@ -338,7 +327,6 @@ public class GUIViewImpl extends JFrame implements GUIView {
     userPanel = new JPanel();
     userPanel.setBorder(BorderFactory.createTitledBorder("User Path"));
     inputButton = new JButton("Create User Path");
-    inputButton.setActionCommand("Input");
     userPanel.add(inputButton);
     pathStore = new JLabel();
     userPanel.add(pathStore);
@@ -348,7 +336,6 @@ public class GUIViewImpl extends JFrame implements GUIView {
     createPanel = new JPanel();
     createPanel.setBorder(BorderFactory.createTitledBorder("Create Flexible Portfolio"));
     createPfButton = new JButton("Create a New Portfolio");
-    createPfButton.setActionCommand("Create Portfolio");
     createStatus = new JLabel();
     createPanel.add(createPfButton);
     createPanel.add(createStatus);
@@ -370,7 +357,6 @@ public class GUIViewImpl extends JFrame implements GUIView {
     modifyPanel = new JPanel();
     getModifyButton = new JButton("Modify a Portfolio");
     modifyPanel.setBorder(BorderFactory.createTitledBorder("Modify a specific Portfolio"));
-    getModifyButton.setActionCommand("Modify Portfolio");
     modifyPanel.add(getModifyButton);
     modifyPanel.add(modifyStatus);
   }
@@ -380,7 +366,6 @@ public class GUIViewImpl extends JFrame implements GUIView {
     getValueButton = new JButton("Get Value of Portfolio on a Specific Date");
     valueDatePanel.setBorder(BorderFactory.createTitledBorder("Get Value of  portfolio on a " +
             "specific date"));
-    getValueButton.setActionCommand("Get Value");
     valueDatePanel.add(getValueButton);
     valueDatePanel.add(valueStatus);
   }
@@ -391,7 +376,6 @@ public class GUIViewImpl extends JFrame implements GUIView {
     costBasisPanel.setBorder(BorderFactory.createTitledBorder("Get Cost Basis and value of a " +
             "portfolio"));
     costBasisButton = new JButton("Get cost basis");
-    costBasisButton.setActionCommand("Get Cost Basis");
     costBasisPanel.add(costBasisButton);
     costBasisStatus = new JLabel();
     costBasisPanel.add(costBasisStatus);
