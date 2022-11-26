@@ -73,5 +73,9 @@ public interface GUIView {
   void setretrieveDialogStatus(String message);
   void setpfnameretrieve(String message);
   void setPortfoliosListComposition(String message);
+  void displayDollarExistingpf();
+  void displayDollarNewpf();
+  void setdollarExistingStatus(String message);
+  void setdollarNewStatus(String message);
 
 }

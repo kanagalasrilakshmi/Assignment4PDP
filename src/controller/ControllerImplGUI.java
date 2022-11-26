@@ -442,6 +442,12 @@ public class ControllerImplGUI implements ControllerGUI {
       } else if (label.equals("composition")) {
         guiView.setRetrievePanelStatus("Please specify the root directory path!!");
       }
+      else if(label.equals("dollarexist")){
+        guiView.setdollarExistingStatus("Please specify the root directory path!!");
+      }
+      else if(label.equals("dollarnew")){
+        guiView.setdollarNewStatus("Please specify the root directory path!!");
+      }
     } else {
       String message = portfolio.listJSONfiles(this.rootDir);
       if (message == null || message.length() == 0) {
@@ -468,6 +474,14 @@ public class ControllerImplGUI implements ControllerGUI {
         guiView.setRetrievePanelStatus(null);
         guiView.setPortfoliosListRetrieve(message);
         guiView.displayRetrievepf();
+      }
+      else if(label.equals("dollarexist")){
+        guiView.setdollarExistingStatus(null);
+        guiView.displayDollarExistingpf();
+      }
+      else if(label.equals("dollarnew")){
+        guiView.setdollarNewStatus(null);
+        guiView.displayDollarNewpf();
       }
     }
   }

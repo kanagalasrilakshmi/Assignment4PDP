@@ -28,6 +28,8 @@ public class GUIViewImpl extends JFrame implements GUIView {
   private JPanel quitPanel;
   private JPanel costBasisPanel;
   private JLabel retrievePanelStatus;
+  private JLabel dollarExistingStatus;
+  private JLabel dollarNewStatus;
   private JPanel retrievePanel;
   private JButton retrievePf = new JButton("Retrieve Portfolio");
   private JButton getCostBasis;
@@ -308,7 +310,15 @@ public class GUIViewImpl extends JFrame implements GUIView {
     retrievePfDialog.add(portfolioComposition);
     return retrievePfDialog;
   }
-
+  private JPanel getDollarCostNewDialog(){
+    JPanel dollarnewPfDialog = new JPanel();
+    return  dollarnewPfDialog;
+  }
+  private JPanel getDollarCostExistDialog(){
+    JPanel dollarexistingPfDialog = new JPanel();
+    
+    return  dollarexistingPfDialog;
+  }
   public void setpfnameVal(String message) {
     pfnamevalue.setText(message);
   }
@@ -374,6 +384,22 @@ public class GUIViewImpl extends JFrame implements GUIView {
     dialog.setVisible(true);
   }
 
+  public void displayDollarExistingpf(){
+    JDialog dialog;
+    JOptionPane optionPane = new JOptionPane(getDollarCostExistDialog(), JOptionPane.PLAIN_MESSAGE,
+            JOptionPane.DEFAULT_OPTION, null, new Object[]{}, null);
+    dialog = optionPane.createDialog("Dollar cost Averaging for existing portfolios!");
+    dialog.setVisible(true);
+  }
+
+  public void displayDollarNewpf(){
+    JDialog dialog;
+    JOptionPane optionPane = new JOptionPane(getDollarCostNewDialog(), JOptionPane.PLAIN_MESSAGE,
+            JOptionPane.DEFAULT_OPTION, null, new Object[]{}, null);
+    dialog = optionPane.createDialog("Start-to-Finish dollar cost averaging");
+    dialog.setVisible(true);
+  }
+
   private void getMainPanel() {
     mainJPanel = new JPanel();
     mainJPanel.setLayout(new BoxLayout(mainJPanel, BoxLayout.Y_AXIS));
@@ -407,6 +433,13 @@ public class GUIViewImpl extends JFrame implements GUIView {
 
   public void setValueLabelStatus(String message) {
     this.valueStatus.setText(message);
+  }
+  public void setdollarExistingStatus(String message){
+    this.dollarExistingStatus.setText(message);
+  }
+
+  public void setdollarNewStatus(String message){
+    this.dollarNewStatus.setText(message);
   }
 
   private void getModifyPanel() {
@@ -462,8 +495,9 @@ public class GUIViewImpl extends JFrame implements GUIView {
     dollarCostExisting = new JButton("Calculate dollar cost averaging for existing portfolio");
     dollarPanelExisting.setBorder(BorderFactory.createTitledBorder("Create dollar cost " +
             "averaging for existing flexible portfolios"));
-    dollarCostExisting.setActionCommand("Calculate dollar cost");
+    dollarExistingStatus = new JLabel();
     dollarPanelExisting.add(dollarCostExisting);
+    dollarPanelExisting.add(dollarExistingStatus);
   }
 
   private void getDollarCostNew() {
@@ -472,8 +506,9 @@ public class GUIViewImpl extends JFrame implements GUIView {
             "cost averaging portfolio"));
     dollarCostNew = new JButton("Create dollar cost averaging start-to-finish for a new" +
             "portfolio");
-    dollarCostNew.setActionCommand("Start-to-Finish");
+    dollarNewStatus = new JLabel();
     dollarPanelNew.add(dollarCostNew);
+    dollarPanelNew.add(dollarNewStatus);
   }
 
   private void finalPanel() {
@@ -562,5 +597,7 @@ public class GUIViewImpl extends JFrame implements GUIView {
     retrievePf.addActionListener(evt -> features.displayDialogPane("composition"));
     computecomposition.addActionListener(evt ->
             features.getCompositionpf(this.pfnameretrieve.getText()));
+    dollarCostExisting.addActionListener(evt -> features.displayDialogPane("dollarexist"));
+    dollarCostNew.addActionListener(evt -> features.displayDialogPane("dollarnew"));
   }
 }
