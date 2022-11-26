@@ -2,20 +2,18 @@ package view;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
 import java.text.ParseException;
 
 import javax.swing.*;
 
-import controller.Controller;
 import controller.ControllerGUI;
 
 public class GUIViewImpl extends JFrame implements GUIView {
   private JLabel pathStore;
   private JLabel createStatus;
-  private JLabel modifyStatus = new JLabel();
-  private JLabel valueStatus = new JLabel();
+  private final JLabel modifyStatus = new JLabel();
+  private final JLabel valueStatus = new JLabel();
   private JButton inputButton;
   private JButton costBasisButton;
   private JButton quitButton;
@@ -44,11 +42,11 @@ public class GUIViewImpl extends JFrame implements GUIView {
   private JTextField tickrcreate;
   private JTextField numstockscreate;
   private JTextField commissionfeescreate;
-  private JTextArea portfoliosListModify = new JTextArea();
-  private JTextArea portfoliosListVal = new JTextArea();
-  private JTextArea portfoliosListBasis = new JTextArea();
-  private JButton add = new JButton("Add");
-  private JButton save = new JButton("Save");
+  private final JTextArea portfoliosListModify = new JTextArea();
+  private final JTextArea portfoliosListVal = new JTextArea();
+  private final JTextArea portfoliosListBasis = new JTextArea();
+  private final JButton add = new JButton("Add");
+  private final JButton save = new JButton("Save");
 
   // fields for modify.
   private JTextField pfnamemodify;
@@ -56,19 +54,19 @@ public class GUIViewImpl extends JFrame implements GUIView {
   private JTextField tickrmodify;
   private JTextField numstocksmodify;
   private JTextField commissionfessmodify;
-  private JButton purchase = new JButton("Purchase");
-  private JButton sell = new JButton("Sell");
+  private final JButton purchase = new JButton("Purchase");
+  private final JButton sell = new JButton("Sell");
 
   // fields for value.
   private JTextField pfnamevalue;
   private JTextField datevalue;
-  private JButton computeval = new JButton("Compute Value of Portfolio");
+  private final JButton computeval = new JButton("Compute Value of Portfolio");
 
 
-  private JLabel createDialogStatus = new JLabel();
-  private JLabel modifyDialogStatus = new JLabel();
-  private JLabel valDialogStatus = new JLabel();
-  private JLabel costBasisDialogStatus = new JLabel();
+  private final JLabel createDialogStatus = new JLabel();
+  private final JLabel modifyDialogStatus = new JLabel();
+  private final JLabel valDialogStatus = new JLabel();
+  private final JLabel costBasisDialogStatus = new JLabel();
 
   public GUIViewImpl() {
     super();
@@ -96,7 +94,7 @@ public class GUIViewImpl extends JFrame implements GUIView {
     tickrcreate = new JTextField(25);
     JLabel commissionLabel = new JLabel("Enter commission fees: ");
     commissionfeescreate = new JTextField(25);
-    createPanelDialog.setPreferredSize(new Dimension(700,300));
+    createPanelDialog.setPreferredSize(new Dimension(700, 300));
     createPanelDialog.setLayout(new BoxLayout(createPanelDialog, BoxLayout.Y_AXIS));
     createPanelDialog.add(pfNameLabel);
     createPanelDialog.add(pfnamecreate);
@@ -115,61 +113,63 @@ public class GUIViewImpl extends JFrame implements GUIView {
     return createPanelDialog;
   }
 
-  public void setCreatePfValue(String message){
+  public void setCreatePfValue(String message) {
     this.pfnamecreate.setText(message);
   }
 
-  public void setdateofcreationValue(String message){
+  public void setdateofcreationValue(String message) {
     this.dateofcreation.setText(message);
   }
 
-  public void setnumstockscreateValue(String message){
+  public void setnumstockscreateValue(String message) {
     this.numstockscreate.setText(message);
   }
 
-  public void settickrcreateValue(String message){
+  public void settickrcreateValue(String message) {
     this.tickrcreate.setText(message);
   }
 
-  public void setcommissionfeescreateValue(String message){
+  public void setcommissionfeescreateValue(String message) {
     this.commissionfeescreate.setText(message);
   }
 
-  public void setModifyPfValue(String message){
+  public void setModifyPfValue(String message) {
     this.pfnamemodify.setText(message);
   }
-  public void setdateofmodifynValue(String message){
+
+  public void setdateofmodifynValue(String message) {
     this.dateofmodify.setText(message);
   }
 
-  public void setnumstocksmodifyValue(String message){
+  public void setnumstocksmodifyValue(String message) {
     this.numstocksmodify.setText(message);
   }
 
-  public String gettickrmodifyValue(){
+  public String gettickrmodifyValue() {
     return this.tickrmodify.getText();
   }
 
-  public void settickrmodifyValue(String message){
+  public void settickrmodifyValue(String message) {
     this.tickrmodify.setText(message);
   }
 
-  public void setcommissionfeesmodifyValue(String message){
+  public void setcommissionfeesmodifyValue(String message) {
     this.commissionfessmodify.setText(message);
   }
 
-  public void setcreateDialogStatus(String message){
+  public void setcreateDialogStatus(String message) {
     createDialogStatus.setText(message);
   }
 
-  public void setmodifyDialogStatus(String message){
+  public void setmodifyDialogStatus(String message) {
     modifyDialogStatus.setText(message);
   }
-  public void setvalueDialogStatus(String message){
+
+  public void setvalueDialogStatus(String message) {
     valDialogStatus.setText(message);
   }
 
-  public void setCostBasisDialogStatus(String message){
+  public void setCostBasisDialogStatus(String message) {
     costBasisDialogStatus.setText(message);
   }
 
@@ -182,9 +182,9 @@ public class GUIViewImpl extends JFrame implements GUIView {
     date = new JTextField(25);
     JLabel dateLabel = new JLabel("Enter date to compute cost basis:");
     costBasisDialog.setLayout(new BoxLayout(costBasisDialog, BoxLayout.Y_AXIS));
-    costBasisDialog.setPreferredSize(new Dimension(700,700));
-    costBasisDialog.setMaximumSize(new Dimension(900,500));
-    costBasisDialog.setMinimumSize(new Dimension(400,400));
+    costBasisDialog.setPreferredSize(new Dimension(700, 700));
+    costBasisDialog.setMaximumSize(new Dimension(900, 500));
+    costBasisDialog.setMinimumSize(new Dimension(400, 400));
     costBasisDialog.add(listPortfolios);
     costBasisDialog.add(portfoliosListBasis);
     costBasisDialog.add(pfNameLabel);
@@ -195,15 +195,16 @@ public class GUIViewImpl extends JFrame implements GUIView {
     costBasisDialog.add(costBasisDialogStatus);
     return costBasisDialog;
   }
-  public void setportfoliosListModify(String message){
+
+  public void setportfoliosListModify(String message) {
     this.portfoliosListModify.append(message);
   }
 
-  public void setPortfoliosListVal(String message){
+  public void setPortfoliosListVal(String message) {
     this.portfoliosListVal.append(message);
   }
 
-  public void setPortfoliosListBasis(String message){
+  public void setPortfoliosListBasis(String message) {
     this.portfoliosListBasis.append(message);
   }
 
@@ -222,9 +223,9 @@ public class GUIViewImpl extends JFrame implements GUIView {
     commissionfessmodify = new JTextField(25);
     JLabel commissionLabel = new JLabel("Enter commission fees: ");
     modifyDialog.setLayout(new BoxLayout(modifyDialog, BoxLayout.Y_AXIS));
-    modifyDialog.setPreferredSize(new Dimension(1000,700));
-    modifyDialog.setMaximumSize(new Dimension(700,500));
-    modifyDialog.setMinimumSize(new Dimension(500,500));
+    modifyDialog.setPreferredSize(new Dimension(1000, 700));
+    modifyDialog.setMaximumSize(new Dimension(700, 500));
+    modifyDialog.setMinimumSize(new Dimension(500, 500));
     modifyDialog.add(listPortfolios);
     modifyDialog.add(portfoliosListModify);
     modifyDialog.add(pfNameLabel);
@@ -252,9 +253,9 @@ public class GUIViewImpl extends JFrame implements GUIView {
     datevalue = new JTextField(25);
     JLabel dateLabel = new JLabel("Enter date to compute value of the portfolio:");
     valDialog.setLayout(new BoxLayout(valDialog, BoxLayout.Y_AXIS));
-    valDialog.setPreferredSize(new Dimension(700,700));
-    valDialog.setMaximumSize(new Dimension(900,500));
-    valDialog.setMinimumSize(new Dimension(400,400));
+    valDialog.setPreferredSize(new Dimension(700, 700));
+    valDialog.setMaximumSize(new Dimension(900, 500));
+    valDialog.setMinimumSize(new Dimension(400, 400));
     valDialog.add(listPortfolios);
     valDialog.add(portfoliosListVal);
     valDialog.add(pfNameLabel);
@@ -266,18 +267,19 @@ public class GUIViewImpl extends JFrame implements GUIView {
     return valDialog;
   }
 
-  public void setpfnameVal(String message){
+  public void setpfnameVal(String message) {
     pfnamevalue.setText(message);
   }
-  public void setdateVal(String message){
+
+  public void setdateVal(String message) {
     this.datevalue.setText(message);
   }
 
-  public void setpfNameCostBasis(String message){
+  public void setpfNameCostBasis(String message) {
     pfName.setText(message);
   }
 
-  public void setDate(String message){
+  public void setDate(String message) {
     date.setText(message);
   }
 
@@ -341,15 +343,15 @@ public class GUIViewImpl extends JFrame implements GUIView {
     createPanel.add(createStatus);
   }
 
-  public void setCreateLabelStatus(String message){
+  public void setCreateLabelStatus(String message) {
     this.createStatus.setText(message);
   }
 
-  public void setModifyLabelStatus(String message){
+  public void setModifyLabelStatus(String message) {
     this.modifyStatus.setText(message);
   }
 
-  public void setValueLabelStatus(String message){
+  public void setValueLabelStatus(String message) {
     this.valueStatus.setText(message);
   }
 
@@ -434,9 +436,10 @@ public class GUIViewImpl extends JFrame implements GUIView {
     setSize(1000, 1000);
     setLocationRelativeTo(null);
   }
-  public void addFeatures(ControllerGUI features){
-    inputButton.addActionListener(evt ->features.setDirectory());
-    createPfButton.addActionListener(evt ->features.displayDialogPane("create"));
+
+  public void addFeatures(ControllerGUI features) {
+    inputButton.addActionListener(evt -> features.setDirectory());
+    createPfButton.addActionListener(evt -> features.displayDialogPane("create"));
     add.addActionListener(evt -> {
       try {
         features.addOperation(this.pfnamecreate.getText(),
@@ -447,40 +450,40 @@ public class GUIViewImpl extends JFrame implements GUIView {
       }
     });
     save.addActionListener(evt -> features.saveOperation(this.pfnamecreate.getText()));
-    getModifyButton.addActionListener(evt ->features.displayDialogPane("modify"));
+    getModifyButton.addActionListener(evt -> features.displayDialogPane("modify"));
     purchase.addActionListener(evt -> {
       try {
         features.modifyValidate(this.pfnamemodify.getText(), this.tickrmodify.getText(),
-                this.numstocksmodify.getText(),this.dateofmodify.getText(),
-                this.commissionfessmodify.getText(),"purchase");
+                this.numstocksmodify.getText(), this.dateofmodify.getText(),
+                this.commissionfessmodify.getText(), "purchase");
       } catch (FileNotFoundException e) {
         throw new RuntimeException(e);
       } catch (ParseException e) {
         throw new RuntimeException(e);
       }
     });
-    sell.addActionListener( evt -> {
+    sell.addActionListener(evt -> {
       try {
         features.modifyValidate(this.pfnamemodify.getText(), this.tickrmodify.getText(),
-                this.numstocksmodify.getText(),this.dateofmodify.getText(),
-                this.commissionfessmodify.getText(),"sell");
+                this.numstocksmodify.getText(), this.dateofmodify.getText(),
+                this.commissionfessmodify.getText(), "sell");
       } catch (FileNotFoundException e) {
         throw new RuntimeException(e);
       } catch (ParseException e) {
         throw new RuntimeException(e);
       }
     });
-    getValueButton.addActionListener(evt ->features.displayDialogPane("getDateVal"));
+    getValueButton.addActionListener(evt -> features.displayDialogPane("getDateVal"));
     computeval.addActionListener(evt -> {
       try {
-        features.validateDateVal(this.pfnamevalue.getText(),this.datevalue.getText());
+        features.validateDateVal(this.pfnamevalue.getText(), this.datevalue.getText());
       } catch (FileNotFoundException e) {
         throw new RuntimeException(e);
       } catch (ParseException e) {
         throw new RuntimeException(e);
       }
     });
-    costBasisButton.addActionListener(evt ->features.displayDialogPane("costBasis"));
+    costBasisButton.addActionListener(evt -> features.displayDialogPane("costBasis"));
     getCostBasis.addActionListener(evt -> {
       try {
         features.validateCostBasis(this.pfName.getText(), this.date.getText());
@@ -488,5 +491,5 @@ public class GUIViewImpl extends JFrame implements GUIView {
         throw new RuntimeException(e);
       }
     });
-}
+  }
 }
