@@ -398,6 +398,8 @@ public class GUIViewImpl extends JFrame implements GUIView {
             "given path");
     JLabel pfname = new JLabel("Enter the name of the portfolio to add dollar cost " +
             "averaging statergy");
+    portfolioslistdollarexist.setEditable(false);
+    getstocksdollarexist.setEditable(false);
     dollarexistpfname = new JTextField(25);
     dollarexistgetstockslist = new JButton("Get the list of all the stocks in the " +
             "given portfolio");
@@ -413,11 +415,15 @@ public class GUIViewImpl extends JFrame implements GUIView {
     dollarexistdate = new JTextField(25);
     JLabel commission = new JLabel("Enter the commission fees");
     dollarexistcommision = new JTextField(25);
-    dollarexistingPfDialog.setLayout(new BoxLayout(dollarexistingPfDialog,BoxLayout.Y_AXIS)) ;
+    dollarexistingPfDialog.setLayout(new BoxLayout(dollarexistingPfDialog,BoxLayout.Y_AXIS));
+    dollarexistingPfDialog.setPreferredSize(new Dimension(1000, 700));
+    dollarexistingPfDialog.setMaximumSize(new Dimension(1200, 1200));
+    dollarexistingPfDialog.setMinimumSize(new Dimension(800, 800));
     dollarexistingPfDialog.add(listallportfolios);
     dollarexistingPfDialog.add(portfolioslistdollarexist);
     dollarexistingPfDialog.add(pfname);
     dollarexistingPfDialog.add(dollarexistpfname);
+    dollarexistingPfDialog.add(dollarexistgetstockslist);
     dollarexistingPfDialog.add(liststocks);
     dollarexistingPfDialog.add(getstocksdollarexist);
     dollarexistingPfDialog.add(stratergynamedollarexist);
@@ -431,6 +437,7 @@ public class GUIViewImpl extends JFrame implements GUIView {
     dollarexistingPfDialog.add(dollarexistdate);
     dollarexistingPfDialog.add(commission);
     dollarexistingPfDialog.add(dollarexistcommision);
+    dollarexistingPfDialog.add(dollarexistcreate);
     dollarexistingPfDialog.add(dollarexistpanestatus);
     return  dollarexistingPfDialog;
   }

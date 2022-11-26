@@ -438,7 +438,7 @@ public class ControllerImplGUI implements ControllerGUI {
   public void validateExistingDollar(String stratergydollarexistname,String dollarexistpfname,
                               String stocksweightexist, String dollarexistval,
                               String dollarexistdate,String dollarexistcommision){
-
+    
   }
   public void validateNewDollar(String stratergydollarnewname,String dollarnewcreatepfname,
                          String stocksweightsnew,String dollarnewval,String dollarnewdays,
@@ -499,7 +499,7 @@ public class ControllerImplGUI implements ControllerGUI {
       else if(label.equals("dollarexist")){
         guiView.setdollarExistingStatus(null);
         guiView.setportfolioslistdollarexist(message);
-        guiView.setgetstocksdollarexist(message);
+        //guiView.setgetstocksdollarexist(message);
         guiView.displayDollarExistingpf();
       }
       else if(label.equals("dollarnew")){
