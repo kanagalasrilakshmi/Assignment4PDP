@@ -84,6 +84,7 @@ public class ControllerImplGUI implements ControllerGUI {
   }
 
   private boolean checkPortfolioField(String pfName, String label) {
+
     boolean fileCheck = new File(this.rootDir + pfName + ".json").exists();
     if (label.equals("add") || label.equals("save")) {
       if (!checkValidpfName(pfName)) {
@@ -169,6 +170,18 @@ public class ControllerImplGUI implements ControllerGUI {
       }
       return false;
     }
+    else{
+      if(Integer.valueOf(numStocks)<0){
+        if (label.equals("add")) {
+          guiView.setcreateDialogStatus("Number of stocks cannot be negative");
+          guiView.setnumstockscreateValue(null);
+        } else if (label.equals("modify")) {
+          guiView.setmodifyDialogStatus("Number of stocks cannot be negative");
+          guiView.setnumstocksmodifyValue(null);
+        }
+        return false;
+      }
+    }
     return true;
   }
 
@@ -205,8 +218,11 @@ public class ControllerImplGUI implements ControllerGUI {
   }
 
   private boolean checkCommissionField(String commissionCreate, String label) {
-    if (commissionCreate != null && commissionCreate.length() > 0) {
-      if (!(portfolio.checkValidInteger(commissionCreate)) ||
+    if (commissionCreate == null || commissionCreate.length() == 0){
+      return true;
+    }
+    if (commissionCreate != null || commissionCreate.length() > 0) {
+      if (!(portfolio.checkValidInteger(commissionCreate)) &&
               !(portfolio.checkValidFloat(commissionCreate))) {
         if (label.equals("add")) {
           guiView.setcreateDialogStatus("Commission fees given is not a valid number");
@@ -242,7 +258,7 @@ public class ControllerImplGUI implements ControllerGUI {
           if (checkStocksField(numStocksCreate, "add")) {
             if (checkTickrField(tickrCreate, "add")) {
               if (checkCommissionField(commissionCreate, "add")) {
-                if (commissionCreate != null || commissionCreate.length() > 0) {
+                if (commissionCreate != null && commissionCreate.length() > 0) {
                   commission = Float.valueOf(commissionCreate);
                 }
                 JSONObject addEntry = portfolio.makeTransactionRecord(dateCreate,
@@ -280,25 +296,35 @@ public class ControllerImplGUI implements ControllerGUI {
                                    String dateModify, Float commission, String label,
                                    String labelStatus) throws FileNotFoundException,
           ParseException {
-    if (labelStatus.equals("sell")) {
-      if (!portfolio.ifTickrInPf(this.rootDir + pfNameModify + ".json", tickrModify)) {
-        guiView.setmodifyDialogStatus("No stocks for this tickr exists to sell.");
-      } else if (!portfolio.checkValidSell(this.rootDir + pfNameModify + ".json",
-              Integer.valueOf(numStocksModify), tickrModify, dateModify)) {
-        guiView.setmodifyDialogStatus("The number entered for selling stocks is more than " +
-                "stocks purchased");
-      } else {
-        portfolio.modifyJson(commission, Integer.valueOf(numStocksModify) * (-1),
-                dateModify, tickrModify, this.rootDir + pfNameModify + ".json");
-        guiView.setmodifyDialogStatus("The portfolio " + pfNameModify +
-                "is successfully modified");
+    if(labelStatus.equals("sell") || labelStatus.equals("purchase")){
+      boolean checkLabel = true;
+      if (labelStatus.equals("sell")) {
+        if (!portfolio.ifTickrInPf(this.rootDir + pfNameModify + ".json", tickrModify)) {
+          guiView.setmodifyDialogStatus("No stocks for this tickr exists to sell.");
+          checkLabel = false;
+          guiView.settickrmodifyValue(null);
+        } else if (!portfolio.checkValidSell(this.rootDir + pfNameModify + ".json",
+                Integer.valueOf(numStocksModify), tickrModify, dateModify)) {
+          guiView.setmodifyDialogStatus("The number entered for selling stocks is more than " +
+                  "stocks purchased");
+          checkLabel = false;
+          guiView.setnumstocksmodifyValue(null);
+        } else {
+          portfolio.modifyJson(commission, Integer.valueOf(numStocksModify) * (-1),
+                  dateModify, tickrModify, this.rootDir + pfNameModify + ".json");
+        }
       }
-    } else if (labelStatus.equals("purchase")) {
-      if (checkTickrField(tickrModify, label)) {
+      else if (labelStatus.equals("purchase")) {
         portfolio.modifyJson(commission, Integer.valueOf(numStocksModify), dateModify,
                 tickrModify, this.rootDir + pfNameModify + ".json");
+      }
+      if(checkLabel){
         guiView.setmodifyDialogStatus("The portfolio " + pfNameModify +
                 " is successfully modified");
+        guiView.setdateofmodifynValue(null);
+        guiView.settickrmodifyValue(null);
+        guiView.setcommissionfeescreateValue(null);
+        guiView.setnumstocksmodifyValue(null);
       }
     }
   }
@@ -313,8 +339,8 @@ public class ControllerImplGUI implements ControllerGUI {
       if (checkPortfolioField(pfNameModify, "modify")) {
         if (checkDateField(dateModify, "modify")) {
           if (checkStocksField(numStocksModify, "modify")) {
-            if (checkCommissionField(commissionModify, "add")) {
-              if (commissionModify != null || commissionModify.length() > 0) {
+            if (checkCommissionField(commissionModify, "modify")) {
+              if (commissionModify != null && commissionModify.length() > 0) {
                 commission = Float.valueOf(commissionModify);
               }
               validateTickrModify(pfNameModify, tickrModify, numStocksModify, dateModify,
