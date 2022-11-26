@@ -323,8 +323,10 @@ public class ControllerImplGUI implements ControllerGUI {
                 " is successfully modified");
         guiView.setdateofmodifynValue(null);
         guiView.settickrmodifyValue(null);
-        guiView.setcommissionfeescreateValue(null);
         guiView.setnumstocksmodifyValue(null);
+        if(commission != 0.0f){
+          guiView.setcommissionfeescreateValue(null);
+        }
       }
     }
   }

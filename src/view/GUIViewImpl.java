@@ -145,10 +145,6 @@ public class GUIViewImpl extends JFrame implements GUIView {
     this.numstocksmodify.setText(message);
   }
 
-  public String gettickrmodifyValue() {
-    return this.tickrmodify.getText();
-  }
-
   public void settickrmodifyValue(String message) {
     this.tickrmodify.setText(message);
   }
@@ -213,15 +209,16 @@ public class GUIViewImpl extends JFrame implements GUIView {
     JLabel listPortfolios = new JLabel("List of all the portfolios in the given path:");
     portfoliosListModify.setEditable(false);
     pfnamemodify = new JTextField(25);
-    JLabel pfNameLabel = new JLabel("Enter Portfolio name to be modified: ");
+    JLabel pfNameLabel = new JLabel("Enter Portfolio name to be modified");
     dateofmodify = new JTextField(25);
-    JLabel dateLabel = new JLabel("Enter the date of purchase/sell: ");
+    JLabel dateLabel = new JLabel("Enter the date of purchase/sell " +
+            "in YYYY-DD-MM format only!!");
     tickrmodify = new JTextField(25);
-    JLabel tickrlabel = new JLabel("Enter tickr symbol: ");
+    JLabel tickrlabel = new JLabel("Enter tickr symbol");
     numstocksmodify = new JTextField(25);
-    JLabel numstockslabel = new JLabel("Enter the number of stocks to be purchased/sold: ");
+    JLabel numstockslabel = new JLabel("Enter the number of stocks to be purchased/sold");
     commissionfessmodify = new JTextField(25);
-    JLabel commissionLabel = new JLabel("Enter commission fees: ");
+    JLabel commissionLabel = new JLabel("Enter commission fees");
     modifyDialog.setLayout(new BoxLayout(modifyDialog, BoxLayout.Y_AXIS));
     modifyDialog.setPreferredSize(new Dimension(1000, 700));
     modifyDialog.setMaximumSize(new Dimension(700, 500));
@@ -249,9 +246,9 @@ public class GUIViewImpl extends JFrame implements GUIView {
     JLabel listPortfolios = new JLabel("List of all the portfolios in the given path:");
     portfoliosListVal.setEditable(false);
     pfnamevalue = new JTextField(25);
-    JLabel pfNameLabel = new JLabel("Enter Portfolio Name: ");
+    JLabel pfNameLabel = new JLabel("Enter Portfolio Name");
     datevalue = new JTextField(25);
-    JLabel dateLabel = new JLabel("Enter date to compute value of the portfolio:");
+    JLabel dateLabel = new JLabel("Enter date to compute value of the portfolio");
     valDialog.setLayout(new BoxLayout(valDialog, BoxLayout.Y_AXIS));
     valDialog.setPreferredSize(new Dimension(700, 700));
     valDialog.setMaximumSize(new Dimension(900, 500));
