@@ -313,7 +313,7 @@ public class GUIViewImpl extends JFrame implements GUIView {
     JDialog dialog;
     JOptionPane optionPane = new JOptionPane(getValuePanelDialog(), JOptionPane.PLAIN_MESSAGE,
             JOptionPane.DEFAULT_OPTION, null, new Object[]{}, null);
-    dialog = optionPane.createDialog("Modify Portfolio");
+    dialog = optionPane.createDialog("Value of the Portfolio");
     dialog.setVisible(true);
   }
 
@@ -363,7 +363,7 @@ public class GUIViewImpl extends JFrame implements GUIView {
   private void getValueDatePanel() {
     valueDatePanel = new JPanel();
     getValueButton = new JButton("Get Value of Portfolio on a Specific Date");
-    valueDatePanel.setBorder(BorderFactory.createTitledBorder("Get Value of  portfolio on a " +
+    valueDatePanel.setBorder(BorderFactory.createTitledBorder("Get Value of portfolio on a " +
             "specific date"));
     valueDatePanel.add(getValueButton);
     valueDatePanel.add(valueStatus);
@@ -372,8 +372,8 @@ public class GUIViewImpl extends JFrame implements GUIView {
   private void getCostBasisPanel() {
     getCostBasis = new JButton("Compute Cost Basis");
     costBasisPanel = new JPanel();
-    costBasisPanel.setBorder(BorderFactory.createTitledBorder("Get Cost Basis and value of a " +
-            "portfolio"));
+    costBasisPanel.setBorder(BorderFactory.createTitledBorder("Get Cost Basis of portfolio till a" +
+            " specific date "));
     costBasisButton = new JButton("Get cost basis");
     costBasisPanel.add(costBasisButton);
     costBasisStatus = new JLabel();
