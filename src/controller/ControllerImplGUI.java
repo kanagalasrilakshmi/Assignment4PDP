@@ -386,28 +386,33 @@ public class ControllerImplGUI implements ControllerGUI {
     }
   }
 
-  private String viewFlexibleComposition(JSONObject portfolio) {
+  private String viewFlexibleComposition(JSONObject portfolioObj) {
     String message = "";
-    for (Object tickrsym : portfolio.keySet()) {
-      String objmessage = "";
-      objmessage += "TICKER SYMBOL : " + tickrsym + "\n";
-      objmessage += "NUM OF STOCKS        TYPE            DATE OF PURCHASE/SELL"
-              + "     COMMISSION FEES       STOCK PRICE" + "\n";
-      JSONArray arrayObj = (JSONArray) portfolio.get(tickrsym);
-      for (int i = 0; i < arrayObj.size(); i++) {
-        JSONObject tickrRecord = (JSONObject) arrayObj.get(i);
-        Float noOfStocks = ((Long) tickrRecord.get("no_of_stocks")).floatValue();
-        String type = "PURCHASED";
-        if (noOfStocks < 0) {
-          noOfStocks = noOfStocks * (-1);
-          type = "SOLD";
+    if(portfolioObj.size() == 0){
+      message = "This portfolio is empty!!";
+    }
+    else{
+      for (Object tickrsym : portfolioObj.keySet()) {
+        String objmessage = "";
+        objmessage += "TICKER SYMBOL : " + tickrsym + "\n";
+        objmessage += "NUM OF STOCKS        TYPE            DATE OF PURCHASE/SELL"
+                + "     COMMISSION FEES       STOCK PRICE" + "\n";
+        JSONArray arrayObj = (JSONArray) portfolioObj.get(tickrsym);
+        for (int i = 0; i < arrayObj.size(); i++) {
+          JSONObject tickrRecord = (JSONObject) arrayObj.get(i);
+          Float noOfStocks = ((Long) tickrRecord.get("no_of_stocks")).floatValue();
+          String type = "PURCHASED";
+          if (noOfStocks < 0) {
+            noOfStocks = noOfStocks * (-1);
+            type = "SOLD";
+          }
+          objmessage += (" " + noOfStocks + "\t  " + type +
+                  "\t\t" + tickrRecord.get("date")
+                  + "\t" + "\t$" + tickrRecord.get("commission_fee") +
+                  "\t$" + tickrRecord.get("stock_price")) +"\n";
         }
-        objmessage += ("     " + noOfStocks + "             " + type +
-                "              " + tickrRecord.get("date")
-                + "            " + "     $" + tickrRecord.get("commission_fee") +
-                "              $" + tickrRecord.get("stock_price")) +"\n";
-      }
-      message += objmessage + "\n";
+        message += objmessage + "\n";
+    }
     }
     return message;
   }
