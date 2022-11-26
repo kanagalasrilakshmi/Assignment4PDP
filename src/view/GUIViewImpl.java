@@ -442,9 +442,9 @@ public class GUIViewImpl extends JFrame implements GUIView {
     createPfButton.addActionListener(evt -> features.displayDialogPane("create"));
     add.addActionListener(evt -> {
       try {
-        features.addOperation(this.pfnamecreate.getText(),
-                this.tickrcreate.getText(), this.numstockscreate.getText(),
-                this.dateofcreation.getText(), this.commissionfeescreate.getText());
+        features.addOperation(this.pfnamecreate.getText(), this.tickrcreate.getText().toUpperCase(),
+                this.numstockscreate.getText(), this.dateofcreation.getText(),
+                this.commissionfeescreate.getText());
       } catch (FileNotFoundException e) {
         throw new RuntimeException(e);
       }
@@ -453,9 +453,10 @@ public class GUIViewImpl extends JFrame implements GUIView {
     getModifyButton.addActionListener(evt -> features.displayDialogPane("modify"));
     purchase.addActionListener(evt -> {
       try {
-        features.modifyValidate(this.pfnamemodify.getText(), this.tickrmodify.getText(),
-                this.numstocksmodify.getText(), this.dateofmodify.getText(),
-                this.commissionfessmodify.getText(), "purchase");
+        features.modifyValidate(this.pfnamemodify.getText(),
+                this.tickrmodify.getText().toUpperCase(), this.numstocksmodify.getText(),
+                this.dateofmodify.getText(), this.commissionfessmodify.getText(),
+                "purchase");
       } catch (FileNotFoundException e) {
         throw new RuntimeException(e);
       } catch (ParseException e) {
@@ -464,7 +465,8 @@ public class GUIViewImpl extends JFrame implements GUIView {
     });
     sell.addActionListener(evt -> {
       try {
-        features.modifyValidate(this.pfnamemodify.getText(), this.tickrmodify.getText(),
+        features.modifyValidate(this.pfnamemodify.getText(),
+                this.tickrmodify.getText().toUpperCase(),
                 this.numstocksmodify.getText(), this.dateofmodify.getText(),
                 this.commissionfessmodify.getText(), "sell");
       } catch (FileNotFoundException e) {
