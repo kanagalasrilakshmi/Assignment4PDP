@@ -77,6 +77,28 @@ public class GUIViewImpl extends JFrame implements GUIView {
   private final JLabel costBasisDialogStatus = new JLabel();
   private final JLabel retrieveDialogStatus = new JLabel();
 
+  private JTextField dollarnewcreatepfname;
+  private JTextField stocksweightsnew;
+  private JTextField dollarnewfees;
+  private JTextField dollarnewval;
+  private JTextField dollarnewdays;
+  private JTextField dollarnewstartdate;
+  private JTextField dollarnewenddate;
+  private JTextField dollarnewcommission;
+  private JButton dollarnewcreate;
+  private JLabel dollarnewpanestatus;
+
+  private JTextArea portfolioslistdollarexist;
+  private JTextField dollarexistpfname;
+  private JButton dollarexistgetstockslist;
+  private JTextArea getstocksdollarexist;
+  private JTextField stocksweightexist;
+  private JTextField dollarexistval;
+  private JTextField dollarexistdate;
+  private JTextField dollarexistcommision;
+  private JButton dollarexistcreate;
+  private JLabel dollarexistpanestatus;
+
   public GUIViewImpl() {
     super();
     finalPanel();
@@ -312,11 +334,12 @@ public class GUIViewImpl extends JFrame implements GUIView {
   }
   private JPanel getDollarCostNewDialog(){
     JPanel dollarnewPfDialog = new JPanel();
+
     return  dollarnewPfDialog;
   }
   private JPanel getDollarCostExistDialog(){
     JPanel dollarexistingPfDialog = new JPanel();
-    
+
     return  dollarexistingPfDialog;
   }
   public void setpfnameVal(String message) {
