@@ -41,4 +41,5 @@ public interface GUIView {
   void setPortfoliosListBasis(String message);
   void addFeatures(ControllerGUI features);
 
+
 }
