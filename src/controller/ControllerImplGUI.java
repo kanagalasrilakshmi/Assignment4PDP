@@ -244,6 +244,8 @@ public class ControllerImplGUI implements ControllerGUI {
       guiView.setValueLabelStatus(null);
       guiView.setLabelCostBasisStatus(null);
       guiView.setRetrievePanelStatus(null);
+      guiView.setdollarExistingStatus(null);
+      guiView.setdollarNewStatus(null);
     } else if (new File(this.rootDirUser).exists()) {
       guiView.setpathStore("Portfolios can be accessed in the " + this.rootDirUser + " location ");
       if (!portfolio.checkLastEndingCharacter(this.rootDirUser)) {
@@ -255,6 +257,8 @@ public class ControllerImplGUI implements ControllerGUI {
       guiView.setValueLabelStatus(null);
       guiView.setLabelCostBasisStatus(null);
       guiView.setRetrievePanelStatus(null);
+      guiView.setdollarExistingStatus(null);
+      guiView.setdollarNewStatus(null);
     } else {
       guiView.setpathStore("Invalid path given so portfolios will be stored in " +
               this.rootDir + " by default.");
@@ -263,6 +267,8 @@ public class ControllerImplGUI implements ControllerGUI {
       guiView.setValueLabelStatus(null);
       guiView.setLabelCostBasisStatus(null);
       guiView.setRetrievePanelStatus(null);
+      guiView.setdollarExistingStatus(null);
+      guiView.setdollarNewStatus(null);
       if (!new File(this.rootDir).exists()) {
         try {
           Path path = Paths.get(this.rootDir);
