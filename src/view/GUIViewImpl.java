@@ -409,6 +409,10 @@ public class GUIViewImpl extends JFrame implements GUIView {
     dollarPanelNew.add(dollarCostNew);
   }
 
+  private void getRetrievePanel(){
+
+  }
+
   private void finalPanel() {
     setTitle("Stocks Program");
     getMainPanel();

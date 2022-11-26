@@ -373,7 +373,7 @@ public class ControllerImplGUI implements ControllerGUI {
         if (checkDateField(dateBasis, "costBasis")) {
           float costBasis = portfolio.getCostBasis(this.rootDir + pfNameBasis
                   + ".json", dateBasis);
-          guiView.setCostBasisDialogStatus("The cost basis till date, " + dateBasis + " is: $" +
+          guiView.setCostBasisDialogStatus("The cost basis till date " + dateBasis + " is: $" +
                   costBasis);
         }
       }
