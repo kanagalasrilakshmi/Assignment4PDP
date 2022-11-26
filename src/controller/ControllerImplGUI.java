@@ -386,6 +386,31 @@ public class ControllerImplGUI implements ControllerGUI {
     }
   }
 
+  private String viewFlexibleComposition(JSONObject portfolio) {
+    String message = "";
+    for (Object tickrsym : portfolio.keySet()) {
+      String objmessage = "";
+      objmessage += "TICKER SYMBOL : " + tickrsym + "\n";
+      objmessage += "NUM OF STOCKS        TYPE            DATE OF PURCHASE/SELL"
+              + "     COMMISSION FEES       STOCK PRICE" + "\n";
+      JSONArray arrayObj = (JSONArray) portfolio.get(tickrsym);
+      for (int i = 0; i < arrayObj.size(); i++) {
+        JSONObject tickrRecord = (JSONObject) arrayObj.get(i);
+        Float noOfStocks = ((Long) tickrRecord.get("no_of_stocks")).floatValue();
+        String type = "PURCHASED";
+        if (noOfStocks < 0) {
+          noOfStocks = noOfStocks * (-1);
+          type = "SOLD";
+        }
+        objmessage += ("     " + noOfStocks + "             " + type +
+                "              " + tickrRecord.get("date")
+                + "            " + "     $" + tickrRecord.get("commission_fee") +
+                "              $" + tickrRecord.get("stock_price")) +"\n";
+      }
+      message += objmessage + "\n";
+    }
+    return message;
+  }
   public void getCompositionpf(String pfNameComposition) {
     if (pfNameComposition == null || pfNameComposition.length() == 0) {
       guiView.setretrieveDialogStatus("All the values are not given!!");
@@ -394,7 +419,7 @@ public class ControllerImplGUI implements ControllerGUI {
       if (checkPortfolioField(pfNameComposition, "composition")){
         JSONObject portfolioObj = portfolio.readPortfolio(this.rootDir +
                 pfNameComposition + ".json");
-        guiView.setPortfoliosListComposition("");
+        guiView.setPortfoliosListComposition(viewFlexibleComposition(portfolioObj));
       }
     }
   }
