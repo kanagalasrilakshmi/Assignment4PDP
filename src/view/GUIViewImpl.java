@@ -714,5 +714,15 @@ public class GUIViewImpl extends JFrame implements GUIView {
             features.getCompositionpf(this.pfnameretrieve.getText()));
     dollarCostExisting.addActionListener(evt -> features.displayDialogPane("dollarexist"));
     dollarCostNew.addActionListener(evt -> features.displayDialogPane("dollarnew"));
+    dollarexistcreate.addActionListener(evt -> features.validateExistingDollar(
+            stratergydollarexistname.getText(),dollarexistpfname.getText(),
+            stocksweightexist.getText(),dollarexistval.getText(),
+            dollarexistdate.getText(),dollarexistcommision.getText()));
+    dollarnewcreate.addActionListener(evt -> features.validateNewDollar(
+            stratergydollarnewname.getText(),dollarnewcreatepfname.getText(),
+            stocksweightsnew.getText(),dollarnewval.getText(),dollarnewdays.getText(),
+            dollarnewstartdate.getText(),dollarnewenddate.getText(),dollarnewcommission.getText()));
+    dollarexistgetstockslist.addActionListener(evt -> features.listallstocks(
+            dollarexistpfname.getText()));
   }
 }

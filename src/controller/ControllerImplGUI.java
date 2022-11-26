@@ -435,6 +435,21 @@ public class ControllerImplGUI implements ControllerGUI {
     }
   }
 
+  public void validateExistingDollar(String stratergydollarexistname,String dollarexistpfname,
+                              String stocksweightexist, String dollarexistval,
+                              String dollarexistdate,String dollarexistcommision){
+
+  }
+  public void validateNewDollar(String stratergydollarnewname,String dollarnewcreatepfname,
+                         String stocksweightsnew,String dollarnewval,String dollarnewdays,
+                         String dollarnewstartdate,String dollarnewenddate,
+                                String dollarnewcommission){
+
+  }
+  public void listallstocks(String pfname){
+
+  }
+
   public void displayDialogPane(String label) {
     if (this.rootDirUser == null || this.rootDirUser.length() == 0) {
       if (label.equals("costBasis")) {
@@ -483,10 +498,13 @@ public class ControllerImplGUI implements ControllerGUI {
       }
       else if(label.equals("dollarexist")){
         guiView.setdollarExistingStatus(null);
+        guiView.setportfolioslistdollarexist(message);
+        guiView.setgetstocksdollarexist(message);
         guiView.displayDollarExistingpf();
       }
       else if(label.equals("dollarnew")){
         guiView.setdollarNewStatus(null);
+        guiView.setdollarexistpanestatus(null);
         guiView.displayDollarNewpf();
       }
     }
