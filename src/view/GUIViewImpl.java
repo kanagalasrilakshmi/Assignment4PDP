@@ -80,7 +80,6 @@ public class GUIViewImpl extends JFrame implements GUIView {
   private JTextField stratergydollarnewname;
   private JTextField dollarnewcreatepfname;
   private JTextField stocksweightsnew;
-  private JTextField dollarnewfees;
   private JTextField dollarnewval;
   private JTextField dollarnewdays;
   private JTextField dollarnewstartdate;
@@ -351,15 +350,14 @@ public class GUIViewImpl extends JFrame implements GUIView {
   }
   private JPanel getDollarCostNewDialog(){
     JPanel dollarnewPfDialog = new JPanel();
-    JLabel stratergyname = new JLabel("Enter the name of the strtergy");
+    JLabel stratergyname = new JLabel("Enter the name of the strategy");
     dollarnewcreate = new JButton("Create");
     stratergydollarnewname = new JTextField(25);
     JLabel createpf = new JLabel("Enter the name of the portfolio name to be created");
     dollarnewcreatepfname = new JTextField(25);
     JLabel stocksweights = new JLabel("Enter the stocks and corresponding weights");
-    stocksweightsnew = new JTextField(25);
+    stocksweightsnew = new JTextField(1000);
     JLabel stockweightdesc = new JLabel("For ex-GOOG-10,UBER-12....");
-    dollarnewfees = new JTextField(25);
     JLabel money = new JLabel("Enter the money to be invested in the portfolio");
     dollarnewval = new JTextField(25);
     JLabel startdate = new JLabel("Enter the start date of investment");
@@ -380,13 +378,13 @@ public class GUIViewImpl extends JFrame implements GUIView {
     dollarnewPfDialog.add(stockweightdesc);
     dollarnewPfDialog.add(stocksweightsnew);
     dollarnewPfDialog.add(money);
-    dollarnewPfDialog.add(dollarnewfees);
+    dollarnewPfDialog.add(dollarnewval);
     dollarnewPfDialog.add(startdate);
     dollarnewPfDialog.add(dollarnewstartdate);
     dollarnewPfDialog.add(enddate);
     dollarnewPfDialog.add(dollarnewenddate);
     dollarnewPfDialog.add(days);
-    dollarnewPfDialog.add(dollarnewval);
+    dollarnewPfDialog.add(dollarnewdays);
     dollarnewPfDialog.add(commission);
     dollarnewPfDialog.add(dollarnewcommission);
     dollarnewPfDialog.add(dollarnewcreate);
@@ -394,8 +392,46 @@ public class GUIViewImpl extends JFrame implements GUIView {
     return  dollarnewPfDialog;
   }
   private JPanel getDollarCostExistDialog(){
+    dollarexistcreate = new JButton("Create");
     JPanel dollarexistingPfDialog = new JPanel();
-
+    JLabel listallportfolios = new JLabel("List of all the portfolios present in the " +
+            "given path");
+    JLabel pfname = new JLabel("Enter the name of the portfolio to add dollar cost " +
+            "averaging statergy");
+    dollarexistpfname = new JTextField(25);
+    dollarexistgetstockslist = new JButton("Get the list of all the stocks in the " +
+            "given portfolio");
+    JLabel liststocks = new JLabel("List of all the stocks in the given portfolio");
+    JLabel stratergynamedollarexist = new JLabel("Enter the name of the strategy");
+    stratergydollarexistname = new JTextField(25);
+    JLabel stocksweights = new JLabel("Enter the stocks and corresponding weights");
+    JLabel stockweightdesc = new JLabel("For ex-GOOG-10,UBER-12....");
+    stocksweightexist = new JTextField(1000);
+    JLabel money = new JLabel("Enter the money to be invested in the portfolio");
+    dollarexistval = new JTextField(25);
+    JLabel date = new JLabel("Enter the date of investment");
+    dollarexistdate = new JTextField(25);
+    JLabel commission = new JLabel("Enter the commission fees");
+    dollarexistcommision = new JTextField(25);
+    dollarexistingPfDialog.setLayout(new BoxLayout(dollarexistingPfDialog,BoxLayout.Y_AXIS)) ;
+    dollarexistingPfDialog.add(listallportfolios);
+    dollarexistingPfDialog.add(portfolioslistdollarexist);
+    dollarexistingPfDialog.add(pfname);
+    dollarexistingPfDialog.add(dollarexistpfname);
+    dollarexistingPfDialog.add(liststocks);
+    dollarexistingPfDialog.add(getstocksdollarexist);
+    dollarexistingPfDialog.add(stratergynamedollarexist);
+    dollarexistingPfDialog.add(stratergydollarexistname);
+    dollarexistingPfDialog.add(stocksweights);
+    dollarexistingPfDialog.add(stockweightdesc);
+    dollarexistingPfDialog.add(stocksweightexist);
+    dollarexistingPfDialog.add(money);
+    dollarexistingPfDialog.add(dollarexistval);
+    dollarexistingPfDialog.add(date);
+    dollarexistingPfDialog.add(dollarexistdate);
+    dollarexistingPfDialog.add(commission);
+    dollarexistingPfDialog.add(dollarexistcommision);
+    dollarexistingPfDialog.add(dollarexistpanestatus);
     return  dollarexistingPfDialog;
   }
   public void setpfnameVal(String message) {
