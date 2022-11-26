@@ -264,7 +264,7 @@ public class GUIViewImpl extends JFrame implements GUIView {
     pfnamemodify = new JTextField(25);
     JLabel pfNameLabel = new JLabel("Enter Portfolio name to be modified: ");
     dateofmodify = new JTextField(25);
-    JLabel dateLabel = new JLabel("Enter the date of purchase/sell: ");
+    JLabel dateLabel = new JLabel("Enter the date of purchase/sell in YYYY-MM-DD format only!: ");
     tickrmodify = new JTextField(25);
     JLabel tickrlabel = new JLabel("Enter tickr symbol: ");
     numstocksmodify = new JTextField(25);

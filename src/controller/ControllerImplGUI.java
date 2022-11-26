@@ -295,26 +295,36 @@ public class ControllerImplGUI implements Controller, ActionListener {
                                    String dateModify, Float commission, String label,
                                    String labelStatus) throws FileNotFoundException,
           ParseException {
-    if (labelStatus.equals("sell")) {
-      if (!portfolio.ifTickrInPf(this.rootDir + pfNameModify + ".json", tickrModify)) {
-        guiView.setmodifyDialogStatus("No stocks for this tickr exists to sell.");
-        guiView.settickrmodifyValue(null);
-      } else if (!portfolio.checkValidSell(this.rootDir + pfNameModify + ".json",
-              Integer.valueOf(numStocksModify), tickrModify, dateModify)) {
-        guiView.setmodifyDialogStatus("The number entered for selling stocks is more than " +
-                "stocks purchased");
-        guiView.setnumstocksmodifyValue(null);
-      } else {
-        portfolio.modifyJson(commission, Integer.valueOf(numStocksModify) * (-1),
-                dateModify, tickrModify, this.rootDir + pfNameModify + ".json");
-        guiView.setmodifyDialogStatus("The portfolio " + pfNameModify +
-                "is successfully modified");
+    if(labelStatus.equals("sell") || labelStatus.equals("purchase")){
+      boolean checkLabel = true;
+      if (labelStatus.equals("sell")) {
+        if (!portfolio.ifTickrInPf(this.rootDir + pfNameModify + ".json", tickrModify)) {
+          guiView.setmodifyDialogStatus("No stocks for this tickr exists to sell.");
+          checkLabel = false;
+          guiView.settickrmodifyValue(null);
+        } else if (!portfolio.checkValidSell(this.rootDir + pfNameModify + ".json",
+                Integer.valueOf(numStocksModify), tickrModify, dateModify)) {
+          guiView.setmodifyDialogStatus("The number entered for selling stocks is more than " +
+                  "stocks purchased");
+          checkLabel = false;
+          guiView.setnumstocksmodifyValue(null);
+        } else {
+          portfolio.modifyJson(commission, Integer.valueOf(numStocksModify) * (-1),
+                  dateModify, tickrModify, this.rootDir + pfNameModify + ".json");
+        }
       }
-    } else if (labelStatus.equals("purchase")) {
-      portfolio.modifyJson(commission, Integer.valueOf(numStocksModify), dateModify,
-              tickrModify, this.rootDir + pfNameModify + ".json");
-      guiView.setmodifyDialogStatus("The portfolio " + pfNameModify +
-              " is successfully modified");
+      else if (labelStatus.equals("purchase")) {
+        portfolio.modifyJson(commission, Integer.valueOf(numStocksModify), dateModify,
+                tickrModify, this.rootDir + pfNameModify + ".json");
+      }
+      if(checkLabel){
+        guiView.setmodifyDialogStatus("The portfolio " + pfNameModify +
+                " is successfully modified");
+        guiView.setdateofmodifynValue(null);
+        guiView.settickrmodifyValue(null);
+        guiView.setcommissionfeescreateValue(null);
+        guiView.setnumstocksmodifyValue(null);
+      }
     }
   }
 
