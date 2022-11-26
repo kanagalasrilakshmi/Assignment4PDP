@@ -8,6 +8,10 @@ public class PortfolioNewStratergy extends FlexiblePortfolioImpl implements Port
                                  Float commissionfees, Float money, String date){
     // take the stocks.
     // divide money by the weight percentages.
+    for(int i = 0;i<weightsList.size();i++){
+      Float stockmoney = (commissionfees * Float.valueOf(weightsList.get(i)))/100;
+
+    }
     // subtract that money from commission fees.
     // get the stock value of that stock on that particular date.
     // divide that value by stock price.

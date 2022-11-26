@@ -277,6 +277,7 @@ public class FlexiblePortfolioImpl extends PortfolioImpl {
    * @return false if not found else return true
    */
   public boolean checkTickrJSONArray(JSONObject tickrList, String tickr) {
+    if(tickrList == null)
     for (Object ticksSym : tickrList.keySet()) {
       String tickerSymbol = (String) ticksSym;
       if (tickerSymbol.equals(tickr)) {

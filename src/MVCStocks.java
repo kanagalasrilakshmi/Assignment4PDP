@@ -28,6 +28,5 @@ public class MVCStocks {
     GUIView guiView = new GUIViewImpl();
     Controller controllerGui = new ControllerImplGUI(modelFlex, guiView);
     controllerGui.goStocks();
-
   }
 }
