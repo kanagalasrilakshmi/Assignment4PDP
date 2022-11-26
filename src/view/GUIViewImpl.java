@@ -49,6 +49,7 @@ public class GUIViewImpl extends JFrame implements GUIView {
   private final JTextArea portfoliosListVal = new JTextArea();
   private final JTextArea portfoliosListBasis = new JTextArea();
   private final JTextArea portfoliosListRetrieve = new JTextArea();
+  private final JTextArea portfolioComposition = new JTextArea();
   private final JButton add = new JButton("Add");
   private final JButton save = new JButton("Save");
 
@@ -170,7 +171,8 @@ public class GUIViewImpl extends JFrame implements GUIView {
   public void setvalueDialogStatus(String message) {
     valDialogStatus.setText(message);
   }
-  public void setretrieveDialogStatus(String message){
+
+  public void setretrieveDialogStatus(String message) {
     retrieveDialogStatus.setText(message);
   }
 
@@ -212,10 +214,18 @@ public class GUIViewImpl extends JFrame implements GUIView {
   public void setPortfoliosListBasis(String message) {
     this.portfoliosListBasis.append(message);
   }
-  public void setPortfoliosListRetrieve(String message){
+
+  public void setPortfoliosListRetrieve(String message) {
     this.portfoliosListRetrieve.append(message);
   }
 
+  public void setpfnameretrieve(String message){
+    this.pfnameretrieve.setText(message);
+  }
+
+  public void setPortfoliosListComposition(String message){
+    this.portfolioComposition.append(message);
+  }
   private JPanel getModifyPanelDialog() {
     JPanel modifyDialog = new JPanel();
     JLabel listPortfolios = new JLabel("List of all the portfolios in the given path:");
@@ -276,15 +286,17 @@ public class GUIViewImpl extends JFrame implements GUIView {
     return valDialog;
   }
 
-  private JPanel getRetrievePanelDialog(){
+  private JPanel getRetrievePanelDialog() {
     JPanel retrievePfDialog = new JPanel();
     JLabel listPortfolios = new JLabel("List of all the portfolios in the given path:");
+    JLabel listcomposition = new JLabel("Portfolio composition");
     portfoliosListRetrieve.setEditable(false);
+    portfolioComposition.setEditable(false);
     JLabel pfNameLabel = new JLabel("Enter Portfolio Name");
     pfnameretrieve = new JTextField(25);
     retrievePfDialog.setLayout(new BoxLayout(retrievePfDialog, BoxLayout.Y_AXIS));
     retrievePfDialog.setPreferredSize(new Dimension(700, 700));
-    retrievePfDialog.setMaximumSize(new Dimension(900, 500));
+    retrievePfDialog.setMaximumSize(new Dimension(1000, 1000));
     retrievePfDialog.setMinimumSize(new Dimension(400, 400));
     retrievePfDialog.add(listPortfolios);
     retrievePfDialog.add(portfoliosListRetrieve);
@@ -292,6 +304,8 @@ public class GUIViewImpl extends JFrame implements GUIView {
     retrievePfDialog.add(pfnameretrieve);
     retrievePfDialog.add(computecomposition);
     retrievePfDialog.add(retrieveDialogStatus);
+    retrievePfDialog.add(listcomposition);
+    retrievePfDialog.add(portfolioComposition);
     return retrievePfDialog;
   }
 
@@ -314,7 +328,8 @@ public class GUIViewImpl extends JFrame implements GUIView {
   public void setLabelCostBasisStatus(String message) {
     costBasisStatus.setText(message);
   }
-  public void setRetrievePanelStatus(String message){
+
+  public void setRetrievePanelStatus(String message) {
     retrievePanelStatus.setText(message);
   }
 
@@ -351,7 +366,7 @@ public class GUIViewImpl extends JFrame implements GUIView {
     dialog.setVisible(true);
   }
 
-  public void displayRetrievepf(){
+  public void displayRetrievepf() {
     JDialog dialog;
     JOptionPane optionPane = new JOptionPane(getRetrievePanelDialog(), JOptionPane.PLAIN_MESSAGE,
             JOptionPane.DEFAULT_OPTION, null, new Object[]{}, null);
@@ -422,7 +437,7 @@ public class GUIViewImpl extends JFrame implements GUIView {
     costBasisPanel.add(costBasisStatus);
   }
 
-  private void getRetrievePfPanel(){
+  private void getRetrievePfPanel() {
     retrievePanel = new JPanel();
     retrievePf = new JButton("Retrieve Portfolio");
     retrievePanel.setBorder(BorderFactory.createTitledBorder("Retrieve Composition of a " +
@@ -544,7 +559,8 @@ public class GUIViewImpl extends JFrame implements GUIView {
         throw new RuntimeException(e);
       }
     });
-    retrievePf.addActionListener(evt->features.displayDialogPane("composition"));
-    //computecomposition;
+    retrievePf.addActionListener(evt -> features.displayDialogPane("composition"));
+    computecomposition.addActionListener(evt ->
+            features.getCompositionpf(this.pfnameretrieve.getText()));
   }
 }

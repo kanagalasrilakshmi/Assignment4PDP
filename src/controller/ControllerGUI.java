@@ -18,5 +18,6 @@ public interface ControllerGUI extends Controller{
           throws FileNotFoundException, ParseException;
   void validateDateVal(String pfNamedate, String dateValue)
           throws FileNotFoundException, ParseException;
-  public void validateCostBasis(String pfNameBasis, String dateBasis) throws ParseException;
+  void validateCostBasis(String pfNameBasis, String dateBasis) throws ParseException;
+  void getCompositionpf(String pfNameComposition);
 }

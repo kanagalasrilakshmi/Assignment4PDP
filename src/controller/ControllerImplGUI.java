@@ -48,19 +48,22 @@ public class ControllerImplGUI implements ControllerGUI {
       }
     } else {
       if (label.equals("modify")) {
-        guiView.setmodifyDialogStatus("Portfolio with this name" +
-                pfName + " does not exist!!");
+        guiView.setmodifyDialogStatus("Portfolio with this name" + pfName + " does not exist!!");
         guiView.setModifyPfValue(null);
         return false;
       } else if (label.equals("costBasis")) {
-        guiView.setCostBasisDialogStatus("Portfolio with this name" +
-                pfName + " does not exist!!");
+        guiView.setCostBasisDialogStatus("Portfolio with this name" + pfName + " does not exist!!");
         guiView.setpfNameCostBasis(null);
         return false;
       } else if (label.equals("valDate")) {
-        guiView.setvalueDialogStatus("Portfolio with this name" +
-                pfName + "does not exist!!");
+        guiView.setvalueDialogStatus("Portfolio with this name" + pfName + "does not exist!!");
         guiView.setpfnameVal(null);
+        return false;
+      }
+      else if(label.equals("composition")){
+        guiView.setretrieveDialogStatus("Portfolio with this name" + pfName + " does not exist!!");
+        guiView.setpfnameretrieve(null);
+        return false;
       }
     }
     return true;
@@ -383,6 +386,17 @@ public class ControllerImplGUI implements ControllerGUI {
     }
   }
 
+  public void getCompositionpf(String pfNameComposition) {
+    if (pfNameComposition == null || pfNameComposition.length() == 0) {
+      guiView.setretrieveDialogStatus("All the values are not given!!");
+    }
+    else{
+      if (checkPortfolioField(pfNameComposition, "composition")){
+        guiView.setPortfoliosListComposition("");
+      }
+    }
+  }
+
   public void displayDialogPane(String label) {
     if (this.rootDirUser == null || this.rootDirUser.length() == 0) {
       if (label.equals("costBasis")) {
@@ -393,8 +407,7 @@ public class ControllerImplGUI implements ControllerGUI {
         guiView.setValueLabelStatus("Please specify the root directory path!!");
       } else if (label.equals("create")) {
         guiView.setCreateLabelStatus("Please specify the root directory path!!");
-      }
-      else if(label.equals("composition")){
+      } else if (label.equals("composition")) {
         guiView.setRetrievePanelStatus("Please specify the root directory path!!");
       }
     } else {
@@ -419,9 +432,9 @@ public class ControllerImplGUI implements ControllerGUI {
         guiView.setValueLabelStatus(null);
         guiView.setPortfoliosListVal(message);
         guiView.displayValuepf();
-      }
-      else if(label.equals("composition")){
+      } else if (label.equals("composition")) {
         guiView.setRetrievePanelStatus(null);
+        guiView.setPortfoliosListRetrieve(message);
         guiView.displayRetrievepf();
       }
     }

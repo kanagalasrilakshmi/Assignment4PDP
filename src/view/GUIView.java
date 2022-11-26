@@ -71,5 +71,7 @@ public interface GUIView {
   void setPortfoliosListRetrieve(String message);
   void displayRetrievepf();
   void setretrieveDialogStatus(String message);
+  void setpfnameretrieve(String message);
+  void setPortfoliosListComposition(String message);
 
 }
