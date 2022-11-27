@@ -551,6 +551,9 @@ public class ControllerImplGUI implements ControllerGUI {
                             Float.valueOf(dollarexistval), dollarexistdate, portfolioObj);
                     portfolio.savePortfolio(this.rootDir + dollarexistpfname + ".json",
                             finalObj);
+                    // make all entries null
+                    guiView.setdollarexistpanestatus("Strategy successfully applied to the " +
+                            "portfolio"+dollarexistpfname);
                   }
                 }
               }
