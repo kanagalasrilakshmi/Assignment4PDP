@@ -121,7 +121,21 @@ public class GUIViewImpl extends JFrame implements GUIView {
   public void setpfnamedollarnew(String message){
     this.dollarnewcreatepfname.setText(message);
   }
-
+  public void setdollarnewval(String message){
+    this.dollarnewval.setText(message);
+  }
+  public void setstartdatenew(String message){
+    this.dollarnewstartdate.setText(message);
+  }
+  public void setenddatenew(String message){
+    this.dollarnewenddate.setText(message);
+  }
+  public void setdollardays(String message){
+    this.dollarnewdays.setText(message);
+  }
+  public void setdollarcommissionnew(String message){
+    this.dollarnewcommission.setText(message);
+  }
   public void setweightsnew(String message){
     this.weightsnew.setText(message);
   }

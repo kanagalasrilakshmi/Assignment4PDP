@@ -104,6 +104,14 @@ public class ControllerImplGUI implements ControllerGUI {
         guiView.setdollarexistpanestatus("Date is not entered in YYYY-DD-MM format!");
         guiView.setdollardateexist(null);
       }
+      else if(label.equals("dollarnewstartdate")){
+        guiView.setdollarnewpanestatus("Date is not entered in YYYY-DD-MM format!");
+        guiView.setstartdatenew(null);
+      }
+      else if(label.equals("dollarnewenddate")){
+        guiView.setdollarnewpanestatus("Date is not entered in YYYY-DD-MM format!");
+        guiView.setenddatenew(null);
+      }
       return false;
     } else if (portfolio.checkFutureDate(date) || portfolio.checkTodayDateAndTime(date)) {
       if (label.equals("add")) {
@@ -122,7 +130,7 @@ public class ControllerImplGUI implements ControllerGUI {
         guiView.setvalueDialogStatus("You can only enter past date or present(if after " +
                 "9:30am).! Please enter new date");
         guiView.setdateVal(null);
-      } else if (label.equals("dollarexist")) {
+      } else if (label.equals("dollarexist") || label.equals("dollarnew")) {
         return true;
       }
       return false;
@@ -552,6 +560,12 @@ public class ControllerImplGUI implements ControllerGUI {
         guiView.setstocksexist(null);
         guiView.setweightsexist(null);
       }
+      else if(label.equals("dollarnew")){
+        guiView.setdollarnewpanestatus("The number of tickr symbols given and the number " +
+                "corresponding weights given do not match");
+        guiView.setstocksnew(null);
+        guiView.setweightsnew(null);
+      }
       return false;
     }
     return true;
@@ -564,11 +578,19 @@ public class ControllerImplGUI implements ControllerGUI {
         guiView.setdollarexistpanestatus("Money can be either an integer or a float value!!");
         guiView.setdollarexistval(null);
       }
+      else if(label.equals("dollarnew")){
+        guiView.setdollarnewpanestatus("Money can be either an integer or a float value!!");
+        guiView.setdollarnewval(null);
+      }
       return false;
     } else if (Float.valueOf(dollarexistval) < 0) {
       if (label.equals("dollarexist")) {
         guiView.setdollarnewpanestatus("Negative money is not allowed!!!");
         guiView.setdollarexistval(null);
+      }
+      else if(label.equals("dollarnew")){
+        guiView.setdollarnewpanestatus("Negative money is not allowed!!!");
+        guiView.setdollarnewval(null);
       }
       return false;
     }
@@ -633,7 +655,18 @@ public class ControllerImplGUI implements ControllerGUI {
       if(checkPortfolioField(dollarnewcreatepfname,"dollarnew")){
         if (checkBatchTickrField(stocksnew, "dollarnew")){
           if(checkBatchWeightFields(weightsnew,"dollarnew")){
-
+            if (checkBatchTickrBatchWeightsSize(stocksnew, stocksnew, "dollarnew")){
+              if(checkValidMoney(dollarnewval,"dollarnew")){
+                if(checkDateField(dollarnewstartdate,"dollarnewstartdate")){
+                  if(checkDateField(dollarnewenddate,"dollarnewenddate")){
+                    if(portfolio.checkValidInteger(dollarnewdays)){
+                      // check number of days.
+                      // check commision fees.
+                    }
+                  }
+                }
+              }
+            }
           }
         }
       }

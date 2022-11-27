@@ -91,5 +91,10 @@ public interface GUIView {
   void setpfnamedollarnew(String message);
   void setstocksnew(String message);
   void setweightsnew(String message);
+  void setdollarnewval(String message);
+  void setstartdatenew(String message);
+  void setenddatenew(String message);
+  void setdollardays(String message);
+  void setdollarcommissionnew(String message);
 
 }
