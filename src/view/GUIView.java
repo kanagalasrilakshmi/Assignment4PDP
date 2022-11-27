@@ -82,6 +82,9 @@ public interface GUIView {
   void setpfNameExistDollar(String message);
   void setdollardateexist(String message);
   void setdollarexistcommisionval(String message);
+  void setstocksexist(String message);
+  void setweightsexist(String message);
+  void setdollarexistval(String message);
   void setdollarnewpanestatus(String message);
   void setportfolioslistdollarexist(String message);
 

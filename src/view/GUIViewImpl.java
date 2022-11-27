@@ -118,6 +118,18 @@ public class GUIViewImpl extends JFrame implements GUIView {
     this.dollarexistpanestatus.setText(message);
   }
 
+  public void setstocksexist(String message){
+    this.stocksexist.setText(message);
+  }
+
+  public void setweightsexist(String message){
+    this.weightsexist.setText(message);
+  }
+
+  public void setdollarexistval(String message){
+    this.dollarexistval.setText(message);
+  }
+
   public void setdollarnewpanestatus(String message){
     this.dollarnewpanestatus.setText(message);
   }

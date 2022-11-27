@@ -472,7 +472,7 @@ public class ControllerImplGUI implements ControllerGUI {
     if (stocks.size() == 0) {
       if(label.equals("dollarexist")){
         guiView.setdollarexistpanestatus("Invalid Tickr symbol is entered!!");
-        //
+        guiView.setstocksexist(null);
       }
       return false;
     }
@@ -483,7 +483,7 @@ public class ControllerImplGUI implements ControllerGUI {
     if(!portfolio.validateWeightFormat(weightsexist)){
       if(label.equals("dollarexist")){
         guiView.setdollarexistpanestatus("Format of the the weights is not correct");
-        //
+        guiView.setweightsexist(null);
         return false;
       }
     }
@@ -492,7 +492,7 @@ public class ControllerImplGUI implements ControllerGUI {
       if (weights.size() == 0) {
         if(label.equals("dollarexist")){
           guiView.setdollarexistpanestatus("Sum of the given weights is not equal to 100%");
-          //
+          guiView.setweightsexist(null);
           return false;
         }
       }
@@ -508,7 +508,12 @@ public class ControllerImplGUI implements ControllerGUI {
     ArrayList<Float> checkingtickrweights = portfolio.validateStockWeightEntries(weightsexist,
             portfolio.validateTickrEntries(stocksexist).size());
     if (checkingtickrweights.size() == 0) {
-
+      if(label.equals("dollarexist")){
+        guiView.setdollarexistpanestatus("The number of tickr symbols given and the number " +
+                "corresponding weights given do not match");
+        guiView.setstocksexist(null);
+        guiView.setweightsexist(null);
+      }
       return false;
     }
     return true;
@@ -517,8 +522,16 @@ public class ControllerImplGUI implements ControllerGUI {
   private boolean checkValidMoney(String dollarexistval,String label) {
     if (!portfolio.checkValidInteger(dollarexistval) &&
             !portfolio.checkValidInteger(dollarexistval)) {
+      if(label.equals("dollarexist")){
+        guiView.setdollarexistpanestatus("Money can be either an integer or a float value!!");
+        guiView.setdollarexistval(null);
+      }
       return false;
     } else if (Float.valueOf(dollarexistval) < 0) {
+      if(label.equals("dollarexist")){
+        guiView.setdollarnewpanestatus("Negative money is not allowed!!!");
+        guiView.setdollarexistval(null);
+      }
       return false;
     }
     return true;
@@ -551,9 +564,13 @@ public class ControllerImplGUI implements ControllerGUI {
                             Float.valueOf(dollarexistval), dollarexistdate, portfolioObj);
                     portfolio.savePortfolio(this.rootDir + dollarexistpfname + ".json",
                             finalObj);
-                    // make all entries null
                     guiView.setdollarexistpanestatus("Strategy successfully applied to the " +
                             "portfolio"+dollarexistpfname);
+                    guiView.setdollardateexist(null);
+                    guiView.setdollarexistcommisionval(null);
+                    guiView.setstocksexist(null);
+                    guiView.setweightsexist(null);
+                    guiView.setdollarexistval(null);
                   }
                 }
               }
