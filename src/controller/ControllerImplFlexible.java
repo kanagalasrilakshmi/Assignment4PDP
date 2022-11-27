@@ -214,7 +214,8 @@ public class ControllerImplFlexible extends ControllerImpl implements Controller
       numberOfStocks = numberOfStocks * (-1);
     }
     JSONObject portfolio = thePortfolio.readPortfolio(path);
-    portfolio = thePortfolio.modifyJson(fees, Float.valueOf(numberOfStocks), transactionDate, tickr, portfolio);
+    portfolio = thePortfolio.modifyJson(fees, Float.valueOf(numberOfStocks),
+            transactionDate, tickr, portfolio);
     thePortfolio.savePortfolio(path, portfolio);
     return "The portfolio is successfully modified";
   }

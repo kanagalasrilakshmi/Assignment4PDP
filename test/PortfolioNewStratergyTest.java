@@ -9,7 +9,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 
-import model.FlexiblePortfolioImpl;
 import model.Portfolio;
 import model.PortfolioNewStratergy;
 import model.PortfolioStratergy;
@@ -44,28 +43,35 @@ public class PortfolioNewStratergyTest {
   @Test
   public void validateTickrEntries() {
     PortfolioStratergy portfolioObj = new PortfolioNewStratergy();
-    assertEquals("[GOOG]", String.valueOf(portfolioObj.validateTickrEntries("GOOG")));
+    assertEquals("[GOOG]", String.valueOf(
+            portfolioObj.validateTickrEntries("GOOG")));
     assertEquals("[]", String.valueOf(portfolioObj.validateTickrEntries("hfgbs")));
     assertEquals("[]", String.valueOf(portfolioObj.validateTickrEntries("goog")));
-    assertEquals("[GOOG, MSFT, TSLA]", String.valueOf(portfolioObj.validateTickrEntries("GOOG, MSFT,TSLA")));
-    assertEquals("[GOOG, TSLA, MSFT]", String.valueOf(portfolioObj.validateTickrEntries("GOOG,  TSLA,  MSFT")));
+    assertEquals("[GOOG, MSFT, TSLA]", String.valueOf(
+            portfolioObj.validateTickrEntries("GOOG, MSFT,TSLA")));
+    assertEquals("[GOOG, TSLA, MSFT]", String.valueOf(
+            portfolioObj.validateTickrEntries("GOOG,  TSLA,  MSFT")));
   }
 
   @Test
   public void validateWeightEntries() {
     PortfolioStratergy portfolioObj = new PortfolioNewStratergy();
-    assertEquals("[10.0, 10.0, 10.0, 10.0, 60.0]", String.valueOf(portfolioObj.validateStockWeightEntries("10 ,10  ,10 ,10, 60", 5)));
-    assertEquals("[]", String.valueOf(portfolioObj.validateStockWeightEntries("50,50", 3)));
-    assertEquals("[]", String.valueOf(portfolioObj.validateStockWeightEntries("20,70,10", 2)));
-    assertEquals("[25.5, 24.5, 50.0]", String.valueOf(portfolioObj.validateStockWeightEntries("25.5, 24.5,50", 3)));
+    assertEquals("[10.0, 10.0, 10.0, 10.0, 60.0]", String.valueOf(
+            portfolioObj.validateStockWeightEntries("10 ,10  ,10 ,10, 60", 5)));
+    assertEquals("[]", String.valueOf(portfolioObj.validateStockWeightEntries(
+            "50,50", 3)));
+    assertEquals("[]", String.valueOf(portfolioObj.validateStockWeightEntries(
+            "20,70,10", 2)));
+    assertEquals("[25.5, 24.5, 50.0]", String.valueOf(
+            portfolioObj.validateStockWeightEntries("25.5, 24.5,50", 3)));
   }
 
   @Test
   public void getAllDatesUsingStep() {
     PortfolioStratergy portfolioObj = new PortfolioNewStratergy();
-    assertEquals("[2022-01-01, 2022-01-05, 2022-01-09, 2022-01-13, 2022-01-17, 2022-01-21," +
-            " 2022-01-25, 2022-01-29, 2022-02-02]", portfolioObj.getAllDatesUsingStep(
-                    "2022-01-01", "2022-02-02", 4).toString());
+    assertEquals("[2022-01-01, 2022-01-05, 2022-01-09, 2022-01-13, 2022-01-17," +
+            " 2022-01-21, 2022-01-25, 2022-01-29, 2022-02-02]", portfolioObj.getAllDatesUsingStep(
+            "2022-01-01", "2022-02-02", 4).toString());
   }
 
   @Test
@@ -81,13 +87,13 @@ public class PortfolioNewStratergyTest {
     addTickr.put("GOOG", listEntry);
     portfolioObj.savePortfolio(path, addTickr);
     ArrayList<String> tickrs = new ArrayList<>();
-    tickrs.add("GOOG") ;
+    tickrs.add("GOOG");
     tickrs.add("MSFT");
     ArrayList<Float> weights = new ArrayList<>();
     weights.add(50F);
     weights.add(50F);
-    JSONObject pf = strategyPortfolioObj.dollarCostExisting(tickrs,weights ,
-            2,1000, "2022-11-11", addTickr);
+    JSONObject pf = strategyPortfolioObj.dollarCostExisting(tickrs, weights,
+            2, 1000, "2022-11-11", addTickr);
     portfolioObj.savePortfolio(path, pf);
     assertEquals(pf.toString(), portfolioObj.readPortfolio(path).toString());
   }

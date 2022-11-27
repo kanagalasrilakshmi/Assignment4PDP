@@ -163,10 +163,10 @@ public interface Portfolio {
   /**
    * modify the json.
    *
-   * @param fees   is the commision fees
-   * @param num    num stocks willing to sell
-   * @param date   date on which sale is to be made
-   * @param tickr  company tickr symbol
+   * @param fees      is the commision fees
+   * @param num       num stocks willing to sell
+   * @param date      date on which sale is to be made
+   * @param tickr     company tickr symbol
    * @param portfolio the jsonobject of the portfolio
    */
 
@@ -290,6 +290,7 @@ public interface Portfolio {
 
   /**
    * Read the Portfolio for the given path for the portfolio.
+   *
    * @param path portfolio absolute path
    * @return a json object that consists of all the entries in the input portfolio path
    */
@@ -298,10 +299,11 @@ public interface Portfolio {
   /**
    * Make a transaction of purchase or sell using the input values date,commision, no of stock,
    * and tickr symbol.
-   * @param date is the date on which purchase or sale is made
+   *
+   * @param date       is the date on which purchase or sale is made
    * @param commission is input commision for a transaction
    * @param noofstocks is number stock bought or sold
-   * @param tickr is company tickr symbol for which trasaction needs to be done
+   * @param tickr      is company tickr symbol for which trasaction needs to be done
    * @return a json object entry that needs to be added to the portfolio
    */
 

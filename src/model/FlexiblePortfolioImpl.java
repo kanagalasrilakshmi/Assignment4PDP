@@ -86,10 +86,10 @@ public class FlexiblePortfolioImpl extends PortfolioImpl {
   /**
    * modify the json.
    *
-   * @param fees   is the commision fees
-   * @param date   date on which sale is to be made
-   * @param tickr  company tickr symbol
-   * @param portfolio  the json object of the portfolio
+   * @param fees      is the commision fees
+   * @param date      date on which sale is to be made
+   * @param tickr     company tickr symbol
+   * @param portfolio the json object of the portfolio
    */
   @Override
   public JSONObject modifyJson(float fees, float numOfStocks, String date, String tickr, JSONObject portfolio) {

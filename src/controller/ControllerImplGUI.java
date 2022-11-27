@@ -188,6 +188,10 @@ public class ControllerImplGUI implements ControllerGUI {
     return false;
   }
 
+  private boolean checkAllFieldsDollarNew(){
+    return false;
+  }
+
   private boolean checkCommissionField(String commissionCreate, String label) {
     if (commissionCreate == null || commissionCreate.length() == 0) {
       return true;
@@ -582,9 +586,10 @@ public class ControllerImplGUI implements ControllerGUI {
   }
 
   public void validateNewDollar(String stratergydollarnewname, String dollarnewcreatepfname,
-                                String stocksweightsnew, String dollarnewval, String dollarnewdays,
+                                String stocksnew, String weightsnew,String dollarnewval, String dollarnewdays,
                                 String dollarnewstartdate, String dollarnewenddate,
                                 String dollarnewcommission) {
+    // do not know what to do with strategy name.
 
   }
 

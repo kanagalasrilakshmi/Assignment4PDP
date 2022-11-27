@@ -79,7 +79,8 @@ public class GUIViewImpl extends JFrame implements GUIView {
 
   private JTextField stratergydollarnewname;
   private JTextField dollarnewcreatepfname;
-  private JTextField stocksweightsnew;
+  private JTextField stocksnew;
+  private JTextField weightsnew;
   private JTextField dollarnewval;
   private JTextField dollarnewdays;
   private JTextField dollarnewstartdate;
@@ -91,7 +92,6 @@ public class GUIViewImpl extends JFrame implements GUIView {
   private JTextField stratergydollarexistname;
   private JTextArea portfolioslistdollarexist = new JTextArea();
   private JTextField dollarexistpfname;
-  private JTextArea getstocksdollarexist = new JTextArea();
   private JTextField stocksexist;
   private JTextField weightsexist;
   private JTextField dollarexistval;
@@ -114,23 +114,23 @@ public class GUIViewImpl extends JFrame implements GUIView {
     pathStore.setText(setMessage);
   }
 
-  public void setdollarexistpanestatus(String message){
+  public void setdollarexistpanestatus(String message) {
     this.dollarexistpanestatus.setText(message);
   }
 
-  public void setstocksexist(String message){
+  public void setstocksexist(String message) {
     this.stocksexist.setText(message);
   }
 
-  public void setweightsexist(String message){
+  public void setweightsexist(String message) {
     this.weightsexist.setText(message);
   }
 
-  public void setdollarexistval(String message){
+  public void setdollarexistval(String message) {
     this.dollarexistval.setText(message);
   }
 
-  public void setdollarnewpanestatus(String message){
+  public void setdollarnewpanestatus(String message) {
     this.dollarnewpanestatus.setText(message);
   }
 
@@ -264,28 +264,30 @@ public class GUIViewImpl extends JFrame implements GUIView {
     this.portfoliosListRetrieve.append(message);
   }
 
-  public void setportfolioslistdollarexist(String message){
+  public void setportfolioslistdollarexist(String message) {
     this.portfolioslistdollarexist.append(message);
   }
 
-  public void setpfNameExistDollar(String message){
+  public void setpfNameExistDollar(String message) {
     this.dollarexistpfname.setText(null);
   }
 
-  public void setdollardateexist(String message){
+  public void setdollardateexist(String message) {
     this.dollarexistdate.setText(message);
   }
 
-  public void setdollarexistcommisionval(String message){
+  public void setdollarexistcommisionval(String message) {
     this.dollarexistcommision.setText(message);
   }
-  public void setpfnameretrieve(String message){
+
+  public void setpfnameretrieve(String message) {
     this.pfnameretrieve.setText(message);
   }
 
-  public void setPortfoliosListComposition(String message){
+  public void setPortfoliosListComposition(String message) {
     this.portfolioComposition.append(message);
   }
+
   private JPanel getModifyPanelDialog() {
     JPanel modifyDialog = new JPanel();
     JLabel listPortfolios = new JLabel("List of all the portfolios in the given path:");
@@ -368,15 +370,25 @@ public class GUIViewImpl extends JFrame implements GUIView {
     retrievePfDialog.add(portfolioComposition);
     return retrievePfDialog;
   }
-  private JPanel getDollarCostNewDialog(){
+
+  private JPanel getDollarCostNewDialog() {
     JPanel dollarnewPfDialog = new JPanel();
     JLabel stratergyname = new JLabel("Enter the name of the strategy");
     stratergydollarnewname = new JTextField(25);
     JLabel createpf = new JLabel("Enter the name of the portfolio name to be created");
     dollarnewcreatepfname = new JTextField(25);
-    JLabel stocksweights = new JLabel("Enter the stocks and corresponding weights");
-    stocksweightsnew = new JTextField(100);
-    JLabel stockweightdesc = new JLabel("For ex-GOOG-10,UBER-12....");
+
+    JLabel stocksweightsdesc = new JLabel("Enter the stocks tickr symbols, if multiple " +
+            "entries separate them by delimeter ','. DO NOT end with ',' after adding" +
+            " all the entries");
+    JLabel stocksone = new JLabel("For single entry - GOOG");
+    JLabel stockstwo = new JLabel("For multiple entries - ex-GOOG,UBER,....");
+    JLabel stocksthree = new JLabel("GOOG,UBER, (or) GOOG, is a wrong format");
+    stocksnew = new JTextField(100);
+    JLabel weightsone = new JLabel("Enter the corresponding weights for the given stocks " +
+            "seperated by delimeter ','.DO NOT end with ',' after adding all the entries");
+    weightsnew = new JTextField(100);
+
     JLabel money = new JLabel("Enter the money to be invested in the portfolio");
     dollarnewval = new JTextField(25);
     JLabel startdate = new JLabel("Enter the start date of investment");
@@ -388,14 +400,18 @@ public class GUIViewImpl extends JFrame implements GUIView {
             "should recur");
     dollarnewcommission = new JTextField(25);
     JLabel commission = new JLabel("Enter the commission fees");
-    dollarnewPfDialog.setLayout(new BoxLayout(dollarnewPfDialog,BoxLayout.Y_AXIS)) ;
+    dollarnewPfDialog.setLayout(new BoxLayout(dollarnewPfDialog, BoxLayout.Y_AXIS));
     dollarnewPfDialog.add(stratergyname);
     dollarnewPfDialog.add(stratergydollarnewname);
     dollarnewPfDialog.add(createpf);
     dollarnewPfDialog.add(dollarnewcreatepfname);
-    dollarnewPfDialog.add(stocksweights);
-    dollarnewPfDialog.add(stockweightdesc);
-    dollarnewPfDialog.add(stocksweightsnew);
+    dollarnewPfDialog.add(stocksweightsdesc);
+    dollarnewPfDialog.add(stocksone);
+    dollarnewPfDialog.add(stockstwo);
+    dollarnewPfDialog.add(stocksthree);
+    dollarnewPfDialog.add(stocksnew);
+    dollarnewPfDialog.add(weightsone);
+    dollarnewPfDialog.add(weightsnew);
     dollarnewPfDialog.add(money);
     dollarnewPfDialog.add(dollarnewval);
     dollarnewPfDialog.add(startdate);
@@ -408,9 +424,10 @@ public class GUIViewImpl extends JFrame implements GUIView {
     dollarnewPfDialog.add(dollarnewcommission);
     dollarnewPfDialog.add(dollarnewcreate);
     dollarnewPfDialog.add(dollarnewpanestatus);
-    return  dollarnewPfDialog;
+    return dollarnewPfDialog;
   }
-  private JPanel getDollarCostExistDialog(){
+
+  private JPanel getDollarCostExistDialog() {
     JPanel dollarexistingPfDialog = new JPanel();
     JLabel listallportfolios = new JLabel("List of all the portfolios present in the " +
             "given path");
@@ -435,7 +452,7 @@ public class GUIViewImpl extends JFrame implements GUIView {
     dollarexistdate = new JTextField(25);
     JLabel commission = new JLabel("Enter the commission fees");
     dollarexistcommision = new JTextField(25);
-    dollarexistingPfDialog.setLayout(new BoxLayout(dollarexistingPfDialog,BoxLayout.Y_AXIS));
+    dollarexistingPfDialog.setLayout(new BoxLayout(dollarexistingPfDialog, BoxLayout.Y_AXIS));
     dollarexistingPfDialog.setPreferredSize(new Dimension(1000, 700));
     dollarexistingPfDialog.setMaximumSize(new Dimension(1200, 1200));
     dollarexistingPfDialog.setMinimumSize(new Dimension(800, 800));
@@ -462,6 +479,7 @@ public class GUIViewImpl extends JFrame implements GUIView {
     dollarexistingPfDialog.add(dollarexistpanestatus);
     return dollarexistingPfDialog;
   }
+
   public void setpfnameVal(String message) {
     pfnamevalue.setText(message);
   }
@@ -527,7 +545,7 @@ public class GUIViewImpl extends JFrame implements GUIView {
     dialog.setVisible(true);
   }
 
-  public void displayDollarExistingpf(){
+  public void displayDollarExistingpf() {
     JDialog dialog;
     JOptionPane optionPane = new JOptionPane(getDollarCostExistDialog(), JOptionPane.PLAIN_MESSAGE,
             JOptionPane.DEFAULT_OPTION, null, new Object[]{}, null);
@@ -535,7 +553,7 @@ public class GUIViewImpl extends JFrame implements GUIView {
     dialog.setVisible(true);
   }
 
-  public void displayDollarNewpf(){
+  public void displayDollarNewpf() {
     JDialog dialog;
     JOptionPane optionPane = new JOptionPane(getDollarCostNewDialog(), JOptionPane.PLAIN_MESSAGE,
             JOptionPane.DEFAULT_OPTION, null, new Object[]{}, null);
@@ -577,11 +595,12 @@ public class GUIViewImpl extends JFrame implements GUIView {
   public void setValueLabelStatus(String message) {
     this.valueStatus.setText(message);
   }
-  public void setdollarExistingStatus(String message){
+
+  public void setdollarExistingStatus(String message) {
     this.dollarExistingStatus.setText(message);
   }
 
-  public void setdollarNewStatus(String message){
+  public void setdollarNewStatus(String message) {
     this.dollarNewStatus.setText(message);
   }
 
@@ -743,12 +762,13 @@ public class GUIViewImpl extends JFrame implements GUIView {
     dollarCostExisting.addActionListener(evt -> features.displayDialogPane("dollarexist"));
     dollarCostNew.addActionListener(evt -> features.displayDialogPane("dollarnew"));
     dollarexistcreate.addActionListener(evt -> features.validateExistingDollar(
-            stratergydollarexistname.getText(),dollarexistpfname.getText(),
-            stocksexist.getText().toUpperCase(), weightsexist.getText(),dollarexistval.getText(),
-            dollarexistdate.getText(),dollarexistcommision.getText()));
+            stratergydollarexistname.getText(), dollarexistpfname.getText(),
+            stocksexist.getText().toUpperCase(), weightsexist.getText(), dollarexistval.getText(),
+            dollarexistdate.getText(), dollarexistcommision.getText()));
     dollarnewcreate.addActionListener(evt -> features.validateNewDollar(
-            stratergydollarnewname.getText(),dollarnewcreatepfname.getText(),
-            stocksweightsnew.getText(),dollarnewval.getText(),dollarnewdays.getText(),
-            dollarnewstartdate.getText(),dollarnewenddate.getText(),dollarnewcommission.getText()));
+            stratergydollarnewname.getText(), dollarnewcreatepfname.getText(),
+            stocksnew.getText().toUpperCase(), weightsnew.getText(), dollarnewval.getText(),
+            dollarnewdays.getText(), dollarnewstartdate.getText(), dollarnewenddate.getText(),
+            dollarnewcommission.getText()));
   }
 }

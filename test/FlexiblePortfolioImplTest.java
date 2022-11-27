@@ -70,7 +70,8 @@ public class FlexiblePortfolioImplTest {
     addTickr.put("GOOG", listEntry);
     String path = System.getProperty("user.home") + "/Desktop/PortfolioBucket/" + "pf.json";
     portfolioObj.savePortfolio(path, addTickr);
-    boolean isValid = portfolioObj.checkValidSell(path, 9, "GOOG", "2022-02-02");
+    boolean isValid = portfolioObj.checkValidSell(path, 9, "GOOG",
+            "2022-02-02");
     // Sell more than purchase
     assertEquals(false, isValid);
     isValid = portfolioObj.checkValidSell(path, 8, "GOOG", "2022-02-02");
@@ -117,7 +118,8 @@ public class FlexiblePortfolioImplTest {
     listEntry.add(addEntry);
     addTickr.put("GOOG", listEntry);
     JSONObject portfolio = portfolioObj.readPortfolio(path);
-    portfolio = portfolioObj.modifyJson(Float.valueOf(4), 83, "2022-02-02", "GOOG", portfolio);
+    portfolio = portfolioObj.modifyJson(Float.valueOf(4), 83, "2022-02-02",
+            "GOOG", portfolio);
     portfolioObj.savePortfolio(path, portfolio);
     // Check buy
     assertEquals(addTickr.toString(), portfolioObj.readPortfolio(path).toString());
@@ -126,7 +128,8 @@ public class FlexiblePortfolioImplTest {
     listEntry.add(addEntry);
     addTickr.put("GOOG", listEntry);
     JSONObject portfo = portfolioObj.readPortfolio(path);
-    portfolio = portfolioObj.modifyJson(Float.valueOf(5), -4, "2022-04-04", "GOOG", portfo);
+    portfolio = portfolioObj.modifyJson(Float.valueOf(5), -4, "2022-04-04",
+            "GOOG", portfo);
     portfolioObj.savePortfolio(path, portfolio);
     // Check sell
     assertEquals(addTickr.toString(), portfolioObj.readPortfolio(path).toString());
@@ -145,7 +148,8 @@ public class FlexiblePortfolioImplTest {
     portfolioObj.savePortfolio(path, addTickr);
     ArrayList<Float> values = portfolioObj.getValuesPortfolio(
             System.getProperty("user.home") +
-                    "/Desktop/PortfolioBucket/", "pf", "2021-01-01", "2022-06-06",
+                    "/Desktop/PortfolioBucket/", "pf", "2021-01-01",
+            "2022-06-06",
             portfolioObj.checkDifference("2021-01-01", "2022-06-06"));
     assertEquals(446.8783874511719, portfolioObj.getScale(values), 0.01);
   }
@@ -295,6 +299,6 @@ public class FlexiblePortfolioImplTest {
     String path = System.getProperty("user.home") + "/Desktop/PortfolioBucket/" + "pf.json";
     portfolioObj.savePortfolio(path, addTickr);
     Float costBasis = portfolioObj.getCostBasis(path, "2022-02-02");
-    assertEquals(23155.7, costBasis,0.9);
+    assertEquals(23155.7, costBasis, 0.9);
   }
 }
