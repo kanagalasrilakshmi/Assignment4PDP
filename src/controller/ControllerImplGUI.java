@@ -33,14 +33,17 @@ public class ControllerImplGUI implements ControllerGUI {
   private boolean checkPortfolioField(String pfName, String label) {
 
     boolean fileCheck = new File(this.rootDir + pfName + ".json").exists();
-    if (label.equals("add") || label.equals("save") || label.equals("dollarnew")) {
+    if (label.equals("add") || label.equals("save")) {
       if (!checkValidpfName(pfName)) {
         guiView.setcreateDialogStatus("Please enter a valid Portfolio name!!");
         guiView.setCreatePfValue(null);
-        guiView.setdollarnewpanestatus("Please enter a valid Portfolio name!!");
-        guiView.setpfnamedollarnew(null);
         return false;
       }
+    }
+    else if(label.equals("dollarnew")){
+      guiView.setdollarnewpanestatus("Please enter a valid Portfolio name!!");
+      guiView.setpfnamedollarnew(null);
+      return false;
     }
     if (fileCheck) {
       if (label.equals("add") || label.equals("save")) {
@@ -483,6 +486,7 @@ public class ControllerImplGUI implements ControllerGUI {
       if (checkPortfolioField(pfNameComposition, "composition")) {
         JSONObject portfolioObj = portfolio.readPortfolio(this.rootDir +
                 pfNameComposition + ".json");
+
         guiView.setPortfoliosListComposition(viewFlexibleComposition(portfolioObj));
       }
     }
@@ -664,6 +668,7 @@ public class ControllerImplGUI implements ControllerGUI {
         guiView.displayValuepf();
       } else if (label.equals("composition")) {
         guiView.setRetrievePanelStatus(null);
+        guiView.setPortfoliosListRetrieve(null);
         guiView.setPortfoliosListRetrieve(message);
         guiView.displayRetrievepf();
       } else if (label.equals("dollarexist")) {

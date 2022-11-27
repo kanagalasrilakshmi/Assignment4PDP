@@ -252,23 +252,23 @@ public class GUIViewImpl extends JFrame implements GUIView {
   }
 
   public void setportfoliosListModify(String message) {
-    this.portfoliosListModify.append(message);
+    this.portfoliosListModify.setText(message);
   }
 
   public void setPortfoliosListVal(String message) {
-    this.portfoliosListVal.append(message);
+    this.portfoliosListVal.setText(message);
   }
 
   public void setPortfoliosListBasis(String message) {
-    this.portfoliosListBasis.append(message);
+    this.portfoliosListBasis.setText(message);
   }
 
   public void setPortfoliosListRetrieve(String message) {
-    this.portfoliosListRetrieve.append(message);
+    this.portfoliosListRetrieve.setText(message);
   }
 
   public void setportfolioslistdollarexist(String message) {
-    this.portfolioslistdollarexist.append(message);
+    this.portfolioslistdollarexist.setText(message);
   }
 
   public void setpfNameExistDollar(String message) {
@@ -288,7 +288,7 @@ public class GUIViewImpl extends JFrame implements GUIView {
   }
 
   public void setPortfoliosListComposition(String message) {
-    this.portfolioComposition.append(message);
+    this.portfolioComposition.setText(message);
   }
 
   private JPanel getModifyPanelDialog() {
