@@ -33,10 +33,12 @@ public class ControllerImplGUI implements ControllerGUI {
   private boolean checkPortfolioField(String pfName, String label) {
 
     boolean fileCheck = new File(this.rootDir + pfName + ".json").exists();
-    if (label.equals("add") || label.equals("save")) {
+    if (label.equals("add") || label.equals("save") || label.equals("dollarnew")) {
       if (!checkValidpfName(pfName)) {
         guiView.setcreateDialogStatus("Please enter a valid Portfolio name!!");
         guiView.setCreatePfValue(null);
+        guiView.setdollarnewpanestatus("Please enter a valid Portfolio name!!");
+        guiView.setpfnamedollarnew(null);
         return false;
       }
     }
@@ -45,6 +47,12 @@ public class ControllerImplGUI implements ControllerGUI {
         guiView.setcreateDialogStatus("Portfolio with this name" +
                 pfName + " already exists!!");
         guiView.setCreatePfValue(null);
+        return false;
+      }
+      else if(label.equals("dollarnew")){
+        guiView.setdollarnewpanestatus("Portfolio with this name" +
+                pfName + " already exists!!");
+        guiView.setpfnamedollarnew(null);
         return false;
       }
     } else {
@@ -487,6 +495,10 @@ public class ControllerImplGUI implements ControllerGUI {
         guiView.setdollarexistpanestatus("Invalid Tickr symbol is entered!!");
         guiView.setstocksexist(null);
       }
+      else if(label.equals("dollarnew")){
+        guiView.setdollarnewpanestatus("Invalid Tickr symbol is entered!!");
+        guiView.
+      }
       return false;
     }
     return true;
@@ -601,6 +613,14 @@ public class ControllerImplGUI implements ControllerGUI {
     if (checkAllFieldsDollarNew(dollarnewcreatepfname, stocksnew, weightsnew, dollarnewval,
             dollarnewdays, dollarnewstartdate)) {
       guiView.setdollarnewpanestatus("All the fields are not given !!");
+    }
+    else{
+      Float commission = 0.0f;
+      if(checkPortfolioField(dollarnewcreatepfname,"dollarnew")){
+        if (checkBatchTickrField(stocksnew, "dollarnew")){
+
+        }
+      }
     }
   }
 

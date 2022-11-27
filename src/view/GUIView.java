@@ -88,5 +88,6 @@ public interface GUIView {
   void setdollarexistval(String message);
   void setdollarnewpanestatus(String message);
   void setportfolioslistdollarexist(String message);
+  void setpfnamedollarnew(String message);
 
 }
