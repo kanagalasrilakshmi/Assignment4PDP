@@ -497,7 +497,6 @@ public class ControllerImplGUI implements ControllerGUI {
       }
       else if(label.equals("dollarnew")){
         guiView.setdollarnewpanestatus("Invalid Tickr symbol is entered!!");
-        guiView.
       }
       return false;
     }
