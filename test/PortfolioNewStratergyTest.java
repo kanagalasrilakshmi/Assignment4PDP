@@ -54,21 +54,23 @@ public class PortfolioNewStratergyTest {
   @Test
   public void validateWeightEntries() {
     PortfolioStratergy portfolioObj = new PortfolioNewStratergy();
-    assertEquals("[10.0, 10.0, 10.0, 10.0, 60.0]", String.valueOf(portfolioObj.validateWeightEntries("10 ,10  ,10 ,10, 60", 5)));
-    assertEquals("[]", String.valueOf(portfolioObj.validateWeightEntries("50,50", 3)));
-    assertEquals("[]", String.valueOf(portfolioObj.validateWeightEntries("20,70,10", 2)));
-    assertEquals("[25.5, 24.5, 50.0]", String.valueOf(portfolioObj.validateWeightEntries("25.5, 24.5,50", 3)));
+    assertEquals("[10.0, 10.0, 10.0, 10.0, 60.0]", String.valueOf(portfolioObj.validateStockWeightEntries("10 ,10  ,10 ,10, 60", 5)));
+    assertEquals("[]", String.valueOf(portfolioObj.validateStockWeightEntries("50,50", 3)));
+    assertEquals("[]", String.valueOf(portfolioObj.validateStockWeightEntries("20,70,10", 2)));
+    assertEquals("[25.5, 24.5, 50.0]", String.valueOf(portfolioObj.validateStockWeightEntries("25.5, 24.5,50", 3)));
   }
 
   @Test
   public void getAllDatesUsingStep() {
     PortfolioStratergy portfolioObj = new PortfolioNewStratergy();
-    assertEquals("[2022-01-01, 2022-01-05, 2022-01-09, 2022-01-13, 2022-01-17, 2022-01-21, 2022-01-25, 2022-01-29, 2022-02-02]", portfolioObj.getAllDatesUsingStep("2022-01-01", "2022-02-02", 4));
+    assertEquals("[2022-01-01, 2022-01-05, 2022-01-09, 2022-01-13, 2022-01-17, 2022-01-21," +
+            " 2022-01-25, 2022-01-29, 2022-02-02]", portfolioObj.getAllDatesUsingStep(
+                    "2022-01-01", "2022-02-02", 4).toString());
   }
 
   @Test
   public void dollarCostExisting() {
-    Portfolio portfolioObj = new FlexiblePortfolioImpl();
+    Portfolio portfolioObj = new PortfolioNewStratergy();
     PortfolioStratergy strategyPortfolioObj = new PortfolioNewStratergy();
     String path = System.getProperty("user.home") + "/Desktop/PortfolioBucket/" + "pf.json";
     JSONObject addTickr = new JSONObject();
@@ -84,7 +86,8 @@ public class PortfolioNewStratergyTest {
     ArrayList<Float> weights = new ArrayList<>();
     weights.add(50F);
     weights.add(50F);
-    JSONObject pf = strategyPortfolioObj.dollarCostExisting(tickrs,weights ,2,1000, "2022-11-11", addTickr);
+    JSONObject pf = strategyPortfolioObj.dollarCostExisting(tickrs,weights ,
+            2,1000, "2022-11-11", addTickr);
     portfolioObj.savePortfolio(path, pf);
     assertEquals(pf.toString(), portfolioObj.readPortfolio(path).toString());
   }

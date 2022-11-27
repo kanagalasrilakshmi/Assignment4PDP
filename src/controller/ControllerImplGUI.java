@@ -10,6 +10,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.ParseException;
+import java.util.ArrayList;
 
 import javax.swing.*;
 
@@ -48,21 +49,28 @@ public class ControllerImplGUI implements ControllerGUI {
       }
     } else {
       if (label.equals("modify")) {
-        guiView.setmodifyDialogStatus("Portfolio with this name" + pfName + " does not exist!!");
+        guiView.setmodifyDialogStatus("Portfolio with this name " + pfName + " does not exist!!");
         guiView.setModifyPfValue(null);
         return false;
       } else if (label.equals("costBasis")) {
-        guiView.setCostBasisDialogStatus("Portfolio with this name" + pfName + " does not exist!!");
+        guiView.setCostBasisDialogStatus("Portfolio with this name " + pfName
+                + " does not exist!!");
         guiView.setpfNameCostBasis(null);
         return false;
       } else if (label.equals("valDate")) {
-        guiView.setvalueDialogStatus("Portfolio with this name" + pfName + "does not exist!!");
+        guiView.setvalueDialogStatus("Portfolio with this name " + pfName + "does not exist!!");
         guiView.setpfnameVal(null);
         return false;
       }
       else if(label.equals("composition")){
-        guiView.setretrieveDialogStatus("Portfolio with this name" + pfName + " does not exist!!");
+        guiView.setretrieveDialogStatus("Portfolio with this name " + pfName + " does not exist!!");
         guiView.setpfnameretrieve(null);
+        return false;
+      }
+      else if(label.equals("dollarexist")){
+        guiView.setdollarexistpanestatus("Portfolio with this name " + pfName
+                + " does not exist!!");
+        guiView.setpfNameExistDollar(null);
         return false;
       }
     }
@@ -84,6 +92,10 @@ public class ControllerImplGUI implements ControllerGUI {
         guiView.setvalueDialogStatus("Date is not entered in YYYY-DD-MM format!");
         guiView.setdateVal(null);
       }
+      else if(label.equals("dollarexist")){
+        guiView.setdollarexistpanestatus("Date is not entered in YYYY-DD-MM format!");
+        guiView.setdollardateexist(null);
+      }
       return false;
     } else if (portfolio.checkFutureDate(date) || portfolio.checkTodayDateAndTime(date)) {
       if (label.equals("add")) {
@@ -102,6 +114,9 @@ public class ControllerImplGUI implements ControllerGUI {
         guiView.setvalueDialogStatus("You can only enter past date or present(if after " +
                 "9:30am).! Please enter new date");
         guiView.setdateVal(null);
+      }
+      else if(label.equals("dollarexist")){
+        return true;
       }
       return false;
     }
@@ -192,6 +207,10 @@ public class ControllerImplGUI implements ControllerGUI {
           guiView.setmodifyDialogStatus("Commission fees given is not a valid number");
           guiView.setcommissionfeesmodifyValue(null);
         }
+        else if(label.equals("dollarexist")){
+          guiView.setdollarexistpanestatus("Commission fees given is not a valid number");
+          guiView.setdollarexistcommisionval(null);
+        }
         return false;
       } else if (Float.valueOf(commissionCreate) < 0) {
         if (label.equals("add")) {
@@ -200,6 +219,10 @@ public class ControllerImplGUI implements ControllerGUI {
         } else if (label.equals("modify")) {
           guiView.setmodifyDialogStatus("Commission fees cannot be negative!");
           guiView.setcommissionfeesmodifyValue(null);
+        }
+        else if(label.equals("dollarexist")){
+          guiView.setdollarexistpanestatus("Commission fees cannot be negative!");
+          guiView.setdollarexistcommisionval(null);
         }
         return false;
       }
@@ -451,6 +474,45 @@ public class ControllerImplGUI implements ControllerGUI {
     }
   }
 
+  private boolean checkBatchTickrField(String stocksexist){
+    ArrayList<String> stocks = portfolio.validateTickrEntries(stocksexist);
+    if(stocks.size() == 0){
+      return false;
+    }
+    return true;
+  }
+
+  private boolean checkBatchWeightFields(String weightsexist){
+    ArrayList<Float> weights = portfolio.validateWeightEntriesSum(weightsexist);
+    if(weights.size() == 0){
+      return false;
+    }
+    return true;
+  }
+
+  private boolean checkBatchTickrBatchWeightsSize(String stocksexist,String weightsexist){
+    if(!checkBatchTickrField(stocksexist)){
+      return false;
+    }
+    ArrayList<Float> checkingtickrweights = portfolio.validateStockWeightEntries(weightsexist,
+            portfolio.validateTickrEntries(stocksexist).size());
+    if(checkingtickrweights.size() == 0){
+      return false;
+    }
+    return true;
+  }
+
+  private boolean checkValidMoney(String dollarexistval){
+    if(!portfolio.checkValidInteger(dollarexistval) &&
+            !portfolio.checkValidInteger(dollarexistval)){
+      return false;
+    }
+    else if(Float.valueOf(dollarexistval) < 0){
+      return false;
+    }
+    return true;
+  }
+
   public void validateExistingDollar(String stratergydollarexistname,String dollarexistpfname,
                               String stocksexist, String weightsexist,String dollarexistval,
                               String dollarexistdate,String dollarexistcommision){
@@ -460,17 +522,37 @@ public class ControllerImplGUI implements ControllerGUI {
       guiView.setdollarexistpanestatus("All the fields are not given!!");
     }
     else{
-      
+      Float commission = 0.0f;
+      if(checkPortfolioField(dollarexistpfname,"dollarexist")){
+        if(checkBatchTickrField(stocksexist)){
+          if(checkBatchWeightFields(weightsexist)){
+            if(checkBatchTickrBatchWeightsSize(stocksexist,weightsexist)){
+              if(checkValidMoney(dollarexistval)){
+                if(checkDateField(dollarexistdate,"dollarexist")){
+                  if(checkCommissionField(dollarexistcommision,"dollarexist")){
+                    if (dollarexistcommision != null && dollarexistcommision.length() > 0) {
+                      commission = Float.valueOf(dollarexistcommision);
+                    }
+                    JSONObject portfolioObj = portfolio.readPortfolio(
+                            this.rootDir+dollarexistpfname+".json");
+                    JSONObject finalObj = portfolio.dollarCostExisting(
+                            portfolio.validateTickrEntries(stocksexist),
+                            portfolio.validateWeightEntriesSum(weightsexist),commission,
+                            Float.valueOf(dollarexistval),dollarexistdate,portfolioObj);
+                    portfolio.savePortfolio(this.rootDir+dollarexistpfname+".json",finalObj);
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
     }
-    
   }
   public void validateNewDollar(String stratergydollarnewname,String dollarnewcreatepfname,
                          String stocksweightsnew,String dollarnewval,String dollarnewdays,
                          String dollarnewstartdate,String dollarnewenddate,
                                 String dollarnewcommission){
-
-  }
-  public void listallstocks(String pfname){
 
   }
 
@@ -523,7 +605,6 @@ public class ControllerImplGUI implements ControllerGUI {
       else if(label.equals("dollarexist")){
         guiView.setdollarExistingStatus(null);
         guiView.setportfolioslistdollarexist(message);
-        //guiView.setgetstocksdollarexist(message);
         guiView.displayDollarExistingpf();
       }
       else if(label.equals("dollarnew")){

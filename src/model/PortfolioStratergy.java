@@ -8,7 +8,7 @@ public interface PortfolioStratergy extends Portfolio{
 
   ArrayList<String> validateTickrEntries(String entry);
 
-  ArrayList<Float> validateWeightEntries(String entry, int tickrListSize);
+  ArrayList<Float> validateStockWeightEntries(String entry, int tickrListSize);
 
   public ArrayList<String> getAllDatesUsingStep( String from, String to, int increment);
 
@@ -16,6 +16,7 @@ public interface PortfolioStratergy extends Portfolio{
                           float commissionfees, float money, String date, JSONObject portfolio);
 
   String listJSONfiles(String rootDir);
+  ArrayList<Float> validateWeightEntriesSum(String entry);
   void startToFinishDollarCost(ArrayList<String>stocksList,ArrayList<Float>weightsList,
                                float commissionfees, int freq, String startDate, String endDate,
                                float money);

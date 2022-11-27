@@ -255,10 +255,18 @@ public class GUIViewImpl extends JFrame implements GUIView {
   public void setportfolioslistdollarexist(String message){
     this.portfolioslistdollarexist.append(message);
   }
-  public void setgetstocksdollarexist(String message){
-    this.getstocksdollarexist.append(message);
+
+  public void setpfNameExistDollar(String message){
+    this.dollarexistpfname.setText(null);
   }
 
+  public void setdollardateexist(String message){
+    this.dollarexistdate.setText(message);
+  }
+
+  public void setdollarexistcommisionval(String message){
+    this.dollarexistcommision.setText(message);
+  }
   public void setpfnameretrieve(String message){
     this.pfnameretrieve.setText(message);
   }
