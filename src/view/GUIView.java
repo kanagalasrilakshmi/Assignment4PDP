@@ -89,5 +89,7 @@ public interface GUIView {
   void setdollarnewpanestatus(String message);
   void setportfolioslistdollarexist(String message);
   void setpfnamedollarnew(String message);
+  void setstocksnew(String message);
+  void setweightsnew(String message);
 
 }

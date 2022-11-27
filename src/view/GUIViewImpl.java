@@ -121,6 +121,13 @@ public class GUIViewImpl extends JFrame implements GUIView {
   public void setpfnamedollarnew(String message){
     this.dollarnewcreatepfname.setText(message);
   }
+
+  public void setweightsnew(String message){
+    this.weightsnew.setText(message);
+  }
+  public void setstocksnew(String message){
+    this.stocksnew.setText(message);
+  }
   public void setstocksexist(String message) {
     this.stocksexist.setText(message);
   }

@@ -501,6 +501,7 @@ public class ControllerImplGUI implements ControllerGUI {
       }
       else if(label.equals("dollarnew")){
         guiView.setdollarnewpanestatus("Invalid Tickr symbol is entered!!");
+        guiView.setstocksnew(null);
       }
       return false;
     }
@@ -514,12 +515,22 @@ public class ControllerImplGUI implements ControllerGUI {
         guiView.setweightsexist(null);
         return false;
       }
+      else if(label.equals("dollarnew")){
+        guiView.setdollarnewpanestatus("Format of the the weights is not correct");
+        guiView.setweightsnew(null);
+        return false;
+      }
     } else {
       ArrayList<Float> weights = portfolio.validateWeightEntriesSum(weightsexist);
       if (weights.size() == 0) {
         if (label.equals("dollarexist")) {
           guiView.setdollarexistpanestatus("Sum of the given weights is not equal to 100%");
           guiView.setweightsexist(null);
+          return false;
+        }
+        else if(label.equals("dollarnew")){
+          guiView.setdollarnewpanestatus("Sum of the given weights is not equal to 100%");
+          guiView.setweightsnew(null);
           return false;
         }
       }
@@ -621,7 +632,9 @@ public class ControllerImplGUI implements ControllerGUI {
       Float commission = 0.0f;
       if(checkPortfolioField(dollarnewcreatepfname,"dollarnew")){
         if (checkBatchTickrField(stocksnew, "dollarnew")){
+          if(checkBatchWeightFields(weightsnew,"dollarnew")){
 
+          }
         }
       }
     }
@@ -668,7 +681,6 @@ public class ControllerImplGUI implements ControllerGUI {
         guiView.displayValuepf();
       } else if (label.equals("composition")) {
         guiView.setRetrievePanelStatus(null);
-        guiView.setPortfoliosListRetrieve(null);
         guiView.setPortfoliosListRetrieve(message);
         guiView.displayRetrievepf();
       } else if (label.equals("dollarexist")) {
