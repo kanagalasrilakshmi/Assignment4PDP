@@ -79,7 +79,6 @@ public interface GUIView {
   void setdollarNewStatus(String message);
   void setdollarexistpanestatus(String message);
   void setdollarnewpanestatus(String message);
-  void setgetstocksdollarexist(String message);
   void setportfolioslistdollarexist(String message);
 
 }

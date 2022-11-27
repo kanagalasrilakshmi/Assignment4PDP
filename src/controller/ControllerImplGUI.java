@@ -165,6 +165,18 @@ public class ControllerImplGUI implements ControllerGUI {
     return false;
   }
 
+  private boolean checkAllFieldsDollarExist(String dollarexistpfname, String stocksexist,
+                                            String weightsexist, String dollarexistval,
+                                            String dollarexistdate){
+    if(dollarexistpfname == null || stocksexist == null || weightsexist == null ||
+            dollarexistval == null || dollarexistdate == null || dollarexistpfname.length() == 0 ||
+    stocksexist.length() == 0 || weightsexist.length() == 0 || dollarexistval.length() == 0 ||
+    dollarexistdate.length() == 0){
+      return true;
+    }
+    return false;
+  }
+
   private boolean checkCommissionField(String commissionCreate, String label) {
     if (commissionCreate == null || commissionCreate.length() == 0) {
       return true;
@@ -440,8 +452,16 @@ public class ControllerImplGUI implements ControllerGUI {
   }
 
   public void validateExistingDollar(String stratergydollarexistname,String dollarexistpfname,
-                              String stocksweightexist, String dollarexistval,
+                              String stocksexist, String weightsexist,String dollarexistval,
                               String dollarexistdate,String dollarexistcommision){
+    // do not know what to do with the dollar strategy name.
+    if (checkAllFieldsDollarExist(dollarexistpfname, stocksexist, weightsexist, dollarexistval,
+            dollarexistdate)) {
+      guiView.setdollarexistpanestatus("All the fields are not given!!");
+    }
+    else{
+      
+    }
     
   }
   public void validateNewDollar(String stratergydollarnewname,String dollarnewcreatepfname,

@@ -85,19 +85,19 @@ public class GUIViewImpl extends JFrame implements GUIView {
   private JTextField dollarnewstartdate;
   private JTextField dollarnewenddate;
   private JTextField dollarnewcommission;
-  private JButton dollarnewcreate;
+  private JButton dollarnewcreate = new JButton("Create");
   private JLabel dollarnewpanestatus = new JLabel();
 
   private JTextField stratergydollarexistname;
   private JTextArea portfolioslistdollarexist = new JTextArea();
   private JTextField dollarexistpfname;
-  private JButton dollarexistgetstockslist;
   private JTextArea getstocksdollarexist = new JTextArea();
-  private JTextField stocksweightexist;
+  private JTextField stocksexist;
+  private JTextField weightsexist;
   private JTextField dollarexistval;
   private JTextField dollarexistdate;
   private JTextField dollarexistcommision;
-  private JButton dollarexistcreate;
+  private JButton dollarexistcreate = new JButton("Create");
   private JLabel dollarexistpanestatus = new JLabel();
 
   public GUIViewImpl() {
@@ -351,7 +351,6 @@ public class GUIViewImpl extends JFrame implements GUIView {
   private JPanel getDollarCostNewDialog(){
     JPanel dollarnewPfDialog = new JPanel();
     JLabel stratergyname = new JLabel("Enter the name of the strategy");
-    dollarnewcreate = new JButton("Create");
     stratergydollarnewname = new JTextField(25);
     JLabel createpf = new JLabel("Enter the name of the portfolio name to be created");
     dollarnewcreatepfname = new JTextField(25);
@@ -392,23 +391,24 @@ public class GUIViewImpl extends JFrame implements GUIView {
     return  dollarnewPfDialog;
   }
   private JPanel getDollarCostExistDialog(){
-    dollarexistcreate = new JButton("Create");
     JPanel dollarexistingPfDialog = new JPanel();
     JLabel listallportfolios = new JLabel("List of all the portfolios present in the " +
             "given path");
     JLabel pfname = new JLabel("Enter the name of the portfolio to add dollar cost " +
             "averaging statergy");
     portfolioslistdollarexist.setEditable(false);
-    getstocksdollarexist.setEditable(false);
     dollarexistpfname = new JTextField(25);
-    dollarexistgetstockslist = new JButton("Get the list of all the stocks in the " +
-            "given portfolio");
-    JLabel liststocks = new JLabel("List of all the stocks in the given portfolio");
     JLabel stratergynamedollarexist = new JLabel("Enter the name of the strategy");
     stratergydollarexistname = new JTextField(25);
-    JLabel stocksweights = new JLabel("Enter the stocks and corresponding weights");
-    JLabel stockweightdesc = new JLabel("For ex-GOOG-10,UBER-12....");
-    stocksweightexist = new JTextField(100);
+    JLabel stocksweightsdesc = new JLabel("Enter the stocks tickr symbols, if multiple entries" +
+            "separate them by delimeter ','. DO NOT end with ',' after adding all the entries");
+    JLabel stocksone = new JLabel("For single entry - GOOG");
+    JLabel stockstwo = new JLabel("For multiple entries - ex-GOOG,UBER,....");
+    JLabel stocksthree = new JLabel("GOOG,UBER, (or) GOOG, is a wrong format");
+    stocksexist = new JTextField(100);
+    JLabel weightsone = new JLabel("Enter the corresponding weights for the given stocks " +
+            "seperated by delimeter ','.DO NOT end with ',' after adding all the entries");
+    weightsexist = new JTextField(100);
     JLabel money = new JLabel("Enter the money to be invested in the portfolio");
     dollarexistval = new JTextField(25);
     JLabel date = new JLabel("Enter the date of investment");
@@ -423,14 +423,15 @@ public class GUIViewImpl extends JFrame implements GUIView {
     dollarexistingPfDialog.add(portfolioslistdollarexist);
     dollarexistingPfDialog.add(pfname);
     dollarexistingPfDialog.add(dollarexistpfname);
-    dollarexistingPfDialog.add(dollarexistgetstockslist);
-    dollarexistingPfDialog.add(liststocks);
-    dollarexistingPfDialog.add(getstocksdollarexist);
     dollarexistingPfDialog.add(stratergynamedollarexist);
     dollarexistingPfDialog.add(stratergydollarexistname);
-    dollarexistingPfDialog.add(stocksweights);
-    dollarexistingPfDialog.add(stockweightdesc);
-    dollarexistingPfDialog.add(stocksweightexist);
+    dollarexistingPfDialog.add(stocksweightsdesc);
+    dollarexistingPfDialog.add(stocksone);
+    dollarexistingPfDialog.add(stockstwo);
+    dollarexistingPfDialog.add(stocksthree);
+    dollarexistingPfDialog.add(stocksexist);
+    dollarexistingPfDialog.add(weightsone);
+    dollarexistingPfDialog.add(weightsexist);
     dollarexistingPfDialog.add(money);
     dollarexistingPfDialog.add(dollarexistval);
     dollarexistingPfDialog.add(date);
@@ -439,7 +440,7 @@ public class GUIViewImpl extends JFrame implements GUIView {
     dollarexistingPfDialog.add(dollarexistcommision);
     dollarexistingPfDialog.add(dollarexistcreate);
     dollarexistingPfDialog.add(dollarexistpanestatus);
-    return  dollarexistingPfDialog;
+    return dollarexistingPfDialog;
   }
   public void setpfnameVal(String message) {
     pfnamevalue.setText(message);
@@ -723,13 +724,11 @@ public class GUIViewImpl extends JFrame implements GUIView {
     dollarCostNew.addActionListener(evt -> features.displayDialogPane("dollarnew"));
     dollarexistcreate.addActionListener(evt -> features.validateExistingDollar(
             stratergydollarexistname.getText(),dollarexistpfname.getText(),
-            stocksweightexist.getText(),dollarexistval.getText(),
+            stocksexist.getText().toUpperCase(), weightsexist.getText(),dollarexistval.getText(),
             dollarexistdate.getText(),dollarexistcommision.getText()));
     dollarnewcreate.addActionListener(evt -> features.validateNewDollar(
             stratergydollarnewname.getText(),dollarnewcreatepfname.getText(),
             stocksweightsnew.getText(),dollarnewval.getText(),dollarnewdays.getText(),
             dollarnewstartdate.getText(),dollarnewenddate.getText(),dollarnewcommission.getText()));
-    dollarexistgetstockslist.addActionListener(evt -> features.listallstocks(
-            dollarexistpfname.getText()));
   }
 }

@@ -21,10 +21,9 @@ public interface ControllerGUI extends Controller{
   void validateCostBasis(String pfNameBasis, String dateBasis) throws ParseException;
   void getCompositionpf(String pfNameComposition);
   void validateExistingDollar(String stratergydollarexistname,String dollarexistpfname,
-                              String stocksweightexist, String dollarexistval,
+                              String stocksexist, String weightsexist,String dollarexistval,
                               String dollarexistdate,String dollarexistcommision);
   void validateNewDollar(String stratergydollarnewname,String dollarnewcreatepfname,
             String stocksweightsnew,String dollarnewval,String dollarnewdays,
                     String dollarnewstartdate,String dollarnewenddate,String dollarnewcommission);
-  void listallstocks(String pfname);
 }
