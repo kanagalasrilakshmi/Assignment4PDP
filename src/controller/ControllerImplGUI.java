@@ -438,7 +438,7 @@ public class ControllerImplGUI implements ControllerGUI {
         JSONArray arrayObj = (JSONArray) portfolioObj.get(tickrsym);
         for (int i = 0; i < arrayObj.size(); i++) {
           JSONObject tickrRecord = (JSONObject) arrayObj.get(i);
-          Float noOfStocks = ((Long) tickrRecord.get("no_of_stocks")).floatValue();
+          Double noOfStocks = (Double)(tickrRecord.get("no_of_stocks"));
           String type = "PURCHASED";
           if (noOfStocks < 0) {
             noOfStocks = noOfStocks * (-1);

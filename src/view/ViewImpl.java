@@ -138,7 +138,7 @@ public class ViewImpl implements View {
       JSONArray arrayObj = (JSONArray) portfolio.get(tickrsym);
       for (int i = 0; i < arrayObj.size(); i++) {
         JSONObject tickrRecord = (JSONObject) arrayObj.get(i);
-        int noOfStocks = ((Long) tickrRecord.get("no_of_stocks")).intValue();
+        Double noOfStocks = (Double)(tickrRecord.get("no_of_stocks"));
         String type = "PURCHASED";
         if (noOfStocks < 0) {
           noOfStocks = noOfStocks * (-1);
