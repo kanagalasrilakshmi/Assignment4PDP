@@ -59,28 +59,29 @@ public class ControllerImplGUI implements ControllerGUI {
         return false;
       }
     } else {
-      if (label.equals("modify")) {
-        guiView.setmodifyDialogStatus("Portfolio with this name " + pfName + " does not exist!!");
-        guiView.setModifyPfValue(null);
-        return false;
-      } else if (label.equals("costBasis")) {
-        guiView.setCostBasisDialogStatus("Portfolio with this name " + pfName
-                + " does not exist!!");
-        guiView.setpfNameCostBasis(null);
-        return false;
-      } else if (label.equals("valDate")) {
-        guiView.setvalueDialogStatus("Portfolio with this name " + pfName + "does not exist!!");
-        guiView.setpfnameVal(null);
-        return false;
-      } else if (label.equals("composition")) {
-        guiView.setretrieveDialogStatus("Portfolio with this name " + pfName + " does not exist!!");
-        guiView.setpfnameretrieve(null);
-        return false;
-      } else if (label.equals("dollarexist")) {
-        guiView.setdollarexistpanestatus("Portfolio with this name " + pfName
-                + " does not exist!!");
-        guiView.setpfNameExistDollar(null);
-        return false;
+      switch (label) {
+        case "modify":
+          guiView.setmodifyDialogStatus("Portfolio with this name " + pfName + " does not exist!!");
+          guiView.setModifyPfValue(null);
+          return false;
+        case "costBasis":
+          guiView.setCostBasisDialogStatus("Portfolio with this name " + pfName
+                  + " does not exist!!");
+          guiView.setpfNameCostBasis(null);
+          return false;
+        case "valDate":
+          guiView.setvalueDialogStatus("Portfolio with this name " + pfName + "does not exist!!");
+          guiView.setpfnameVal(null);
+          return false;
+        case "composition":
+          guiView.setretrieveDialogStatus("Portfolio with this name " + pfName + " does not exist!!");
+          guiView.setpfnameretrieve(null);
+          return false;
+        case "dollarexist":
+          guiView.setdollarexistpanestatus("Portfolio with this name " + pfName
+                  + " does not exist!!");
+          guiView.setpfNameExistDollar(null);
+          return false;
       }
     }
     return true;
@@ -88,50 +89,62 @@ public class ControllerImplGUI implements ControllerGUI {
 
   private boolean checkDateField(String date, String label) {
     if (!(portfolio.checkIfRightFormat(date)) || date.length() < 10) {
-      if (label.equals("add")) {
-        guiView.setcreateDialogStatus("Date is not entered in YYYY-DD-MM format!");
-        guiView.setdateofcreationValue(null);
-      } else if (label.equals("modify")) {
-        guiView.setmodifyDialogStatus("Date is not entered in YYYY-DD-MM format!");
-        guiView.setdateofmodifynValue(null);
-      } else if (label.equals("costBasis")) {
-        guiView.setCostBasisDialogStatus("Date is not entered in YYYY-DD-MM format!");
-        guiView.setDate(null);
-      } else if (label.equals("valDate")) {
-        guiView.setvalueDialogStatus("Date is not entered in YYYY-DD-MM format!");
-        guiView.setdateVal(null);
-      } else if (label.equals("dollarexist")) {
-        guiView.setdollarexistpanestatus("Date is not entered in YYYY-DD-MM format!");
-        guiView.setdollardateexist(null);
-      }
-      else if(label.equals("dollarnewstartdate")){
-        guiView.setdollarnewpanestatus("Date is not entered in YYYY-DD-MM format!");
-        guiView.setstartdatenew(null);
-      }
-      else if(label.equals("dollarnewenddate")){
-        guiView.setdollarnewpanestatus("Date is not entered in YYYY-DD-MM format!");
-        guiView.setenddatenew(null);
+      switch (label) {
+        case "add":
+          guiView.setcreateDialogStatus("Date is not entered in YYYY-DD-MM format!");
+          guiView.setdateofcreationValue(null);
+          break;
+        case "modify":
+          guiView.setmodifyDialogStatus("Date is not entered in YYYY-DD-MM format!");
+          guiView.setdateofmodifynValue(null);
+          break;
+        case "costBasis":
+          guiView.setCostBasisDialogStatus("Date is not entered in YYYY-DD-MM format!");
+          guiView.setDate(null);
+          break;
+        case "valDate":
+          guiView.setvalueDialogStatus("Date is not entered in YYYY-DD-MM format!");
+          guiView.setdateVal(null);
+          break;
+        case "dollarexist":
+          guiView.setdollarexistpanestatus("Date is not entered in YYYY-DD-MM format!");
+          guiView.setdollardateexist(null);
+          break;
+        case "dollarnewstartdate":
+          guiView.setdollarnewpanestatus("Date is not entered in YYYY-DD-MM format!");
+          guiView.setstartdatenew(null);
+          break;
+        case "dollarnewenddate":
+          guiView.setdollarnewpanestatus("Date is not entered in YYYY-DD-MM format!");
+          guiView.setenddatenew(null);
+          break;
       }
       return false;
     } else if (portfolio.checkFutureDate(date) || portfolio.checkTodayDateAndTime(date)) {
-      if (label.equals("add")) {
-        guiView.setcreateDialogStatus("You can only enter past date or present(if after " +
-                "9:30am).! Please enter new date");
-        guiView.setdateofcreationValue(null);
-      } else if (label.equals("modify")) {
-        guiView.setmodifyDialogStatus("You can only enter past date or present(if after " +
-                "9:30am).! Please enter new date");
-        guiView.setdateofmodifynValue(null);
-      } else if (label.equals("costBasis")) {
-        guiView.setCostBasisDialogStatus("You can only enter past date or present(if after " +
-                "9:30am).! Please enter new date");
-        guiView.setDate(null);
-      } else if (label.equals("valDate")) {
-        guiView.setvalueDialogStatus("You can only enter past date or present(if after " +
-                "9:30am).! Please enter new date");
-        guiView.setdateVal(null);
-      } else if (label.equals("dollarexist") || label.equals("dollarnew")) {
-        return true;
+      switch (label) {
+        case "add":
+          guiView.setcreateDialogStatus("You can only enter past date or present(if after " +
+                  "9:30am).! Please enter new date");
+          guiView.setdateofcreationValue(null);
+          break;
+        case "modify":
+          guiView.setmodifyDialogStatus("You can only enter past date or present(if after " +
+                  "9:30am).! Please enter new date");
+          guiView.setdateofmodifynValue(null);
+          break;
+        case "costBasis":
+          guiView.setCostBasisDialogStatus("You can only enter past date or present(if after " +
+                  "9:30am).! Please enter new date");
+          guiView.setDate(null);
+          break;
+        case "valDate":
+          guiView.setvalueDialogStatus("You can only enter past date or present(if after " +
+                  "9:30am).! Please enter new date");
+          guiView.setdateVal(null);
+          break;
+        case "dollarexist":
+        case "dollarnew":
+          return true;
       }
       return false;
     }
@@ -149,7 +162,7 @@ public class ControllerImplGUI implements ControllerGUI {
       }
       return false;
     } else {
-      if (Integer.valueOf(numStocks) < 0) {
+      if (Integer.parseInt(numStocks) < 0) {
         if (label.equals("add")) {
           guiView.setcreateDialogStatus("Number of stocks cannot be negative");
           guiView.setnumstockscreateValue(null);
@@ -187,37 +200,28 @@ public class ControllerImplGUI implements ControllerGUI {
 
   private boolean checkAllfields(String pfName, String tickr, String numStocks,
                                  String date) {
-    if (pfName == null || tickr == null || numStocks == null || date == null ||
+    return pfName == null || tickr == null || numStocks == null || date == null ||
             pfName.length() == 0 || tickr.length() == 0 || numStocks.length() == 0 ||
-            date.length() == 0) {
-      return true;
-    }
-    return false;
+            date.length() == 0;
   }
 
   private boolean checkAllFieldsDollarExist(String dollarexistpfname, String stocksexist,
                                             String weightsexist, String dollarexistval,
                                             String dollarexistdate) {
-    if (dollarexistpfname == null || stocksexist == null || weightsexist == null ||
+    return dollarexistpfname == null || stocksexist == null || weightsexist == null ||
             dollarexistval == null || dollarexistdate == null || dollarexistpfname.length() == 0 ||
             stocksexist.length() == 0 || weightsexist.length() == 0 ||
-            dollarexistval.length() == 0 || dollarexistdate.length() == 0) {
-      return true;
-    }
-    return false;
+            dollarexistval.length() == 0 || dollarexistdate.length() == 0;
   }
 
   private boolean checkAllFieldsDollarNew(String dollarnewcreatepfname,
                                           String stocksnew, String weightsnew, String dollarnewval,
                                           String dollarnewdays, String dollarnewstartdate) {
-    if (dollarnewcreatepfname == null || stocksnew == null || weightsnew == null ||
+    return dollarnewcreatepfname == null || stocksnew == null || weightsnew == null ||
             dollarnewval == null || dollarnewdays == null || dollarnewstartdate == null ||
             dollarnewcreatepfname.length() == 0 || stocksnew.length() == 0 ||
             weightsnew.length() == 0 || dollarnewval.length() == 0 || dollarnewdays.length() == 0 ||
-            dollarnewstartdate.length() == 0) {
-      return true;
-    }
-    return false;
+            dollarnewstartdate.length() == 0;
   }
 
   private boolean checkCommissionField(String commissionCreate, String label) {
@@ -227,28 +231,36 @@ public class ControllerImplGUI implements ControllerGUI {
     if (commissionCreate != null || commissionCreate.length() > 0) {
       if (!(portfolio.checkValidInteger(commissionCreate)) &&
               !(portfolio.checkValidFloat(commissionCreate))) {
-        if (label.equals("add")) {
-          guiView.setcreateDialogStatus("Commission fees given is not a valid number");
-          guiView.setcommissionfeescreateValue(null);
+        switch (label) {
+          case "add":
+            guiView.setcreateDialogStatus("Commission fees given is not a valid number");
+            guiView.setcommissionfeescreateValue(null);
 
-        } else if (label.equals("modify")) {
-          guiView.setmodifyDialogStatus("Commission fees given is not a valid number");
-          guiView.setcommissionfeesmodifyValue(null);
-        } else if (label.equals("dollarexist")) {
-          guiView.setdollarexistpanestatus("Commission fees given is not a valid number");
-          guiView.setdollarexistcommisionval(null);
+            break;
+          case "modify":
+            guiView.setmodifyDialogStatus("Commission fees given is not a valid number");
+            guiView.setcommissionfeesmodifyValue(null);
+            break;
+          case "dollarexist":
+            guiView.setdollarexistpanestatus("Commission fees given is not a valid number");
+            guiView.setdollarexistcommisionval(null);
+            break;
         }
         return false;
       } else if (Float.valueOf(commissionCreate) < 0) {
-        if (label.equals("add")) {
-          guiView.setcreateDialogStatus("Commission fees cannot be negative!");
-          guiView.setcommissionfeescreateValue(null);
-        } else if (label.equals("modify")) {
-          guiView.setmodifyDialogStatus("Commission fees cannot be negative!");
-          guiView.setcommissionfeesmodifyValue(null);
-        } else if (label.equals("dollarexist")) {
-          guiView.setdollarexistpanestatus("Commission fees cannot be negative!");
-          guiView.setdollarexistcommisionval(null);
+        switch (label) {
+          case "add":
+            guiView.setcreateDialogStatus("Commission fees cannot be negative!");
+            guiView.setcommissionfeescreateValue(null);
+            break;
+          case "modify":
+            guiView.setmodifyDialogStatus("Commission fees cannot be negative!");
+            guiView.setcommissionfeesmodifyValue(null);
+            break;
+          case "dollarexist":
+            guiView.setdollarexistpanestatus("Commission fees cannot be negative!");
+            guiView.setdollarexistcommisionval(null);
+            break;
         }
         return false;
       }
@@ -458,33 +470,32 @@ public class ControllerImplGUI implements ControllerGUI {
   }
 
   private String viewFlexibleComposition(JSONObject portfolioObj) {
-    String message = "";
+    StringBuilder message = new StringBuilder();
     if (portfolioObj.size() == 0) {
-      message = "This portfolio is empty!!";
+      message = new StringBuilder("This portfolio is empty!!");
     } else {
       for (Object tickrsym : portfolioObj.keySet()) {
-        String objmessage = "";
-        objmessage += "TICKER SYMBOL : " + tickrsym + "\n";
-        objmessage += "NUM OF STOCKS        TYPE            DATE OF PURCHASE/SELL"
-                + "     COMMISSION FEES       STOCK PRICE" + "\n";
+        StringBuilder objmessage = new StringBuilder();
+        objmessage.append("TICKER SYMBOL : ").append(tickrsym).append("\n");
+        objmessage.append("NUM OF STOCKS        TYPE            DATE OF PURCHASE/SELL" + "     COMMISSION FEES       STOCK PRICE" + "\n");
         JSONArray arrayObj = (JSONArray) portfolioObj.get(tickrsym);
-        for (int i = 0; i < arrayObj.size(); i++) {
-          JSONObject tickrRecord = (JSONObject) arrayObj.get(i);
+        for (Object o : arrayObj) {
+          JSONObject tickrRecord = (JSONObject) o;
           Double noOfStocks = (Double) (tickrRecord.get("no_of_stocks"));
           String type = "PURCHASED";
           if (noOfStocks < 0) {
             noOfStocks = noOfStocks * (-1);
             type = "SOLD";
           }
-          objmessage += (" " + noOfStocks + "\t  " + type +
-                  "\t\t" + tickrRecord.get("date")
-                  + "\t" + "\t$" + tickrRecord.get("commission_fee") +
-                  "\t$" + tickrRecord.get("stock_price")) + "\n";
+          objmessage.append(" ").append(noOfStocks).append("\t  ").
+                  append(type).append("\t\t").append(tickrRecord.get("date")).
+                  append("\t").append("\t$").append(tickrRecord.get("commission_fee")).
+                  append("\t$").append(tickrRecord.get("stock_price")).append("\n");
         }
-        message += objmessage + "\n";
+        message.append(objmessage).append("\n");
       }
     }
-    return message;
+    return message.toString();
   }
 
   public void getCompositionpf(String pfNameComposition) {
@@ -583,7 +594,7 @@ public class ControllerImplGUI implements ControllerGUI {
         guiView.setdollarnewval(null);
       }
       return false;
-    } else if (Float.valueOf(dollarexistval) < 0) {
+    } else if (Float.parseFloat(dollarexistval) < 0) {
       if (label.equals("dollarexist")) {
         guiView.setdollarnewpanestatus("Negative money is not allowed!!!");
         guiView.setdollarexistval(null);
@@ -621,7 +632,7 @@ public class ControllerImplGUI implements ControllerGUI {
                     JSONObject finalObj = portfolio.dollarCostExisting(
                             portfolio.validateTickrEntries(stocksexist),
                             portfolio.validateWeightEntriesSum(weightsexist), commission,
-                            Float.valueOf(dollarexistval), dollarexistdate, portfolioObj);
+                            Float.parseFloat(dollarexistval), dollarexistdate, portfolioObj);
                     portfolio.savePortfolio(this.rootDir + dollarexistpfname + ".json",
                             finalObj);
                     guiView.setdollarexistpanestatus("Strategy successfully applied to the " +
@@ -675,55 +686,71 @@ public class ControllerImplGUI implements ControllerGUI {
 
   public void displayDialogPane(String label) {
     if (this.rootDirUser == null || this.rootDirUser.length() == 0) {
-      if (label.equals("costBasis")) {
-        guiView.setLabelCostBasisStatus("Please specify the root directory path!!");
-      } else if (label.equals("modify")) {
-        guiView.setModifyLabelStatus("Please specify the root directory path!!");
-      } else if (label.equals("getDateVal")) {
-        guiView.setValueLabelStatus("Please specify the root directory path!!");
-      } else if (label.equals("create")) {
-        guiView.setCreateLabelStatus("Please specify the root directory path!!");
-      } else if (label.equals("composition")) {
-        guiView.setRetrievePanelStatus("Please specify the root directory path!!");
-      } else if (label.equals("dollarexist")) {
-        guiView.setdollarExistingStatus("Please specify the root directory path!!");
-      } else if (label.equals("dollarnew")) {
-        guiView.setdollarNewStatus("Please specify the root directory path!!");
+      switch (label) {
+        case "costBasis":
+          guiView.setLabelCostBasisStatus("Please specify the root directory path!!");
+          break;
+        case "modify":
+          guiView.setModifyLabelStatus("Please specify the root directory path!!");
+          break;
+        case "getDateVal":
+          guiView.setValueLabelStatus("Please specify the root directory path!!");
+          break;
+        case "create":
+          guiView.setCreateLabelStatus("Please specify the root directory path!!");
+          break;
+        case "composition":
+          guiView.setRetrievePanelStatus("Please specify the root directory path!!");
+          break;
+        case "dollarexist":
+          guiView.setdollarExistingStatus("Please specify the root directory path!!");
+          break;
+        case "dollarnew":
+          guiView.setdollarNewStatus("Please specify the root directory path!!");
+          break;
       }
     } else {
       String message = portfolio.listJSONfiles(this.rootDir);
       if (message == null || message.length() == 0) {
         message = "No portfolio exists in the given path. Create a new portfolio.";
       }
-      if (label.equals("create")) {
-        this.addTickr = new JSONObject();
-        guiView.setCreateLabelStatus(null);
-        guiView.setcreateDialogStatus(null);
-        guiView.displayCreatePf();
-      } else if (label.equals("costBasis")) {
-        guiView.setLabelCostBasisStatus(null);
-        guiView.setPortfoliosListBasis(message);
-        guiView.displayCostBasis();
-      } else if (label.equals("modify")) {
-        guiView.setModifyLabelStatus(null);
-        guiView.setportfoliosListModify(message);
-        guiView.displayModifyPf();
-      } else if (label.equals("getDateVal")) {
-        guiView.setValueLabelStatus(null);
-        guiView.setPortfoliosListVal(message);
-        guiView.displayValuepf();
-      } else if (label.equals("composition")) {
-        guiView.setRetrievePanelStatus(null);
-        guiView.setPortfoliosListRetrieve(message);
-        guiView.displayRetrievepf();
-      } else if (label.equals("dollarexist")) {
-        guiView.setdollarExistingStatus(null);
-        guiView.setportfolioslistdollarexist(message);
-        guiView.displayDollarExistingpf();
-      } else if (label.equals("dollarnew")) {
-        guiView.setdollarNewStatus(null);
-        guiView.setdollarexistpanestatus(null);
-        guiView.displayDollarNewpf();
+      switch (label) {
+        case "create":
+          this.addTickr = new JSONObject();
+          guiView.setCreateLabelStatus(null);
+          guiView.setcreateDialogStatus(null);
+          guiView.displayCreatePf();
+          break;
+        case "costBasis":
+          guiView.setLabelCostBasisStatus(null);
+          guiView.setPortfoliosListBasis(message);
+          guiView.displayCostBasis();
+          break;
+        case "modify":
+          guiView.setModifyLabelStatus(null);
+          guiView.setportfoliosListModify(message);
+          guiView.displayModifyPf();
+          break;
+        case "getDateVal":
+          guiView.setValueLabelStatus(null);
+          guiView.setPortfoliosListVal(message);
+          guiView.displayValuepf();
+          break;
+        case "composition":
+          guiView.setRetrievePanelStatus(null);
+          guiView.setPortfoliosListRetrieve(message);
+          guiView.displayRetrievepf();
+          break;
+        case "dollarexist":
+          guiView.setdollarExistingStatus(null);
+          guiView.setportfolioslistdollarexist(message);
+          guiView.displayDollarExistingpf();
+          break;
+        case "dollarnew":
+          guiView.setdollarNewStatus(null);
+          guiView.setdollarexistpanestatus(null);
+          guiView.displayDollarNewpf();
+          break;
       }
     }
   }
