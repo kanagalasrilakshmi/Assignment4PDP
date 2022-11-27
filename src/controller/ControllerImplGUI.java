@@ -181,14 +181,23 @@ public class ControllerImplGUI implements ControllerGUI {
                                             String dollarexistdate) {
     if (dollarexistpfname == null || stocksexist == null || weightsexist == null ||
             dollarexistval == null || dollarexistdate == null || dollarexistpfname.length() == 0 ||
-            stocksexist.length() == 0 || weightsexist.length() == 0 || dollarexistval.length() == 0 ||
-            dollarexistdate.length() == 0) {
+            stocksexist.length() == 0 || weightsexist.length() == 0 ||
+            dollarexistval.length() == 0 || dollarexistdate.length() == 0) {
       return true;
     }
     return false;
   }
 
-  private boolean checkAllFieldsDollarNew(){
+  private boolean checkAllFieldsDollarNew(String dollarnewcreatepfname,
+                                          String stocksnew, String weightsnew, String dollarnewval,
+                                          String dollarnewdays, String dollarnewstartdate) {
+    if (dollarnewcreatepfname == null || stocksnew == null || weightsnew == null ||
+            dollarnewval == null || dollarnewdays == null || dollarnewstartdate == null ||
+            dollarnewcreatepfname.length() == 0 || stocksnew.length() == 0 ||
+            weightsnew.length() == 0 || dollarnewval.length() == 0 || dollarnewdays.length() == 0 ||
+            dollarnewstartdate.length() == 0) {
+      return true;
+    }
     return false;
   }
 
@@ -442,7 +451,7 @@ public class ControllerImplGUI implements ControllerGUI {
         JSONArray arrayObj = (JSONArray) portfolioObj.get(tickrsym);
         for (int i = 0; i < arrayObj.size(); i++) {
           JSONObject tickrRecord = (JSONObject) arrayObj.get(i);
-          Double noOfStocks = (Double)(tickrRecord.get("no_of_stocks"));
+          Double noOfStocks = (Double) (tickrRecord.get("no_of_stocks"));
           String type = "PURCHASED";
           if (noOfStocks < 0) {
             noOfStocks = noOfStocks * (-1);
@@ -471,10 +480,10 @@ public class ControllerImplGUI implements ControllerGUI {
     }
   }
 
-  private boolean checkBatchTickrField(String stocksexist,String label) {
+  private boolean checkBatchTickrField(String stocksexist, String label) {
     ArrayList<String> stocks = portfolio.validateTickrEntries(stocksexist);
     if (stocks.size() == 0) {
-      if(label.equals("dollarexist")){
+      if (label.equals("dollarexist")) {
         guiView.setdollarexistpanestatus("Invalid Tickr symbol is entered!!");
         guiView.setstocksexist(null);
       }
@@ -483,18 +492,17 @@ public class ControllerImplGUI implements ControllerGUI {
     return true;
   }
 
-  private boolean checkBatchWeightFields(String weightsexist,String label) {
-    if(!portfolio.validateWeightFormat(weightsexist)){
-      if(label.equals("dollarexist")){
+  private boolean checkBatchWeightFields(String weightsexist, String label) {
+    if (!portfolio.validateWeightFormat(weightsexist)) {
+      if (label.equals("dollarexist")) {
         guiView.setdollarexistpanestatus("Format of the the weights is not correct");
         guiView.setweightsexist(null);
         return false;
       }
-    }
-    else{
+    } else {
       ArrayList<Float> weights = portfolio.validateWeightEntriesSum(weightsexist);
       if (weights.size() == 0) {
-        if(label.equals("dollarexist")){
+        if (label.equals("dollarexist")) {
           guiView.setdollarexistpanestatus("Sum of the given weights is not equal to 100%");
           guiView.setweightsexist(null);
           return false;
@@ -506,13 +514,13 @@ public class ControllerImplGUI implements ControllerGUI {
 
   private boolean checkBatchTickrBatchWeightsSize(String stocksexist, String weightsexist,
                                                   String label) {
-    if (!checkBatchTickrField(stocksexist,label)) {
+    if (!checkBatchTickrField(stocksexist, label)) {
       return false;
     }
     ArrayList<Float> checkingtickrweights = portfolio.validateStockWeightEntries(weightsexist,
             portfolio.validateTickrEntries(stocksexist).size());
     if (checkingtickrweights.size() == 0) {
-      if(label.equals("dollarexist")){
+      if (label.equals("dollarexist")) {
         guiView.setdollarexistpanestatus("The number of tickr symbols given and the number " +
                 "corresponding weights given do not match");
         guiView.setstocksexist(null);
@@ -523,16 +531,16 @@ public class ControllerImplGUI implements ControllerGUI {
     return true;
   }
 
-  private boolean checkValidMoney(String dollarexistval,String label) {
+  private boolean checkValidMoney(String dollarexistval, String label) {
     if (!portfolio.checkValidInteger(dollarexistval) &&
             !portfolio.checkValidInteger(dollarexistval)) {
-      if(label.equals("dollarexist")){
+      if (label.equals("dollarexist")) {
         guiView.setdollarexistpanestatus("Money can be either an integer or a float value!!");
         guiView.setdollarexistval(null);
       }
       return false;
     } else if (Float.valueOf(dollarexistval) < 0) {
-      if(label.equals("dollarexist")){
+      if (label.equals("dollarexist")) {
         guiView.setdollarnewpanestatus("Negative money is not allowed!!!");
         guiView.setdollarexistval(null);
       }
@@ -552,9 +560,9 @@ public class ControllerImplGUI implements ControllerGUI {
       Float commission = 0.0f;
       if (checkPortfolioField(dollarexistpfname, "dollarexist")) {
         if (checkBatchTickrField(stocksexist, "dollarexist")) {
-          if (checkBatchWeightFields(weightsexist,"dollarexist")) {
-            if (checkBatchTickrBatchWeightsSize(stocksexist, weightsexist,"dollarexist")) {
-              if (checkValidMoney(dollarexistval,"dollarexist")) {
+          if (checkBatchWeightFields(weightsexist, "dollarexist")) {
+            if (checkBatchTickrBatchWeightsSize(stocksexist, weightsexist, "dollarexist")) {
+              if (checkValidMoney(dollarexistval, "dollarexist")) {
                 if (checkDateField(dollarexistdate, "dollarexist")) {
                   if (checkCommissionField(dollarexistcommision, "dollarexist")) {
                     if (dollarexistcommision != null && dollarexistcommision.length() > 0) {
@@ -569,7 +577,7 @@ public class ControllerImplGUI implements ControllerGUI {
                     portfolio.savePortfolio(this.rootDir + dollarexistpfname + ".json",
                             finalObj);
                     guiView.setdollarexistpanestatus("Strategy successfully applied to the " +
-                            "portfolio"+dollarexistpfname);
+                            "portfolio" + dollarexistpfname);
                     guiView.setdollardateexist(null);
                     guiView.setdollarexistcommisionval(null);
                     guiView.setstocksexist(null);
@@ -586,11 +594,14 @@ public class ControllerImplGUI implements ControllerGUI {
   }
 
   public void validateNewDollar(String stratergydollarnewname, String dollarnewcreatepfname,
-                                String stocksnew, String weightsnew,String dollarnewval, String dollarnewdays,
-                                String dollarnewstartdate, String dollarnewenddate,
-                                String dollarnewcommission) {
+                                String stocksnew, String weightsnew, String dollarnewval,
+                                String dollarnewdays, String dollarnewstartdate,
+                                String dollarnewenddate, String dollarnewcommission) {
     // do not know what to do with strategy name.
-
+    if (checkAllFieldsDollarNew(dollarnewcreatepfname, stocksnew, weightsnew, dollarnewval,
+            dollarnewdays, dollarnewstartdate)) {
+      guiView.setdollarnewpanestatus("All the fields are not given !!");
+    }
   }
 
   public void displayDialogPane(String label) {
