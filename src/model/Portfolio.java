@@ -167,10 +167,10 @@ public interface Portfolio {
    * @param num    num stocks willing to sell
    * @param date   date on which sale is to be made
    * @param tickr  company tickr symbol
-   * @param pfPath path for the location of the portfolio
+   * @param portfolio the jsonobject of the portfolio
    */
 
-  public void modifyJson(Float fees, int num, String date, String tickr, String pfPath);
+  JSONObject modifyJson(float fees, float num, String date, String tickr, JSONObject portfolio);
 
   /**
    * Get the cost basis of a portfolio till a date.
@@ -179,7 +179,7 @@ public interface Portfolio {
    * @param date   input string date
    * @return cost basis value
    */
-  public float getCostBasis(String pfPath, String date) throws ParseException;
+  float getCostBasis(String pfPath, String date) throws ParseException;
 
   /**
    * Save a portfolio.
@@ -306,6 +306,6 @@ public interface Portfolio {
    */
 
   public JSONObject makeTransactionRecord(String date, float commission,
-                                          int noofstocks, String tickr);
+                                          float noofstocks, String tickr);
 }
 

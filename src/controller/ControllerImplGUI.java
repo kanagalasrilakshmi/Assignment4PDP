@@ -213,12 +213,16 @@ public class ControllerImplGUI implements ControllerGUI {
           checkLabel = false;
           guiView.setnumstocksmodifyValue(null);
         } else {
-          portfolio.modifyJson(commission, Integer.valueOf(numStocksModify) * (-1),
-                  dateModify, tickrModify, this.rootDir + pfNameModify + ".json");
+          JSONObject pf = portfolio.readPortfolio(this.rootDir + pfNameModify + ".json");
+          pf = portfolio.modifyJson(commission, Integer.valueOf(numStocksModify) * (-1),
+                  dateModify, tickrModify, pf);
+          portfolio.savePortfolio(this.rootDir + pfNameModify + ".json", pf);
         }
       } else if (labelStatus.equals("purchase")) {
+        JSONObject pf = portfolio.readPortfolio(this.rootDir + pfNameModify + ".json");
         portfolio.modifyJson(commission, Integer.valueOf(numStocksModify), dateModify,
-                tickrModify, this.rootDir + pfNameModify + ".json");
+                tickrModify, pf);
+        portfolio.savePortfolio(this.rootDir + pfNameModify + ".json", pf);
       }
       if (checkLabel) {
         guiView.setmodifyDialogStatus("The portfolio " + pfNameModify +

@@ -112,7 +112,6 @@ public class ControllerImplFlexible extends ControllerImpl implements Controller
       date = getAndValidateDate(message);
     }
     return date;
-
   }
 
   /**
@@ -214,7 +213,9 @@ public class ControllerImplFlexible extends ControllerImpl implements Controller
       }
       numberOfStocks = numberOfStocks * (-1);
     }
-    thePortfolio.modifyJson(fees, numberOfStocks, transactionDate, tickr, path);
+    JSONObject portfolio = thePortfolio.readPortfolio(path);
+    portfolio = thePortfolio.modifyJson(fees, Float.valueOf(numberOfStocks), transactionDate, tickr, portfolio);
+    thePortfolio.savePortfolio(path, portfolio);
     return "The portfolio is successfully modified";
   }
 
@@ -406,7 +407,7 @@ public class ControllerImplFlexible extends ControllerImpl implements Controller
                 String datepurchase = getAndValidateDate("Enter the date of purchase:");
                 if (!thePortfolio.checkTickrJSONArray(addTickr, tickrpurchase)) {
                   JSONObject addEntry = thePortfolio.makeTransactionRecord(datepurchase,
-                          commission, Integer.valueOf(numpurchase), tickrpurchase);
+                          commission, Float.valueOf(numpurchase), tickrpurchase);
                   JSONArray listEntry = new JSONArray();
                   listEntry.add(addEntry);
                   addTickr.put(tickrpurchase, listEntry);

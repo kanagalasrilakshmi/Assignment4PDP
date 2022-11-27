@@ -116,14 +116,18 @@ public class FlexiblePortfolioImplTest {
             4, 83, "GOOG");
     listEntry.add(addEntry);
     addTickr.put("GOOG", listEntry);
-    portfolioObj.modifyJson(Float.valueOf(4), 83, "2022-02-02", "GOOG", path);
+    JSONObject portfolio = portfolioObj.readPortfolio(path);
+    portfolio = portfolioObj.modifyJson(Float.valueOf(4), 83, "2022-02-02", "GOOG", portfolio);
+    portfolioObj.savePortfolio(path, portfolio);
     // Check buy
     assertEquals(addTickr.toString(), portfolioObj.readPortfolio(path).toString());
     addEntry = portfolioObj.makeTransactionRecord("2022-04-04",
             5, -4, "GOOG");
     listEntry.add(addEntry);
     addTickr.put("GOOG", listEntry);
-    portfolioObj.modifyJson(Float.valueOf(5), -4, "2022-04-04", "GOOG", path);
+    JSONObject portfo = portfolioObj.readPortfolio(path);
+    portfolio = portfolioObj.modifyJson(Float.valueOf(5), -4, "2022-04-04", "GOOG", portfo);
+    portfolioObj.savePortfolio(path, portfolio);
     // Check sell
     assertEquals(addTickr.toString(), portfolioObj.readPortfolio(path).toString());
   }

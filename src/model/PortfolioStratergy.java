@@ -1,13 +1,23 @@
 package model;
 
+import org.json.simple.JSONObject;
+
 import java.util.ArrayList;
 
 public interface PortfolioStratergy extends Portfolio{
+
+  ArrayList<String> validateTickrEntries(String entry);
+
+  ArrayList<Float> validateWeightEntries(String entry, int tickrListSize);
+
+  public ArrayList<String> getAllDatesUsingStep( String from, String to, int increment);
+
+  JSONObject dollarCostExisting(ArrayList<String> stocksList, ArrayList<Float>weightsList,
+                          float commissionfees, float money, String date, JSONObject portfolio);
+
   String listJSONfiles(String rootDir);
-  void dollarCostExisting(ArrayList<String>stocksList,ArrayList<Float>weightsList,
-                          Float commissionfees,Float money, String date);
   void startToFinishDollarCost(ArrayList<String>stocksList,ArrayList<Float>weightsList,
-                               Float commissionfees, int freq, String startDate, String endDate,
-                               Float money);
+                               float commissionfees, int freq, String startDate, String endDate,
+                               float money);
 
 }
