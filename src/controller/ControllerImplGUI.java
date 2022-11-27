@@ -61,13 +61,11 @@ public class ControllerImplGUI implements ControllerGUI {
         guiView.setvalueDialogStatus("Portfolio with this name " + pfName + "does not exist!!");
         guiView.setpfnameVal(null);
         return false;
-      }
-      else if(label.equals("composition")){
+      } else if (label.equals("composition")) {
         guiView.setretrieveDialogStatus("Portfolio with this name " + pfName + " does not exist!!");
         guiView.setpfnameretrieve(null);
         return false;
-      }
-      else if(label.equals("dollarexist")){
+      } else if (label.equals("dollarexist")) {
         guiView.setdollarexistpanestatus("Portfolio with this name " + pfName
                 + " does not exist!!");
         guiView.setpfNameExistDollar(null);
@@ -91,8 +89,7 @@ public class ControllerImplGUI implements ControllerGUI {
       } else if (label.equals("valDate")) {
         guiView.setvalueDialogStatus("Date is not entered in YYYY-DD-MM format!");
         guiView.setdateVal(null);
-      }
-      else if(label.equals("dollarexist")){
+      } else if (label.equals("dollarexist")) {
         guiView.setdollarexistpanestatus("Date is not entered in YYYY-DD-MM format!");
         guiView.setdollardateexist(null);
       }
@@ -114,8 +111,7 @@ public class ControllerImplGUI implements ControllerGUI {
         guiView.setvalueDialogStatus("You can only enter past date or present(if after " +
                 "9:30am).! Please enter new date");
         guiView.setdateVal(null);
-      }
-      else if(label.equals("dollarexist")){
+      } else if (label.equals("dollarexist")) {
         return true;
       }
       return false;
@@ -182,11 +178,11 @@ public class ControllerImplGUI implements ControllerGUI {
 
   private boolean checkAllFieldsDollarExist(String dollarexistpfname, String stocksexist,
                                             String weightsexist, String dollarexistval,
-                                            String dollarexistdate){
-    if(dollarexistpfname == null || stocksexist == null || weightsexist == null ||
+                                            String dollarexistdate) {
+    if (dollarexistpfname == null || stocksexist == null || weightsexist == null ||
             dollarexistval == null || dollarexistdate == null || dollarexistpfname.length() == 0 ||
-    stocksexist.length() == 0 || weightsexist.length() == 0 || dollarexistval.length() == 0 ||
-    dollarexistdate.length() == 0){
+            stocksexist.length() == 0 || weightsexist.length() == 0 || dollarexistval.length() == 0 ||
+            dollarexistdate.length() == 0) {
       return true;
     }
     return false;
@@ -206,8 +202,7 @@ public class ControllerImplGUI implements ControllerGUI {
         } else if (label.equals("modify")) {
           guiView.setmodifyDialogStatus("Commission fees given is not a valid number");
           guiView.setcommissionfeesmodifyValue(null);
-        }
-        else if(label.equals("dollarexist")){
+        } else if (label.equals("dollarexist")) {
           guiView.setdollarexistpanestatus("Commission fees given is not a valid number");
           guiView.setdollarexistcommisionval(null);
         }
@@ -219,8 +214,7 @@ public class ControllerImplGUI implements ControllerGUI {
         } else if (label.equals("modify")) {
           guiView.setmodifyDialogStatus("Commission fees cannot be negative!");
           guiView.setcommissionfeesmodifyValue(null);
-        }
-        else if(label.equals("dollarexist")){
+        } else if (label.equals("dollarexist")) {
           guiView.setdollarexistpanestatus("Commission fees cannot be negative!");
           guiView.setdollarexistcommisionval(null);
         }
@@ -433,10 +427,9 @@ public class ControllerImplGUI implements ControllerGUI {
 
   private String viewFlexibleComposition(JSONObject portfolioObj) {
     String message = "";
-    if(portfolioObj.size() == 0){
+    if (portfolioObj.size() == 0) {
       message = "This portfolio is empty!!";
-    }
-    else{
+    } else {
       for (Object tickrsym : portfolioObj.keySet()) {
         String objmessage = "";
         objmessage += "TICKER SYMBOL : " + tickrsym + "\n";
@@ -454,19 +447,19 @@ public class ControllerImplGUI implements ControllerGUI {
           objmessage += (" " + noOfStocks + "\t  " + type +
                   "\t\t" + tickrRecord.get("date")
                   + "\t" + "\t$" + tickrRecord.get("commission_fee") +
-                  "\t$" + tickrRecord.get("stock_price")) +"\n";
+                  "\t$" + tickrRecord.get("stock_price")) + "\n";
         }
         message += objmessage + "\n";
-    }
+      }
     }
     return message;
   }
+
   public void getCompositionpf(String pfNameComposition) {
     if (pfNameComposition == null || pfNameComposition.length() == 0) {
       guiView.setretrieveDialogStatus("All the values are not given!!");
-    }
-    else{
-      if (checkPortfolioField(pfNameComposition, "composition")){
+    } else {
+      if (checkPortfolioField(pfNameComposition, "composition")) {
         JSONObject portfolioObj = portfolio.readPortfolio(this.rootDir +
                 pfNameComposition + ".json");
         guiView.setPortfoliosListComposition(viewFlexibleComposition(portfolioObj));
@@ -474,72 +467,71 @@ public class ControllerImplGUI implements ControllerGUI {
     }
   }
 
-  private boolean checkBatchTickrField(String stocksexist){
+  private boolean checkBatchTickrField(String stocksexist) {
     ArrayList<String> stocks = portfolio.validateTickrEntries(stocksexist);
-    if(stocks.size() == 0){
+    if (stocks.size() == 0) {
       return false;
     }
     return true;
   }
 
-  private boolean checkBatchWeightFields(String weightsexist){
+  private boolean checkBatchWeightFields(String weightsexist) {
     ArrayList<Float> weights = portfolio.validateWeightEntriesSum(weightsexist);
-    if(weights.size() == 0){
+    if (weights.size() == 0) {
       return false;
     }
     return true;
   }
 
-  private boolean checkBatchTickrBatchWeightsSize(String stocksexist,String weightsexist){
-    if(!checkBatchTickrField(stocksexist)){
+  private boolean checkBatchTickrBatchWeightsSize(String stocksexist, String weightsexist) {
+    if (!checkBatchTickrField(stocksexist)) {
       return false;
     }
     ArrayList<Float> checkingtickrweights = portfolio.validateStockWeightEntries(weightsexist,
             portfolio.validateTickrEntries(stocksexist).size());
-    if(checkingtickrweights.size() == 0){
+    if (checkingtickrweights.size() == 0) {
       return false;
     }
     return true;
   }
 
-  private boolean checkValidMoney(String dollarexistval){
-    if(!portfolio.checkValidInteger(dollarexistval) &&
-            !portfolio.checkValidInteger(dollarexistval)){
+  private boolean checkValidMoney(String dollarexistval) {
+    if (!portfolio.checkValidInteger(dollarexistval) &&
+            !portfolio.checkValidInteger(dollarexistval)) {
       return false;
-    }
-    else if(Float.valueOf(dollarexistval) < 0){
+    } else if (Float.valueOf(dollarexistval) < 0) {
       return false;
     }
     return true;
   }
 
-  public void validateExistingDollar(String stratergydollarexistname,String dollarexistpfname,
-                              String stocksexist, String weightsexist,String dollarexistval,
-                              String dollarexistdate,String dollarexistcommision){
+  public void validateExistingDollar(String stratergydollarexistname, String dollarexistpfname,
+                                     String stocksexist, String weightsexist, String dollarexistval,
+                                     String dollarexistdate, String dollarexistcommision) {
     // do not know what to do with the dollar strategy name.
     if (checkAllFieldsDollarExist(dollarexistpfname, stocksexist, weightsexist, dollarexistval,
             dollarexistdate)) {
       guiView.setdollarexistpanestatus("All the fields are not given!!");
-    }
-    else{
+    } else {
       Float commission = 0.0f;
-      if(checkPortfolioField(dollarexistpfname,"dollarexist")){
-        if(checkBatchTickrField(stocksexist)){
-          if(checkBatchWeightFields(weightsexist)){
-            if(checkBatchTickrBatchWeightsSize(stocksexist,weightsexist)){
-              if(checkValidMoney(dollarexistval)){
-                if(checkDateField(dollarexistdate,"dollarexist")){
-                  if(checkCommissionField(dollarexistcommision,"dollarexist")){
+      if (checkPortfolioField(dollarexistpfname, "dollarexist")) {
+        if (checkBatchTickrField(stocksexist)) {
+          if (checkBatchWeightFields(weightsexist)) {
+            if (checkBatchTickrBatchWeightsSize(stocksexist, weightsexist)) {
+              if (checkValidMoney(dollarexistval)) {
+                if (checkDateField(dollarexistdate, "dollarexist")) {
+                  if (checkCommissionField(dollarexistcommision, "dollarexist")) {
                     if (dollarexistcommision != null && dollarexistcommision.length() > 0) {
                       commission = Float.valueOf(dollarexistcommision);
                     }
                     JSONObject portfolioObj = portfolio.readPortfolio(
-                            this.rootDir+dollarexistpfname+".json");
+                            this.rootDir + dollarexistpfname + ".json");
                     JSONObject finalObj = portfolio.dollarCostExisting(
                             portfolio.validateTickrEntries(stocksexist),
-                            portfolio.validateWeightEntriesSum(weightsexist),commission,
-                            Float.valueOf(dollarexistval),dollarexistdate,portfolioObj);
-                    portfolio.savePortfolio(this.rootDir+dollarexistpfname+".json",finalObj);
+                            portfolio.validateWeightEntriesSum(weightsexist), commission,
+                            Float.valueOf(dollarexistval), dollarexistdate, portfolioObj);
+                    portfolio.savePortfolio(this.rootDir + dollarexistpfname + ".json",
+                            finalObj);
                   }
                 }
               }
@@ -549,10 +541,11 @@ public class ControllerImplGUI implements ControllerGUI {
       }
     }
   }
-  public void validateNewDollar(String stratergydollarnewname,String dollarnewcreatepfname,
-                         String stocksweightsnew,String dollarnewval,String dollarnewdays,
-                         String dollarnewstartdate,String dollarnewenddate,
-                                String dollarnewcommission){
+
+  public void validateNewDollar(String stratergydollarnewname, String dollarnewcreatepfname,
+                                String stocksweightsnew, String dollarnewval, String dollarnewdays,
+                                String dollarnewstartdate, String dollarnewenddate,
+                                String dollarnewcommission) {
 
   }
 
@@ -568,11 +561,9 @@ public class ControllerImplGUI implements ControllerGUI {
         guiView.setCreateLabelStatus("Please specify the root directory path!!");
       } else if (label.equals("composition")) {
         guiView.setRetrievePanelStatus("Please specify the root directory path!!");
-      }
-      else if(label.equals("dollarexist")){
+      } else if (label.equals("dollarexist")) {
         guiView.setdollarExistingStatus("Please specify the root directory path!!");
-      }
-      else if(label.equals("dollarnew")){
+      } else if (label.equals("dollarnew")) {
         guiView.setdollarNewStatus("Please specify the root directory path!!");
       }
     } else {
@@ -601,13 +592,11 @@ public class ControllerImplGUI implements ControllerGUI {
         guiView.setRetrievePanelStatus(null);
         guiView.setPortfoliosListRetrieve(message);
         guiView.displayRetrievepf();
-      }
-      else if(label.equals("dollarexist")){
+      } else if (label.equals("dollarexist")) {
         guiView.setdollarExistingStatus(null);
         guiView.setportfolioslistdollarexist(message);
         guiView.displayDollarExistingpf();
-      }
-      else if(label.equals("dollarnew")){
+      } else if (label.equals("dollarnew")) {
         guiView.setdollarNewStatus(null);
         guiView.setdollarexistpanestatus(null);
         guiView.displayDollarNewpf();
