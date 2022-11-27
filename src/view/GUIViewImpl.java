@@ -113,6 +113,9 @@ public class GUIViewImpl extends JFrame implements GUIView {
   public void setpathStore(String setMessage) {
     pathStore.setText(setMessage);
   }
+  public String givenPath(){
+    return JOptionPane.showInputDialog("Please enter path to store portfolios");
+  }
 
   public void setdollarexistpanestatus(String message) {
     this.dollarexistpanestatus.setText(message);
@@ -725,7 +728,7 @@ public class GUIViewImpl extends JFrame implements GUIView {
   }
 
   public void addFeatures(ControllerGUI features) {
-    inputButton.addActionListener(evt -> features.setDirectory());
+    inputButton.addActionListener(evt -> features.displaysetrootpane());
     createPfButton.addActionListener(evt -> features.displayDialogPane("create"));
     add.addActionListener(evt -> {
       try {

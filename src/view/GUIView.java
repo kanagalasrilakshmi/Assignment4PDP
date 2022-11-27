@@ -5,6 +5,7 @@ import controller.ControllerGUI;
 public interface GUIView {
 
   void makeVisible();
+  String givenPath();
 
   void setpathStore(String setMessage);
 

@@ -311,7 +311,6 @@ public class ControllerImplGUI implements ControllerGUI {
   }
 
   public void setDirectory() {
-    this.rootDirUser = JOptionPane.showInputDialog("Please enter path to store portfolios");
     if (this.rootDirUser == null || this.rootDirUser.length() == 0) {
       this.rootDirUser = this.rootDir;
       guiView.setpathStore("No path is given hence " +
@@ -477,7 +476,8 @@ public class ControllerImplGUI implements ControllerGUI {
       for (Object tickrsym : portfolioObj.keySet()) {
         StringBuilder objmessage = new StringBuilder();
         objmessage.append("TICKER SYMBOL : ").append(tickrsym).append("\n");
-        objmessage.append("NUM OF STOCKS        TYPE            DATE OF PURCHASE/SELL" + "     COMMISSION FEES       STOCK PRICE" + "\n");
+        objmessage.append("NUM OF STOCKS        TYPE            DATE OF PURCHASE/SELL" + "     " +
+                "COMMISSION FEES       STOCK PRICE" + "\n");
         JSONArray arrayObj = (JSONArray) portfolioObj.get(tickrsym);
         for (Object o : arrayObj) {
           JSONObject tickrRecord = (JSONObject) o;
@@ -684,6 +684,10 @@ public class ControllerImplGUI implements ControllerGUI {
     }
   }
 
+  public void displaysetrootpane(){
+    this.rootDirUser = guiView.givenPath();
+    setDirectory();
+  }
   public void displayDialogPane(String label) {
     if (this.rootDirUser == null || this.rootDirUser.length() == 0) {
       switch (label) {

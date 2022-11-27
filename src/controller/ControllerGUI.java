@@ -32,4 +32,5 @@ public interface ControllerGUI extends Controller {
                          String stocksnew, String weightsnew, String dollarnewval,
                          String dollarnewdays, String dollarnewstartdate, String dollarnewenddate,
                          String dollarnewcommission);
+  void displaysetrootpane();
 }
