@@ -22,6 +22,16 @@ public class PortfolioNewStratergy extends FlexiblePortfolioImpl implements Port
     return convertedList;
   }
 
+  public boolean validateWeightFormat(String entry){
+    String[] items = entry.split("\\s*,\\s*");
+    for (String weight : items) {
+      if (!checkValidInteger(weight) && !checkValidFloat(weight)) {
+        return false;
+      }
+    }
+    return true;
+  }
+
   public ArrayList<Float> validateWeightEntriesSum(String entry){
     String[] items = entry.split("\\s*,\\s*");
     ArrayList<Float> convertedList = new ArrayList<>();

@@ -467,35 +467,54 @@ public class ControllerImplGUI implements ControllerGUI {
     }
   }
 
-  private boolean checkBatchTickrField(String stocksexist) {
+  private boolean checkBatchTickrField(String stocksexist,String label) {
     ArrayList<String> stocks = portfolio.validateTickrEntries(stocksexist);
     if (stocks.size() == 0) {
+      if(label.equals("dollarexist")){
+        guiView.setdollarexistpanestatus("Invalid Tickr symbol is entered!!");
+        //
+      }
       return false;
     }
     return true;
   }
 
-  private boolean checkBatchWeightFields(String weightsexist) {
-    ArrayList<Float> weights = portfolio.validateWeightEntriesSum(weightsexist);
-    if (weights.size() == 0) {
-      return false;
+  private boolean checkBatchWeightFields(String weightsexist,String label) {
+    if(!portfolio.validateWeightFormat(weightsexist)){
+      if(label.equals("dollarexist")){
+        guiView.setdollarexistpanestatus("Format of the the weights is not correct");
+        //
+        return false;
+      }
+    }
+    else{
+      ArrayList<Float> weights = portfolio.validateWeightEntriesSum(weightsexist);
+      if (weights.size() == 0) {
+        if(label.equals("dollarexist")){
+          guiView.setdollarexistpanestatus("Sum of the given weights is not equal to 100%");
+          //
+          return false;
+        }
+      }
     }
     return true;
   }
 
-  private boolean checkBatchTickrBatchWeightsSize(String stocksexist, String weightsexist) {
-    if (!checkBatchTickrField(stocksexist)) {
+  private boolean checkBatchTickrBatchWeightsSize(String stocksexist, String weightsexist,
+                                                  String label) {
+    if (!checkBatchTickrField(stocksexist,label)) {
       return false;
     }
     ArrayList<Float> checkingtickrweights = portfolio.validateStockWeightEntries(weightsexist,
             portfolio.validateTickrEntries(stocksexist).size());
     if (checkingtickrweights.size() == 0) {
+
       return false;
     }
     return true;
   }
 
-  private boolean checkValidMoney(String dollarexistval) {
+  private boolean checkValidMoney(String dollarexistval,String label) {
     if (!portfolio.checkValidInteger(dollarexistval) &&
             !portfolio.checkValidInteger(dollarexistval)) {
       return false;
@@ -515,10 +534,10 @@ public class ControllerImplGUI implements ControllerGUI {
     } else {
       Float commission = 0.0f;
       if (checkPortfolioField(dollarexistpfname, "dollarexist")) {
-        if (checkBatchTickrField(stocksexist)) {
-          if (checkBatchWeightFields(weightsexist)) {
-            if (checkBatchTickrBatchWeightsSize(stocksexist, weightsexist)) {
-              if (checkValidMoney(dollarexistval)) {
+        if (checkBatchTickrField(stocksexist, "dollarexist")) {
+          if (checkBatchWeightFields(weightsexist,"dollarexist")) {
+            if (checkBatchTickrBatchWeightsSize(stocksexist, weightsexist,"dollarexist")) {
+              if (checkValidMoney(dollarexistval,"dollarexist")) {
                 if (checkDateField(dollarexistdate, "dollarexist")) {
                   if (checkCommissionField(dollarexistcommision, "dollarexist")) {
                     if (dollarexistcommision != null && dollarexistcommision.length() > 0) {

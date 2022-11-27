@@ -17,6 +17,8 @@ public interface PortfolioStratergy extends Portfolio{
 
   String listJSONfiles(String rootDir);
   ArrayList<Float> validateWeightEntriesSum(String entry);
+
+  boolean validateWeightFormat(String entry);
   void startToFinishDollarCost(ArrayList<String>stocksList,ArrayList<Float>weightsList,
                                float commissionfees, int freq, String startDate, String endDate,
                                float money);
