@@ -12,6 +12,7 @@ public interface PortfolioStratergy extends Portfolio {
 
     /**
      * This function helps to validate the input list of tickr symbols seperated by comma with tickrData.txt file.
+     *
      * @param entry list of all the tickr symbols seperated by a comma
      * @return an array list of tickr symbols if all the given symbols are valid, else return empty array list
      */
