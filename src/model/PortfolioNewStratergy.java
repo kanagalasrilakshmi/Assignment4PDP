@@ -70,8 +70,11 @@ public class PortfolioNewStratergy extends FlexiblePortfolioImpl implements Port
                                          JSONObject portfolio) {
         float toInvest = money - commissionFees;
         for (int i = 0; i < stocksList.size(); i++) {
-            float stocksToBuy = ((weightsList.get(i) / 100) * toInvest) /
-                    getCallPriceDate(date, stocksList.get(i));
+            float stocksToBuy = 0.0f;
+            float storePrice = getCallPriceDate(date, stocksList.get(i));
+            if(!(storePrice == 0.0f)){
+                stocksToBuy = ((weightsList.get(i) / 100) * toInvest) / storePrice;
+            }
             portfolio = modifyJson(commissionFees, stocksToBuy, date, stocksList.get(i), portfolio);
         }
         return portfolio;

@@ -40,7 +40,7 @@ public class ControllerImplGUI implements ControllerGUI {
                 return false;
             }
         } else if (label.equals("dollarnew")) {
-            if (!checkValidpfName(pfName)){
+            if (!checkValidpfName(pfName)) {
                 guiView.setdollarnewpanestatus("Please enter a valid Portfolio name!!");
                 guiView.setpfnamedollarnew(null);
                 return false;
@@ -85,7 +85,7 @@ public class ControllerImplGUI implements ControllerGUI {
                     guiView.setpfNameExistDollar(null);
                     return false;
                 case "dollarnew":
-                    guiView.setdollarnewpanestatus("New Portfolio with name "+ pfName +" is created");
+                    guiView.setdollarnewpanestatus("New Portfolio with name " + pfName + " is created");
 
                     return true;
             }
@@ -530,7 +530,6 @@ public class ControllerImplGUI implements ControllerGUI {
             if (checkPortfolioField(pfNameComposition, "composition")) {
                 JSONObject portfolioObj = portfolio.readPortfolio(this.rootDir +
                         pfNameComposition + ".json");
-
                 guiView.setPortfoliosListComposition(viewFlexibleComposition(portfolioObj));
                 guiView.setpfnameretrieve(null);
             }
@@ -664,7 +663,7 @@ public class ControllerImplGUI implements ControllerGUI {
         boolean filecheck = new File(this.rootDir + dollarexistpfname + ".json").exists();
         JSONObject portfolioObj = new JSONObject();
         JSONObject finalObj = portfolioObj;
-        if(filecheck){
+        if (filecheck) {
             portfolioObj = portfolio.readPortfolio(
                     this.rootDir + dollarexistpfname + ".json");
             finalObj = portfolioObj;
@@ -848,6 +847,10 @@ public class ControllerImplGUI implements ControllerGUI {
                                                     saveExistingpf(dollarnewcreatepfname, stocksnew, weightsnew,
                                                             commission, dollarnewval, dollarnewstartdate,
                                                             enddate, dollarnewdays, "dollarnew");
+                                                } else {
+                                                    // save an empty portfolio.
+                                                    portfolio.savePortfolio(this.rootDir + dollarnewcreatepfname
+                                                            + ".json", new JSONObject());
                                                 }
                                                 saveStrategyrecord(stratergydollarnewname, dollarnewcreatepfname,
                                                         stocksnew, weightsnew, commission, dollarnewval,
