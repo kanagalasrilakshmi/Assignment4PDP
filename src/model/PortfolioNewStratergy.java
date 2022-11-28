@@ -98,9 +98,9 @@ public class PortfolioNewStratergy extends FlexiblePortfolioImpl implements Port
     return allDates;
   }
 
-  public JSONObject saveStrategyRecord(ArrayList<String> stocksList, ArrayList<Float> weightsList,
-                                       float commissionFees, int freq, String startDate,
-                                       String endDate, float money, String strategyName, JSONObject strategyLookUp, String pfName) {
+  public JSONObject saveStrategyRecord(ArrayList<String> stocksList, ArrayList<Float> weightsList, float commissionFees,
+                                       int freq, String startDate, String endDate, float money, String strategyName,
+                                       JSONObject strategyLookUp, String pfName) {
     JSONObject record = new JSONObject();
     record.put("stock_list", stocksList);
     record.put("weight_list", weightsList);
