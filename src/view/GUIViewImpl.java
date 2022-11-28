@@ -340,10 +340,10 @@ public class GUIViewImpl extends JFrame implements GUIView {
     modifyDialog.add(pfnamemodify);
     modifyDialog.add(dateLabel);
     modifyDialog.add(dateofmodify);
-    modifyDialog.add(tickrlabel);
-    modifyDialog.add(tickrmodify);
     modifyDialog.add(numstockslabel);
     modifyDialog.add(numstocksmodify);
+    modifyDialog.add(tickrlabel);
+    modifyDialog.add(tickrmodify);
     modifyDialog.add(commissionLabel);
     modifyDialog.add(commissionfessmodify);
     modifyDialog.add(purchase);
