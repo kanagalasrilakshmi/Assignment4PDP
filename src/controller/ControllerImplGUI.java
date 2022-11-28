@@ -17,6 +17,9 @@ import javax.swing.*;
 import model.PortfolioStratergy;
 import view.GUIView;
 
+/**
+ *
+ */
 public class ControllerImplGUI implements ControllerGUI {
     private GUIView guiView;
     private PortfolioStratergy portfolio;
@@ -57,7 +60,6 @@ public class ControllerImplGUI implements ControllerGUI {
                         pfName + " already exists, So this new strategy will be added!!");
 
                 return true;
-                //guiView.setpfnamedollarnew(null);
             }
         } else {
             switch (label) {

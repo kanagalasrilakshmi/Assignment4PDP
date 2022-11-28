@@ -15,7 +15,11 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-
+/**
+ * This class implements all the methods in the Portfolio interface and extends all the functions,
+ * from the Flexible portfolio class.
+ * It helps to validat the all the inputs given by user in gui and also supports dollar cost averaging strategy.
+ */
 public class PortfolioNewStratergy extends FlexiblePortfolioImpl implements PortfolioStratergy {
 
     /**
