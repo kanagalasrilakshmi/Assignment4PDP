@@ -473,7 +473,7 @@ public class GUIViewImpl extends JFrame implements GUIView {
     JLabel stratergynamedollarexist = new JLabel("Enter the name of the strategy");
     stratergydollarexistname = new JTextField(25);
     JLabel stocksweightsdesc = new JLabel("Enter the stocks tickr symbols, if multiple entries" +
-            "separate them by delimeter ','. DO NOT end with ',' after adding all the entries");
+            "separate them by delimeter ','.");
     JLabel stocksone = new JLabel("For single entry - ex-GOOG");
     JLabel stockstwo = new JLabel("For multiple entries - ex-GOOG,UBER,....");
     JLabel stocksthree = new JLabel("Ending delimeter ',' is ignored - ex-GOOG,UBER,,,,");
