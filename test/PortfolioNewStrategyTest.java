@@ -213,4 +213,15 @@ public class PortfolioNewStrategyTest {
     assertEquals(true,portfolioObj.checkforInvalidcharacters("GOOG,,,**1234()878,UBER,,, ,"));
     assertEquals(false,portfolioObj.checkforInvalidcharacters("GOOG,UBER, ,"));
   }
+
+  @Test
+  public void checkFormatWeight(){
+    PortfolioStratergy portfolioObj = new PortfolioNewStratergy();
+    assertEquals(true,portfolioObj.validateWeightFormat("10.4,89.6"));
+    assertEquals(false,portfolioObj.validateWeightFormat("10.4jghkjgjh,89.6"));
+    assertEquals(false,portfolioObj.validateWeightFormat("10.4,,,,89.6"));
+    assertEquals(true,portfolioObj.validateWeightFormat("10.4,89.6,,,,,"));
+    assertEquals(false,portfolioObj.validateWeightFormat("10.4,89.6,,,,,**,,"));
+    assertEquals(false,portfolioObj.validateWeightFormat(",,,,,10.4,89.6,,,,,"));
+  }
 }
