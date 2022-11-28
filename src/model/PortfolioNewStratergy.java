@@ -100,8 +100,9 @@ public class PortfolioNewStratergy extends FlexiblePortfolioImpl implements Port
         return allDates;
     }
 
-    public JSONObject saveStrategyRecord(ArrayList<String> stocksList, ArrayList<Float> weightsList, float commissionFees,
-                                         int freq, String startDate, String endDate, float money, String strategyName,
+    public JSONObject saveStrategyRecord(ArrayList<String> stocksList, ArrayList<Float> weightsList,
+                                         float commissionFees, int freq, String startDate, String endDate,
+                                         float money, String strategyName,
                                          JSONObject strategyLookUp, String pfName) {
         JSONObject record = new JSONObject();
         record.put("stock_list", stocksList);
@@ -136,7 +137,8 @@ public class PortfolioNewStratergy extends FlexiblePortfolioImpl implements Port
     public JSONObject startToFinishDollarCost(ArrayList<String> stocksList, ArrayList<Float> weightsList,
                                               float commissionFees, int freq, String startDate,
                                               String endDate, float money) {
-        return getPorfolioEntries(stocksList, weightsList, commissionFees, freq, startDate, endDate, money, new JSONObject());
+        return getPorfolioEntries(stocksList, weightsList, commissionFees, freq, startDate, endDate, money,
+                new JSONObject());
     }
 
     public JSONObject startToFinishDollarCostPresent(ArrayList<String> stocksList, ArrayList<Float> weightsList,

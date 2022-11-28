@@ -40,9 +40,11 @@ public class ControllerImplGUI implements ControllerGUI {
                 return false;
             }
         } else if (label.equals("dollarnew")) {
-            guiView.setdollarnewpanestatus("Please enter a valid Portfolio name!!");
-            guiView.setpfnamedollarnew(null);
-            return false;
+            if (!checkValidpfName(pfName)){
+                guiView.setdollarnewpanestatus("Please enter a valid Portfolio name!!");
+                guiView.setpfnamedollarnew(null);
+                return false;
+            }
         }
         if (fileCheck && !(pfName.equals("stratergyLookup"))) {
             if (label.equals("add") || label.equals("save")) {
@@ -52,8 +54,10 @@ public class ControllerImplGUI implements ControllerGUI {
                 return false;
             } else if (label.equals("dollarnew")) {
                 guiView.setdollarnewpanestatus("Portfolio with this name " +
-                        pfName + " already exists!!");
-                guiView.setpfnamedollarnew(null);
+                        pfName + " already exists, So this new strategy will be added!!");
+
+                return true;
+                //guiView.setpfnamedollarnew(null);
             }
         } else {
             switch (label) {
@@ -80,6 +84,10 @@ public class ControllerImplGUI implements ControllerGUI {
                             + " does not exist!!");
                     guiView.setpfNameExistDollar(null);
                     return false;
+                case "dollarnew":
+                    guiView.setdollarnewpanestatus("New Portfolio with name "+ pfName +" is created");
+
+                    return true;
             }
         }
         return true;
@@ -140,8 +148,8 @@ public class ControllerImplGUI implements ControllerGUI {
                             "9:30am).! Please enter new date");
                     guiView.setdateVal(null);
                     break;
-                case "dollarexist":
-                case "dollarnew":
+                case "dollarnewstartdate":
+                case "dollarnewenddate":
                     return true;
             }
             return false;
@@ -233,7 +241,6 @@ public class ControllerImplGUI implements ControllerGUI {
                     case "add":
                         guiView.setcreateDialogStatus("Commission fees given is not a valid number");
                         guiView.setcommissionfeescreateValue(null);
-
                         break;
                     case "modify":
                         guiView.setmodifyDialogStatus("Commission fees given is not a valid number");
@@ -245,7 +252,7 @@ public class ControllerImplGUI implements ControllerGUI {
                         break;
                     case "dollarnew":
                         guiView.setdollarnewpanestatus("Commission fees given is not a valid number");
-                        // set dollar commision to null.
+                        guiView.setdollarcommissionnew(null);
                         break;
                 }
                 return false;
@@ -265,7 +272,7 @@ public class ControllerImplGUI implements ControllerGUI {
                         break;
                     case "dollarnew":
                         guiView.setdollarnewpanestatus("Commission fees cannot be negative!");
-                        // set commission value to null.
+                        guiView.setdollarcommissionnew(null);
                         break;
                 }
                 return false;
@@ -654,9 +661,14 @@ public class ControllerImplGUI implements ControllerGUI {
     private void saveExistingpf(String dollarexistpfname, String stocksexist, String weightsexist, Float commission,
                                 String dollarexistval, String dollarexistdate, String endate, String days,
                                 String label) {
-        JSONObject portfolioObj = portfolio.readPortfolio(
-                this.rootDir + dollarexistpfname + ".json");
+        boolean filecheck = new File(this.rootDir + dollarexistpfname + ".json").exists();
+        JSONObject portfolioObj = new JSONObject();
         JSONObject finalObj = portfolioObj;
+        if(filecheck){
+            portfolioObj = portfolio.readPortfolio(
+                    this.rootDir + dollarexistpfname + ".json");
+            finalObj = portfolioObj;
+        }
         if (label.equals("dollarexist")) {
             finalObj = portfolio.dollarCostExisting(portfolio.validateTickrEntries(stocksexist),
                     portfolio.validateWeightEntriesSum(weightsexist), commission,
@@ -780,12 +792,12 @@ public class ControllerImplGUI implements ControllerGUI {
                                                 !portfolio.checkTodayDateAndTime(
                                                         dollarexistdate)) {
                                             saveExistingpf(dollarexistpfname, stocksexist, weightsexist, commission,
-                                                    dollarexistval,
-                                                    dollarexistdate, null, "0", "dollarexist");
+                                                    dollarexistval, dollarexistdate, null, "0",
+                                                    "dollarexist");
                                         }
                                         saveStrategyrecord(stratergydollarexistname, dollarexistpfname, stocksexist,
-                                                weightsexist, commission,
-                                                dollarexistval, dollarexistdate, null, 0);
+                                                weightsexist, commission, dollarexistval, dollarexistdate,
+                                                null, 0);
                                         guiView.setdollarexistpanestatus("Strategy successfully applied to the " +
                                                 "portfolio" + dollarexistpfname);
                                         guiView.setdollardateexist(null);
@@ -816,13 +828,13 @@ public class ControllerImplGUI implements ControllerGUI {
             if (checkPortfolioField(dollarnewcreatepfname, "dollarnew")) {
                 if (checkBatchTickrField(stocksnew, "dollarnew")) {
                     if (checkBatchWeightFields(weightsnew, "dollarnew")) {
-                        if (checkBatchTickrBatchWeightsSize(stocksnew, stocksnew, "dollarnew")) {
+                        if (checkBatchTickrBatchWeightsSize(stocksnew, weightsnew, "dollarnew")) {
                             if (checkValidMoney(dollarnewval, "dollarnew")) {
                                 if (checkDateField(dollarnewstartdate, "dollarnewstartdate")) {
                                     if (checkDateField(dollarnewenddate, "dollarnewenddate")) {
                                         if (checkDatesandDays(dollarnewdays, dollarnewstartdate, dollarnewenddate,
                                                 "dollarnew")) {
-                                            if (checkCommissionField(dollarnewcommission, "dollarexist")) {
+                                            if (checkCommissionField(dollarnewcommission, "dollarnew")) {
                                                 if (dollarnewcommission != null && dollarnewcommission.length() > 0) {
                                                     commission = Float.parseFloat(dollarnewcommission);
                                                 }
@@ -842,7 +854,7 @@ public class ControllerImplGUI implements ControllerGUI {
                                                         dollarnewstartdate, dollarnewenddate,
                                                         Integer.parseInt(dollarnewdays));
                                                 guiView.setdollarnewpanestatus("Strategy successfully applied to the " +
-                                                        "portfolio" + dollarnewcreatepfname);
+                                                        "portfolio " + dollarnewcreatepfname);
                                                 guiView.setenddatenew(null);
                                                 guiView.setstartdatenew(null);
                                                 guiView.setdollardays(null);
