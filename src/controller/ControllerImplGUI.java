@@ -47,13 +47,13 @@ public class ControllerImplGUI implements ControllerGUI {
     }
     if (fileCheck) {
       if (label.equals("add") || label.equals("save")) {
-        guiView.setcreateDialogStatus("Portfolio with this name" +
+        guiView.setcreateDialogStatus("Portfolio with this name " +
                 pfName + " already exists!!");
         guiView.setCreatePfValue(null);
         return false;
       }
       else if(label.equals("dollarnew")){
-        guiView.setdollarnewpanestatus("Portfolio with this name" +
+        guiView.setdollarnewpanestatus("Portfolio with this name " +
                 pfName + " already exists!!");
         guiView.setpfnamedollarnew(null);
         return false;
@@ -507,6 +507,7 @@ public class ControllerImplGUI implements ControllerGUI {
                 pfNameComposition + ".json");
 
         guiView.setPortfoliosListComposition(viewFlexibleComposition(portfolioObj));
+        guiView.setpfnameretrieve(null);
       }
     }
   }
