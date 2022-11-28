@@ -45,7 +45,7 @@ public class ControllerImplGUI implements ControllerGUI {
       guiView.setpfnamedollarnew(null);
       return false;
     }
-    if (fileCheck) {
+    if (fileCheck && !(pfName.equals("stratergyLookup"))) {
       if (label.equals("add") || label.equals("save")) {
         guiView.setcreateDialogStatus("Portfolio with this name " +
                 pfName + " already exists!!");
@@ -206,12 +206,12 @@ public class ControllerImplGUI implements ControllerGUI {
             date.length() == 0;
   }
 
-  private boolean checkAllFieldsDollarExist(String dollarexistpfname, String stocksexist,
-                                            String weightsexist, String dollarexistval,
+  private boolean checkAllFieldsDollarExist(String stratergydollarexistname,String dollarexistpfname,
+                                            String stocksexist, String weightsexist, String dollarexistval,
                                             String dollarexistdate) {
-    return dollarexistpfname == null || stocksexist == null || weightsexist == null ||
-            dollarexistval == null || dollarexistdate == null || dollarexistpfname.length() == 0 ||
-            stocksexist.length() == 0 || weightsexist.length() == 0 ||
+    return stratergydollarexistname == null || dollarexistpfname == null || stocksexist == null || weightsexist == null
+            || dollarexistval == null || dollarexistdate == null || stratergydollarexistname.length() == 0 ||
+            dollarexistpfname.length() == 0 || stocksexist.length() == 0 || weightsexist.length() == 0 ||
             dollarexistval.length() == 0 || dollarexistdate.length() == 0;
   }
 
@@ -330,6 +330,7 @@ public class ControllerImplGUI implements ControllerGUI {
       guiView.setRetrievePanelStatus(null);
       guiView.setdollarExistingStatus(null);
       guiView.setdollarNewStatus(null);
+      createStrategyLookup();
     } else if (new File(this.rootDirUser).exists()) {
       guiView.setpathStore("Portfolios can be accessed in the " + this.rootDirUser + " location ");
       if (!portfolio.checkLastEndingCharacter(this.rootDirUser)) {
@@ -343,7 +344,9 @@ public class ControllerImplGUI implements ControllerGUI {
       guiView.setRetrievePanelStatus(null);
       guiView.setdollarExistingStatus(null);
       guiView.setdollarNewStatus(null);
+      createStrategyLookup();
     } else {
+      createStrategyLookup();
       guiView.setpathStore("Invalid path given so portfolios will be stored in " +
               this.rootDir + " by default.");
       guiView.setCreateLabelStatus(null);
@@ -643,12 +646,19 @@ public class ControllerImplGUI implements ControllerGUI {
     return true;
   }
 
+  private void createStrategyLookup(){
+    String lookuppath = this.rootDir + "stratergyLookup.json";
+    if(!new File(lookuppath).exists()){
+      JSONObject data = new JSONObject();
+      portfolio.savePortfolio(lookuppath,data);
+    }
+  }
+
   public void validateExistingDollar(String stratergydollarexistname, String dollarexistpfname,
                                      String stocksexist, String weightsexist, String dollarexistval,
                                      String dollarexistdate, String dollarexistcommision) {
-    // add strategy to add strategy.
-    if (checkAllFieldsDollarExist(dollarexistpfname, stocksexist, weightsexist, dollarexistval,
-            dollarexistdate)) {
+    if (checkAllFieldsDollarExist(stratergydollarexistname, dollarexistpfname, stocksexist, weightsexist,
+            dollarexistval, dollarexistdate)) {
       guiView.setdollarexistpanestatus("All the fields are not given!!");
     } else {
       Float commission = 0.0f;
@@ -670,6 +680,12 @@ public class ControllerImplGUI implements ControllerGUI {
                             Float.parseFloat(dollarexistval), dollarexistdate, portfolioObj);
                     portfolio.savePortfolio(this.rootDir + dollarexistpfname + ".json",
                             finalObj);
+                    // save the strategy in a common lookup place.
+                    JSONObject strategyObj = portfolio.readPortfolio(this.rootDir + "stratergyLookup.json");
+                    portfolio.saveStrategyRecord(portfolio.validateTickrEntries(stocksexist),
+                            portfolio.validateWeightEntriesSum(weightsexist),commission,0,dollarexistdate,
+                            null,Float.parseFloat(dollarexistval),stratergydollarexistname,strategyObj,
+                            dollarexistpfname);
                     guiView.setdollarexistpanestatus("Strategy successfully applied to the " +
                             "portfolio" + dollarexistpfname);
                     guiView.setdollardateexist(null);
@@ -765,33 +781,39 @@ public class ControllerImplGUI implements ControllerGUI {
         case "costBasis":
           guiView.setLabelCostBasisStatus(null);
           guiView.setPortfoliosListBasis(message);
+          guiView.setCostBasisDialogStatus(null);
           guiView.displayCostBasis();
           break;
         case "modify":
           guiView.setModifyLabelStatus(null);
           guiView.setportfoliosListModify(message);
+          guiView.setmodifyDialogStatus(null);
           guiView.displayModifyPf();
           break;
         case "getDateVal":
           guiView.setValueLabelStatus(null);
           guiView.setPortfoliosListVal(message);
+          guiView.setvalueDialogStatus(null);
           guiView.displayValuepf();
           break;
         case "composition":
           guiView.setRetrievePanelStatus(null);
           guiView.setPortfoliosListComposition(null);
           guiView.setPortfoliosListRetrieve(message);
+          guiView.setretrieveDialogStatus(null);
           guiView.displayRetrievepf();
           break;
         case "dollarexist":
           guiView.setdollarExistingStatus(null);
           guiView.setportfolioslistdollarexist(null);
           guiView.setportfolioslistdollarexist(message);
+          guiView.setdollarexistpanestatus(null);
           guiView.displayDollarExistingpf();
           break;
         case "dollarnew":
           guiView.setdollarNewStatus(null);
           guiView.setdollarexistpanestatus(null);
+          guiView.setdollarnewpanestatus(null);
           guiView.displayDollarNewpf();
           break;
       }

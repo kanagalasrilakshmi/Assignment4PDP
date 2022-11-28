@@ -160,8 +160,8 @@ public class PortfolioNewStratergy extends FlexiblePortfolioImpl implements Port
     assert filesList != null;
     for (File f : filesList) {
       if (f.isFile()) {
-        // list only .json files.
-        if (f.getName().contains(".json")) {
+        // list only .json files and not lookup file.
+        if (f.getName().contains(".json") && !(f.getName().equals("stratergyLookup.json"))) {
           message.append(f.getName().split("\\.json")[0]).append("\n");
         }
       }
