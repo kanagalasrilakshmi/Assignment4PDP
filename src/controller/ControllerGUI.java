@@ -31,6 +31,6 @@ public interface ControllerGUI extends Controller {
   void validateNewDollar(String stratergydollarnewname, String dollarnewcreatepfname,
                          String stocksnew, String weightsnew, String dollarnewval,
                          String dollarnewdays, String dollarnewstartdate, String dollarnewenddate,
-                         String dollarnewcommission);
+                         String dollarnewcommission) throws ParseException;
   void displaysetrootpane();
 }
