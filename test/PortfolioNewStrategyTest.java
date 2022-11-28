@@ -205,6 +205,7 @@ public class PortfolioNewStrategyTest {
     PortfolioStratergy portfolioObj = new PortfolioNewStratergy();
     String tickrBatchCheck = ",,,GOOG,*@,234,TSLA,MSFT";
     assertEquals(true,portfolioObj.checkforInvalidcharacters(tickrBatchCheck));
+    assertEquals(false,portfolioObj.checkforInvalidcharacters("GOOG,UBER"));
     assertEquals(true,portfolioObj.checkforInvalidcharacters(",,,GOOG"));
     assertEquals(true,portfolioObj.checkforInvalidcharacters("GOOG,,,,UBER,,,"));
     assertEquals(false,portfolioObj.checkforInvalidcharacters("GOOG,,,,,"));

@@ -521,32 +521,42 @@ public class ControllerImplGUI implements ControllerGUI {
   }
 
   private boolean checkBatchTickrField(String stocksexist, String label) {
-    // if ", comes consecutively or staring or ending".
-    // if it has other special characters.
-
-    ArrayList<String> stocks = portfolio.validateTickrEntries(stocksexist);
-    if (stocks.size() == 0) {
+    if(portfolio.checkforInvalidcharacters(stocksexist)){
       if (label.equals("dollarexist")) {
-        guiView.setdollarexistpanestatus("Invalid Tickr symbol is entered!!");
+        guiView.setdollarexistpanestatus("Wrong Format is entered!!");
         guiView.setstocksexist(null);
       }
       else if(label.equals("dollarnew")){
-        guiView.setdollarnewpanestatus("Invalid Tickr symbol is entered!!");
+        guiView.setdollarnewpanestatus("Wrong format is entered!!");
         guiView.setstocksnew(null);
       }
       return false;
     }
     else{
-      if(portfolio.checkDuplicates(stocks)){
+      ArrayList<String> stocks = portfolio.validateTickrEntries(stocksexist);
+      if (stocks.size() == 0) {
         if (label.equals("dollarexist")) {
-          guiView.setdollarexistpanestatus("Duplicate tickr symbols exist!!");
+          guiView.setdollarexistpanestatus("Invalid Tickr symbol is entered!!");
           guiView.setstocksexist(null);
         }
         else if(label.equals("dollarnew")){
-          guiView.setdollarnewpanestatus("Duplicate tickr symbols exist!!");
+          guiView.setdollarnewpanestatus("Invalid Tickr symbol is entered!!");
           guiView.setstocksnew(null);
         }
         return false;
+      }
+      else{
+        if(portfolio.checkDuplicates(stocks)){
+          if (label.equals("dollarexist")) {
+            guiView.setdollarexistpanestatus("Duplicate tickr symbols exist!!");
+            guiView.setstocksexist(null);
+          }
+          else if(label.equals("dollarnew")){
+            guiView.setdollarnewpanestatus("Duplicate tickr symbols exist!!");
+            guiView.setstocksnew(null);
+          }
+          return false;
+        }
       }
     }
     return true;
