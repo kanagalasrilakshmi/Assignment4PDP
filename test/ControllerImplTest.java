@@ -24,41 +24,41 @@ import static org.junit.Assert.assertEquals;
  */
 public class ControllerImplTest {
 
-  @Before
-  public void setUp() {
-    // Flush contents in directory for every test
-    String rootDir = System.getProperty("user.home") + "/Desktop/PortfolioBucket";
-    if (!new File(rootDir).exists()) {
-      try {
-        Path path = Paths.get(rootDir);
-        Files.createDirectories(path);
-      } catch (Exception e) {
-        e.printStackTrace();
-      }
+    @Before
+    public void setUp() {
+        // Flush contents in directory for every test
+        String rootDir = System.getProperty("user.home") + "/Desktop/PortfolioBucket";
+        if (!new File(rootDir).exists()) {
+            try {
+                Path path = Paths.get(rootDir);
+                Files.createDirectories(path);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        File files = new File(rootDir);
+        for (File file : files.listFiles()) {
+            if (!file.isDirectory()) {
+                file.delete();
+            }
+        }
     }
-    File files = new File(rootDir);
-    for (File file : files.listFiles()) {
-      if (!file.isDirectory()) {
-        file.delete();
-      }
-    }
-  }
 
-  @Test
-  public void testGoQuitAtStart() throws ParseException, IOException {
-    String rootDir = System.getProperty("user.home") + "/Desktop/PortfolioBucket/";
-    String inputStream = rootDir + "\nQ";
-    InputStream in = new ByteArrayInputStream(inputStream.getBytes());
-    ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-    PrintStream out = new PrintStream(bytes);
-    Controller controlObj = new ControllerImpl(new PortfolioImpl(), new ViewImpl(out), in);
-    controlObj.goStocks();
-    assertEquals("Give a valid input path where you want to store your portfolios. " +
-            "For example: /Users/PDP/PortfolioBucket/\n" +
-            "Menu: \n" +
-            "C: To create a new Portfolio.\n" +
-            "V: View existing Portfolio.\n" +
-            "Q: Quit the program\n" +
-            "Enter your choice: ", bytes.toString());
-  }
+    @Test
+    public void testGoQuitAtStart() throws ParseException, IOException {
+        String rootDir = System.getProperty("user.home") + "/Desktop/PortfolioBucket/";
+        String inputStream = rootDir + "\nQ";
+        InputStream in = new ByteArrayInputStream(inputStream.getBytes());
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        PrintStream out = new PrintStream(bytes);
+        Controller controlObj = new ControllerImpl(new PortfolioImpl(), new ViewImpl(out), in);
+        controlObj.goStocks();
+        assertEquals("Give a valid input path where you want to store your portfolios. " +
+                "For example: /Users/PDP/PortfolioBucket/\n" +
+                "Menu: \n" +
+                "C: To create a new Portfolio.\n" +
+                "V: View existing Portfolio.\n" +
+                "Q: Quit the program\n" +
+                "Enter your choice: ", bytes.toString());
+    }
 }

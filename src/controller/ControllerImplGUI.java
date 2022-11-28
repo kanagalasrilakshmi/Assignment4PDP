@@ -829,8 +829,8 @@ public class ControllerImplGUI implements ControllerGUI {
                                                 if (!portfolio.checkFutureDate(dollarnewstartdate) &&
                                                         !portfolio.checkTodayDateAndTime(dollarnewstartdate)) {
                                                     String enddate = dollarnewenddate;
-                                                    if(portfolio.checkFutureDate(enddate) ||
-                                                            portfolio.checkTodayDateAndTime(enddate)){
+                                                    if (portfolio.checkFutureDate(enddate) ||
+                                                            portfolio.checkTodayDateAndTime(enddate)) {
                                                         enddate = portfolio.getTodayDate();
                                                     }
                                                     saveExistingpf(dollarnewcreatepfname, stocksnew, weightsnew,
