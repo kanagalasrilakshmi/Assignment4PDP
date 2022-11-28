@@ -765,7 +765,7 @@ public class ControllerImplGUI implements ControllerGUI {
                 dollarexistval, dollarexistdate)) {
             guiView.setdollarexistpanestatus("All the fields are not given!!");
         } else {
-            Float commission = 0.0f;
+            float commission = 0.0f;
             if (checkPortfolioField(dollarexistpfname, "dollarexist")) {
                 if (checkBatchTickrField(stocksexist, "dollarexist")) {
                     if (checkBatchWeightFields(weightsexist, "dollarexist")) {
@@ -774,7 +774,7 @@ public class ControllerImplGUI implements ControllerGUI {
                                 if (checkDateField(dollarexistdate, "dollarexist")) {
                                     if (checkCommissionField(dollarexistcommision, "dollarexist")) {
                                         if (dollarexistcommision != null && dollarexistcommision.length() > 0) {
-                                            commission = Float.valueOf(dollarexistcommision);
+                                            commission = Float.parseFloat(dollarexistcommision);
                                         }
                                         if (!portfolio.checkFutureDate(dollarexistdate) &&
                                                 !portfolio.checkTodayDateAndTime(
@@ -812,7 +812,7 @@ public class ControllerImplGUI implements ControllerGUI {
                 dollarnewdays, dollarnewstartdate)) {
             guiView.setdollarnewpanestatus("All the fields are not given !!");
         } else {
-            Float commission = 0.0f;
+            float commission = 0.0f;
             if (checkPortfolioField(dollarnewcreatepfname, "dollarnew")) {
                 if (checkBatchTickrField(stocksnew, "dollarnew")) {
                     if (checkBatchWeightFields(weightsnew, "dollarnew")) {
@@ -824,7 +824,7 @@ public class ControllerImplGUI implements ControllerGUI {
                                                 "dollarnew")) {
                                             if (checkCommissionField(dollarnewcommission, "dollarexist")) {
                                                 if (dollarnewcommission != null && dollarnewcommission.length() > 0) {
-                                                    commission = Float.valueOf(dollarnewcommission);
+                                                    commission = Float.parseFloat(dollarnewcommission);
                                                 }
                                                 if (!portfolio.checkFutureDate(dollarnewstartdate) &&
                                                         !portfolio.checkTodayDateAndTime(dollarnewstartdate)) {
