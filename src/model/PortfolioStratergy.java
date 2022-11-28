@@ -19,7 +19,12 @@ public interface PortfolioStratergy extends Portfolio{
   ArrayList<Float> validateWeightEntriesSum(String entry);
 
   boolean validateWeightFormat(String entry);
-  void startToFinishDollarCost(ArrayList<String>stocksList,ArrayList<Float>weightsList,
+
+  JSONObject saveStrategyRecord(ArrayList<String> stocksList, ArrayList<Float> weightsList,
+                                float commissionFees, int freq, String startDate,
+                                String endDate, float money, String strategyName, JSONObject strategyLookUp, String pfName);
+
+  JSONObject startToFinishDollarCost(ArrayList<String>stocksList,ArrayList<Float>weightsList,
                                float commissionfees, int freq, String startDate, String endDate,
                                float money);
 

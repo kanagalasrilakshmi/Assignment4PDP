@@ -37,7 +37,7 @@ public class PortfolioImpl implements Portfolio {
    * @return StocksObj type object
    */
   public StocksObj makeStockObj(String tickr, String numberStocks) {
-    return new StocksObj(tickr, Integer.valueOf(numberStocks));
+    return new StocksObj(tickr, Integer.parseInt(numberStocks));
   }
 
   /**
@@ -53,7 +53,7 @@ public class PortfolioImpl implements Portfolio {
       for (Object object : listObj) {
         // go through all the elements in the ListObj.
         StocksObj obj = (StocksObj) object;
-        String toBeAppended = obj.getTickr() + "," + String.valueOf(obj.getNumStocks());
+        String toBeAppended = obj.getTickr() + "," + obj.getNumStocks();
         listAdded.add(toBeAppended);
       }
       for (int i = 0; i < listAdded.size(); i++) {

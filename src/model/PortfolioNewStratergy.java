@@ -3,6 +3,7 @@ package model;
 import org.json.simple.JSONObject;
 
 import java.io.File;
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -73,25 +74,60 @@ public class PortfolioNewStratergy extends FlexiblePortfolioImpl implements Port
   public ArrayList<String> getAllDatesUsingStep(String from, String to, int increment) {
     ArrayList<String> allDates = new ArrayList<>();
     LocalDate start = LocalDate.parse(from);
-    LocalDate end = LocalDate.parse(to);
+    LocalDate end;
+    if (to.equals("")) {
+      end = start.plusDays(365);
+    }
+    else {
+      end = LocalDate.parse(to);
+    }
     while (!start.isAfter(end)) {
-      allDates.add(start.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+      if (start.getDayOfWeek() == DayOfWeek.SUNDAY){
+        start = start.plusDays(1);
+      }
+      if (start.getDayOfWeek() == DayOfWeek.SATURDAY){
+        start = start.plusDays(2);
+      }
+      String currDate = start.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+      allDates.add(currDate);
       start = start.plusDays(increment);
     }
     return allDates;
   }
 
-  public void startToFinishDollarCost(ArrayList<String> stocksList, ArrayList<Float> weightsList,
+  public JSONObject saveStrategyRecord(ArrayList<String> stocksList, ArrayList<Float> weightsList,
+                                       float commissionFees, int freq, String startDate,
+                                       String endDate, float money, String strategyName, JSONObject strategyLookUp, String pfName) {
+    JSONObject record = new JSONObject();
+    record.put("stock_list", stocksList);
+    record.put("weight_list", weightsList);
+    record.put("commission_fee", commissionFees);
+    record.put("frequency", freq);
+    record.put("start_date", startDate);
+    record.put("end_date", endDate);
+    record.put("investment", money);
+    if(strategyLookUp.containsKey(pfName)){
+      JSONObject allStrategies = (JSONObject) strategyLookUp.get(pfName);
+      allStrategies.put(strategyName, record);
+      strategyLookUp.put(pfName, allStrategies);
+    }
+    else{
+      JSONObject newPfRecord = new JSONObject();
+      newPfRecord.put(strategyName, record);
+      strategyLookUp.put(pfName, newPfRecord);
+    }
+    return strategyLookUp;
+  }
+
+  public JSONObject startToFinishDollarCost(ArrayList<String> stocksList, ArrayList<Float> weightsList,
                                       float commissionFees, int freq, String startDate,
                                       String endDate, float money) {
-    /*JSONObject portfolio = new JSONObject();
-    if (!thePortfolio.checkTickrJSONArray(addTickr, tickrpurchase)) {
-      JSONObject addEntry = thePortfolio.makeTransactionRecord(datepurchase,
-              commission, Float.valueOf(numpurchase), tickrpurchase);
-      JSONArray listEntry = new JSONArray();
-      listEntry.add(addEntry);
-      addTickr.put(tickrpurchase, listEntry);
-      SHOULD BE DONE IN CONTROLLER or need new method, need to discuss*/
+    JSONObject portfolio = new JSONObject();
+    ArrayList<String> allDates = getAllDatesUsingStep(startDate, endDate, freq);
+    for(String date: allDates) {
+      portfolio = dollarCostExisting(stocksList, weightsList, commissionFees,  money,  date, portfolio);
+    }
+    return portfolio;
   }
 
   public String listJSONfiles(String rootDir) {
