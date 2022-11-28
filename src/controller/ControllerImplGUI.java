@@ -654,6 +654,30 @@ public class ControllerImplGUI implements ControllerGUI {
     }
   }
 
+  private void saveExistingpf(String dollarexistpfname, String stocksexist,String weightsexist,Float commission,
+                              String dollarexistval, String dollarexistdate){
+    JSONObject portfolioObj = portfolio.readPortfolio(
+            this.rootDir + dollarexistpfname + ".json");
+    JSONObject finalObj = portfolio.dollarCostExisting(
+            portfolio.validateTickrEntries(stocksexist),
+            portfolio.validateWeightEntriesSum(weightsexist), commission,
+            Float.parseFloat(dollarexistval), dollarexistdate, portfolioObj);
+    portfolio.savePortfolio(this.rootDir + dollarexistpfname + ".json",
+            finalObj);
+  }
+
+  private void saveStrategyrecord(String stratergydollarexistname,String dollarexistpfname, String stocksexist,
+                                  String weightsexist,Float commission, String dollarexistval, String dollarexistdate,
+                                  String dollarenddate,int freq){
+    JSONObject strategyObj = portfolio.readPortfolio(this.rootDir + "stratergyLookup.json");
+    JSONObject finalstrategyObj = portfolio.saveStrategyRecord(
+            portfolio.validateTickrEntries(stocksexist),
+            portfolio.validateWeightEntriesSum(weightsexist),commission,freq,dollarexistdate,
+            dollarenddate,Float.parseFloat(dollarexistval),stratergydollarexistname,strategyObj,
+            dollarexistpfname);
+    portfolio.savePortfolio(this.rootDir + "stratergyLookup.json", finalstrategyObj);
+  }
+
   public void validateExistingDollar(String stratergydollarexistname, String dollarexistpfname,
                                      String stocksexist, String weightsexist, String dollarexistval,
                                      String dollarexistdate, String dollarexistcommision) {
@@ -672,22 +696,15 @@ public class ControllerImplGUI implements ControllerGUI {
                     if (dollarexistcommision != null && dollarexistcommision.length() > 0) {
                       commission = Float.valueOf(dollarexistcommision);
                     }
-                    JSONObject portfolioObj = portfolio.readPortfolio(
-                            this.rootDir + dollarexistpfname + ".json");
-                    JSONObject finalObj = portfolio.dollarCostExisting(
-                            portfolio.validateTickrEntries(stocksexist),
-                            portfolio.validateWeightEntriesSum(weightsexist), commission,
-                            Float.parseFloat(dollarexistval), dollarexistdate, portfolioObj);
-                    portfolio.savePortfolio(this.rootDir + dollarexistpfname + ".json",
-                            finalObj);
-                    // save the strategy in a common lookup place.
-                    JSONObject strategyObj = portfolio.readPortfolio(this.rootDir + "stratergyLookup.json");
-                    JSONObject finalstrategyObj = portfolio.saveStrategyRecord(
-                            portfolio.validateTickrEntries(stocksexist),
-                            portfolio.validateWeightEntriesSum(weightsexist),commission,0,dollarexistdate,
-                            null,Float.parseFloat(dollarexistval),stratergydollarexistname,strategyObj,
-                            dollarexistpfname);
-                    portfolio.savePortfolio(this.rootDir + "stratergyLookup.json", finalstrategyObj);
+                    // check if future date is given.
+                    // then do not enter entries into the json, just store inside lookup json.
+                    if(!portfolio.checkFutureDate(dollarexistdate) && !portfolio.checkTodayDateAndTime(
+                            dollarexistdate)){
+                      saveExistingpf(dollarexistpfname,stocksexist,weightsexist,commission,dollarexistval,
+                              dollarexistdate);
+                    }
+                    saveStrategyrecord(stratergydollarexistname,dollarexistpfname, stocksexist, weightsexist,commission,
+                            dollarexistval, dollarexistdate, null,0);
                     guiView.setdollarexistpanestatus("Strategy successfully applied to the " +
                             "portfolio" + dollarexistpfname);
                     guiView.setdollardateexist(null);
