@@ -76,6 +76,7 @@ public class ControllerImplGUI implements ControllerGUI {
         case "composition":
           guiView.setretrieveDialogStatus("Portfolio with this name " + pfName + " does not exist!!");
           guiView.setpfnameretrieve(null);
+          guiView.setPortfoliosListComposition(null);
           return false;
         case "dollarexist":
           guiView.setdollarexistpanestatus("Portfolio with this name " + pfName
@@ -304,7 +305,7 @@ public class ControllerImplGUI implements ControllerGUI {
         guiView.settickrmodifyValue(null);
         guiView.setnumstocksmodifyValue(null);
         if (commission != 0.0f) {
-          guiView.setcommissionfeescreateValue(null);
+          guiView.setcommissionfeesmodifyValue(null);
         }
       }
     }
