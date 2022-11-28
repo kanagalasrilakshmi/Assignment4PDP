@@ -622,7 +622,7 @@ public class ControllerImplGUI implements ControllerGUI {
 
   private boolean checkValidMoney(String dollarexistval, String label) {
     if (!portfolio.checkValidInteger(dollarexistval) &&
-            !portfolio.checkValidInteger(dollarexistval)) {
+            !portfolio.checkValidFloat(dollarexistval)) {
       if (label.equals("dollarexist")) {
         guiView.setdollarexistpanestatus("Money can be either an integer or a float value!!");
         guiView.setdollarexistval(null);
@@ -682,10 +682,12 @@ public class ControllerImplGUI implements ControllerGUI {
                             finalObj);
                     // save the strategy in a common lookup place.
                     JSONObject strategyObj = portfolio.readPortfolio(this.rootDir + "stratergyLookup.json");
-                    portfolio.saveStrategyRecord(portfolio.validateTickrEntries(stocksexist),
+                    JSONObject finalstrategyObj = portfolio.saveStrategyRecord(
+                            portfolio.validateTickrEntries(stocksexist),
                             portfolio.validateWeightEntriesSum(weightsexist),commission,0,dollarexistdate,
                             null,Float.parseFloat(dollarexistval),stratergydollarexistname,strategyObj,
                             dollarexistpfname);
+                    portfolio.savePortfolio(this.rootDir + "stratergyLookup.json", finalstrategyObj);
                     guiView.setdollarexistpanestatus("Strategy successfully applied to the " +
                             "portfolio" + dollarexistpfname);
                     guiView.setdollardateexist(null);
