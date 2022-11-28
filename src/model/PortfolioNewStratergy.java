@@ -122,15 +122,26 @@ public class PortfolioNewStratergy extends FlexiblePortfolioImpl implements Port
     return strategyLookUp;
   }
 
-  public JSONObject startToFinishDollarCost(ArrayList<String> stocksList, ArrayList<Float> weightsList,
-                                      float commissionFees, int freq, String startDate,
-                                      String endDate, float money) {
-    JSONObject portfolio = new JSONObject();
+  private JSONObject getPorfolioEntries(ArrayList<String> stocksList, ArrayList<Float> weightsList,
+                             float commissionFees, int freq, String startDate,
+                             String endDate, float money, JSONObject portfolio){
     ArrayList<String> allDates = getAllDatesUsingStep(startDate, endDate, freq);
     for(String date: allDates) {
       portfolio = dollarCostExisting(stocksList, weightsList, commissionFees,  money,  date, portfolio);
     }
     return portfolio;
+  }
+
+  public JSONObject startToFinishDollarCost(ArrayList<String> stocksList, ArrayList<Float> weightsList,
+                                      float commissionFees, int freq, String startDate,
+                                      String endDate, float money) {
+    return getPorfolioEntries(stocksList,weightsList,commissionFees,freq,startDate,endDate,money,new JSONObject());
+  }
+
+  public JSONObject startToFinishDollarCostPresent(ArrayList<String> stocksList, ArrayList<Float> weightsList,
+                                            float commissionFees, int freq, String startDate,
+                                            String endDate, float money, JSONObject portfolio) {
+    return getPorfolioEntries(stocksList,weightsList,commissionFees,freq,startDate,endDate,money,portfolio);
   }
 
   public boolean checkDuplicates(ArrayList<String>stocks){

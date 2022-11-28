@@ -56,7 +56,6 @@ public class ControllerImplGUI implements ControllerGUI {
         guiView.setdollarnewpanestatus("Portfolio with this name " +
                 pfName + " already exists!!");
         guiView.setpfnamedollarnew(null);
-        return false;
       }
     } else {
       switch (label) {
@@ -215,12 +214,12 @@ public class ControllerImplGUI implements ControllerGUI {
             dollarexistval.length() == 0 || dollarexistdate.length() == 0;
   }
 
-  private boolean checkAllFieldsDollarNew(String dollarnewcreatepfname,
+  private boolean checkAllFieldsDollarNew(String stratergydollarnewname, String dollarnewcreatepfname,
                                           String stocksnew, String weightsnew, String dollarnewval,
                                           String dollarnewdays, String dollarnewstartdate) {
-    return dollarnewcreatepfname == null || stocksnew == null || weightsnew == null ||
+    return stratergydollarnewname == null || dollarnewcreatepfname == null || stocksnew == null || weightsnew == null ||
             dollarnewval == null || dollarnewdays == null || dollarnewstartdate == null ||
-            dollarnewcreatepfname.length() == 0 || stocksnew.length() == 0 ||
+            stratergydollarnewname.length() == 0 || dollarnewcreatepfname.length() == 0 || stocksnew.length() == 0 ||
             weightsnew.length() == 0 || dollarnewval.length() == 0 || dollarnewdays.length() == 0 ||
             dollarnewstartdate.length() == 0;
   }
@@ -274,6 +273,7 @@ public class ControllerImplGUI implements ControllerGUI {
                                    String labelStatus) throws FileNotFoundException,
           ParseException {
     if (labelStatus.equals("sell") || labelStatus.equals("purchase")) {
+      updateRecordsPf(pfNameModify);
       boolean checkLabel = true;
       if (labelStatus.equals("sell")) {
         if (!portfolio.ifTickrInPf(this.rootDir + pfNameModify + ".json", tickrModify)) {
@@ -456,6 +456,7 @@ public class ControllerImplGUI implements ControllerGUI {
     } else {
       if (checkPortfolioField(pfNamedate, "valDate")) {
         if (checkDateField(dateValue, "valDate")) {
+          updateRecordsPf(pfNamedate);
           float totVal = portfolio.portfolioValueDate(this.rootDir, pfNamedate, dateValue);
           guiView.setvalueDialogStatus("Portfolio Value on " + dateValue + " is : $" + totVal);
         }
@@ -472,6 +473,7 @@ public class ControllerImplGUI implements ControllerGUI {
         if (checkDateField(dateBasis, "costBasis")) {
           float costBasis = portfolio.getCostBasis(this.rootDir + pfNameBasis
                   + ".json", dateBasis);
+          updateRecordsPf(pfNameBasis);
           guiView.setCostBasisDialogStatus("The cost basis till date " + dateBasis + " is: $" +
                   costBasis);
         }
@@ -678,6 +680,48 @@ public class ControllerImplGUI implements ControllerGUI {
     portfolio.savePortfolio(this.rootDir + "stratergyLookup.json", finalstrategyObj);
   }
 
+  private void updateRecordsPf(String pfname){
+    // under discussion.
+    // extract stratergy lookup object.
+    JSONObject strategyObj = portfolio.readPortfolio(this.rootDir + "stratergyLookup.json");
+    // check if this pf name exists in the lookup.
+    if(strategyObj.containsKey(pfname)){
+      //extract records from every key present.
+      for(Object key:strategyObj.keySet()){
+        JSONObject stkeyObj = (JSONObject) strategyObj.get(key);
+        JSONObject portfolioObj = portfolio.readPortfolio(this.rootDir + pfname + ".json");
+        JSONObject finalObj = portfolioObj;
+        // have todays date.
+        // loop through all the date fields in the given range.
+        //
+
+        if(stkeyObj.get("end_date") == null){
+          // check if the given date is future date or not.
+          finalObj = portfolio.dollarCostExisting((ArrayList<String>) stkeyObj.get("stock_list"),
+                  (ArrayList<Float>)stkeyObj.get("weight_list") , (float) stkeyObj.get("commission_fee"),
+                  (float) stkeyObj.get("investment"), (String) strategyObj.get("start_date"), portfolioObj);
+        }
+        else{
+          // check if start date is future date.
+          // if so then do not add any entry.
+          if(!portfolio.checkFutureDate((String) strategyObj.get("start_date")) &&
+                  !portfolio.checkTodayDateAndTime((String) strategyObj.get("start_date"))){
+            // check if end date is future date.
+            // if so add entry till the present date only.
+            if(portfolio.checkFutureDate((String) strategyObj.get("end_date")) ||
+            portfolio.checkTodayDateAndTime((String) strategyObj.get("end_date"))){
+              finalObj = portfolio.startToFinishDollarCostPresent((ArrayList<String>) stkeyObj.get("stock_list"),
+                      (ArrayList<Float>)stkeyObj.get("weight_list"),(float) stkeyObj.get("commission_fee"),
+                      (int)strategyObj.get("frequency"),(String) strategyObj.get("start_date"),
+                      "",(float) stkeyObj.get("investment"),portfolioObj);
+            }
+          }
+        }
+        portfolio.savePortfolio(this.rootDir + pfname + ".json", finalObj);
+      }
+    }
+  }
+
   public void validateExistingDollar(String stratergydollarexistname, String dollarexistpfname,
                                      String stocksexist, String weightsexist, String dollarexistval,
                                      String dollarexistdate, String dollarexistcommision) {
@@ -729,7 +773,7 @@ public class ControllerImplGUI implements ControllerGUI {
                                 String dollarnewenddate, String dollarnewcommission) {
     // do not know what to do with strategy name.
     // add strategy to add strategy.
-    if (checkAllFieldsDollarNew(dollarnewcreatepfname, stocksnew, weightsnew, dollarnewval,
+    if (checkAllFieldsDollarNew(stratergydollarnewname,dollarnewcreatepfname, stocksnew, weightsnew, dollarnewval,
             dollarnewdays, dollarnewstartdate)) {
       guiView.setdollarnewpanestatus("All the fields are not given !!");
     }
@@ -742,8 +786,9 @@ public class ControllerImplGUI implements ControllerGUI {
               if(checkValidMoney(dollarnewval,"dollarnew")){
                 if(checkDateField(dollarnewstartdate,"dollarnewstartdate")){
                   if(checkDateField(dollarnewenddate,"dollarnewenddate")){
+                    // check if date 1 > date 2.
                     if(portfolio.checkValidInteger(dollarnewdays)){
-                      // check number of days.
+                      // check number of days > date1 and date 2 range.
                       // check commision fees.
                     }
                   }
