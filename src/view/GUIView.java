@@ -97,5 +97,7 @@ public interface GUIView {
   void setenddatenew(String message);
   void setdollardays(String message);
   void setdollarcommissionnew(String message);
+  void setstrategynameexist(String message);
+  void setstrategynamenewexist(String message);
 
 }

@@ -52,6 +52,7 @@ public class PortfolioNewStrategyTest {
             portfolioObj.validateTickrEntries("GOOG, MSFT,TSLA")));
     assertEquals("[GOOG, TSLA, MSFT]", String.valueOf(
             portfolioObj.validateTickrEntries("GOOG,  TSLA,  MSFT")));
+    assertEquals("[]",String.valueOf(portfolioObj.validateTickrEntries(",,,GOOG,*@,234,TSLA,MSFT")));
   }
 
   @Test
@@ -185,5 +186,31 @@ public class PortfolioNewStrategyTest {
             2, 4, "2022-01-01", "2022-02-02", 1000, "strategy_2",loadedStrategyLookUp,"Portfolio_2");
     portfolioObj.savePortfolio(path, pf);
     assertEquals(pf.toString(), portfolioObj.readPortfolio(path).toString());
+  }
+
+  @Test
+  public void checkDuplicateentries(){
+    PortfolioStratergy portfolioObj = new PortfolioNewStratergy();
+    ArrayList<String> tickrs = new ArrayList<>();
+    tickrs.add("GOOG");
+    tickrs.add("MSFT");
+    tickrs.add("GOOG");
+    tickrs.add("AAL");
+    tickrs.add("UBER");
+    assertEquals(true,portfolioObj.checkDuplicates(tickrs));
+  }
+
+  @Test
+  public void checkFormatString(){
+    PortfolioStratergy portfolioObj = new PortfolioNewStratergy();
+    String tickrBatchCheck = ",,,GOOG,*@,234,TSLA,MSFT";
+    assertEquals(true,portfolioObj.checkforInvalidcharacters(tickrBatchCheck));
+    assertEquals(true,portfolioObj.checkforInvalidcharacters(",,,GOOG"));
+    assertEquals(true,portfolioObj.checkforInvalidcharacters("GOOG,,,,UBER,,,"));
+    assertEquals(false,portfolioObj.checkforInvalidcharacters("GOOG,,,,,"));
+    assertEquals(true,portfolioObj.checkforInvalidcharacters("GOOG,,,**1234()878,UBER"));
+    assertEquals(true,portfolioObj.checkforInvalidcharacters("GOOG,,,**1234()878,UBER,,,,"));
+    assertEquals(true,portfolioObj.checkforInvalidcharacters("GOOG,,,**1234()878,UBER,,, ,"));
+    assertEquals(false,portfolioObj.checkforInvalidcharacters("GOOG,UBER, ,"));
   }
 }

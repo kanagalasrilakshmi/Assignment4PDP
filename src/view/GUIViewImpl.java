@@ -117,6 +117,14 @@ public class GUIViewImpl extends JFrame implements GUIView {
     return JOptionPane.showInputDialog("Please enter path to store portfolios");
   }
 
+  public void setstrategynameexist(String message){
+    this.stratergydollarexistname.setText(message);
+  }
+
+  public void setstrategynamenewexist(String message){
+    this.stratergydollarnewname.setText(message);
+  }
+
   public void setdollarexistpanestatus(String message) {
     this.dollarexistpanestatus.setText(message);
   }

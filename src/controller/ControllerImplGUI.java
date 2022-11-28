@@ -521,6 +521,9 @@ public class ControllerImplGUI implements ControllerGUI {
   }
 
   private boolean checkBatchTickrField(String stocksexist, String label) {
+    // if ", comes consecutively or staring or ending".
+    // if it has other special characters.
+
     ArrayList<String> stocks = portfolio.validateTickrEntries(stocksexist);
     if (stocks.size() == 0) {
       if (label.equals("dollarexist")) {
@@ -532,6 +535,19 @@ public class ControllerImplGUI implements ControllerGUI {
         guiView.setstocksnew(null);
       }
       return false;
+    }
+    else{
+      if(portfolio.checkDuplicates(stocks)){
+        if (label.equals("dollarexist")) {
+          guiView.setdollarexistpanestatus("Duplicate tickr symbols exist!!");
+          guiView.setstocksexist(null);
+        }
+        else if(label.equals("dollarnew")){
+          guiView.setdollarnewpanestatus("Duplicate tickr symbols exist!!");
+          guiView.setstocksnew(null);
+        }
+        return false;
+      }
     }
     return true;
   }
@@ -620,7 +636,6 @@ public class ControllerImplGUI implements ControllerGUI {
   public void validateExistingDollar(String stratergydollarexistname, String dollarexistpfname,
                                      String stocksexist, String weightsexist, String dollarexistval,
                                      String dollarexistdate, String dollarexistcommision) {
-    // do not know what to do with the dollar strategy name.
     // add strategy to add strategy.
     if (checkAllFieldsDollarExist(dollarexistpfname, stocksexist, weightsexist, dollarexistval,
             dollarexistdate)) {
@@ -652,6 +667,7 @@ public class ControllerImplGUI implements ControllerGUI {
                     guiView.setstocksexist(null);
                     guiView.setweightsexist(null);
                     guiView.setdollarexistval(null);
+                    guiView.setstrategynameexist(null);
                   }
                 }
               }

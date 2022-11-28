@@ -7,6 +7,10 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 public class PortfolioNewStratergy extends FlexiblePortfolioImpl implements PortfolioStratergy {
@@ -67,7 +71,6 @@ public class PortfolioNewStratergy extends FlexiblePortfolioImpl implements Port
               getCallPriceDate(date, stocksList.get(i));
       portfolio = modifyJson(commissionFees, stocksToBuy, date, stocksList.get(i), portfolio);
     }
-    // should commission fee be commission fee/noOfStocks?
     return portfolio;
   }
 
@@ -128,6 +131,26 @@ public class PortfolioNewStratergy extends FlexiblePortfolioImpl implements Port
       portfolio = dollarCostExisting(stocksList, weightsList, commissionFees,  money,  date, portfolio);
     }
     return portfolio;
+  }
+
+  public boolean checkDuplicates(ArrayList<String>stocks){
+    Set<String> set = new HashSet<>(stocks);
+    if(set.size() <stocks.size()){
+      return true;
+    }
+    return false;
+  }
+
+  public boolean checkforInvalidcharacters(String stocks){
+    String[] items = stocks.split("\\s*,\\s*");
+    Pattern specialCharc = Pattern.compile("[!@#$%&*()_+=|<>?{}\\\\[\\\\]~-]");
+    for (String obj : items){
+      Matcher hasSpecial = specialCharc.matcher(obj);
+      if(hasSpecial.find() || obj.equals("")){
+        return true;
+      }
+    }
+    return false;
   }
 
   public String listJSONfiles(String rootDir) {

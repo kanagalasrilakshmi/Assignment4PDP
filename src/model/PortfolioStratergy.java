@@ -27,5 +27,6 @@ public interface PortfolioStratergy extends Portfolio{
   JSONObject startToFinishDollarCost(ArrayList<String>stocksList,ArrayList<Float>weightsList,
                                float commissionfees, int freq, String startDate, String endDate,
                                float money);
-
+  boolean checkDuplicates(ArrayList<String>stocks);
+  boolean checkforInvalidcharacters(String stocks);
 }
