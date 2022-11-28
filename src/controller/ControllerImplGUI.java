@@ -621,6 +621,7 @@ public class ControllerImplGUI implements ControllerGUI {
                                      String stocksexist, String weightsexist, String dollarexistval,
                                      String dollarexistdate, String dollarexistcommision) {
     // do not know what to do with the dollar strategy name.
+    // add strategy to add strategy.
     if (checkAllFieldsDollarExist(dollarexistpfname, stocksexist, weightsexist, dollarexistval,
             dollarexistdate)) {
       guiView.setdollarexistpanestatus("All the fields are not given!!");
@@ -666,6 +667,7 @@ public class ControllerImplGUI implements ControllerGUI {
                                 String dollarnewdays, String dollarnewstartdate,
                                 String dollarnewenddate, String dollarnewcommission) {
     // do not know what to do with strategy name.
+    // add strategy to add strategy.
     if (checkAllFieldsDollarNew(dollarnewcreatepfname, stocksnew, weightsnew, dollarnewval,
             dollarnewdays, dollarnewstartdate)) {
       guiView.setdollarnewpanestatus("All the fields are not given !!");
