@@ -293,10 +293,17 @@ public class ControllerImplGUI implements ControllerGUI {
           portfolio.savePortfolio(this.rootDir + pfNameModify + ".json", pf);
         }
       } else if (labelStatus.equals("purchase")) {
-        JSONObject pf = portfolio.readPortfolio(this.rootDir + pfNameModify + ".json");
-        portfolio.modifyJson(commission, Integer.valueOf(numStocksModify), dateModify,
-                tickrModify, pf);
-        portfolio.savePortfolio(this.rootDir + pfNameModify + ".json", pf);
+        if(!portfolio.validateTickrSymbol(tickrModify)){
+          guiView.setmodifyDialogStatus("INvalid Tickr Symbol is entered!!");
+          checkLabel = false;
+          guiView.settickrmodifyValue(null);
+        }
+        else{
+          JSONObject pf = portfolio.readPortfolio(this.rootDir + pfNameModify + ".json");
+          portfolio.modifyJson(commission, Integer.valueOf(numStocksModify), dateModify,
+                  tickrModify, pf);
+          portfolio.savePortfolio(this.rootDir + pfNameModify + ".json", pf);
+        }
       }
       if (checkLabel) {
         guiView.setmodifyDialogStatus("The portfolio " + pfNameModify +
