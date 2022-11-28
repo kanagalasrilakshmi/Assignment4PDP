@@ -32,4 +32,5 @@ public interface PortfolioStratergy extends Portfolio{
   JSONObject startToFinishDollarCostPresent(ArrayList<String> stocksList, ArrayList<Float> weightsList,
                                                    float commissionFees, int freq, String startDate,
                                                    String endDate, float money, JSONObject portfolio);
+  String getTodayDate();
 }

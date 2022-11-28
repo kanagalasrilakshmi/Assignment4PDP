@@ -800,10 +800,16 @@ public class GUIViewImpl extends JFrame implements GUIView {
             stratergydollarexistname.getText(), dollarexistpfname.getText(),
             stocksexist.getText().toUpperCase(), weightsexist.getText(), dollarexistval.getText(),
             dollarexistdate.getText(), dollarexistcommision.getText()));
-    dollarnewcreate.addActionListener(evt -> features.validateNewDollar(
-            stratergydollarnewname.getText(), dollarnewcreatepfname.getText(),
-            stocksnew.getText().toUpperCase(), weightsnew.getText(), dollarnewval.getText(),
-            dollarnewdays.getText(), dollarnewstartdate.getText(), dollarnewenddate.getText(),
-            dollarnewcommission.getText()));
+    dollarnewcreate.addActionListener(evt -> {
+      try {
+        features.validateNewDollar(
+                stratergydollarnewname.getText(), dollarnewcreatepfname.getText(),
+                stocksnew.getText().toUpperCase(), weightsnew.getText(), dollarnewval.getText(),
+                dollarnewdays.getText(), dollarnewstartdate.getText(), dollarnewenddate.getText(),
+                dollarnewcommission.getText());
+      } catch (ParseException e) {
+        throw new RuntimeException(e);
+      }
+    });
   }
 }

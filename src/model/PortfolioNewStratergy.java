@@ -3,10 +3,13 @@ package model;
 import org.json.simple.JSONObject;
 
 import java.io.File;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.regex.Matcher;
@@ -162,6 +165,11 @@ public class PortfolioNewStratergy extends FlexiblePortfolioImpl implements Port
       }
     }
     return false;
+  }
+
+  public String getTodayDate(){
+    DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+    return df.format(new Date());
   }
 
   public String listJSONfiles(String rootDir) {
