@@ -472,7 +472,7 @@ public class GUIViewImpl extends JFrame implements GUIView {
     dollarexistpfname = new JTextField(25);
     JLabel stratergynamedollarexist = new JLabel("Enter the name of the strategy");
     stratergydollarexistname = new JTextField(25);
-    JLabel stocksweightsdesc = new JLabel("Enter the stocks tickr symbols, if multiple entries" +
+    JLabel stocksweightsdesc = new JLabel("Enter the stocks tickr symbols, if multiple entries " +
             "separate them by delimeter ','.");
     JLabel stocksone = new JLabel("For single entry - ex-GOOG");
     JLabel stockstwo = new JLabel("For multiple entries - ex-GOOG,UBER,....");

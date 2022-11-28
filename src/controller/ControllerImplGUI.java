@@ -779,11 +779,13 @@ public class ControllerImplGUI implements ControllerGUI {
           break;
         case "composition":
           guiView.setRetrievePanelStatus(null);
+          guiView.setPortfoliosListComposition(null);
           guiView.setPortfoliosListRetrieve(message);
           guiView.displayRetrievepf();
           break;
         case "dollarexist":
           guiView.setdollarExistingStatus(null);
+          guiView.setportfolioslistdollarexist(null);
           guiView.setportfolioslistdollarexist(message);
           guiView.displayDollarExistingpf();
           break;
