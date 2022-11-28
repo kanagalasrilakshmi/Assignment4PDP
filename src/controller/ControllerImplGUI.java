@@ -771,8 +771,6 @@ public class ControllerImplGUI implements ControllerGUI {
                                 String stocksnew, String weightsnew, String dollarnewval,
                                 String dollarnewdays, String dollarnewstartdate,
                                 String dollarnewenddate, String dollarnewcommission) {
-    // do not know what to do with strategy name.
-    // add strategy to add strategy.
     if (checkAllFieldsDollarNew(stratergydollarnewname,dollarnewcreatepfname, stocksnew, weightsnew, dollarnewval,
             dollarnewdays, dollarnewstartdate)) {
       guiView.setdollarnewpanestatus("All the fields are not given !!");
