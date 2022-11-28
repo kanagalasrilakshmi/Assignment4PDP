@@ -5,7 +5,6 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -40,7 +39,7 @@ public class FlexiblePortfolioImpl extends PortfolioImpl {
    * @param tickr      is company tickr symbol for which transaction needs to be done
    * @return a json object entry that needs to be added to the portfolio
    */
-  public JSONObject makeTransactionRecord(String date, float commission, int noofstocks,
+  public JSONObject makeTransactionRecord(String date, float commission, float noofstocks,
                                           String tickr) {
     JSONObject record = new JSONObject();
     record.put("date", date);
@@ -60,13 +59,8 @@ public class FlexiblePortfolioImpl extends PortfolioImpl {
     JSONParser parser = new JSONParser();
     try (FileReader reader = new FileReader(path)) {
       Object parseObj = parser.parse(reader);
-      JSONObject portfolio = (JSONObject) parseObj;
-      return portfolio;
-    } catch (FileNotFoundException e) {
-      e.printStackTrace();
-    } catch (IOException e) {
-      e.printStackTrace();
-    } catch (ParseException e) {
+      return (JSONObject) parseObj;
+    } catch (IOException | ParseException e) {
       e.printStackTrace();
     }
     return null;
@@ -92,15 +86,14 @@ public class FlexiblePortfolioImpl extends PortfolioImpl {
   /**
    * modify the json.
    *
-   * @param fees   is the commision fees
-   * @param date   date on which sale is to be made
-   * @param tickr  company tickr symbol
-   * @param pfPath path for the location of the portfolio
+   * @param fees      is the commision fees
+   * @param date      date on which sale is to be made
+   * @param tickr     company tickr symbol
+   * @param portfolio the json object of the portfolio
    */
   @Override
-  public void modifyJson(Float fees, int numOfStocks, String date, String tickr, String pfPath) {
-    JSONObject portfolio = readPortfolio(pfPath);
-    float commissionFee = fees;
+  public JSONObject modifyJson(float fees, float numOfStocks, String date, String tickr, JSONObject portfolio) {
+    Float commissionFee = fees;
     // if ticker already exists in portfolio append to it else add new entry if it does not exist.
     if (portfolio.containsKey(tickr)) {
       JSONArray tickrRecord = (JSONArray) portfolio.get(tickr);
@@ -115,7 +108,7 @@ public class FlexiblePortfolioImpl extends PortfolioImpl {
       newTickrRecord.add(newTransactionRecord);
       portfolio.put(tickr, newTickrRecord);
     }
-    savePortfolio(pfPath, portfolio);
+    return portfolio;
   }
 
   /**
@@ -134,10 +127,10 @@ public class FlexiblePortfolioImpl extends PortfolioImpl {
       for (int i = 0; i < arrayObj.size(); i++) {
         JSONObject tickrRecord = (JSONObject) arrayObj.get(i);
         if (checkIfBeforeDate(date, (String) tickrRecord.get("date")) ||
-                date.equals((String) tickrRecord.get("date"))) {
+                date.equals(tickrRecord.get("date"))) {
           double commision_fee = (double) tickrRecord.get("commission_fee");
-          Long stocksVal = (Long) tickrRecord.get("no_of_stocks");
-          int intStocks = stocksVal.intValue();
+          double stocksVal = (double) tickrRecord.get("no_of_stocks");
+          float intStocks = Float.valueOf(String.valueOf(stocksVal));
           finalCostBasis += commision_fee;
           double stockPrice = (double) tickrRecord.get("stock_price");
           if (intStocks > 0) {
@@ -181,19 +174,19 @@ public class FlexiblePortfolioImpl extends PortfolioImpl {
 
   private int getTotalStocks(JSONArray arrayObj, String date) throws java.text.ParseException {
     int totStocks = 0;
-    for (int i = 0; i < arrayObj.size(); i++) {
-      JSONObject tickrRecord = (JSONObject) arrayObj.get(i);
+    for (Object o : arrayObj) {
+      JSONObject tickrRecord = (JSONObject) o;
       totStocks += getStocks(tickrRecord, date);
     }
     return totStocks;
   }
 
-  private int getStocks(JSONObject entry, String date) throws java.text.ParseException {
-    int valStocks = 0;
+  private Float getStocks(JSONObject entry, String date) throws java.text.ParseException {
+    float valStocks = (float) 0;
     if (checkIfBeforeDate(date, (String) entry.get("date"))
-            || date.equals((String) entry.get("date"))) {
-      Long val = (Long) entry.get("no_of_stocks");
-      valStocks = val.intValue();
+            || date.equals(entry.get("date"))) {
+      Double val = (Double) entry.get("no_of_stocks");
+      valStocks = Float.valueOf(String.valueOf(val));
     }
     return valStocks;
   }
@@ -215,8 +208,8 @@ public class FlexiblePortfolioImpl extends PortfolioImpl {
     if (portfolio.containsKey(tickr)) {
       JSONArray tickr_record = (JSONArray) portfolio.get(tickr);
       boolean flag = false;
-      for (int i = 0; i < tickr_record.size(); i++) {
-        JSONObject record = (JSONObject) tickr_record.get(i);
+      for (Object o : tickr_record) {
+        JSONObject record = (JSONObject) o;
         String dateCheck = (String) record.get("date");
         if (checkIfBeforeDate(date, dateCheck) || dateCheck.equals(date)) {
           flag = true;
@@ -323,8 +316,7 @@ public class FlexiblePortfolioImpl extends PortfolioImpl {
                                                ArrayList<String> datesList)
           throws java.text.ParseException {
     ArrayList<Float> getValues = new ArrayList<>();
-    for (int i = 0; i < datesList.size(); i++) {
-      String date = datesList.get(i);
+    for (String date : datesList) {
       getValues.add(portfolioValueDate(rootDir, pfName, date));
     }
     return getValues;
@@ -377,8 +369,8 @@ public class FlexiblePortfolioImpl extends PortfolioImpl {
   @Override
   public ArrayList<Float> getValuesPortfolio(String rootDir, String pfName,
                                              String date1, String date2, int differenceDays)
-          throws java.text.ParseException, FileNotFoundException {
-    ArrayList<Float> getValues = new ArrayList<>();
+          throws java.text.ParseException {
+    ArrayList<Float> getValues;
     // if the difference is more than 5 and <= 30 print day wise.
     // if the difference is more than 30 days and <=150 days print for every 5 days.
     if (differenceDays >= 5 && differenceDays <= 150) {
@@ -446,7 +438,7 @@ public class FlexiblePortfolioImpl extends PortfolioImpl {
    */
   @Override
   public ArrayList<String> getDatesDisplay(String date1, String date2, int differenceDays) {
-    ArrayList<String> totalDates = new ArrayList<>();
+    ArrayList<String> totalDates;
     // if the difference is more than 5 and <= 30 print day wise.
     if (differenceDays >= 5 && differenceDays <= 30) {
       totalDates = listOfDates(date1, date2, "day", 1);
@@ -505,11 +497,11 @@ public class FlexiblePortfolioImpl extends PortfolioImpl {
     ArrayList<String> points = new ArrayList<>();
     for (int i = 0; i < values.size(); i++) {
       int numAsterisks = (int) ((values.get(i) - Collections.min(values)) / scaleVal);
-      String asteriskString = "";
+      StringBuilder asteriskString = new StringBuilder();
       for (int j = 0; j < numAsterisks; j++) {
-        asteriskString += "*";
+        asteriskString.append("*");
       }
-      points.add(asteriskString);
+      points.add(asteriskString.toString());
     }
     return points;
   }

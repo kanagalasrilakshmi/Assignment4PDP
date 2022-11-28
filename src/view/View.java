@@ -41,6 +41,7 @@ public interface View {
 
   /**
    * View the composition of the entire portfolio.
+   *
    * @param portfolio is the json object of a tickr symbol that consists of values to be displayed.
    */
   void viewFlexibleComposition(JSONObject portfolio);

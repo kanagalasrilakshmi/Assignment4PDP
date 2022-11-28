@@ -37,7 +37,7 @@ public class PortfolioImpl implements Portfolio {
    * @return StocksObj type object
    */
   public StocksObj makeStockObj(String tickr, String numberStocks) {
-    return new StocksObj(tickr, Integer.valueOf(numberStocks));
+    return new StocksObj(tickr, Integer.parseInt(numberStocks));
   }
 
   /**
@@ -53,7 +53,7 @@ public class PortfolioImpl implements Portfolio {
       for (Object object : listObj) {
         // go through all the elements in the ListObj.
         StocksObj obj = (StocksObj) object;
-        String toBeAppended = obj.getTickr() + "," + String.valueOf(obj.getNumStocks());
+        String toBeAppended = obj.getTickr() + "," + obj.getNumStocks();
         listAdded.add(toBeAppended);
       }
       for (int i = 0; i < listAdded.size(); i++) {
@@ -425,12 +425,13 @@ public class PortfolioImpl implements Portfolio {
    * @param num    num stocks willing to sell
    * @param date   date on which sale is to be made
    * @param tickr  company tickr symbol
-   * @param pfPath path for the location of the portfolio
+   * @param portfolio jsonobject
    */
 
-  public void modifyJson(Float fees, int num, String date, String tickr, String pfPath) {
-    // do nothing.
+  public JSONObject modifyJson(float fees, float num, String date, String tickr, JSONObject portfolio) {
+    return new JSONObject();
   }
+
 
   /**
    * Get the cost basis of a portfolio till a date.
@@ -553,7 +554,7 @@ public class PortfolioImpl implements Portfolio {
     return false;
   }
 
-  public JSONObject makeTransactionRecord(String date, float commission, int noofstocks,
+  public JSONObject makeTransactionRecord(String date, float commission, float noofstocks,
                                           String tickr) {
     return new JSONObject();
   }
