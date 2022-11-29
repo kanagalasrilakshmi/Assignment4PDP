@@ -14,7 +14,7 @@ import java.util.Locale;
 /**
  * Class for implementing api calls.
  */
-public class ApiKey {
+public class ApiKey implements IApiKey{
     private String tickrsymbol;
 
     public ApiKey(String tickrsymbol) {

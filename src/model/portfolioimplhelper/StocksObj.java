@@ -4,7 +4,7 @@ package model.portfolioimplhelper;
  * A class for creating stocks object.
  */
 
-public class StocksObj {
+public class StocksObj implements IStocksObj{
     private String tickr;
     private int numStocks;
 

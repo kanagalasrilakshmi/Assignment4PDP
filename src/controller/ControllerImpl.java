@@ -244,6 +244,11 @@ public class ControllerImpl implements Controller {
                     "are allowed. Please enter a valid Integer number.");
             numberStocks = in.next();
         }
+        while(Integer.parseInt(numberStocks) < 0){
+            theView.showString("Negative values for stocks is not allowed." +
+                    "Please enter a valid positive integer number.");
+            numberStocks = in.next();
+        }
         return numberStocks;
     }
 

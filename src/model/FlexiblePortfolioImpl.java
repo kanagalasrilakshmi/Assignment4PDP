@@ -164,7 +164,7 @@ public class FlexiblePortfolioImpl extends PortfolioImpl {
     int totStocks = 0;
     JSONObject portfolio = readPortfolio(rootDir + fileName + ".json");
     for (Object tickrsym : portfolio.keySet()) {
-      ApiKey apiObj = new ApiKey((String) tickrsym);
+      IApiKey apiObj = new ApiKey((String) tickrsym);
       JSONArray arrayObj = (JSONArray) portfolio.get(tickrsym);
       totStocks = getTotalStocks(arrayObj, date);
       finalVal += totStocks * apiObj.callPriceDate(date);
@@ -308,7 +308,7 @@ public class FlexiblePortfolioImpl extends PortfolioImpl {
    * @return float value of the price
    */
   public float getCallPriceDate(String date, String tickrSymbol) {
-    ApiKey apiObj = new ApiKey(tickrSymbol);
+    IApiKey apiObj = new ApiKey(tickrSymbol);
     return apiObj.callPriceDate(date);
   }
 

@@ -1,6 +1,7 @@
 package model;
 
 
+import model.portfolioimplhelper.*;
 import org.json.simple.JSONObject;
 
 import java.io.BufferedReader;
@@ -17,10 +18,6 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
-
-import model.portfolioimplhelper.ArrayListObj;
-import model.portfolioimplhelper.PortfolioObj;
-import model.portfolioimplhelper.StocksObj;
 
 /**
  * Implementing the Portfolio Interface and coded the implementation.
@@ -124,7 +121,7 @@ public class PortfolioImpl implements Portfolio {
       tickrSymbols.add(object.getTickr());
       numStocks.add(String.valueOf(object.getNumStocks()));
     }
-    ArrayListObj objreturn = new ArrayListObj(tickrSymbols, numStocks);
+    IArrayListObj objreturn = new ArrayListObj(tickrSymbols, numStocks);
     this.objString = objreturn.getTickrSymbols();
     this.objNumStocks = objreturn.getPrices();
   }
@@ -145,7 +142,7 @@ public class PortfolioImpl implements Portfolio {
         if (!(inputLine.split(",")[0].equals("Company Tickr Symbol") &&
                 inputLine.split(",")[1].equals("Num Of Stocks"))) {
           String tickrSymbol = inputLine.split(",")[0];
-          ApiKey apiObj = new ApiKey(tickrSymbol);
+          IApiKey apiObj = new ApiKey(tickrSymbol);
           Float numStocks = Float.valueOf(inputLine.split(",")[1]);
           ArrayListObj tickerSymbolsPrice = this.convertTXT();
           // initialize it as zero

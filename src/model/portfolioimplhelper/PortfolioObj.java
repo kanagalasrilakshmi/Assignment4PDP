@@ -3,7 +3,7 @@ package model.portfolioimplhelper;
 /**
  * A class that helps to create Portfolio Object.
  */
-public class PortfolioObj {
+public class PortfolioObj implements IPortfolioObj{
     private String tickr;
     private float numStocks;
 

@@ -27,6 +27,11 @@ public class ControllerImplGUI implements ControllerGUI {
     private String rootDirUser;
     private JSONObject addTickr;
 
+    /**
+     *
+     * @param portfolio
+     * @param guiView
+     */
     public ControllerImplGUI(PortfolioStratergy portfolio, GUIView guiView) {
         this.guiView = guiView;
         this.portfolio = portfolio;
@@ -332,6 +337,9 @@ public class ControllerImplGUI implements ControllerGUI {
         }
     }
 
+    /**
+     *
+     */
     public void setDirectory() {
         if (this.rootDirUser == null || this.rootDirUser.length() == 0) {
             this.rootDirUser = this.rootDir;
@@ -381,6 +389,10 @@ public class ControllerImplGUI implements ControllerGUI {
         }
     }
 
+    /**
+     *
+     * @param pfNameCreate
+     */
     public void saveOperation(String pfNameCreate) {
         if (pfNameCreate == null || pfNameCreate.length() == 0) {
             guiView.setcreateDialogStatus("Portfolio Name is to be given!!");
@@ -393,6 +405,11 @@ public class ControllerImplGUI implements ControllerGUI {
         }
     }
 
+    /**
+     *
+     * @param pfName
+     * @return
+     */
     public boolean checkValidpfName(String pfName) {
         if (pfName == null || pfName.length() > 25 || pfName.isEmpty() || pfName.contains(" ")) {
             return false;
@@ -405,6 +422,15 @@ public class ControllerImplGUI implements ControllerGUI {
         return true;
     }
 
+    /**
+     *
+     * @param pfNameCreate
+     * @param tickrCreate
+     * @param numStocksCreate
+     * @param dateCreate
+     * @param commissionCreate
+     * @throws FileNotFoundException
+     */
     public void addOperation(String pfNameCreate, String tickrCreate, String numStocksCreate,
                              String dateCreate, String commissionCreate)
             throws FileNotFoundException {
@@ -439,6 +465,17 @@ public class ControllerImplGUI implements ControllerGUI {
         }
     }
 
+    /**
+     *
+     * @param pfNameModify
+     * @param tickrModify
+     * @param numStocksModify
+     * @param dateModify
+     * @param commissionModify
+     * @param statuslabel
+     * @throws FileNotFoundException
+     * @throws ParseException
+     */
     public void modifyValidate(String pfNameModify, String tickrModify, String numStocksModify,
                                String dateModify, String commissionModify, String statuslabel)
             throws FileNotFoundException, ParseException {
@@ -462,6 +499,13 @@ public class ControllerImplGUI implements ControllerGUI {
         }
     }
 
+    /**
+     *
+     * @param pfNamedate
+     * @param dateValue
+     * @throws FileNotFoundException
+     * @throws ParseException
+     */
     public void validateDateVal(String pfNamedate, String dateValue)
             throws FileNotFoundException, ParseException {
         if (pfNamedate == null || pfNamedate.length() == 0 ||
@@ -478,6 +522,12 @@ public class ControllerImplGUI implements ControllerGUI {
         }
     }
 
+    /**
+     *
+     * @param pfNameBasis
+     * @param dateBasis
+     * @throws ParseException
+     */
     public void validateCostBasis(String pfNameBasis, String dateBasis) throws ParseException {
         if (pfNameBasis == null || pfNameBasis.length() == 0 ||
                 dateBasis == null || dateBasis.length() == 0) {
@@ -525,6 +575,10 @@ public class ControllerImplGUI implements ControllerGUI {
         return message.toString();
     }
 
+    /**
+     *
+     * @param pfNameComposition
+     */
     public void getCompositionpf(String pfNameComposition) {
         if (pfNameComposition == null || pfNameComposition.length() == 0) {
             guiView.setretrieveDialogStatus("All the values are not given!!");
@@ -771,6 +825,16 @@ public class ControllerImplGUI implements ControllerGUI {
         return true;
     }
 
+    /**
+     *
+     * @param stratergydollarexistname
+     * @param dollarexistpfname
+     * @param stocksexist
+     * @param weightsexist
+     * @param dollarexistval
+     * @param dollarexistdate
+     * @param dollarexistcommision
+     */
     public void validateExistingDollar(String stratergydollarexistname, String dollarexistpfname,
                                        String stocksexist, String weightsexist, String dollarexistval,
                                        String dollarexistdate, String dollarexistcommision) {
@@ -817,6 +881,19 @@ public class ControllerImplGUI implements ControllerGUI {
         }
     }
 
+    /**
+     *
+     * @param stratergydollarnewname
+     * @param dollarnewcreatepfname
+     * @param stocksnew
+     * @param weightsnew
+     * @param dollarnewval
+     * @param dollarnewdays
+     * @param dollarnewstartdate
+     * @param dollarnewenddate
+     * @param dollarnewcommission
+     * @throws ParseException
+     */
     public void validateNewDollar(String stratergydollarnewname, String dollarnewcreatepfname,
                                   String stocksnew, String weightsnew, String dollarnewval,
                                   String dollarnewdays, String dollarnewstartdate,
@@ -880,11 +957,18 @@ public class ControllerImplGUI implements ControllerGUI {
         }
     }
 
+    /**
+     *
+     */
     public void displaysetrootpane() {
         this.rootDirUser = guiView.givenPath();
         setDirectory();
     }
 
+    /**
+     *
+     * @param label can be
+     */
     public void displayDialogPane(String label) {
         if (this.rootDirUser == null || this.rootDirUser.length() == 0) {
             switch (label) {
@@ -964,6 +1048,11 @@ public class ControllerImplGUI implements ControllerGUI {
         }
     }
 
+    /**
+     *
+     * @throws ParseException
+     * @throws IOException
+     */
     public void goStocks() throws ParseException, IOException {
         guiView.makeVisible();
         guiView.addFeatures(this);
