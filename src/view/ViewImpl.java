@@ -8,7 +8,7 @@ import java.io.PrintStream;
 
 
 /**
- * Class for implementing View Interface and used for displaying rigid portfolio.
+ * Class for implementing View Interface and used for displaying rigid portfolio and flexible portfolio.
  */
 public class ViewImpl implements View {
 

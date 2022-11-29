@@ -9,6 +9,11 @@ import javax.swing.*;
 
 import controller.ControllerGUI;
 
+/**
+ * Class that implements interface methods of the gui view for creating flexible portfolio,
+ * for modifying the portfolio, retrieving the portfolio, getting cost basis, value of the portfolio,
+ * applying dollar cost strategies.
+ */
 public class GUIViewImpl extends JFrame implements GUIView {
   private JLabel pathStore;
   private JLabel createStatus;
@@ -100,71 +105,173 @@ public class GUIViewImpl extends JFrame implements GUIView {
   private JButton dollarexistcreate = new JButton("Create");
   private JLabel dollarexistpanestatus = new JLabel();
 
+  /**
+   * Class for implementing GUIView interface and implementing GUI based view for flexible portfolios,
+   * and implement dollar cost averaging strategy. Helps provide graphical interface for viewing, creating, modifying,
+   * and applying strategies using gui based interface.
+   */
   public GUIViewImpl() {
     super();
     finalPanel();
   }
 
+  /**
+   * extends JFrame for setting main panel as visible.
+   */
   @Override
   public void makeVisible() {
     this.setVisible(true);
   }
 
+  /**
+   * Set the status of the user panel based on the given input path by the user.
+   * @param setMessage is the message that needs to be set
+   */
   public void setpathStore(String setMessage) {
     pathStore.setText(setMessage);
   }
+
+  /**
+   * Take the user input of the path where the portfolio needs to be created.
+   * @return input given by the user
+   */
   public String givenPath(){
     return JOptionPane.showInputDialog("Please enter path to store portfolios");
   }
 
+  /**
+   * While applying dollar strategy on existing portfolio the name of the strategy field is set to null,
+   * if user gives invalid input or the strategy is set.
+   * @param message is the value that needs to be set for the strategy field in existing dollar portfolio pane
+   */
   public void setstrategynameexist(String message){
     this.stratergydollarexistname.setText(message);
   }
 
+  /**
+   * While applying dollar strategy on during start-to-finish dollar averaging strategy,
+   * the name of the strategy field is set to null,
+   * if user gives invalid input, or the dialog pane is closed the strategy is set.
+   * @param message that needs to be set for the strategy field in start to finish dialog pane
+   */
   public void setstrategynamenewexist(String message){
     this.stratergydollarnewname.setText(message);
   }
 
+  /**
+   * Set the status of the existing dollar strategy pane based on the user inputs.
+   * Tells if portfolio strategy is applied, or the dialog pane is closed or not or any invalid inputs is given.
+   * @param message set the status of the panel based on the user inputs given
+   */
   public void setdollarexistpanestatus(String message) {
     this.dollarexistpanestatus.setText(message);
   }
 
+  /**
+   * Set the portfolio name in the start to finish dollar strategy pane based on the user input.
+   * If invalid input is given, or the dialog pane is closed or strategy is applied null is set.
+   * @param message is the value that needs to be set for the portfolio field
+   */
   public void setpfnamedollarnew(String message){
     this.dollarnewcreatepfname.setText(message);
   }
+
+  /**
+   * Set the money to be invested in dollars while creating start-to-finish portfolio based on the input given.
+   * If the user gives invalid values or the dialog pane is closed this field is set to null.
+   * @param message is the value that needs to be set for the value field
+   */
   public void setdollarnewval(String message){
     this.dollarnewval.setText(message);
   }
+
+  /**
+   * Set the start date for the start-to-finish portfolio based on the input given.
+   * If the user gives invalid values or the dialog pane is closed this field is set to null.
+   * @param message is the value that needs to be set for the start date field
+   */
   public void setstartdatenew(String message){
     this.dollarnewstartdate.setText(message);
   }
+
+  /**
+   * Set the end date for the start-to-finish portfolio based on the input given.
+   * If the user gives invalid values or the dialog pane is closed this field is set to null.
+   * @param message is the value that needs to be set for the end date field
+   */
   public void setenddatenew(String message){
     this.dollarnewenddate.setText(message);
   }
+
+  /**
+   * Set the number of days the transaction needs to recur in a given start and end date range.
+   * If the user gives invalid values or the dialog pane is closed this field is set to null.
+   * @param message is the value that needs to be set for the days field
+   */
   public void setdollardays(String message){
     this.dollarnewdays.setText(message);
   }
+
+  /**
+   * Set the commission value while applying start-to-finish dollar cost averaging.
+   * If the user gives invalid values or the dialog pane is closed this field is set to null.
+   * @param message is the value that needs to be set for the commission field
+   */
   public void setdollarcommissionnew(String message){
     this.dollarnewcommission.setText(message);
   }
+
+  /**
+   * Set the weights value field while applying start-to-finish dollar cost averaging.
+   * If the user gives invalid format ,sum not equals to 100 or the dialog pane is closed this field is set to null.
+   * @param message is the value that needs to be set for the weights input field
+   */
   public void setweightsnew(String message){
     this.weightsnew.setText(message);
   }
+
+  /**
+   * Set the stocks value field while applying start-to-finish dollar cost averaging.
+   * If the user gives invalid format, or invalid tickr symbols or the dialog pane is closed this field is set to null.
+   * @param message is the value that needs to be set for the stocks input field
+   */
   public void setstocksnew(String message){
     this.stocksnew.setText(message);
   }
+
+  /**
+   * Set the stocks value field while applying dollar averaging on existing portfolio.
+   * If the user gives invalid format, or invalid tickr symbols or the dialog pane is closed this field is set to null.
+   * @param message is the value that needs to be set for the stocks input field
+   */
   public void setstocksexist(String message) {
     this.stocksexist.setText(message);
   }
 
+  /**
+   * Set the weights value field while applying dollar averaging on existing portfolio.
+   * If the user gives invalid format ,sum not equals to 100 or the dialog pane is closed this field is set to null.
+   * @param message is the value that needs to be set for the weights input field
+   */
   public void setweightsexist(String message) {
     this.weightsexist.setText(message);
   }
 
+
+  /**
+   * Set the money to be invested in dollars while applying dollar cost averaging on the existing portfolio.
+   * If the user gives invalid values or the dialog pane is closed this field is set to null.
+   * @param message is values that needs to be set for the value field
+   */
   public void setdollarexistval(String message) {
     this.dollarexistval.setText(message);
   }
 
+  /**
+   * Set the status of the start-to-finish dollar strategy pane based on the user inputs.
+   * Tells if portfolio strategy is applied, or the dialog pane is closed or not or any invalid inputs is given.
+   * @param message set the status of the panel based on the user inputs given
+   */
   public void setdollarnewpanestatus(String message) {
     this.dollarnewpanestatus.setText(message);
   }
@@ -200,62 +307,143 @@ public class GUIViewImpl extends JFrame implements GUIView {
     return createPanelDialog;
   }
 
+  /**
+   * Set the status of the portfolio path while creating new flexible portfolio.
+   * If invalid path or existing path or dialog pane is given then this field is set to null.
+   * @param message is value that needs to be set for the pfname field
+   */
   public void setCreatePfValue(String message) {
     this.pfnamecreate.setText(message);
   }
 
+  /**
+   * Set the date of purchase of the stock while creating new flexible portfolio.
+   * If invalid date format, future date is given or dialog pane is closed then this field is set to null.
+   * @param message is value that needs to be set for the date field
+   */
   public void setdateofcreationValue(String message) {
     this.dateofcreation.setText(message);
   }
 
+  /**
+   * Set the number of stocks field while creating new flexible portfolio.
+   * If invalid number of stocks, negative stocks or fractional stocks are given,
+   * dialog pane is closed then this field is set to null.
+   * @param message is value that needs to be set for the num of stocks field
+   */
   public void setnumstockscreateValue(String message) {
     this.numstockscreate.setText(message);
   }
 
+  /**
+   * Set the tickr value for which company stocks needs to be purchased while creating a flexible portfolio.
+   * If invalid tickr symbol or dialog pane is closed then this field is set to null.
+   * @param message is value that needs to be set for the tickr symbol field
+   */
   public void settickrcreateValue(String message) {
     this.tickrcreate.setText(message);
   }
 
+  /**
+   * Set the commission value while creating a flexible portfolio.
+   * If negative stocks, or invalid value is given or dialog pane is closed then this field is set to null.
+   * @param message is value that needs to be set for the commission field
+   */
   public void setcommissionfeescreateValue(String message) {
     this.commissionfeescreate.setText(message);
   }
 
+  /**
+   * Set the portfolio path field while modifying the portfolio.
+   * If a portfolio that does not exist is given or modify dialog pane is closed then it is set to null.
+   * @param message is value that needs to be set for the pf name field
+   */
   public void setModifyPfValue(String message) {
     this.pfnamemodify.setText(message);
   }
 
+  /**
+   * Set the date of purchase or sell in the modify pane, if invalid date format, future date or modify dialog pane,
+   * then set to null.
+   * @param message is value that needs to be set for the date field
+   */
   public void setdateofmodifynValue(String message) {
     this.dateofmodify.setText(message);
   }
 
+  /**
+   * Set the number of stocks field while modifying flexible portfolio.
+   * If invalid number of stocks, negative stocks or fractional stocks are given,
+   * dialog pane is closed then this field is set to null.
+   * @param message is value that needs to be set for the num of stocks field
+   */
   public void setnumstocksmodifyValue(String message) {
     this.numstocksmodify.setText(message);
   }
 
+  /**
+   * Set the tickr value for which company stocks needs to be purchased or sold,
+   * while modifying a flexible portfolio.If invalid tickr symbol,
+   * or dialog pane is closed then this field is set to null.
+   * @param message is value that needs to be set for the tickr symbol field
+   */
   public void settickrmodifyValue(String message) {
     this.tickrmodify.setText(message);
   }
 
+  /**
+   * Set the commission value while modifying a flexible portfolio.
+   * If negative stocks, or invalid value is given or dialog pane is closed then this field is set to null.
+   * @param message is value that needs to be set for the commission field
+   */
   public void setcommissionfeesmodifyValue(String message) {
     this.commissionfessmodify.setText(message);
   }
 
+  /**
+   * Set the status of the create dialog pane based on the given inputs.
+   * If no fields are set then set it to fields are empty, if inputs given are invalid show which are wrong.
+   * If all the correct inputs are given, then show that portfolio is created correctly.
+   * @param message status of while creating portfolio
+   */
   public void setcreateDialogStatus(String message) {
     createDialogStatus.setText(message);
   }
 
+  /**
+   * Set the status of the modify dialog pane based on the given inputs.
+   * If no fields are set then set it to fields are empty, if inputs given are invalid show which are wrong.
+   * If all the correct inputs are given, then show that portfolio is modified successfully.
+   * @param message status of while modifying portfolio
+   */
   public void setmodifyDialogStatus(String message) {
     modifyDialogStatus.setText(message);
   }
 
+  /**
+   * Set the status of the value dialog pane based on the given inputs.
+   * If no fields are set then set it to fields are empty, if inputs given are invalid show which are wrong.
+   * If all the correct inputs are given, then show the portfolio value is successfully retrieved and display.
+   * @param message status while querying value of a portfolio
+   */
   public void setvalueDialogStatus(String message) {
     valDialogStatus.setText(message);
   }
 
+  /**
+   * Set the status of the composition dialog pane based on the given inputs.
+   * If no fields are set then set it to fields are empty, if inputs given are invalid show which are wrong.
+   * @param message status while retrieving the composition of portfolio
+   */
   public void setretrieveDialogStatus(String message) {
     retrieveDialogStatus.setText(message);
   }
 
+  /**
+   * Set the status of the cost basis dialog pane based on the given inputs.
+   * If no fields are set then set it to fields are empty, if inputs given are invalid show which are wrong.
+   * @param message gives the cost basis of the given portfolio
+   */
   public void setCostBasisDialogStatus(String message) {
     costBasisDialogStatus.setText(message);
   }
@@ -283,42 +471,95 @@ public class GUIViewImpl extends JFrame implements GUIView {
     return costBasisDialog;
   }
 
+  /**
+   * Get the list of all the portfolios to be modified in the given user path.
+   * If the folder is empty then say the portfolio is empty. If a file that does not exist is given,
+   * say given pfname does not exist.
+   * @param message is the list of existing portfolios in the given user path
+   */
   public void setportfoliosListModify(String message) {
     this.portfoliosListModify.setText(message);
   }
 
+  /**
+   * Get the list of all the portfolios to query the value in the given user path.
+   * If the folder is empty then say the portfolio is empty. If a file that does not exist is given,
+   * say given pfname does not exist.
+   * @param message is the list of existing portfolios in the given user path
+   */
   public void setPortfoliosListVal(String message) {
     this.portfoliosListVal.setText(message);
   }
 
+  /**
+   * Get the list of all the portfolios to query the cost basis in the given user path.
+   * If the folder is empty then say the portfolio is empty. If a file that does not exist is given,
+   * say given pfname does not exist.
+   * @param message is the list of existing portfolios in the given user path
+   */
   public void setPortfoliosListBasis(String message) {
     this.portfoliosListBasis.setText(message);
   }
 
+  /**
+   * Get the list of all the portfolios to query the composition in the given user path.
+   * If the folder is empty then say the portfolio is empty. If a file that does not exist is given,
+   * say given pfname does not exist.
+   * @param message is the list of existing portfolios in the given user path
+   */
   public void setPortfoliosListRetrieve(String message) {
     this.portfoliosListRetrieve.setText(message);
   }
 
+  /**
+   * Get the list of all the portfolios to apply dollar strategy on existing portfolio in the given user path.
+   * If the folder is empty then say the portfolio is empty. If a file that does not exist is given,
+   * say given pfname does not exist.
+   * @param message is the list of existing portfolios in the given user path
+   */
   public void setportfolioslistdollarexist(String message) {
     this.portfolioslistdollarexist.setText(message);
   }
 
+  /**
+   * Set the portfolio name on existing dollar strategy pane based on the user input.
+   * If invalid input is given, or the dialog pane is closed or strategy is applied null is set.
+   * @param message is the value that needs to be set for the portfolio field
+   */
   public void setpfNameExistDollar(String message) {
     this.dollarexistpfname.setText(null);
   }
 
+  /**
+   * Set the date for the existing dollar cost straegy portfolio based on the input given.
+   * If the user gives invalid values or the dialog pane is closed this field is set to null.
+   * @param message is the value that needs to be set for the date field
+   */
   public void setdollardateexist(String message) {
     this.dollarexistdate.setText(message);
   }
 
+  /**
+   * Set the commission value on existing dollar cost averaging pane.
+   * If the user gives invalid values or the dialog pane is closed this field is set to null.
+   * @param message is the value that needs to be set for the commission field
+   */
   public void setdollarexistcommisionval(String message) {
     this.dollarexistcommision.setText(message);
   }
 
+  /**
+   * Set the portfolio name to be retrieved while getting composition of a portfolio.
+   * @param message is the value that needs to be set for the pf name field in retrieve dialog pane
+   */
   public void setpfnameretrieve(String message) {
     this.pfnameretrieve.setText(message);
   }
 
+  /**
+   * Set the composition of the portfolio given.
+   * @param message is the composition of a particular portfolio
+   */
   public void setPortfoliosListComposition(String message) {
     this.portfolioComposition.setText(message);
   }
@@ -515,30 +756,57 @@ public class GUIViewImpl extends JFrame implements GUIView {
     return dollarexistingPfDialog;
   }
 
+  /**
+   *
+   * @param message
+   */
   public void setpfnameVal(String message) {
     pfnamevalue.setText(message);
   }
 
+  /**
+   *
+   * @param message
+   */
   public void setdateVal(String message) {
     this.datevalue.setText(message);
   }
 
+  /**
+   *
+   * @param message
+   */
   public void setpfNameCostBasis(String message) {
     pfName.setText(message);
   }
 
+  /**
+   *
+   * @param message
+   */
   public void setDate(String message) {
     date.setText(message);
   }
 
+  /**
+   *
+   * @param message
+   */
   public void setLabelCostBasisStatus(String message) {
     costBasisStatus.setText(message);
   }
 
+  /**
+   *
+   * @param message
+   */
   public void setRetrievePanelStatus(String message) {
     retrievePanelStatus.setText(message);
   }
 
+  /**
+   *
+   */
   public void displayCostBasis() {
     JDialog dialog;
     JOptionPane optionPane = new JOptionPane(getCostBasisPanelDialog(),
@@ -548,6 +816,9 @@ public class GUIViewImpl extends JFrame implements GUIView {
     dialog.setVisible(true);
   }
 
+  /**
+   *
+   */
   public void displayCreatePf() {
     JDialog dialog;
     JOptionPane optionPane = new JOptionPane(getCreatePfDialog(), JOptionPane.PLAIN_MESSAGE,
@@ -556,6 +827,9 @@ public class GUIViewImpl extends JFrame implements GUIView {
     dialog.setVisible(true);
   }
 
+  /**
+   *
+   */
   public void displayModifyPf() {
     JDialog dialog;
     JOptionPane optionPane = new JOptionPane(getModifyPanelDialog(), JOptionPane.PLAIN_MESSAGE,
@@ -564,6 +838,9 @@ public class GUIViewImpl extends JFrame implements GUIView {
     dialog.setVisible(true);
   }
 
+  /**
+   *
+   */
   public void displayValuepf() {
     JDialog dialog;
     JOptionPane optionPane = new JOptionPane(getValuePanelDialog(), JOptionPane.PLAIN_MESSAGE,
@@ -572,6 +849,9 @@ public class GUIViewImpl extends JFrame implements GUIView {
     dialog.setVisible(true);
   }
 
+  /**
+   *
+   */
   public void displayRetrievepf() {
     JDialog dialog;
     JOptionPane optionPane = new JOptionPane(getRetrievePanelDialog(), JOptionPane.PLAIN_MESSAGE,
@@ -580,6 +860,9 @@ public class GUIViewImpl extends JFrame implements GUIView {
     dialog.setVisible(true);
   }
 
+  /**
+   *
+   */
   public void displayDollarExistingpf() {
     JDialog dialog;
     JOptionPane optionPane = new JOptionPane(getDollarCostExistDialog(), JOptionPane.PLAIN_MESSAGE,
@@ -588,6 +871,9 @@ public class GUIViewImpl extends JFrame implements GUIView {
     dialog.setVisible(true);
   }
 
+  /**
+   *
+   */
   public void displayDollarNewpf() {
     JDialog dialog;
     JOptionPane optionPane = new JOptionPane(getDollarCostNewDialog(), JOptionPane.PLAIN_MESSAGE,
@@ -619,22 +905,42 @@ public class GUIViewImpl extends JFrame implements GUIView {
     createPanel.add(createStatus);
   }
 
+  /**
+   *
+   * @param message
+   */
   public void setCreateLabelStatus(String message) {
     this.createStatus.setText(message);
   }
 
+  /**
+   *
+   * @param message
+   */
   public void setModifyLabelStatus(String message) {
     this.modifyStatus.setText(message);
   }
 
+  /**
+   *
+   * @param message
+   */
   public void setValueLabelStatus(String message) {
     this.valueStatus.setText(message);
   }
 
+  /**
+   *
+   * @param message
+   */
   public void setdollarExistingStatus(String message) {
     this.dollarExistingStatus.setText(message);
   }
 
+  /**
+   *
+   * @param message
+   */
   public void setdollarNewStatus(String message) {
     this.dollarNewStatus.setText(message);
   }
@@ -735,6 +1041,10 @@ public class GUIViewImpl extends JFrame implements GUIView {
     setLocationRelativeTo(null);
   }
 
+  /**
+   *
+   * @param features
+   */
   public void addFeatures(ControllerGUI features) {
     inputButton.addActionListener(evt -> features.displaysetrootpane());
     createPfButton.addActionListener(evt -> features.displayDialogPane("create"));

@@ -2,6 +2,10 @@ package view;
 
 import controller.ControllerGUI;
 
+/**
+ * Interface that is used for implementing GUI based view methods.
+ * It is used for viewing graphical based interface stocks program.
+ */
 public interface GUIView {
     /**
      *
