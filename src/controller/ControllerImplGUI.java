@@ -18,7 +18,13 @@ import model.PortfolioStratergy;
 import view.GUIView;
 
 /**
- *
+ * Implements Controller interface for running the stocks program for using graphical based UI.
+ * creation of portfolio.
+ * Viewing created portfolios.
+ * Getting value of a portfolio on a given date.
+ * Implementing dollar cost averaging on existing portfolio.
+ * Implementing start-to-finish dollar averaging strategy.
+ * And Quitting the program.
  */
 public class ControllerImplGUI implements ControllerGUI {
     private GUIView guiView;
@@ -28,9 +34,10 @@ public class ControllerImplGUI implements ControllerGUI {
     private JSONObject addTickr;
 
     /**
+     * Is the Controller constructor that helps to implement the graphical based view.
      *
-     * @param portfolio
-     * @param guiView
+     * @param portfolio is the portfolio strategy type object
+     * @param guiView   is the guiview object that is used for the implementing graphical UI
      */
     public ControllerImplGUI(PortfolioStratergy portfolio, GUIView guiView) {
         this.guiView = guiView;
@@ -338,7 +345,9 @@ public class ControllerImplGUI implements ControllerGUI {
     }
 
     /**
-     *
+     * Get the input path given by the user and validate, if exists set it as root directory,
+     * else set the default path in initialized in the constructor. Creates strategy lookup json ,
+     * to store the strategies applied.
      */
     public void setDirectory() {
         if (this.rootDirUser == null || this.rootDirUser.length() == 0) {
@@ -390,8 +399,9 @@ public class ControllerImplGUI implements ControllerGUI {
     }
 
     /**
+     * Checks the given portfolio name and saves the given entry into the file.
      *
-     * @param pfNameCreate
+     * @param pfNameCreate name of the portfolio that needs to be saved
      */
     public void saveOperation(String pfNameCreate) {
         if (pfNameCreate == null || pfNameCreate.length() == 0) {
@@ -406,9 +416,10 @@ public class ControllerImplGUI implements ControllerGUI {
     }
 
     /**
+     * Checks the given portfolio name is valid or not.
      *
-     * @param pfName
-     * @return
+     * @param pfName is the portfolio name entered by the user
+     * @return true if valid else return false
      */
     public boolean checkValidpfName(String pfName) {
         if (pfName == null || pfName.length() > 25 || pfName.isEmpty() || pfName.contains(" ")) {
@@ -423,13 +434,14 @@ public class ControllerImplGUI implements ControllerGUI {
     }
 
     /**
+     * Carries out operation for adding stocks while creating the portfolio.
      *
-     * @param pfNameCreate
-     * @param tickrCreate
-     * @param numStocksCreate
-     * @param dateCreate
-     * @param commissionCreate
-     * @throws FileNotFoundException
+     * @param pfNameCreate     name of the portfolio to which stocks are to be added
+     * @param tickrCreate      tickr symbol that needs to be added
+     * @param numStocksCreate  number of stocks to be added to the portfolio
+     * @param dateCreate       is the date on which the adding of purchase of stock needs to be done
+     * @param commissionCreate is the commission fees for carrying out the transaction
+     * @throws FileNotFoundException if file is not found while validating the tickr symbols to the portfolio
      */
     public void addOperation(String pfNameCreate, String tickrCreate, String numStocksCreate,
                              String dateCreate, String commissionCreate)
@@ -466,15 +478,17 @@ public class ControllerImplGUI implements ControllerGUI {
     }
 
     /**
+     * Helps to validate the inmput fields and modify the existing portfolio by allowing the user to purchase,
+     * and sell stocks.
      *
-     * @param pfNameModify
-     * @param tickrModify
-     * @param numStocksModify
-     * @param dateModify
-     * @param commissionModify
-     * @param statuslabel
-     * @throws FileNotFoundException
-     * @throws ParseException
+     * @param pfNameModify     is the name of the portfolio that needs to be modified
+     * @param tickrModify      is the name of the tickr symbol that needs to be modified
+     * @param numStocksModify  is the number of stocks that needs to be purchase and sold
+     * @param dateModify       is the date on which the purchase or sell needs to occur
+     * @param commissionModify is commission fees while carrying out purchase or sell
+     * @param statuslabel      helps to specify that modification needs to occur and checks the inputs fields
+     * @throws FileNotFoundException if portfolio is not found while making modification
+     * @throws ParseException        if an exception occurs while parsing the existing portfolio
      */
     public void modifyValidate(String pfNameModify, String tickrModify, String numStocksModify,
                                String dateModify, String commissionModify, String statuslabel)
@@ -500,11 +514,12 @@ public class ControllerImplGUI implements ControllerGUI {
     }
 
     /**
+     * Helps to validate the input fields and get the value of the portfolio on that particular date.
      *
-     * @param pfNamedate
-     * @param dateValue
-     * @throws FileNotFoundException
-     * @throws ParseException
+     * @param pfNamedate is the name of the portfolio for which value needs to be computed
+     * @param dateValue  is the date value on which value needs to be computed
+     * @throws FileNotFoundException when pf name to be searched is not found
+     * @throws ParseException        an error occurs when parsing fails while reading the input file
      */
     public void validateDateVal(String pfNamedate, String dateValue)
             throws FileNotFoundException, ParseException {
@@ -523,10 +538,11 @@ public class ControllerImplGUI implements ControllerGUI {
     }
 
     /**
+     * Helps to validate the input fields and get the cost basis of the portfolio on that particular date.
      *
-     * @param pfNameBasis
-     * @param dateBasis
-     * @throws ParseException
+     * @param pfNameBasis is the name of the portfolio for which cost basis needs to be computed
+     * @param dateBasis   is the date value on which cost basis needs to be computed
+     * @throws ParseException an error occurs when parsing fails while reading the input file
      */
     public void validateCostBasis(String pfNameBasis, String dateBasis) throws ParseException {
         if (pfNameBasis == null || pfNameBasis.length() == 0 ||
@@ -576,8 +592,9 @@ public class ControllerImplGUI implements ControllerGUI {
     }
 
     /**
+     * Get the composition of the given portfolio name.
      *
-     * @param pfNameComposition
+     * @param pfNameComposition is the name of the portfolio for which composition needs to be computed
      */
     public void getCompositionpf(String pfNameComposition) {
         if (pfNameComposition == null || pfNameComposition.length() == 0) {
@@ -826,14 +843,15 @@ public class ControllerImplGUI implements ControllerGUI {
     }
 
     /**
+     * This function helps to implement dollar averaging strategy on existing portfolio.
      *
-     * @param stratergydollarexistname
-     * @param dollarexistpfname
-     * @param stocksexist
-     * @param weightsexist
-     * @param dollarexistval
-     * @param dollarexistdate
-     * @param dollarexistcommision
+     * @param stratergydollarexistname is the name of the strategy given by the user
+     * @param dollarexistpfname        ame of the portfolio over which dollar averaging strategy needs to be performed
+     * @param stocksexist              is the list of stocks string given by the user, seperated by delimeter ','
+     * @param weightsexist             is the list of weights string given by the user, seperated by delimeter ','
+     * @param dollarexistval           is the money to be invested in the portfolio
+     * @param dollarexistdate          is date oon which the investment needs to occur
+     * @param dollarexistcommision     is the commission fees for the transaction to occur
      */
     public void validateExistingDollar(String stratergydollarexistname, String dollarexistpfname,
                                        String stocksexist, String weightsexist, String dollarexistval,
@@ -882,17 +900,18 @@ public class ControllerImplGUI implements ControllerGUI {
     }
 
     /**
+     * This function helps to implement start-to-finish dollar averaging strategy.
      *
-     * @param stratergydollarnewname
-     * @param dollarnewcreatepfname
-     * @param stocksnew
-     * @param weightsnew
-     * @param dollarnewval
-     * @param dollarnewdays
-     * @param dollarnewstartdate
-     * @param dollarnewenddate
-     * @param dollarnewcommission
-     * @throws ParseException
+     * @param stratergydollarnewname is the name of the strategy given by the user
+     * @param dollarnewcreatepfname  name of the portfolio to be created
+     * @param stocksnew              is the list of stocks string given by the user, seperated by delimeter ','
+     * @param weightsnew             is the list of weights string given by the user, seperated by delimeter ','
+     * @param dollarnewval           is the money to be invested in the portfolio
+     * @param dollarnewdays          is the number of days for investment to recur
+     * @param dollarnewstartdate     is start date of the investment to occur
+     * @param dollarnewenddate       is the end date of the investment to occur
+     * @param dollarnewcommission    is the commission fees for the transaction to occur
+     * @throws ParseException when there is an error parsing the portfolio and strategy look up json
      */
     public void validateNewDollar(String stratergydollarnewname, String dollarnewcreatepfname,
                                   String stocksnew, String weightsnew, String dollarnewval,
@@ -958,7 +977,8 @@ public class ControllerImplGUI implements ControllerGUI {
     }
 
     /**
-     *
+     * Displays the pane that lets the user set the root path for storing the portfolios that are to be created,
+     * modified or perform dollar averaging strategy.
      */
     public void displaysetrootpane() {
         this.rootDirUser = guiView.givenPath();
@@ -966,8 +986,12 @@ public class ControllerImplGUI implements ControllerGUI {
     }
 
     /**
+     * Displays the dialog pane for the creation of portfolio, modification of the portfolio ,cost basis till a date,
+     * getting value of the portfolio on a specific date, retrieving the composition of the portfolio,
+     * dollar cost averaging on the existing portfolio, doing dollar cost averaging from start-to-finish and,
+     * Quit the program. Every functionality is identified by label given to it.
      *
-     * @param label can be
+     * @param label can be the label associated with the functionality that needs to be performed
      */
     public void displayDialogPane(String label) {
         if (this.rootDirUser == null || this.rootDirUser.length() == 0) {
@@ -1049,6 +1073,8 @@ public class ControllerImplGUI implements ControllerGUI {
     }
 
     /**
+     * Runs the go stocks program by setting GUI view visible and passing class to add features method in gui,
+     * for letting buttons with action listeners to implement functionalities.
      *
      * @throws ParseException
      * @throws IOException
