@@ -28,9 +28,9 @@ import view.View;
  */
 public class ControllerImplFlexible extends ControllerImpl implements Controller {
 
-  private View theView;
-  private Portfolio thePortfolio;
-  private Scanner in;
+  private final View theView;
+  private final Portfolio thePortfolio;
+  private final Scanner in;
   private String rootDir;
 
   /**

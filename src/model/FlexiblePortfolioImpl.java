@@ -222,9 +222,7 @@ public class FlexiblePortfolioImpl extends PortfolioImpl {
       if (totStocks == 0) {
         return false;
       }
-      if (totStocks >= numStocks) {
-        return true;
-      }
+      return totStocks >= numStocks;
     }
     return false;
   }
@@ -254,9 +252,7 @@ public class FlexiblePortfolioImpl extends PortfolioImpl {
       JSONArray tickrrecord = (JSONArray) portfolio.get(tickr);
       JSONObject obj = (JSONObject) tickrrecord.get(tickrrecord.size() - 1);
       String recentDate = (String) obj.get("date");
-      if (recentDate.equals(date) || checkIfBeforeDate(date, recentDate)) {
-        return true;
-      }
+      return recentDate.equals(date) || checkIfBeforeDate(date, recentDate);
     }
     return false;
   }

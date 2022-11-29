@@ -14,120 +14,120 @@ import java.util.Locale;
 /**
  * Class for implementing api calls.
  */
-public class ApiKey implements IApiKey{
-    private String tickrsymbol;
+public class ApiKey implements IApiKey {
+  private final String tickrsymbol;
 
-    public ApiKey(String tickrsymbol) {
-        this.tickrsymbol = tickrsymbol;
+  public ApiKey(String tickrsymbol) {
+    this.tickrsymbol = tickrsymbol;
+  }
+
+  /**
+   * Gets the tickr symbol.
+   *
+   * @return tickr symbol of type string
+   */
+  public String getTickrSymbol() {
+    return this.tickrsymbol;
+  }
+
+  /**
+   * get the price for the present day stock.
+   *
+   * @return float type price of the stock
+   */
+  public float callPresentPrice() {
+    String apiKey = "E9HF2DALRYZKAIJC";
+    URL url = null;
+    try {
+      url = new URL("https://www.alphavantage"
+              + ".co/query?function=TIME_SERIES_DAILY"
+              + "&outputsize=full"
+              + "&symbol"
+              + "=" + this.getTickrSymbol() + "&apikey=" + apiKey + "&datatype=csv");
+    } catch (MalformedURLException e) {
+      throw new RuntimeException("the alphavantage API has either changed or "
+              + "no longer works");
     }
-
-    /**
-     * Gets the tickr symbol.
-     *
-     * @return tickr symbol of type string
-     */
-    public String getTickrSymbol() {
-        return this.tickrsymbol;
+    StringBuilder output = new StringBuilder();
+    float num = 0;
+    try {
+      BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));
+      String inputLine;
+      while ((inputLine = in.readLine()) != null) {
+        // check length.
+        if (inputLine.split(",").length < 5) {
+          num = 0;
+        } else {
+          String h2 = inputLine.split(",")[0];
+          if (!h2.equals("timestamp")) {
+            System.out.println(Float.valueOf(inputLine.split(",")[4]));
+            num = Float.valueOf(inputLine.split(",")[4]);
+            break;
+          }
+        }
+      }
+    } catch (IOException e) {
+      throw new IllegalArgumentException("No price data found for " + this.getTickrSymbol());
     }
+    return num;
+  }
 
-    /**
-     * get the price for the present day stock.
-     *
-     * @return float type price of the stock
-     */
-    public float callPresentPrice() {
-        String apiKey = "E9HF2DALRYZKAIJC";
-        URL url = null;
-        try {
-            url = new URL("https://www.alphavantage"
-                    + ".co/query?function=TIME_SERIES_DAILY"
-                    + "&outputsize=full"
-                    + "&symbol"
-                    + "=" + this.getTickrSymbol() + "&apikey=" + apiKey + "&datatype=csv");
-        } catch (MalformedURLException e) {
-            throw new RuntimeException("the alphavantage API has either changed or "
-                    + "no longer works");
-        }
-        StringBuilder output = new StringBuilder();
-        float num = 0;
-        try {
-            BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));
-            String inputLine;
-            while ((inputLine = in.readLine()) != null) {
-                // check length.
-                if (inputLine.split(",").length < 5) {
-                    num = 0;
-                } else {
-                    String h2 = inputLine.split(",")[0];
-                    if (!h2.equals("timestamp")) {
-                        System.out.println(Float.valueOf(inputLine.split(",")[4]));
-                        num = Float.valueOf(inputLine.split(",")[4]);
-                        break;
-                    }
-                }
-            }
-        } catch (IOException e) {
-            throw new IllegalArgumentException("No price data found for " + this.getTickrSymbol());
-        }
-        return num;
+  /**
+   * get the price for a given date.
+   *
+   * @param date of type string
+   * @return float type price of the stock
+   */
+  public float callPriceDate(String date) {
+    String apiKey = "W0M1JOKC82EZEQA8";
+    URL url = null;
+    try {
+      url = new URL("https://www.alphavantage"
+              + ".co/query?function=TIME_SERIES_DAILY"
+              + "&outputsize=full"
+              + "&symbol"
+              + "=" + this.getTickrSymbol() + "&apikey=" + apiKey + "&datatype=csv");
+    } catch (MalformedURLException e) {
+      throw new RuntimeException("the alphavantage API has either changed or "
+              + "no longer works");
     }
+    StringBuilder output = new StringBuilder();
+    float num = 0;
+    try {
+      BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));
+      String inputLine;
+      while ((inputLine = in.readLine()) != null) {
+        String dateSheet = inputLine.split(",")[0];
+        // check if the given date falls on sat or sun.
+        SimpleDateFormat formatDate = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
 
-    /**
-     * get the price for a given date.
-     *
-     * @param date of type string
-     * @return float type price of the stock
-     */
-    public float callPriceDate(String date) {
-        String apiKey = "W0M1JOKC82EZEQA8";
-        URL url = null;
         try {
-            url = new URL("https://www.alphavantage"
-                    + ".co/query?function=TIME_SERIES_DAILY"
-                    + "&outputsize=full"
-                    + "&symbol"
-                    + "=" + this.getTickrSymbol() + "&apikey=" + apiKey + "&datatype=csv");
-        } catch (MalformedURLException e) {
-            throw new RuntimeException("the alphavantage API has either changed or "
-                    + "no longer works");
+          Date dateCheck = formatDate.parse(date);
+          Calendar cal = Calendar.getInstance();
+          cal.setTime(dateCheck);
+          int weekday = cal.get(Calendar.DAY_OF_WEEK);
+          if (weekday == Calendar.SATURDAY) {
+            // set one day back i.e. friday date.
+            LocalDate fridayDate = LocalDate.parse(formatDate.format(dateCheck)).minusDays(1);
+            date = String.valueOf(fridayDate);
+          } else if (weekday == Calendar.SUNDAY) {
+            // set 2 days back date i.e. friday date.
+            LocalDate fridayDate = LocalDate.parse(formatDate.format(dateCheck)).minusDays(2);
+            date = String.valueOf(fridayDate);
+          }
+        } catch (Exception e) {
+          e.printStackTrace();
         }
-        StringBuilder output = new StringBuilder();
-        float num = 0;
-        try {
-            BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));
-            String inputLine;
-            while ((inputLine = in.readLine()) != null) {
-                String dateSheet = inputLine.split(",")[0];
-                // check if the given date falls on sat or sun.
-                SimpleDateFormat formatDate = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
-
-                try {
-                    Date dateCheck = formatDate.parse(date);
-                    Calendar cal = Calendar.getInstance();
-                    cal.setTime(dateCheck);
-                    int weekday = cal.get(Calendar.DAY_OF_WEEK);
-                    if (weekday == Calendar.SATURDAY) {
-                        // set one day back i.e. friday date.
-                        LocalDate fridayDate = LocalDate.parse(formatDate.format(dateCheck)).minusDays(1);
-                        date = String.valueOf(fridayDate);
-                    } else if (weekday == Calendar.SUNDAY) {
-                        // set 2 days back date i.e. friday date.
-                        LocalDate fridayDate = LocalDate.parse(formatDate.format(dateCheck)).minusDays(2);
-                        date = String.valueOf(fridayDate);
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                if (date.equals(dateSheet)) {
-                    num = Float.valueOf(inputLine.split(",")[4]);
-                    break;
-                }
-
-            }
-        } catch (IOException e) {
-            throw new IllegalArgumentException("No price data found for " + this.getTickrSymbol());
+        if (date.equals(dateSheet)) {
+          num = Float.valueOf(inputLine.split(",")[4]);
+          break;
         }
-        return num;
+
+      }
+    } catch (IOException e) {
+      throw new IllegalArgumentException("No price data found for " + this.getTickrSymbol());
     }
+    return num;
+  }
 }
 

@@ -109,7 +109,8 @@ public class PortfolioImpl implements Portfolio {
   /**
    * this function helps to set the tickr symbols present in the portfolio,
    * set the prices.
-   * @param rootDir is the root directory where all the rigid portfolios exist
+   *
+   * @param rootDir  is the root directory where all the rigid portfolios exist
    * @param filename is the name of the portfolio that needs to be viewed
    * @throws IOException is an exception occurs while parsing the input parameters
    */
@@ -418,10 +419,10 @@ public class PortfolioImpl implements Portfolio {
   /**
    * modify the json.
    *
-   * @param fees   is the commision fees
-   * @param num    num stocks willing to sell
-   * @param date   date on which sale is to be made
-   * @param tickr  company tickr symbol
+   * @param fees      is the commision fees
+   * @param num       num stocks willing to sell
+   * @param date      date on which sale is to be made
+   * @param tickr     company tickr symbol
    * @param portfolio jsonobject
    */
 

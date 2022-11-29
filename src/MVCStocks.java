@@ -32,6 +32,7 @@ public class MVCStocks {
    * @throws IOException    if given input is not valid
    */
   public static void main(String[] args) throws ParseException, IOException {
+    System.out.println(args[0]);
     PortfolioStratergy modelFlex = new PortfolioNewStratergy();
     //View guiView = new ViewImpl(System.out);
     GUIView guiView = new GUIViewImpl();
