@@ -650,10 +650,11 @@ public class GUIViewImpl extends JFrame implements GUIView {
     JLabel dateLabel = new JLabel("Enter the date of purchase/sell " +
             "in YYYY-DD-MM format only. Ex-2021-02-02");
     tickrmodify = new JTextField(25);
-    JLabel tickrlabel = new JLabel("Enter tickr symbol");
+    JLabel tickrlabel = new JLabel("Enter Tickr symbol of a company you want to purchase " +
+            "or sell. Ex: for company google tickr symbol - GOOG.");
     numstocksmodify = new JTextField(25);
     JLabel numstockslabel = new JLabel("Enter the number of stocks to be purchased/sold." +
-            "Negative and fractional shares are not allowed");
+            "Negative and Fractional shares are not allowed");
     commissionfessmodify = new JTextField(25);
     JLabel commissionLabel = new JLabel("Enter commission fees. Negative values are not " +
             "allowed. (Optional parameter)");
@@ -684,9 +685,12 @@ public class GUIViewImpl extends JFrame implements GUIView {
     JLabel listPortfolios = new JLabel("List of all the portfolios in the given path:");
     portfoliosListVal.setEditable(false);
     pfnamevalue = new JTextField(25);
-    JLabel pfNameLabel = new JLabel("Enter Portfolio Name");
+    JLabel pfNameLabel = new JLabel("Enter Portfolio Name for which value needs to be " +
+            "fetched. Enter only names from the given list of portfolios. If no portfolios exist " +
+            "then close this dialog pane by clicking 'X' on top left");
     datevalue = new JTextField(25);
-    JLabel dateLabel = new JLabel("Enter date to compute value of the portfolio");
+    JLabel dateLabel = new JLabel("Enter date to compute value of the portfolio in " +
+            "YYYY-DD-MM format only. Ex-2021-02-02");
     valDialog.setLayout(new BoxLayout(valDialog, BoxLayout.Y_AXIS));
     valDialog.setPreferredSize(new Dimension(700, 700));
     valDialog.setMaximumSize(new Dimension(900, 500));
@@ -708,7 +712,9 @@ public class GUIViewImpl extends JFrame implements GUIView {
     JLabel listcomposition = new JLabel("Portfolio composition");
     portfoliosListRetrieve.setEditable(false);
     portfolioComposition.setEditable(false);
-    JLabel pfNameLabel = new JLabel("Enter Portfolio Name");
+    JLabel pfNameLabel = new JLabel("Enter Portfolio Name for which composition needs to be " +
+            "fetched. Enter only names from the given list of portfolios. If no portfolios exist " +
+            "then close this dialog pane by clicking 'X' on top left");
     pfnameretrieve = new JTextField(25);
     retrievePfDialog.setLayout(new BoxLayout(retrievePfDialog, BoxLayout.Y_AXIS));
     retrievePfDialog.setPreferredSize(new Dimension(700, 700));
