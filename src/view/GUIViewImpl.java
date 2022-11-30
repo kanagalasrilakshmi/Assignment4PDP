@@ -14,6 +14,7 @@ import java.text.ParseException;
 import javax.swing.JDialog;
 import javax.swing.JTextField;
 import controller.ControllerGUI;
+import view.panels.*;
 
 /**
  * Class that implements interface methods of the gui view for creating flexible portfolio,
@@ -26,9 +27,7 @@ public class GUIViewImpl extends JFrame implements GUIView {
   private final JLabel modifyStatus = new JLabel();
   private final JLabel valueStatus = new JLabel();
   private JButton costBasisButton;
-  private JButton createPfButton;
   private JPanel mainJPanel;
-  private JPanel createPanel;
   private JPanel modifyPanel;
   private JPanel valueDatePanel;
   private JPanel dollarPanelExisting;

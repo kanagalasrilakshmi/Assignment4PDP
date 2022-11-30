@@ -1,11 +1,13 @@
-package view;
+package view.panels;
+
+import view.panels.UserPanel;
 
 import javax.swing.*;
 
 /**
  * Class for creating user panel.
  */
-public class UserPanelImpl implements UserPanel{
+public class UserPanelImpl implements UserPanel {
   private JPanel userPanel;
   private JButton inputButton;
   private JLabel pathStore;

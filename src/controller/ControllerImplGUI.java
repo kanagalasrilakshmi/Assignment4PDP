@@ -162,11 +162,6 @@ public class ControllerImplGUI implements ControllerGUI {
                   "9:30am).! Please enter new date");
           guiView.setdateofmodifynValue(null);
           break;
-        case "costBasis":
-          guiView.setCostBasisDialogStatus("You can only enter past date or present(if after " +
-                  "9:30am).! Please enter new date");
-          guiView.setDate(null);
-          break;
         case "valDate":
           guiView.setvalueDialogStatus("You can only enter past date or present(if after " +
                   "9:30am).! Please enter new date");
@@ -174,6 +169,8 @@ public class ControllerImplGUI implements ControllerGUI {
           break;
         case "dollarnewstartdate":
         case "dollarnewenddate":
+        case "dollarexist":
+        case "costBasis":
           return true;
         default:
           // nothing
@@ -748,7 +745,7 @@ public class ControllerImplGUI implements ControllerGUI {
       return false;
     } else if (Float.parseFloat(dollarexistval) < 0) {
       if (label.equals("dollarexist")) {
-        guiView.setdollarnewpanestatus("Negative money is not allowed!!!");
+        guiView.setdollarexistpanestatus("Negative money is not allowed!!!");
         guiView.setdollarexistval(null);
       } else if (label.equals("dollarnew")) {
         guiView.setdollarnewpanestatus("Negative money is not allowed!!!");
@@ -924,7 +921,7 @@ public class ControllerImplGUI implements ControllerGUI {
                             weightsexist, commission, dollarexistval, dollarexistdate,
                             null, 0);
                     guiView.setdollarexistpanestatus("Strategy successfully applied to the " +
-                            "portfolio" + dollarexistpfname + " Can apply a new strategy " +
+                            "portfolio " + dollarexistpfname + " Can apply a new strategy " +
                             "on another existing portfolio. If done click on 'X' on top left");
                     guiView.setdollardateexist(null);
                     guiView.setdollarexistcommisionval(null);

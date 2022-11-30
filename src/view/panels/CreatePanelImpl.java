@@ -1,11 +1,13 @@
-package view;
+package view.panels;
+
+import view.panels.CreatePanel;
 
 import javax.swing.*;
 /**
  * CLass that implements CreatePanel interface adds create panel, gets create pf button,
  * gets status of the create pane.
  */
-public class CreatePanelImpl implements CreatePanel{
+public class CreatePanelImpl implements CreatePanel {
   private JPanel createPanel;
   private JButton createPfButton;
   private JLabel createStatus;

@@ -1,4 +1,6 @@
-package view;
+package view.panels;
+
+import view.panels.QuitPanel;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -6,7 +8,7 @@ import java.awt.event.ActionEvent;
 /**
  * Class that implements the Quit panel interface to create a quit panel and return it.
  */
-public class QuitPanelImpl implements QuitPanel{
+public class QuitPanelImpl implements QuitPanel {
   private JPanel quitPanel;
   public void getQuitPanel() {
     quitPanel = new JPanel();
