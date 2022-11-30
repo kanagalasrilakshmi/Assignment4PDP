@@ -324,13 +324,14 @@ public class ControllerImplGUI implements ControllerGUI {
       boolean checkLabel = true;
       if (labelStatus.equals("sell")) {
         if (!portfolio.ifTickrInPf(this.rootDir + pfNameModify + ".json", tickrModify)) {
-          guiView.setmodifyDialogStatus("No stocks for this tickr symbol exists to sell.");
+          guiView.setmodifyDialogStatus("No stocks for this tickr symbol exists to sell. Please " +
+                  "enter tickr symbol that exist in the given portfolio.");
           checkLabel = false;
           guiView.settickrmodifyValue(null);
         } else if (!portfolio.checkValidSell(this.rootDir + pfNameModify + ".json",
                 Integer.parseInt(numStocksModify), tickrModify, dateModify)) {
           guiView.setmodifyDialogStatus("The number entered for selling stocks is more than " +
-                  "stocks purchased");
+                  "stocks purchased. Please enter a valid value.");
           checkLabel = false;
           guiView.setnumstocksmodifyValue(null);
         } else {
@@ -341,7 +342,8 @@ public class ControllerImplGUI implements ControllerGUI {
         }
       } else if (labelStatus.equals("purchase")) {
         if (!portfolio.validateTickrSymbol(tickrModify)) {
-          guiView.setmodifyDialogStatus("Invalid Tickr Symbol is entered!!");
+          guiView.setmodifyDialogStatus("Invalid Tickr Symbol is entered!!." +
+                  " Please enter a valid tickr symbol");
           checkLabel = false;
           guiView.settickrmodifyValue(null);
         } else {
@@ -352,8 +354,10 @@ public class ControllerImplGUI implements ControllerGUI {
         }
       }
       if (checkLabel) {
-        guiView.setmodifyDialogStatus("The portfolio " + pfNameModify +
-                " is successfully modified");
+        guiView.setmodifyDialogStatus("The portfolio " + pfNameModify + " is successfully " +
+                "modified. Make a new purchase/sell on the given portfolio name or give new " +
+                "portfolio name in portfolio name field. Click 'X' on top left if done " +
+                "modifying portfolio.");
         guiView.setdateofmodifynValue(null);
         guiView.settickrmodifyValue(null);
         guiView.setnumstocksmodifyValue(null);
@@ -430,7 +434,9 @@ public class ControllerImplGUI implements ControllerGUI {
       if (checkPortfolioField(pfNameCreate, "save")) {
         portfolio.savePortfolio(this.rootDir + pfNameCreate + ".json",
                 this.addTickr);
-        guiView.setcreateDialogStatus("Successfully created the portfolio " + pfNameCreate);
+        guiView.setcreateDialogStatus("Successfully created the portfolio " + pfNameCreate +
+                ". Give a new portfolio name in the portfolio name field to add more entries." +
+                " Click on 'X' button on top left if done creating.");
       }
     }
   }
@@ -467,7 +473,7 @@ public class ControllerImplGUI implements ControllerGUI {
                            String dateCreate, String commissionCreate)
           throws FileNotFoundException {
     if (checkAllfields(pfNameCreate, tickrCreate, numStocksCreate, dateCreate)) {
-      guiView.setcreateDialogStatus("All the fields are not given!!");
+      guiView.setcreateDialogStatus("All the fields are not given!! Please specify all the fields");
     } else {
       Float commission = 0.0f;
       if (checkPortfolioField(pfNameCreate, "add")) {
@@ -516,7 +522,8 @@ public class ControllerImplGUI implements ControllerGUI {
                              String dateModify, String commissionModify, String statuslabel)
           throws FileNotFoundException, ParseException {
     if (checkAllfields(pfNameModify, tickrModify, numStocksModify, dateModify)) {
-      guiView.setmodifyDialogStatus("All the fields are not given!!");
+      guiView.setmodifyDialogStatus("All the fields are not given!!. Please specify all the " +
+              "fields.");
     } else {
       Float commission = 0.0f;
       if (checkPortfolioField(pfNameModify, "modify")) {
@@ -547,7 +554,7 @@ public class ControllerImplGUI implements ControllerGUI {
           throws FileNotFoundException, ParseException {
     if (pfNamedate == null || pfNamedate.length() == 0 ||
             dateValue == null || dateValue.length() == 0) {
-      guiView.setvalueDialogStatus("All the values are not given!!");
+      guiView.setvalueDialogStatus("All the values are not given!! Please specify all the fields.");
     } else {
       if (checkPortfolioField(pfNamedate, "valDate")) {
         if (checkDateField(dateValue, "valDate")) {
@@ -569,7 +576,8 @@ public class ControllerImplGUI implements ControllerGUI {
   public void validateCostBasis(String pfNameBasis, String dateBasis) throws ParseException {
     if (pfNameBasis == null || pfNameBasis.length() == 0 ||
             dateBasis == null || dateBasis.length() == 0) {
-      guiView.setCostBasisDialogStatus("All the values are not given!!");
+      guiView.setCostBasisDialogStatus("All the values are not given!! " +
+              "Please specify all the fields.");
     } else {
       if (checkPortfolioField(pfNameBasis, "costBasis")) {
         if (checkDateField(dateBasis, "costBasis")) {
@@ -620,7 +628,8 @@ public class ControllerImplGUI implements ControllerGUI {
    */
   public void getCompositionpf(String pfNameComposition) {
     if (pfNameComposition == null || pfNameComposition.length() == 0) {
-      guiView.setretrieveDialogStatus("All the values are not given!!");
+      guiView.setretrieveDialogStatus("All the values are not given!!. " +
+              "Please give all the values.");
     } else {
       if (checkPortfolioField(pfNameComposition, "composition")) {
         JSONObject portfolioObj = portfolio.readPortfolio(this.rootDir +
