@@ -490,7 +490,7 @@ public interface GUIView {
   void setdollardays(String message);
 
   /**
-   * Sets the value for the commission value for the commission field in start to finish dialog pane
+   * Sets the value for the commission field in start to finish dialog pane.
    *
    * @param message is the value
    */

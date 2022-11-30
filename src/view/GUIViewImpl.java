@@ -21,7 +21,6 @@ public class GUIViewImpl extends JFrame implements GUIView {
   private final JLabel valueStatus = new JLabel();
   private JButton inputButton;
   private JButton costBasisButton;
-  private JButton quitButton;
   private JButton createPfButton;
   private JPanel mainJPanel;
   private JPanel userPanel;
@@ -1090,7 +1089,7 @@ public class GUIViewImpl extends JFrame implements GUIView {
   private void getQuitPanel() {
     quitPanel = new JPanel();
     quitPanel.setBorder(BorderFactory.createTitledBorder("Quit the stocks program"));
-    quitButton = new JButton("Quit the Program");
+    JButton quitButton = new JButton("Quit the Program");
     quitButton.addActionListener((ActionEvent e) -> {
       System.exit(0);
     });

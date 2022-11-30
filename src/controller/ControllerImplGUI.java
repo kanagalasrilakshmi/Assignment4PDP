@@ -101,8 +101,9 @@ public class ControllerImplGUI implements ControllerGUI {
           return false;
         case "dollarnew":
           guiView.setdollarnewpanestatus("New Portfolio with name " + pfName + " is created");
-
           return true;
+        default:
+          // do nothing.
       }
     }
     return true;
@@ -139,6 +140,8 @@ public class ControllerImplGUI implements ControllerGUI {
           guiView.setdollarnewpanestatus("Date is not entered in YYYY-DD-MM format!");
           guiView.setenddatenew(null);
           break;
+        default:
+          // do nothing.
       }
       return false;
     } else if (portfolio.checkFutureDate(date) || portfolio.checkTodayDateAndTime(date)) {
@@ -166,6 +169,8 @@ public class ControllerImplGUI implements ControllerGUI {
         case "dollarnewstartdate":
         case "dollarnewenddate":
           return true;
+        default:
+          // nothing
       }
       return false;
     }
@@ -272,6 +277,8 @@ public class ControllerImplGUI implements ControllerGUI {
             guiView.setdollarnewpanestatus("Commission fees given is not a valid number");
             guiView.setdollarcommissionnew(null);
             break;
+          default:
+            // do nothing.
         }
         return false;
       } else if (Float.parseFloat(commissionCreate) < 0) {
@@ -292,6 +299,8 @@ public class ControllerImplGUI implements ControllerGUI {
             guiView.setdollarnewpanestatus("Commission fees cannot be negative!");
             guiView.setdollarcommissionnew(null);
             break;
+          default:
+            // do nothing.
         }
         return false;
       }
@@ -1026,6 +1035,8 @@ public class ControllerImplGUI implements ControllerGUI {
         case "dollarnew":
           guiView.setdollarNewStatus("Please specify the root directory path!!");
           break;
+        default:
+          // do nothing.
       }
     } else {
       String message = portfolio.listJSONfiles(this.rootDir);
@@ -1077,6 +1088,8 @@ public class ControllerImplGUI implements ControllerGUI {
           guiView.setdollarnewpanestatus(null);
           guiView.displayDollarNewpf();
           break;
+        default:
+          // do nothing.
       }
     }
   }

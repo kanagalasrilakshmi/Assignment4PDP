@@ -5,8 +5,8 @@ import org.json.simple.JSONObject;
 import java.util.ArrayList;
 
 /**
- * This interface extends Portfolio interface and adds more methods that are only used while running GUI based view,
- * and applying new strategies.
+ * This interface extends Portfolio interface and adds more methods that are only used,
+ * while running GUI based view and applying new strategies.
  */
 public interface PortfolioStratergy extends Portfolio {
 
@@ -20,8 +20,8 @@ public interface PortfolioStratergy extends Portfolio {
   ArrayList<String> validateTickrEntries(String entry);
 
   /**
-   * This function checks if the sum of the weights is equal to 100, and size of tickr symbols is equal,
-   * to number of weights given .
+   * This function checks if the sum of the weights is equal to 100,
+   * and size of tickr symbols is equal to number of weights given .
    *
    * @param entry         list of all the weight symbols seperated by a comma
    * @param tickrListSize size of the tickr symbols
@@ -30,8 +30,9 @@ public interface PortfolioStratergy extends Portfolio {
   ArrayList<Float> validateStockWeightEntries(String entry, int tickrListSize);
 
   /**
-   * get list of all the dates in the string format YYYY-MM-DD in the range of given from date and to date,
-   * incremented with the given value after number of days the date in the given range needs to be incremented.
+   * get list of all the dates in the string format YYYY-MM-DD in the range of given,
+   * from date and to date incremented with the given value after number of days the date ,
+   * in the given range needs to be incremented.
    *
    * @param from      is starting date
    * @param to        is ending date
@@ -61,7 +62,7 @@ public interface PortfolioStratergy extends Portfolio {
    * strategy lookup json that persists all the portfolios should not be modified.
    * apart from that all other jsons are listed.
    *
-   * @param rootDir is the root directory set by the user or by default(depends on the input given by the user)
+   * @param rootDir is the root directory set by the user or by default
    * @return a string of consisting all the json files present in the given root directory
    */
   String listJSONfiles(String rootDir);
