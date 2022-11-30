@@ -984,7 +984,8 @@ public class GUIViewImpl extends JFrame implements GUIView {
 
   private void getUserPanel() {
     userPanel = new JPanel();
-    userPanel.setBorder(BorderFactory.createTitledBorder("User Path"));
+    userPanel.setBorder(BorderFactory.createTitledBorder("Give a valid input path where you want " +
+            "to store your portfolios. For example: /Users/PDP/PortfolioBucket/"));
     inputButton = new JButton("Create User Path");
     userPanel.add(inputButton);
     pathStore = new JLabel();

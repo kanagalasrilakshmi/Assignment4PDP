@@ -333,7 +333,7 @@ public class ControllerImplGUI implements ControllerGUI {
         }
       } else if (labelStatus.equals("purchase")) {
         if (!portfolio.validateTickrSymbol(tickrModify)) {
-          guiView.setmodifyDialogStatus("INvalid Tickr Symbol is entered!!");
+          guiView.setmodifyDialogStatus("Invalid Tickr Symbol is entered!!");
           checkLabel = false;
           guiView.settickrmodifyValue(null);
         } else {
@@ -1015,25 +1015,32 @@ public class ControllerImplGUI implements ControllerGUI {
     if (this.rootDirUser == null || this.rootDirUser.length() == 0) {
       switch (label) {
         case "costBasis":
-          guiView.setLabelCostBasisStatus("Please specify the root directory path!!");
+          guiView.setLabelCostBasisStatus("Please click 'Create User Path' button to specify " +
+                  "the root directory path!!");
           break;
         case "modify":
-          guiView.setModifyLabelStatus("Please specify the root directory path!!");
+          guiView.setModifyLabelStatus("Please click 'Create User Path' button to specify " +
+                  "the root directory path!!");
           break;
         case "getDateVal":
-          guiView.setValueLabelStatus("Please specify the root directory path!!");
+          guiView.setValueLabelStatus("Please click 'Create User Path' button to specify " +
+                  "the root directory path!!");
           break;
         case "create":
-          guiView.setCreateLabelStatus("Please specify the root directory path!!");
+          guiView.setCreateLabelStatus("Please click 'Create User Path' button to specify " +
+                  "the root directory path!!");
           break;
         case "composition":
-          guiView.setRetrievePanelStatus("Please specify the root directory path!!");
+          guiView.setRetrievePanelStatus("Please click 'Create User Path' button to specify " +
+                  "the root directory path!!");
           break;
         case "dollarexist":
-          guiView.setdollarExistingStatus("Please specify the root directory path!!");
+          guiView.setdollarExistingStatus("Please click 'Create User Path' button to specify " +
+                  "the root directory path!!");
           break;
         case "dollarnew":
-          guiView.setdollarNewStatus("Please specify the root directory path!!");
+          guiView.setdollarNewStatus("Please click 'Create User Path' button to specify " +
+                  "the root directory path!!");
           break;
         default:
           // do nothing.
