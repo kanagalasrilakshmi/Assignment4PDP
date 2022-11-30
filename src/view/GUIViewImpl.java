@@ -28,14 +28,12 @@ public class GUIViewImpl extends JFrame implements GUIView {
   ValuePanel valueDatePanelObj = new ValuePanelImpl();
   CostBasisPanel costBasisPanelObj = new CostBasisPanelImpl();
   retrievePanel retrievePanelObj = new retrievePanelImpl();
+  Dollarstrategyexist dollarPanelExistingObj = new DollarstrategyexistImpl();
   private JPanel mainJPanel;
-  private JPanel dollarPanelExisting;
   private JPanel dollarPanelNew;
-
-  private JLabel dollarExistingStatus;
   private JLabel dollarNewStatus;
   private final JButton getCostBasis = new JButton("Compute Cost Basis");
-  private JButton dollarCostExisting;
+
   private JButton dollarCostNew;
   private JTextField pfName;
   private JTextField date;
@@ -1028,7 +1026,7 @@ public class GUIViewImpl extends JFrame implements GUIView {
    * @param message that needs to be set for applying dollar strategy on existing portfolio
    */
   public void setdollarExistingStatus(String message) {
-    this.dollarExistingStatus.setText(message);
+    dollarPanelExistingObj.getDollarExistingStatus().setText(message);
   }
 
   /**
@@ -1042,15 +1040,7 @@ public class GUIViewImpl extends JFrame implements GUIView {
     this.dollarNewStatus.setText(message);
   }
 
-  private void getDollarCostExisting() {
-    dollarPanelExisting = new JPanel();
-    dollarCostExisting = new JButton("Calculate dollar cost averaging for existing portfolio");
-    dollarPanelExisting.setBorder(BorderFactory.createTitledBorder("Create dollar cost " +
-            "averaging for existing flexible portfolios"));
-    dollarExistingStatus = new JLabel();
-    dollarPanelExisting.add(dollarCostExisting);
-    dollarPanelExisting.add(dollarExistingStatus);
-  }
+
 
   private void getDollarCostNew() {
     dollarPanelNew = new JPanel();
@@ -1073,7 +1063,7 @@ public class GUIViewImpl extends JFrame implements GUIView {
     valueDatePanelObj.valDatePanel();
     costBasisPanelObj.costBasisPanel();
     retrievePanelObj.retrievePfPanel();
-    getDollarCostExisting();
+    dollarPanelExistingObj.dollarCostExisting();
     getDollarCostNew();
     QuitPanel quitPanelObj = new QuitPanelImpl();
     quitPanelObj.getQuitPanel();
@@ -1083,7 +1073,7 @@ public class GUIViewImpl extends JFrame implements GUIView {
     mainJPanel.add(costBasisPanelObj.getcostBasisPanel());
     mainJPanel.add(valueDatePanelObj.getValueDatePanel());
     mainJPanel.add(retrievePanelObj.getRetrievePanel());
-    mainJPanel.add(dollarPanelExisting);
+    mainJPanel.add(dollarPanelExistingObj.getDollarCostExisting());
     mainJPanel.add(dollarPanelNew);
     mainJPanel.add(quitPanelObj.quitPanelfinal());
     add(mainJPanel);
@@ -1158,7 +1148,8 @@ public class GUIViewImpl extends JFrame implements GUIView {
             features.displayDialogPane("composition"));
     computecomposition.addActionListener(evt ->
             features.getCompositionpf(this.pfnameretrieve.getText()));
-    dollarCostExisting.addActionListener(evt -> features.displayDialogPane("dollarexist"));
+    dollarPanelExistingObj.returndollarCostExisting().addActionListener(evt ->
+            features.displayDialogPane("dollarexist"));
     dollarCostNew.addActionListener(evt -> features.displayDialogPane("dollarnew"));
     dollarexistcreate.addActionListener(evt -> features.validateExistingDollar(
             stratergydollarexistname.getText(), dollarexistpfname.getText(),

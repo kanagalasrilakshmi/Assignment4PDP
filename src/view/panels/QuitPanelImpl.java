@@ -1,7 +1,4 @@
 package view.panels;
-
-import view.panels.QuitPanel;
-
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 
