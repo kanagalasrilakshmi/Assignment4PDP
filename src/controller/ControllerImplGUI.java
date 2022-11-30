@@ -12,8 +12,6 @@ import java.nio.file.Paths;
 import java.text.ParseException;
 import java.util.ArrayList;
 
-import javax.swing.*;
-
 import model.PortfolioStratergy;
 import view.GUIView;
 
@@ -237,8 +235,9 @@ public class ControllerImplGUI implements ControllerGUI {
                                             String dollarexistdate) {
     return stratergydollarexistname == null || dollarexistpfname == null || stocksexist == null ||
             weightsexist == null || dollarexistval == null || dollarexistdate == null ||
-            stratergydollarexistname.length() == 0 || dollarexistpfname.length() == 0 || stocksexist.length() == 0
-            || weightsexist.length() == 0 || dollarexistval.length() == 0 || dollarexistdate.length() == 0;
+            stratergydollarexistname.length() == 0 || dollarexistpfname.length() == 0 ||
+            stocksexist.length() == 0 || weightsexist.length() == 0 || dollarexistval.length() == 0
+            || dollarexistdate.length() == 0;
   }
 
   private boolean checkAllFieldsDollarNew(String stratergydollarnewname,
@@ -807,8 +806,9 @@ public class ControllerImplGUI implements ControllerGUI {
         if (stkeyObj.get("end_date") == null) {
           // check if the given date is future date or not.
           finalObj = portfolio.dollarCostExisting((ArrayList<String>) stkeyObj.get("stock_list"),
-                  (ArrayList<Float>) stkeyObj.get("weight_list"), (float) stkeyObj.get("commission_fee"),
-                  (float) stkeyObj.get("investment"), (String) strategyObj.get("start_date"), portfolioObj);
+                  (ArrayList<Float>) stkeyObj.get("weight_list"),
+                  (float) stkeyObj.get("commission_fee"), (float) stkeyObj.get("investment"),
+                  (String) strategyObj.get("start_date"), portfolioObj);
         } else {
           // check if start date is future date.
           // if so then do not add any entry.
@@ -1098,8 +1098,8 @@ public class ControllerImplGUI implements ControllerGUI {
    * Runs the go stocks program by setting GUI view visible and passing class to,
    * add features method in gui for letting buttons with action listeners to run functionalities.
    *
-   * @throws ParseException
-   * @throws IOException
+   * @throws ParseException if error occurs while parsing
+   * @throws IOException    if error while parsing input
    */
   public void goStocks() throws ParseException, IOException {
     guiView.makeVisible();
