@@ -1107,9 +1107,7 @@ public class GUIViewImpl extends JFrame implements GUIView {
     quitPanel = new JPanel();
     quitPanel.setBorder(BorderFactory.createTitledBorder("Quit the stocks program"));
     JButton quitButton = new JButton("Quit the Program");
-    quitButton.addActionListener((ActionEvent e) -> {
-      System.exit(0);
-    });
+    quitButton.addActionListener((ActionEvent e) -> System.exit(0));
     quitPanel.add(quitButton);
   }
 
@@ -1189,9 +1187,7 @@ public class GUIViewImpl extends JFrame implements GUIView {
                 this.tickrmodify.getText().toUpperCase(), this.numstocksmodify.getText(),
                 this.dateofmodify.getText(), this.commissionfessmodify.getText(),
                 "purchase");
-      } catch (FileNotFoundException e) {
-        throw new RuntimeException(e);
-      } catch (ParseException e) {
+      } catch (FileNotFoundException | ParseException e) {
         throw new RuntimeException(e);
       }
     });
@@ -1201,9 +1197,7 @@ public class GUIViewImpl extends JFrame implements GUIView {
                 this.tickrmodify.getText().toUpperCase(),
                 this.numstocksmodify.getText(), this.dateofmodify.getText(),
                 this.commissionfessmodify.getText(), "sell");
-      } catch (FileNotFoundException e) {
-        throw new RuntimeException(e);
-      } catch (ParseException e) {
+      } catch (FileNotFoundException | ParseException e) {
         throw new RuntimeException(e);
       }
     });
@@ -1211,9 +1205,7 @@ public class GUIViewImpl extends JFrame implements GUIView {
     computeval.addActionListener(evt -> {
       try {
         features.validateDateVal(this.pfnamevalue.getText(), this.datevalue.getText());
-      } catch (FileNotFoundException e) {
-        throw new RuntimeException(e);
-      } catch (ParseException e) {
+      } catch (FileNotFoundException | ParseException e) {
         throw new RuntimeException(e);
       }
     });
