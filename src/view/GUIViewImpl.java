@@ -315,14 +315,18 @@ public class GUIViewImpl extends JFrame implements GUIView {
     this.pfnamecreate = new JTextField(25);
     JLabel pfNameLabel = new JLabel("Enter Portfolio Name to be created: ");
     dateofcreation = new JTextField(25);
-    JLabel dateLabel = new JLabel("Enter the date of purchase in YYYY-MM-DD format: ");
-    JLabel numstocksLabel = new JLabel("Enter number of stocks to purchase: ");
+    JLabel dateLabel = new JLabel("Enter the date of purchase in YYYY-MM-DD format. " +
+            "Ex: 2022-02-01 :");
+    JLabel numstocksLabel = new JLabel("Enter number of stocks to purchase. Negative " +
+            "and Fractional stock values are not allowed :");
     numstockscreate = new JTextField(25);
-    JLabel tickrLabel = new JLabel("Enter Tickr symbol: ");
+    JLabel tickrLabel = new JLabel("Enter Tickr symbol of a company you want to purchase." +
+            " Ex: for company google tickr symbol - GOOG :");
     tickrcreate = new JTextField(25);
-    JLabel commissionLabel = new JLabel("Enter commission fees: ");
+    JLabel commissionLabel = new JLabel("Enter commission fees. Negative values are not " +
+            "allowed :");
     commissionfeescreate = new JTextField(25);
-    createPanelDialog.setPreferredSize(new Dimension(700, 300));
+    createPanelDialog.setPreferredSize(new Dimension(1400, 300));
     createPanelDialog.setLayout(new BoxLayout(createPanelDialog, BoxLayout.Y_AXIS));
     createPanelDialog.add(pfNameLabel);
     createPanelDialog.add(pfnamecreate);
@@ -337,7 +341,6 @@ public class GUIViewImpl extends JFrame implements GUIView {
     createPanelDialog.add(add);
     createPanelDialog.add(save);
     createPanelDialog.add(createDialogStatus);
-
     return createPanelDialog;
   }
 
@@ -461,7 +464,6 @@ public class GUIViewImpl extends JFrame implements GUIView {
   public void setcreateDialogStatus(String message) {
     createDialogStatus.setText(message);
   }
-
   /**
    * Set the status of the modify dialog pane based on the given inputs.
    * If no fields are set then set it to fields are empty, if inputs given are invalid,
@@ -994,7 +996,9 @@ public class GUIViewImpl extends JFrame implements GUIView {
 
   private void getCreatePanel() {
     createPanel = new JPanel();
-    createPanel.setBorder(BorderFactory.createTitledBorder("Create Flexible Portfolio"));
+    createPanel.setBorder(BorderFactory.createTitledBorder("Give a valid name for the portfolio " +
+            "you want to create. Name should not have spaces, special characters and " +
+            "length less than 25 characters."));
     createPfButton = new JButton("Create a New Portfolio");
     createStatus = new JLabel();
     createPanel.add(createPfButton);

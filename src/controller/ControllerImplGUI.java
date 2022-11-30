@@ -62,7 +62,8 @@ public class ControllerImplGUI implements ControllerGUI {
     if (fileCheck && !(pfName.equals("stratergyLookup"))) {
       if (label.equals("add") || label.equals("save")) {
         guiView.setcreateDialogStatus("Portfolio with this name " +
-                pfName + " already exists!!");
+                pfName + " already exists!! please type a new portfolio name in the " +
+                "enter portfolio name field.");
         guiView.setCreatePfValue(null);
         return false;
       } else if (label.equals("dollarnew")) {
@@ -111,31 +112,38 @@ public class ControllerImplGUI implements ControllerGUI {
     if (!(portfolio.checkIfRightFormat(date)) || date.length() < 10) {
       switch (label) {
         case "add":
-          guiView.setcreateDialogStatus("Date is not entered in YYYY-DD-MM format!");
+          guiView.setcreateDialogStatus("Date is not entered in YYYY-DD-MM format! " +
+                  "Please enter a valid format date.");
           guiView.setdateofcreationValue(null);
           break;
         case "modify":
-          guiView.setmodifyDialogStatus("Date is not entered in YYYY-DD-MM format!");
+          guiView.setmodifyDialogStatus("Date is not entered in YYYY-DD-MM format! " +
+                  "Please enter a valid format date.");
           guiView.setdateofmodifynValue(null);
           break;
         case "costBasis":
-          guiView.setCostBasisDialogStatus("Date is not entered in YYYY-DD-MM format!");
+          guiView.setCostBasisDialogStatus("Date is not entered in YYYY-DD-MM format! " +
+                  "Please enter a valid format date.");
           guiView.setDate(null);
           break;
         case "valDate":
-          guiView.setvalueDialogStatus("Date is not entered in YYYY-DD-MM format!");
+          guiView.setvalueDialogStatus("Date is not entered in YYYY-DD-MM format! " +
+                  "Please enter a valid format date.");
           guiView.setdateVal(null);
           break;
         case "dollarexist":
-          guiView.setdollarexistpanestatus("Date is not entered in YYYY-DD-MM format!");
+          guiView.setdollarexistpanestatus("Date is not entered in YYYY-DD-MM format! " +
+                  "Please enter a valid format date.");
           guiView.setdollardateexist(null);
           break;
         case "dollarnewstartdate":
-          guiView.setdollarnewpanestatus("Date is not entered in YYYY-DD-MM format!");
+          guiView.setdollarnewpanestatus("Date is not entered in YYYY-DD-MM format! " +
+                  "Please enter a valid format date.");
           guiView.setstartdatenew(null);
           break;
         case "dollarnewenddate":
-          guiView.setdollarnewpanestatus("Date is not entered in YYYY-DD-MM format!");
+          guiView.setdollarnewpanestatus("Date is not entered in YYYY-DD-MM format! " +
+                  "Please enter a valid format date.");
           guiView.setenddatenew(null);
           break;
         default:
@@ -316,7 +324,7 @@ public class ControllerImplGUI implements ControllerGUI {
       boolean checkLabel = true;
       if (labelStatus.equals("sell")) {
         if (!portfolio.ifTickrInPf(this.rootDir + pfNameModify + ".json", tickrModify)) {
-          guiView.setmodifyDialogStatus("No stocks for this tickr exists to sell.");
+          guiView.setmodifyDialogStatus("No stocks for this tickr symbol exists to sell.");
           checkLabel = false;
           guiView.settickrmodifyValue(null);
         } else if (!portfolio.checkValidSell(this.rootDir + pfNameModify + ".json",
@@ -475,8 +483,10 @@ public class ControllerImplGUI implements ControllerGUI {
                 JSONArray listEntry = new JSONArray();
                 listEntry.add(addEntry);
                 this.addTickr.put(tickrCreate, listEntry);
-                guiView.setcreateDialogStatus("Entry added sucessfully!. Click Add to add more " +
-                        "entries or Save to save the portfolio.");
+                guiView.setcreateDialogStatus("Entry added successfully!.Click 'Add' to add " +
+                        "more entries or 'Save' to save portfolio.Give new name in the " +
+                        "portfolio name field to create a new portfolio. Close this pane by " +
+                        "clicking on 'X' button on top left if done saving.");
                 guiView.settickrcreateValue(null);
                 guiView.setnumstockscreateValue(null);
                 guiView.setdateofcreationValue(null);
