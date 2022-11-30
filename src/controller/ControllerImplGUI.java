@@ -643,10 +643,10 @@ public class ControllerImplGUI implements ControllerGUI {
   private boolean checkBatchTickrField(String stocksexist, String label) {
     if (portfolio.checkforInvalidcharacters(stocksexist)) {
       if (label.equals("dollarexist")) {
-        guiView.setdollarexistpanestatus("Wrong Format is entered!!");
+        guiView.setdollarexistpanestatus("Wrong Format is entered!! Please enter valid format.");
         guiView.setstocksexist(null);
       } else if (label.equals("dollarnew")) {
-        guiView.setdollarnewpanestatus("Wrong format is entered!!");
+        guiView.setdollarnewpanestatus("Wrong format is entered!! Please enter valid format.");
         guiView.setstocksnew(null);
       }
       return false;
@@ -654,20 +654,22 @@ public class ControllerImplGUI implements ControllerGUI {
       ArrayList<String> stocks = portfolio.validateTickrEntries(stocksexist);
       if (stocks.size() == 0) {
         if (label.equals("dollarexist")) {
-          guiView.setdollarexistpanestatus("Invalid Tickr symbol is entered!!");
+          guiView.setdollarexistpanestatus("Invalid Tickr symbol is entered!! " +
+                  "Please enter valid tickr symbols.");
           guiView.setstocksexist(null);
         } else if (label.equals("dollarnew")) {
-          guiView.setdollarnewpanestatus("Invalid Tickr symbol is entered!!");
+          guiView.setdollarnewpanestatus("Invalid Tickr symbol is entered!! " +
+                  "Please enter valid tickr symbols.");
           guiView.setstocksnew(null);
         }
         return false;
       } else {
         if (portfolio.checkDuplicates(stocks)) {
           if (label.equals("dollarexist")) {
-            guiView.setdollarexistpanestatus("Duplicate tickr symbols exist!!");
+            guiView.setdollarexistpanestatus("Duplicate tickr symbols exist in the given entry!!");
             guiView.setstocksexist(null);
           } else if (label.equals("dollarnew")) {
-            guiView.setdollarnewpanestatus("Duplicate tickr symbols exist!!");
+            guiView.setdollarnewpanestatus("Duplicate tickr symbols exist in the given entry!!");
             guiView.setstocksnew(null);
           }
           return false;
@@ -680,11 +682,13 @@ public class ControllerImplGUI implements ControllerGUI {
   private boolean checkBatchWeightFields(String weightsexist, String label) {
     if (!portfolio.validateWeightFormat(weightsexist)) {
       if (label.equals("dollarexist")) {
-        guiView.setdollarexistpanestatus("Format of the the weights is not correct");
+        guiView.setdollarexistpanestatus("Format of the the weights is not correct!! " +
+                "Please enter valid format.");
         guiView.setweightsexist(null);
         return false;
       } else if (label.equals("dollarnew")) {
-        guiView.setdollarnewpanestatus("Format of the the weights is not correct");
+        guiView.setdollarnewpanestatus("Format of the the weights is not correct!! " +
+                "Please enter valid format.");
         guiView.setweightsnew(null);
         return false;
       }
@@ -692,11 +696,13 @@ public class ControllerImplGUI implements ControllerGUI {
       ArrayList<Float> weights = portfolio.validateWeightEntriesSum(weightsexist);
       if (weights.size() == 0) {
         if (label.equals("dollarexist")) {
-          guiView.setdollarexistpanestatus("Sum of the given weights is not equal to 100%");
+          guiView.setdollarexistpanestatus("Sum of the given weights is not equal to 100%, " +
+                  "Please enter valid weights whose total sum is 100%");
           guiView.setweightsexist(null);
           return false;
         } else if (label.equals("dollarnew")) {
-          guiView.setdollarnewpanestatus("Sum of the given weights is not equal to 100%");
+          guiView.setdollarnewpanestatus("Sum of the given weights is not equal to 100%, " +
+                  "Please enter valid weights whose total sum is 100%");
           guiView.setweightsnew(null);
           return false;
         }
@@ -715,12 +721,12 @@ public class ControllerImplGUI implements ControllerGUI {
     if (checkingtickrweights.size() == 0) {
       if (label.equals("dollarexist")) {
         guiView.setdollarexistpanestatus("The number of tickr symbols given and the number " +
-                "corresponding weights given do not match");
+                "corresponding weights given do not match. Please enter valid entries.");
         guiView.setstocksexist(null);
         guiView.setweightsexist(null);
       } else if (label.equals("dollarnew")) {
         guiView.setdollarnewpanestatus("The number of tickr symbols given and the number " +
-                "corresponding weights given do not match");
+                "corresponding weights given do not match. Please enter valid entries.");
         guiView.setstocksnew(null);
         guiView.setweightsnew(null);
       }
@@ -733,7 +739,7 @@ public class ControllerImplGUI implements ControllerGUI {
     if (!portfolio.checkValidInteger(dollarexistval) &&
             !portfolio.checkValidFloat(dollarexistval)) {
       if (label.equals("dollarexist")) {
-        guiView.setdollarexistpanestatus("Money can be either an integer or a float value!!");
+        guiView.setdollarexistpanestatus("Money can be either an integer or a float value only!!");
         guiView.setdollarexistval(null);
       } else if (label.equals("dollarnew")) {
         guiView.setdollarnewpanestatus("Money can be either an integer or a float value!!");
@@ -856,7 +862,8 @@ public class ControllerImplGUI implements ControllerGUI {
           throws ParseException {
     if (label.equals("dollarnew")) {
       if (!portfolio.checkValidDates(dollarnewstartdate, dollarnewenddate)) {
-        guiView.setdollarnewpanestatus("Value given for start date is ahead of the given end date");
+        guiView.setdollarnewpanestatus("Value given for start date is ahead of the given end " +
+                "date, Please enter valid dates");
         guiView.setstartdatenew(null);
         guiView.setenddatenew(null);
         return false;
@@ -867,7 +874,7 @@ public class ControllerImplGUI implements ControllerGUI {
       } else if ((portfolio.checkDifference(dollarnewstartdate, dollarnewenddate) <
               Integer.parseInt(dollarnewdays))) {
         guiView.setdollarnewpanestatus("The number of days between start and end date is less " +
-                "than the given frequency!!");
+                "than the given frequency!! Please enter valid start date, end date and frequency");
         guiView.setstartdatenew(null);
         guiView.setenddatenew(null);
         guiView.setenddatenew(null);
@@ -917,7 +924,8 @@ public class ControllerImplGUI implements ControllerGUI {
                             weightsexist, commission, dollarexistval, dollarexistdate,
                             null, 0);
                     guiView.setdollarexistpanestatus("Strategy successfully applied to the " +
-                            "portfolio" + dollarexistpfname);
+                            "portfolio" + dollarexistpfname + " Can apply a new strategy " +
+                            "on another existing portfolio. If done click on 'X' on top left");
                     guiView.setdollardateexist(null);
                     guiView.setdollarexistcommisionval(null);
                     guiView.setstocksexist(null);
@@ -991,7 +999,9 @@ public class ControllerImplGUI implements ControllerGUI {
                                 dollarnewstartdate, dollarnewenddate,
                                 Integer.parseInt(dollarnewdays));
                         guiView.setdollarnewpanestatus("Strategy successfully applied to the " +
-                                "portfolio " + dollarnewcreatepfname);
+                                "portfolio " + dollarnewcreatepfname + " Can apply new strategy " +
+                                "on the same portfolio or create a new portfolio. " +
+                                "If done click on 'X' on top left");
                         guiView.setenddatenew(null);
                         guiView.setstartdatenew(null);
                         guiView.setdollardays(null);
