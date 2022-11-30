@@ -1,12 +1,19 @@
 package view;
 
-import java.awt.*;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
+import javax.swing.BorderFactory;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextArea;
 import java.io.FileNotFoundException;
 import java.text.ParseException;
-
-import javax.swing.*;
-
+import javax.swing.JDialog;
+import javax.swing.JTextField;
 import controller.ControllerGUI;
 
 /**
