@@ -37,7 +37,7 @@ public class GUIViewImpl extends JFrame implements GUIView {
   private JLabel dollarNewStatus;
   private JPanel retrievePanel;
   private JButton retrievePf = new JButton("Retrieve Portfolio");
-  private JButton getCostBasis;
+  private JButton getCostBasis = new JButton("Compute Cost Basis");
   private JButton dollarCostExisting;
   private JButton dollarCostNew;
   private JLabel costBasisStatus = new JLabel();
@@ -1046,27 +1046,6 @@ public class GUIViewImpl extends JFrame implements GUIView {
     this.dollarNewStatus.setText(message);
   }
 
-  private void getCostBasisPanel() {
-    getCostBasis = new JButton("Compute Cost Basis");
-    costBasisPanel = new JPanel();
-    costBasisPanel.setBorder(BorderFactory.createTitledBorder("Get Cost Basis of portfolio till a" +
-            " specific date "));
-    costBasisButton = new JButton("Get cost basis");
-    costBasisPanel.add(costBasisButton);
-    costBasisStatus = new JLabel();
-    costBasisPanel.add(costBasisStatus);
-  }
-
-  private void getRetrievePfPanel() {
-    retrievePanel = new JPanel();
-    retrievePf = new JButton("Retrieve Portfolio");
-    retrievePanel.setBorder(BorderFactory.createTitledBorder("Retrieve Composition of a " +
-            "flexible portfolio"));
-    retrievePanel.add(retrievePf);
-    retrievePanelStatus = new JLabel();
-    retrievePanel.add(retrievePanelStatus);
-  }
-
   private void getDollarCostExisting() {
     dollarPanelExisting = new JPanel();
     dollarCostExisting = new JButton("Calculate dollar cost averaging for existing portfolio");
@@ -1161,7 +1140,8 @@ public class GUIViewImpl extends JFrame implements GUIView {
         throw new RuntimeException(e);
       }
     });
-    valueDatePanelObj.returnValueButton().addActionListener(evt -> features.displayDialogPane("getDateVal"));
+    valueDatePanelObj.returnValueButton().addActionListener(evt ->
+            features.displayDialogPane("getDateVal"));
     computeval.addActionListener(evt -> {
       try {
         features.validateDateVal(this.pfnamevalue.getText(), this.datevalue.getText());
