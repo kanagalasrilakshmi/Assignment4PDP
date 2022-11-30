@@ -14,7 +14,9 @@ import model.Portfolio;
 import model.PortfolioNewStratergy;
 import model.PortfolioStratergy;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
 
 /**
  * Test class for testing the Flexible portfolios.
@@ -52,7 +54,8 @@ public class PortfolioNewStrategyTest {
             portfolioObj.validateTickrEntries("GOOG, MSFT,TSLA")));
     assertEquals("[GOOG, TSLA, MSFT]", String.valueOf(
             portfolioObj.validateTickrEntries("GOOG,  TSLA,  MSFT")));
-    assertEquals("[]", String.valueOf(portfolioObj.validateTickrEntries(",,,GOOG,*@,234,TSLA," +
+    assertEquals("[]",
+            String.valueOf(portfolioObj.validateTickrEntries(",,,GOOG,*@,234,TSLA," +
             "MSFT")));
   }
 
@@ -72,22 +75,28 @@ public class PortfolioNewStrategyTest {
   @Test
   public void getAllDatesUsingStep() {
     PortfolioStratergy portfolioObj = new PortfolioNewStratergy();
-    assertEquals("[2022-01-03, 2022-01-07, 2022-01-11, 2022-01-17, 2022-01-21, 2022-01-25, 2022-01-31]",
-            portfolioObj.getAllDatesUsingStep("2022-01-01", "2022-02-02", 4).toString());
+    assertEquals("[2022-01-03, 2022-01-07, 2022-01-11, 2022-01-17, 2022-01-21, " +
+                    "2022-01-25, 2022-01-31]",
+            portfolioObj.getAllDatesUsingStep(
+                    "2022-01-01", "2022-02-02", 4).toString());
   }
 
   @Test
   public void getAllDatesUsingStepSatSunday() {
     PortfolioStratergy portfolioObj = new PortfolioNewStratergy();
-    assertEquals("[2022-11-01, 2022-11-07, 2022-11-11, 2022-11-15, 2022-11-21, 2022-11-25, 2022-11-29]",
-            portfolioObj.getAllDatesUsingStep("2022-11-01", "2022-12-01", 4).toString());
+    assertEquals("[2022-11-01, 2022-11-07, 2022-11-11, 2022-11-15, 2022-11-21, " +
+                    "2022-11-25, 2022-11-29]",
+            portfolioObj.getAllDatesUsingStep(
+                    "2022-11-01", "2022-12-01", 4).toString());
   }
 
   @Test
   public void getAllDatesUsingStepOngoing() {
     PortfolioStratergy portfolioObj = new PortfolioNewStratergy();
-    assertEquals("[2022-11-01, 2023-01-02, 2023-03-03, 2023-05-02, 2023-07-03, 2023-09-01, 2023-10-31]",
-            portfolioObj.getAllDatesUsingStep("2022-11-01", "", 60).toString());
+    assertEquals("[2022-11-01, 2023-01-02, 2023-03-03, 2023-05-02, 2023-07-03, " +
+                    "2023-09-01, 2023-10-31]",
+            portfolioObj.getAllDatesUsingStep(
+                    "2022-11-01", "", 60).toString());
   }
 
   @Test
@@ -135,7 +144,8 @@ public class PortfolioNewStrategyTest {
   public void saveStrategyNewPf() {
     Portfolio portfolioObj = new PortfolioNewStratergy();
     PortfolioStratergy strategyPortfolioObj = new PortfolioNewStratergy();
-    String path = System.getProperty("user.home") + "/Desktop/PortfolioBucket/" + "pfStrategyLookUp.json";
+    String path = System.getProperty("user.home") + "/Desktop/PortfolioBucket/"
+            + "pfStrategyLookUp.json";
     ArrayList<String> tickrs = new ArrayList<>();
     tickrs.add("GOOG");
     tickrs.add("MSFT");
@@ -153,7 +163,8 @@ public class PortfolioNewStrategyTest {
   public void saveStrategyExistingPf() {
     Portfolio portfolioObj = new PortfolioNewStratergy();
     PortfolioStratergy strategyPortfolioObj = new PortfolioNewStratergy();
-    String path = System.getProperty("user.home") + "/Desktop/PortfolioBucket/" + "pfStrategyLookUp.json";
+    String path = System.getProperty("user.home") + "/Desktop/PortfolioBucket/"
+            + "pfStrategyLookUp.json";
     ArrayList<String> tickrs = new ArrayList<>();
     tickrs.add("GOOG");
     tickrs.add("MSFT");
@@ -176,7 +187,8 @@ public class PortfolioNewStrategyTest {
   public void saveStrategyExistingPf2() {
     Portfolio portfolioObj = new PortfolioNewStratergy();
     PortfolioStratergy strategyPortfolioObj = new PortfolioNewStratergy();
-    String path = System.getProperty("user.home") + "/Desktop/PortfolioBucket/" + "pfStrategyLookUp.json";
+    String path = System.getProperty("user.home") + "/Desktop/PortfolioBucket/"
+            + "pfStrategyLookUp.json";
     ArrayList<String> tickrs = new ArrayList<>();
     tickrs.add("GOOG");
     tickrs.add("MSFT");

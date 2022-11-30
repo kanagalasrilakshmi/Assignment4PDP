@@ -20,7 +20,9 @@ import model.Portfolio;
 import model.PortfolioImpl;
 import view.ViewImpl;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
 
 /**
  * Test class for testing  Portfolio (Model) functions.

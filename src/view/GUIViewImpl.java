@@ -11,8 +11,8 @@ import controller.ControllerGUI;
 
 /**
  * Class that implements interface methods of the gui view for creating flexible portfolio,
- * for modifying the portfolio, retrieving the portfolio, getting cost basis, value of the portfolio,
- * applying dollar cost strategies.
+ * for modifying the portfolio, retrieving the portfolio, getting cost basis,
+ * value of the portfolio, applying dollar cost strategies.
  */
 public class GUIViewImpl extends JFrame implements GUIView {
   private JLabel pathStore;
@@ -106,8 +106,10 @@ public class GUIViewImpl extends JFrame implements GUIView {
   private final JLabel dollarexistpanestatus = new JLabel();
 
   /**
-   * Class for implementing GUIView interface and implementing GUI based view for flexible portfolios,
-   * and implement dollar cost averaging strategy. Helps provide graphical interface for viewing, creating, modifying,
+   * Class for implementing GUIView interface.
+   * implementing GUI based view for flexible portfolios,
+   * and implement dollar cost averaging strategy.
+   * Helps provide graphical interface for viewing, creating, modifying,
    * and applying strategies using gui based interface.
    */
   public GUIViewImpl() {
@@ -142,10 +144,11 @@ public class GUIViewImpl extends JFrame implements GUIView {
   }
 
   /**
-   * While applying dollar strategy on existing portfolio the name of the strategy field is set to null,
+   * While applying dollar strategy on existing portfolio,
+   * the name of the strategy field is set to null,
    * if user gives invalid input or the strategy is set.
    *
-   * @param message is the value that needs to be set for the strategy field in existing dollar portfolio pane
+   * @param message is the value to be set for the strategy field in existing dollar portfolio pane
    */
   public void setstrategynameexist(String message) {
     this.stratergydollarexistname.setText(message);
@@ -164,7 +167,8 @@ public class GUIViewImpl extends JFrame implements GUIView {
 
   /**
    * Set the status of the existing dollar strategy pane based on the user inputs.
-   * Tells if portfolio strategy is applied, or the dialog pane is closed or not or any invalid inputs is given.
+   * Tells if portfolio strategy is applied, or the dialog pane is closed ,
+   * or not or any invalid inputs is given.
    *
    * @param message set the status of the panel based on the user inputs given
    */
@@ -183,8 +187,9 @@ public class GUIViewImpl extends JFrame implements GUIView {
   }
 
   /**
-   * Set the money to be invested in dollars while creating start-to-finish portfolio based on the input given.
-   * If the user gives invalid values or the dialog pane is closed this field is set to null.
+   * Set the money to be invested in dollars while creating start-to-finish portfolio,
+   * based on the input given.if the user gives invalid values or the dialog pane is closed,
+   * this field is set to null.
    *
    * @param message is the value that needs to be set for the value field
    */
@@ -234,7 +239,8 @@ public class GUIViewImpl extends JFrame implements GUIView {
 
   /**
    * Set the weights value field while applying start-to-finish dollar cost averaging.
-   * If the user gives invalid format ,sum not equals to 100 or the dialog pane is closed this field is set to null.
+   * If the user gives invalid format ,sum not equals to 100 or the dialog pane,
+   * is closed this field is set to null.
    *
    * @param message is the value that needs to be set for the weights input field
    */
@@ -244,7 +250,8 @@ public class GUIViewImpl extends JFrame implements GUIView {
 
   /**
    * Set the stocks value field while applying start-to-finish dollar cost averaging.
-   * If the user gives invalid format, or invalid tickr symbols or the dialog pane is closed this field is set to null.
+   * If the user gives invalid format, or invalid tickr symbols or the dialog pane,
+   * is closed this field is set to null.
    *
    * @param message is the value that needs to be set for the stocks input field
    */
@@ -254,7 +261,8 @@ public class GUIViewImpl extends JFrame implements GUIView {
 
   /**
    * Set the stocks value field while applying dollar averaging on existing portfolio.
-   * If the user gives invalid format, or invalid tickr symbols or the dialog pane is closed this field is set to null.
+   * If the user gives invalid format, or invalid tickr symbols or the dialog pane,
+   * is closed this field is set to null.
    *
    * @param message is the value that needs to be set for the stocks input field
    */
@@ -264,7 +272,8 @@ public class GUIViewImpl extends JFrame implements GUIView {
 
   /**
    * Set the weights value field while applying dollar averaging on existing portfolio.
-   * If the user gives invalid format ,sum not equals to 100 or the dialog pane is closed this field is set to null.
+   * If the user gives invalid format ,sum not equals to 100 or the dialog pane,
+   * is closed this field is set to null.
    *
    * @param message is the value that needs to be set for the weights input field
    */
@@ -274,7 +283,8 @@ public class GUIViewImpl extends JFrame implements GUIView {
 
 
   /**
-   * Set the money to be invested in dollars while applying dollar cost averaging on the existing portfolio.
+   * Set the money to be invested in dollars,
+   * while applying dollar cost averaging on the existing portfolio.
    * If the user gives invalid values or the dialog pane is closed this field is set to null.
    *
    * @param message is values that needs to be set for the value field
@@ -285,7 +295,8 @@ public class GUIViewImpl extends JFrame implements GUIView {
 
   /**
    * Set the status of the start-to-finish dollar strategy pane based on the user inputs.
-   * Tells if portfolio strategy is applied, or the dialog pane is closed or not or any invalid inputs is given.
+   * Tells if portfolio strategy is applied, or the dialog pane is closed,
+   * or not or any invalid inputs is given.
    *
    * @param message set the status of the panel based on the user inputs given
    */
@@ -336,7 +347,8 @@ public class GUIViewImpl extends JFrame implements GUIView {
 
   /**
    * Set the date of purchase of the stock while creating new flexible portfolio.
-   * If invalid date format, future date is given or dialog pane is closed then this field is set to null.
+   * If invalid date format, future date is given or dialog pane is closed,
+   * then this field is set to null.
    *
    * @param message is value that needs to be set for the date field
    */
@@ -356,7 +368,8 @@ public class GUIViewImpl extends JFrame implements GUIView {
   }
 
   /**
-   * Set the tickr value for which company stocks needs to be purchased while creating a flexible portfolio.
+   * Set the tickr value for which company stocks needs to be purchased,
+   * while creating a flexible portfolio.
    * If invalid tickr symbol or dialog pane is closed then this field is set to null.
    *
    * @param message is value that needs to be set for the tickr symbol field
@@ -367,7 +380,8 @@ public class GUIViewImpl extends JFrame implements GUIView {
 
   /**
    * Set the commission value while creating a flexible portfolio.
-   * If negative stocks, or invalid value is given or dialog pane is closed then this field is set to null.
+   * If negative stocks, or invalid value is given or dialog pane is closed,
+   * then this field is set to null.
    *
    * @param message is value that needs to be set for the commission field
    */
@@ -377,7 +391,8 @@ public class GUIViewImpl extends JFrame implements GUIView {
 
   /**
    * Set the portfolio path field while modifying the portfolio.
-   * If a portfolio that does not exist is given or modify dialog pane is closed then it is set to null.
+   * If a portfolio that does not exist is given or modify dialog pane is closed,
+   * then it is set to null.
    *
    * @param message is value that needs to be set for the pf name field
    */
@@ -386,7 +401,8 @@ public class GUIViewImpl extends JFrame implements GUIView {
   }
 
   /**
-   * Set the date of purchase or sell in the modify pane, if invalid date format, future date or modify dialog pane,
+   * Set the date of purchase or sell in the modify pane, if invalid date format,
+   * future date or modify dialog pane,
    * then set to null.
    *
    * @param message is value that needs to be set for the date field
@@ -419,7 +435,8 @@ public class GUIViewImpl extends JFrame implements GUIView {
 
   /**
    * Set the commission value while modifying a flexible portfolio.
-   * If negative stocks, or invalid value is given or dialog pane is closed then this field is set to null.
+   * If negative stocks, or invalid value is given or dialog pane is closed,
+   * then this field is set to null.
    *
    * @param message is value that needs to be set for the commission field
    */
@@ -429,7 +446,8 @@ public class GUIViewImpl extends JFrame implements GUIView {
 
   /**
    * Set the status of the create dialog pane based on the given inputs.
-   * If no fields are set then set it to fields are empty, if inputs given are invalid show which are wrong.
+   * If no fields are set then set it to fields are empty, if inputs given are invalid,
+   * show which are wrong.
    * If all the correct inputs are given, then show that portfolio is created correctly.
    *
    * @param message status of while creating portfolio
@@ -440,8 +458,9 @@ public class GUIViewImpl extends JFrame implements GUIView {
 
   /**
    * Set the status of the modify dialog pane based on the given inputs.
-   * If no fields are set then set it to fields are empty, if inputs given are invalid show which are wrong.
-   * If all the correct inputs are given, then show that portfolio is modified successfully.
+   * If no fields are set then set it to fields are empty, if inputs given are invalid,
+   * show which are wrong, if all the correct inputs are given, then show that portfolio,
+   * is modified successfully.
    *
    * @param message status of while modifying portfolio
    */
@@ -451,8 +470,10 @@ public class GUIViewImpl extends JFrame implements GUIView {
 
   /**
    * Set the status of the value dialog pane based on the given inputs.
-   * If no fields are set then set it to fields are empty, if inputs given are invalid show which are wrong.
-   * If all the correct inputs are given, then show the portfolio value is successfully retrieved and display.
+   * If no fields are set then set it to fields are empty, if inputs given are,
+   * invalid show which are wrong.
+   * If all the correct inputs are given, then show the portfolio value is,
+   * successfully retrieved and display.
    *
    * @param message status while querying value of a portfolio
    */
@@ -462,7 +483,8 @@ public class GUIViewImpl extends JFrame implements GUIView {
 
   /**
    * Set the status of the composition dialog pane based on the given inputs.
-   * If no fields are set then set it to fields are empty, if inputs given are invalid show which are wrong.
+   * If no fields are set then set it to fields are empty,
+   * if inputs given are invalid show which are wrong.
    *
    * @param message status while retrieving the composition of portfolio
    */
@@ -472,7 +494,8 @@ public class GUIViewImpl extends JFrame implements GUIView {
 
   /**
    * Set the status of the cost basis dialog pane based on the given inputs.
-   * If no fields are set then set it to fields are empty, if inputs given are invalid show which are wrong.
+   * If no fields are set then set it to fields are empty,
+   * if inputs given are invalid show which are wrong.
    *
    * @param message gives the cost basis of the given portfolio
    */
@@ -548,7 +571,8 @@ public class GUIViewImpl extends JFrame implements GUIView {
   }
 
   /**
-   * Get the list of all the portfolios to apply dollar strategy on existing portfolio in the given user path.
+   * Get the list of all the portfolios,
+   * to apply dollar strategy on existing portfolio in the given user path.
    * If the folder is empty then say the portfolio is empty. If a file that does not exist is given,
    * say given pfname does not exist.
    *
@@ -755,8 +779,8 @@ public class GUIViewImpl extends JFrame implements GUIView {
     dollarexistpfname = new JTextField(25);
     JLabel stratergynamedollarexist = new JLabel("Enter the name of the strategy");
     stratergydollarexistname = new JTextField(25);
-    JLabel stocksweightsdesc = new JLabel("Enter the stocks tickr symbols, if multiple entries " +
-            "separate them by delimeter ','.");
+    JLabel stocksweightsdesc = new JLabel("Enter the stocks tickr symbols, " +
+            "if multiple entries separate them by delimeter ','.");
     JLabel stocksone = new JLabel("For single entry - ex-GOOG");
     JLabel stockstwo = new JLabel("For multiple entries - ex-GOOG,UBER,....");
     JLabel stocksthree = new JLabel("Ending delimeter ',' is ignored - ex-GOOG,UBER,,,,");
@@ -819,7 +843,8 @@ public class GUIViewImpl extends JFrame implements GUIView {
   }
 
   /**
-   * Set the name of the portfolio name for which cost basis needs to be calculated till a specific date.
+   * Set the name of the portfolio name for which cost basis needs,
+   * to be calculated till a specific date.
    * If name given is not present in the existing portfolios then it sets to null.
    *
    * @param message value that needs to be set for pf name field
@@ -840,7 +865,8 @@ public class GUIViewImpl extends JFrame implements GUIView {
 
   /**
    * Set the status of the cost basis label when get cost basis button is clicked.
-   * If button is clicked before setting user path then the label prompts to get user directory path.
+   * If button is clicked before setting user path then the label prompts,
+   * to get user directory path.
    * If user path was not specified then sets to null.
    *
    * @param message that needs to be set for cost basis label based on users input
@@ -851,7 +877,7 @@ public class GUIViewImpl extends JFrame implements GUIView {
 
   /**
    * Set the status of the retrieve label when get retrieve composition button is clicked.
-   * If button is clicked before setting user path then the label prompts to get user directory path.
+   * If button is clicked before setting user path then, label prompts to get user directory path.
    * If user path was not specified then sets to null.
    *
    * @param message that needs to be set for getting composition label based on users input
@@ -861,7 +887,8 @@ public class GUIViewImpl extends JFrame implements GUIView {
   }
 
   /**
-   * When get cost basis button is clicked in the main panel, this opens the dialog pane that would let user,
+   * When get cost basis button is clicked in the main panel,
+   * this opens the dialog pane that would let user,
    * to enter required entries to compute cost basis of a portfolio.
    */
   public void displayCostBasis() {
@@ -886,7 +913,8 @@ public class GUIViewImpl extends JFrame implements GUIView {
   }
 
   /**
-   * Displays modify portfolio dialog pane that lets users modify a flexible portfolio by purchasing and selling,
+   * Displays modify portfolio dialog pane,
+   * lets users modify a flexible portfolio by purchasing and selling,
    * when modify portfolio button is clicked.
    */
   public void displayModifyPf() {
@@ -898,7 +926,8 @@ public class GUIViewImpl extends JFrame implements GUIView {
   }
 
   /**
-   * Display the value portfolio dialog pane that lets users get the value of a flexible portfolio on a specific date.
+   * Display the value portfolio dialog pane,
+   * lets users get the value of a flexible portfolio on a specific date.
    */
   public void displayValuepf() {
     JDialog dialog;
@@ -909,7 +938,8 @@ public class GUIViewImpl extends JFrame implements GUIView {
   }
 
   /**
-   * Display the composition of the portfolio pane that gives the portfolio composition on a given date for a portfolio.
+   * Display the composition of the portfolio pane,
+   * gives the portfolio composition on a given date for a portfolio.
    */
   public void displayRetrievepf() {
     JDialog dialog;
@@ -966,7 +996,7 @@ public class GUIViewImpl extends JFrame implements GUIView {
 
   /**
    * Set the status of the creation label when get create portfolio button is clicked.
-   * If button is clicked before setting user path then the label prompts to get user directory path.
+   * If button is clicked before setting user path, the label prompts to get user directory path.
    * If user path was not specified then sets to null.
    *
    * @param message that needs to be set for getting creation label based on users input
@@ -977,7 +1007,7 @@ public class GUIViewImpl extends JFrame implements GUIView {
 
   /**
    * Set the status of the modify label when get modify portfolio button is clicked.
-   * If button is clicked before setting user path then the label prompts to get user directory path.
+   * If button is clicked before setting user path, the label prompts to get user directory path.
    * If user path was not specified then sets to null.
    *
    * @param message that needs to be set for getting modify label based on users input
@@ -988,7 +1018,7 @@ public class GUIViewImpl extends JFrame implements GUIView {
 
   /**
    * Set the status of the value label when get value of portfolio button is clicked.
-   * If button is clicked before setting user path then the label prompts to get user directory path.
+   * If button is clicked before setting user path then, label prompts to get user directory path.
    * If user path was not specified then sets to null.
    *
    * @param message that needs to be set for getting value label based on users input
@@ -999,10 +1029,10 @@ public class GUIViewImpl extends JFrame implements GUIView {
 
   /**
    * Set the status of the value label when exist dollar cost strategy button is clicked.
-   * If button is clicked before setting user path then the label prompts to get user directory path.
+   * If button is clicked before setting user path then, label prompts to get user directory path.
    * If user path was not specified then sets to null.
    *
-   * @param message that needs to be set for applying dollar strategy for existing portfolio based on users input
+   * @param message that needs to be set for applying dollar strategy on existing portfolio
    */
   public void setdollarExistingStatus(String message) {
     this.dollarExistingStatus.setText(message);
@@ -1010,10 +1040,10 @@ public class GUIViewImpl extends JFrame implements GUIView {
 
   /**
    * Set the status of the value label start-to-finish dollar portfolio button is clicked.
-   * If button is clicked before setting user path then the label prompts to get user directory path.
+   * If button is clicked before setting user path then, label prompts to get user directory path.
    * If user path was not specified then sets to null.
    *
-   * @param message that needs to be set for applying  start-to-finish dollar strategy label based on users input
+   * @param message that needs to be set for applying  start-to-finish dollar strategy label
    */
   public void setdollarNewStatus(String message) {
     this.dollarNewStatus.setText(message);
@@ -1117,10 +1147,11 @@ public class GUIViewImpl extends JFrame implements GUIView {
 
   /**
    * Add features for the buttons in main panel for them to carry out portfolio giving user path,
-   * creation, modification,computing value basis, computing cost basis, applying stratergy on existing portfolios,
+   * creation, modification,computing value basis, computing cost basis,
+   * applying stratergy on existing portfolios,
    * start-to-finish dollar cost averaging and quit the program.
    *
-   * @param features is the controller type object that consists of the functionalities to be performed on button click
+   * @param features is the controller type object that consists of the functionalities to be done
    */
   public void addFeatures(ControllerGUI features) {
     inputButton.addActionListener(evt -> features.displaysetrootpane());

@@ -92,7 +92,8 @@ public class FlexiblePortfolioImpl extends PortfolioImpl {
    * @param portfolio the json object of the portfolio
    */
   @Override
-  public JSONObject modifyJson(float fees, float numOfStocks, String date, String tickr, JSONObject portfolio) {
+  public JSONObject modifyJson(float fees, float numOfStocks, String date, String tickr,
+                               JSONObject portfolio) {
     Float commissionFee = fees;
     // if ticker already exists in portfolio append to it else add new entry if it does not exist.
     if (portfolio.containsKey(tickr)) {

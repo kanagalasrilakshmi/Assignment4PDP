@@ -1,5 +1,8 @@
 package model.portfolioimplhelper;
 
+/**
+ * Interface that returns array list type object that gets tickr symbol and num of stocks.
+ */
 public interface IPortfolioObj {
   /**
    * Get the tickr symbol of the company.

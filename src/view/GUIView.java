@@ -28,14 +28,15 @@ public interface GUIView {
   void setpathStore(String setMessage);
 
   /**
-   * When get cost basis button is clicked in the main panel, this opens the dialog pane that would let user,
+   * When get cost basis button is clicked in the main panel, this opens the dialog pane,
+   * that would let user,
    * to enter required entries to compute cost basis of a portfolio.
    */
   void displayCostBasis();
 
   /**
    * Set the status of the cost basis label when get cost basis button is clicked.
-   * If button is clicked before setting user path then the label prompts to get user directory path.
+   * If button is clicked before setting user path, the label prompts to get user directory path.
    * If user path was not specified then sets to null.
    *
    * @param message that needs to be set for cost basis label based on users input
@@ -49,19 +50,21 @@ public interface GUIView {
   void displayCreatePf();
 
   /**
-   * Displays modify portfolio dialog pane that lets users modify a flexible portfolio by purchasing and selling,
+   * Displays modify portfolio dialog pane that lets users modify a flexible portfolio,
+   * by purchasing and selling,
    * when modify portfolio button is clicked.
    */
   void displayModifyPf();
 
   /**
-   * Display the value portfolio dialog pane that lets users get the value of a flexible portfolio on a specific date.
+   * Display the value portfolio dialog pane that lets users get the value of a flexible portfolio,
+   * on a specific date.
    */
   void displayValuepf();
 
   /**
    * Set the status of the creation label when get create portfolio button is clicked.
-   * If button is clicked before setting user path then the label prompts to get user directory path.
+   * If button is clicked before setting user path, the label prompts to get user directory path.
    * If user path was not specified then sets to null.
    *
    * @param message that needs to be set for getting creation label based on users input
@@ -70,7 +73,7 @@ public interface GUIView {
 
   /**
    * Set the status of the create dialog pane based on the given inputs.
-   * If no fields are set then set it to fields are empty, if inputs given are invalid show which are wrong.
+   * If no fields are set, set it to fields are empty, if inputs are invalid show which are wrong.
    * If all the correct inputs are given, then show that portfolio is created correctly.
    *
    * @param message status of while creating portfolio
@@ -79,7 +82,7 @@ public interface GUIView {
 
   /**
    * Set the status of the modify label when get modify portfolio button is clicked.
-   * If button is clicked before setting user path then the label prompts to get user directory path.
+   * If button is clicked before setting user path, label prompts to get user directory path.
    * If user path was not specified then sets to null.
    *
    * @param message that needs to be set for getting modify label based on users input
@@ -88,7 +91,7 @@ public interface GUIView {
 
   /**
    * Set the status of the modify dialog pane based on the given inputs.
-   * If no fields are set then set it to fields are empty, if inputs given are invalid show which are wrong.
+   * If no fields are set, set it to fields are empty, if inputs are invalid show which are wrong.
    * If all the correct inputs are given, then show that portfolio is modified successfully.
    *
    * @param message status of while modifying portfolio
@@ -97,7 +100,7 @@ public interface GUIView {
 
   /**
    * Set the status of the value label when get value of portfolio button is clicked.
-   * If button is clicked before setting user path then the label prompts to get user directory path.
+   * If button is clicked before setting user path then label prompts to get user directory path.
    * If user path was not specified then sets to null.
    *
    * @param message that needs to be set for getting value label based on users input
@@ -106,7 +109,7 @@ public interface GUIView {
 
   /**
    * Set the status of the value label when get value of portfolio button is clicked.
-   * If button is clicked before setting user path then the label prompts to get user directory path.
+   * If button is clicked before setting user path then label prompts to get user directory path.
    * If user path was not specified then sets to null.
    *
    * @param message that needs to be set for getting value label based on users input
@@ -115,7 +118,8 @@ public interface GUIView {
 
   /**
    * Set the status of the cost basis dialog pane based on the given inputs.
-   * If no fields are set then set it to fields are empty, if inputs given are invalid show which are wrong.
+   * If no fields are set then set it to fields are empty,
+   * if inputs given are invalid show which are wrong.
    *
    * @param message gives the cost basis of the given portfolio
    */
@@ -139,7 +143,8 @@ public interface GUIView {
   void settickrmodifyValue(String message);
 
   /**
-   * Set the tickr value for which company stocks needs to be purchased while creating a flexible portfolio.
+   * Set the tickr value for which company stocks needs to be purchased ,
+   * while creating a flexible portfolio.
    * If invalid tickr symbol or dialog pane is closed then this field is set to null.
    *
    * @param message is value that needs to be set for the tickr symbol field
@@ -157,7 +162,8 @@ public interface GUIView {
 
   /**
    * Set the date of purchase of the stock while creating new flexible portfolio.
-   * If invalid date format, future date is given or dialog pane is closed then this field is set to null.
+   * If invalid date format, future date is given or dialog pane is closed ,
+   * then this field is set to null.
    *
    * @param message is value that needs to be set for the date field
    */
@@ -165,7 +171,8 @@ public interface GUIView {
 
   /**
    * Set the commission value while creating a flexible portfolio.
-   * If negative stocks, or invalid value is given or dialog pane is closed then this field is set to null.
+   * If negative stocks, or invalid value is given or dialog pane is closed,
+   * then this field is set to null.
    *
    * @param message is value that needs to be set for the commission field
    */
@@ -173,7 +180,8 @@ public interface GUIView {
 
   /**
    * Set the portfolio path field while modifying the portfolio.
-   * If a portfolio that does not exist is given or modify dialog pane is closed then it is set to null.
+   * If a portfolio that does not exist is given or modify dialog pane is closed,
+   * then it is set to null.
    *
    * @param message is value that needs to be set for the pf name field
    */
@@ -189,8 +197,8 @@ public interface GUIView {
   void setnumstocksmodifyValue(String message);
 
   /**
-   * Set the date of purchase or sell in the modify pane, if invalid date format, future date or modify dialog pane,
-   * then set to null.
+   * Set the date of purchase or sell in the modify pane, if invalid date format,
+   * future date or modify dialog pane,then set to null.
    *
    * @param message is value that needs to be set for the date field
    */
@@ -198,7 +206,8 @@ public interface GUIView {
 
   /**
    * Set the commission value while modifying a flexible portfolio.
-   * If negative stocks, or invalid value is given or dialog pane is closed then this field is set to null.
+   * If negative stocks, or invalid value is given or dialog pane is closed,
+   * then this field is set to null.
    *
    * @param message is value that needs to be set for the commission field
    */
@@ -221,8 +230,9 @@ public interface GUIView {
   void setdateVal(String message);
 
   /**
-   * Set the name of the portfolio name for which cost basis needs to be calculated till a specific date.
-   * If name given is not present in the existing portfolios then it sets to null.
+   * Set the name of the portfolio name for which cost basis needs to be calculated,
+   * till a specific date, If name given is not present in the existing portfolios,
+   * then it sets to null.
    *
    * @param message value that needs to be set for pf name field
    */
@@ -265,16 +275,17 @@ public interface GUIView {
 
   /**
    * Add features for the buttons in main panel for them to carry out portfolio giving user path,
-   * creation, modification,computing value basis, computing cost basis, applying stratergy on existing portfolios,
+   * creation, modification,computing value basis, computing cost basis,
+   * applying stratergy on existing portfolios,
    * start-to-finish dollar cost averaging and quit the program.
    *
-   * @param features is the controller type object that consists of the functionalities to be performed on button click
+   * @param features is the controller type object that performs functionalities on button click
    */
   void addFeatures(ControllerGUI features);
 
   /**
    * Set the status of the retrieve label when get retrieve composition button is clicked.
-   * If button is clicked before setting user path then the label prompts to get user directory path.
+   * If button is clicked before setting user path ,the label prompts to get user directory path.
    * If user path was not specified then sets to null.
    *
    * @param message that needs to be set for getting composition label based on users input
@@ -291,13 +302,15 @@ public interface GUIView {
   void setPortfoliosListRetrieve(String message);
 
   /**
-   * Display the composition of the portfolio pane that gives the portfolio composition on a given date for a portfolio.
+   * Display the composition of the portfolio pane that gives the portfolio composition on,
+   * a given date for a portfolio.
    */
   void displayRetrievepf();
 
   /**
    * Set the status of the composition dialog pane based on the given inputs.
-   * If no fields are set then set it to fields are empty, if inputs given are invalid show which are wrong.
+   * If no fields are set then set it to fields are empty, if inputs given,
+   * are invalid show which are wrong.
    *
    * @param message status while retrieving the composition of portfolio
    */
@@ -329,25 +342,26 @@ public interface GUIView {
 
   /**
    * Set the status of the value label when exist dollar cost strategy button is clicked.
-   * If button is clicked before setting user path then the label prompts to get user directory path.
+   * If button is clicked before setting user path then, label prompts to get user directory path.
    * If user path was not specified then sets to null.
    *
-   * @param message that needs to be set for applying dollar strategy for existing portfolio based on users input
+   * @param message that needs to be set for applying dollar strategy for existing portfolio
    */
   void setdollarExistingStatus(String message);
 
   /**
    * Set the status of the value label when exist dollar cost strategy button is clicked.
-   * If button is clicked before setting user path then the label prompts to get user directory path.
+   * If button is clicked before setting user path, the label prompts to get user directory path.
    * If user path was not specified then sets to null.
    *
-   * @param message that needs to be set for applying dollar strategy for existing portfolio based on users input
+   * @param message that needs to be set for applying dollar strategy for existing portfolio
    */
   void setdollarNewStatus(String message);
 
   /**
    * Set the status of the existing dollar strategy pane based on the user inputs.
-   * Tells if portfolio strategy is applied, or the dialog pane is closed or not or any invalid inputs is given.
+   * Tells if portfolio strategy is applied, or the dialog pane is closed or not or,
+   * any invalid inputs is given.
    *
    * @param message set the status of the panel based on the user inputs given
    */
@@ -379,7 +393,8 @@ public interface GUIView {
 
   /**
    * Set the stocks value field while applying dollar averaging on existing portfolio.
-   * If the user gives invalid format, or invalid tickr symbols or the dialog pane is closed this field is set to null.
+   * If the user gives invalid format, or invalid tickr symbols or the dialog pane is closed,
+   * this field is set to null.
    *
    * @param message is the value that needs to be set for the stocks input field
    */
@@ -387,14 +402,16 @@ public interface GUIView {
 
   /**
    * Set the weights value field while applying dollar averaging on existing portfolio.
-   * If the user gives invalid format ,sum not equals to 100 or the dialog pane is closed this field is set to null.
+   * If the user gives invalid format ,sum not equals to 100 or the dialog pane is closed,
+   * this field is set to null.
    *
    * @param message is the value that needs to be set for the weights input field
    */
   void setweightsexist(String message);
 
   /**
-   * Set the money to be invested in dollars while applying dollar cost averaging on the existing portfolio.
+   * Set the money to be invested in dollars while applying dollar cost averaging,
+   * on the existing portfolio.
    * If the user gives invalid values or the dialog pane is closed this field is set to null.
    *
    * @param message is values that needs to be set for the value field
@@ -403,16 +420,17 @@ public interface GUIView {
 
   /**
    * Set the status of the start-to-finish dollar strategy pane based on the user inputs.
-   * Tells if portfolio strategy is applied, or the dialog pane is closed or not or any invalid inputs is given.
+   * Tells if portfolio strategy is applied, or the dialog pane is closed or,
+   * not or any invalid inputs is given.
    *
    * @param message set the status of the panel based on the user inputs given
    */
   void setdollarnewpanestatus(String message);
 
   /**
-   * Get the list of all the portfolios to apply dollar strategy on existing portfolio in the given user path.
-   * If the folder is empty then say the portfolio is empty. If a file that does not exist is given,
-   * say given pfname does not exist.
+   * Get the list of all the portfolios to apply dollar strategy on existing portfolio ,
+   * in the given user path, If the folder is empty then say the portfolio is empty.
+   * If a file that does not exist is given say given pfname does not exist.
    *
    * @param message is the list of existing portfolios in the given user path
    */
@@ -429,7 +447,8 @@ public interface GUIView {
 
   /**
    * Set the stocks value field while applying start-to-finish dollar cost averaging.
-   * If the user gives invalid format, or invalid tickr symbols or the dialog pane is closed this field is set to null.
+   * If the user gives invalid format, or invalid tickr symbols or the dialog pane is closed,
+   * this field is set to null.
    *
    * @param message is the value that needs to be set for the stocks input field
    */
@@ -437,7 +456,8 @@ public interface GUIView {
 
   /**
    * Set the weights value field while applying start-to-finish dollar cost averaging.
-   * If the user gives invalid format ,sum not equals to 100 or the dialog pane is closed this field is set to null.
+   * If the user gives invalid format ,sum not equals to 100 or the dialog pane is closed,
+   * this field is set to null.
    *
    * @param message is the value that needs to be set for the weights input field
    */
@@ -479,7 +499,7 @@ public interface GUIView {
   /**
    * Sets the value for the strategy name while adding dollar strategy on existing portfolio.
    *
-   * @param message is the value that needs to be set for the strategy field while adding strategy rtfolio pane
+   * @param message is the value that needs to be set for the strategy field
    */
   void setstrategynameexist(String message);
 

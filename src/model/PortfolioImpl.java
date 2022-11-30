@@ -1,7 +1,11 @@
 package model;
 
 
-import model.portfolioimplhelper.*;
+import model.portfolioimplhelper.ArrayListObj;
+import model.portfolioimplhelper.IArrayListObj;
+import model.portfolioimplhelper.StocksObj;
+import model.portfolioimplhelper.PortfolioObj;
+
 import org.json.simple.JSONObject;
 
 import java.io.BufferedReader;
@@ -426,7 +430,8 @@ public class PortfolioImpl implements Portfolio {
    * @param portfolio jsonobject
    */
 
-  public JSONObject modifyJson(float fees, float num, String date, String tickr, JSONObject portfolio) {
+  public JSONObject modifyJson(float fees, float num, String date, String tickr,
+                               JSONObject portfolio) {
     return new JSONObject();
   }
 

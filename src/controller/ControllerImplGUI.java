@@ -89,7 +89,8 @@ public class ControllerImplGUI implements ControllerGUI {
           guiView.setpfnameVal(null);
           return false;
         case "composition":
-          guiView.setretrieveDialogStatus("Portfolio with this name " + pfName + " does not exist!!");
+          guiView.setretrieveDialogStatus("Portfolio with this name " + pfName +
+                  " does not exist!!");
           guiView.setpfnameretrieve(null);
           guiView.setPortfoliosListComposition(null);
           return false;
@@ -225,8 +226,9 @@ public class ControllerImplGUI implements ControllerGUI {
             date.length() == 0;
   }
 
-  private boolean checkAllFieldsDollarExist(String stratergydollarexistname, String dollarexistpfname,
-                                            String stocksexist, String weightsexist, String dollarexistval,
+  private boolean checkAllFieldsDollarExist(String stratergydollarexistname,
+                                            String dollarexistpfname, String stocksexist,
+                                            String weightsexist, String dollarexistval,
                                             String dollarexistdate) {
     return stratergydollarexistname == null || dollarexistpfname == null || stocksexist == null ||
             weightsexist == null || dollarexistval == null || dollarexistdate == null ||
@@ -234,13 +236,15 @@ public class ControllerImplGUI implements ControllerGUI {
             || weightsexist.length() == 0 || dollarexistval.length() == 0 || dollarexistdate.length() == 0;
   }
 
-  private boolean checkAllFieldsDollarNew(String stratergydollarnewname, String dollarnewcreatepfname,
-                                          String stocksnew, String weightsnew, String dollarnewval,
+  private boolean checkAllFieldsDollarNew(String stratergydollarnewname,
+                                          String dollarnewcreatepfname, String stocksnew,
+                                          String weightsnew, String dollarnewval,
                                           String dollarnewdays, String dollarnewstartdate) {
     return stratergydollarnewname == null || dollarnewcreatepfname == null || stocksnew == null ||
-            weightsnew == null || dollarnewval == null || dollarnewdays == null || dollarnewstartdate == null ||
-            stratergydollarnewname.length() == 0 || dollarnewcreatepfname.length() == 0 ||
-            stocksnew.length() == 0 || weightsnew.length() == 0 || dollarnewval.length() == 0 ||
+            weightsnew == null || dollarnewval == null || dollarnewdays == null ||
+            dollarnewstartdate == null || stratergydollarnewname.length() == 0 ||
+            dollarnewcreatepfname.length() == 0 || stocksnew.length() == 0 ||
+            weightsnew.length() == 0 || dollarnewval.length() == 0 ||
             dollarnewdays.length() == 0 || dollarnewstartdate.length() == 0;
   }
 
@@ -441,7 +445,7 @@ public class ControllerImplGUI implements ControllerGUI {
    * @param numStocksCreate  number of stocks to be added to the portfolio
    * @param dateCreate       is the date on which the adding of purchase of stock needs to be done
    * @param commissionCreate is the commission fees for carrying out the transaction
-   * @throws FileNotFoundException if file is not found while validating the tickr symbols to the portfolio
+   * @throws FileNotFoundException if file is not found while validating the tickr symbols
    */
   public void addOperation(String pfNameCreate, String tickrCreate, String numStocksCreate,
                            String dateCreate, String commissionCreate)
@@ -478,15 +482,15 @@ public class ControllerImplGUI implements ControllerGUI {
   }
 
   /**
-   * Helps to validate the inmput fields and modify the existing portfolio by allowing the user to purchase,
-   * and sell stocks.
+   * Helps to validate the inmput fields and modify the existing portfolio by allowing the user,
+   * to purchase and sell stocks.
    *
    * @param pfNameModify     is the name of the portfolio that needs to be modified
    * @param tickrModify      is the name of the tickr symbol that needs to be modified
    * @param numStocksModify  is the number of stocks that needs to be purchase and sold
    * @param dateModify       is the date on which the purchase or sell needs to occur
    * @param commissionModify is commission fees while carrying out purchase or sell
-   * @param statuslabel      helps to specify that modification needs to occur and checks the inputs fields
+   * @param statuslabel      helps to specify that modification needs to occur, checks inputs fields
    * @throws FileNotFoundException if portfolio is not found while making modification
    * @throws ParseException        if an exception occurs while parsing the existing portfolio
    */
@@ -538,7 +542,7 @@ public class ControllerImplGUI implements ControllerGUI {
   }
 
   /**
-   * Helps to validate the input fields and get the cost basis of the portfolio on that particular date.
+   * Helps to validate the input fields and get the cost basis of the portfolio on particular date.
    *
    * @param pfNameBasis is the name of the portfolio for which cost basis needs to be computed
    * @param dateBasis   is the date value on which cost basis needs to be computed
@@ -594,7 +598,7 @@ public class ControllerImplGUI implements ControllerGUI {
   /**
    * Get the composition of the given portfolio name.
    *
-   * @param pfNameComposition is the name of the portfolio for which composition needs to be computed
+   * @param pfNameComposition is the name of the portfolio for which composition needs to be done
    */
   public void getCompositionpf(String pfNameComposition) {
     if (pfNameComposition == null || pfNameComposition.length() == 0) {
@@ -730,9 +734,9 @@ public class ControllerImplGUI implements ControllerGUI {
     }
   }
 
-  private void saveExistingpf(String dollarexistpfname, String stocksexist, String weightsexist, Float commission,
-                              String dollarexistval, String dollarexistdate, String endate, String days,
-                              String label) {
+  private void saveExistingpf(String dollarexistpfname, String stocksexist, String weightsexist,
+                              Float commission, String dollarexistval, String dollarexistdate,
+                              String endate, String days, String label) {
     boolean filecheck = new File(this.rootDir + dollarexistpfname + ".json").exists();
     JSONObject portfolioObj = new JSONObject();
     JSONObject finalObj = portfolioObj;
@@ -747,22 +751,25 @@ public class ControllerImplGUI implements ControllerGUI {
               Float.parseFloat(dollarexistval), dollarexistdate, portfolioObj);
     } else if (label.equals("dollarnew")) {
       if (new File(this.rootDir + dollarexistpfname + ".json").exists()) {
-        finalObj = portfolio.startToFinishDollarCostPresent(portfolio.validateTickrEntries(stocksexist),
-                portfolio.validateWeightEntriesSum(weightsexist), commission, Integer.parseInt(days),
-                dollarexistdate, endate, Float.parseFloat(dollarexistval), portfolioObj);
+        finalObj = portfolio.startToFinishDollarCostPresent(
+                portfolio.validateTickrEntries(stocksexist),
+                portfolio.validateWeightEntriesSum(weightsexist), commission,
+                Integer.parseInt(days), dollarexistdate, endate,
+                Float.parseFloat(dollarexistval), portfolioObj);
       } else {
         finalObj = portfolio.startToFinishDollarCost(portfolio.validateTickrEntries(stocksexist),
-                portfolio.validateWeightEntriesSum(weightsexist), commission, Integer.parseInt(days),
-                dollarexistdate, endate, Float.parseFloat(dollarexistval));
+                portfolio.validateWeightEntriesSum(weightsexist), commission,
+                Integer.parseInt(days), dollarexistdate, endate, Float.parseFloat(dollarexistval));
       }
     }
     portfolio.savePortfolio(this.rootDir + dollarexistpfname + ".json",
             finalObj);
   }
 
-  private void saveStrategyrecord(String stratergydollarexistname, String dollarexistpfname, String stocksexist,
-                                  String weightsexist, Float commission, String dollarexistval,
-                                  String dollarexistdate, String dollarenddate, int freq) {
+  private void saveStrategyrecord(String stratergydollarexistname, String dollarexistpfname,
+                                  String stocksexist, String weightsexist, Float commission,
+                                  String dollarexistval, String dollarexistdate,
+                                  String dollarenddate, int freq) {
     JSONObject strategyObj = portfolio.readPortfolio(this.rootDir + "stratergyLookup.json");
     JSONObject finalstrategyObj = portfolio.saveStrategyRecord(
             portfolio.validateTickrEntries(stocksexist),
@@ -816,8 +823,8 @@ public class ControllerImplGUI implements ControllerGUI {
     }
   }
 
-  private boolean checkDatesandDays(String dollarnewdays, String dollarnewstartdate, String dollarnewenddate,
-                                    String label)
+  private boolean checkDatesandDays(String dollarnewdays, String dollarnewstartdate,
+                                    String dollarnewenddate, String label)
           throws ParseException {
     if (label.equals("dollarnew")) {
       if (!portfolio.checkValidDates(dollarnewstartdate, dollarnewenddate)) {
@@ -831,8 +838,8 @@ public class ControllerImplGUI implements ControllerGUI {
         return false;
       } else if ((portfolio.checkDifference(dollarnewstartdate, dollarnewenddate) <
               Integer.parseInt(dollarnewdays))) {
-        guiView.setdollarnewpanestatus("The number of days between start and end date is less than the " +
-                "given frequency!!");
+        guiView.setdollarnewpanestatus("The number of days between start and end date is less " +
+                "than the given frequency!!");
         guiView.setstartdatenew(null);
         guiView.setenddatenew(null);
         guiView.setenddatenew(null);
@@ -846,9 +853,9 @@ public class ControllerImplGUI implements ControllerGUI {
    * This function helps to implement dollar averaging strategy on existing portfolio.
    *
    * @param stratergydollarexistname is the name of the strategy given by the user
-   * @param dollarexistpfname        ame of the portfolio over which dollar averaging strategy needs to be performed
-   * @param stocksexist              is the list of stocks string given by the user, seperated by delimeter ','
-   * @param weightsexist             is the list of weights string given by the user, seperated by delimeter ','
+   * @param dollarexistpfname        portfolio name over which dollar-averaging needs to be done
+   * @param stocksexist              is the list of stocks given by the user, seperated by ','
+   * @param weightsexist             is the list of weightsgiven by the user, seperated by ','
    * @param dollarexistval           is the money to be invested in the portfolio
    * @param dollarexistdate          is date oon which the investment needs to occur
    * @param dollarexistcommision     is the commission fees for the transaction to occur
@@ -856,8 +863,8 @@ public class ControllerImplGUI implements ControllerGUI {
   public void validateExistingDollar(String stratergydollarexistname, String dollarexistpfname,
                                      String stocksexist, String weightsexist, String dollarexistval,
                                      String dollarexistdate, String dollarexistcommision) {
-    if (checkAllFieldsDollarExist(stratergydollarexistname, dollarexistpfname, stocksexist, weightsexist,
-            dollarexistval, dollarexistdate)) {
+    if (checkAllFieldsDollarExist(stratergydollarexistname, dollarexistpfname, stocksexist,
+            weightsexist, dollarexistval, dollarexistdate)) {
       guiView.setdollarexistpanestatus("All the fields are not given!!");
     } else {
       float commission = 0.0f;
@@ -904,8 +911,8 @@ public class ControllerImplGUI implements ControllerGUI {
    *
    * @param stratergydollarnewname is the name of the strategy given by the user
    * @param dollarnewcreatepfname  name of the portfolio to be created
-   * @param stocksnew              is the list of stocks string given by the user, seperated by delimeter ','
-   * @param weightsnew             is the list of weights string given by the user, seperated by delimeter ','
+   * @param stocksnew              is the list of stocks string given by the user, seperated by  ','
+   * @param weightsnew             is the list of weights string given by the user, seperated by ','
    * @param dollarnewval           is the money to be invested in the portfolio
    * @param dollarnewdays          is the number of days for investment to recur
    * @param dollarnewstartdate     is start date of the investment to occur
@@ -916,9 +923,10 @@ public class ControllerImplGUI implements ControllerGUI {
   public void validateNewDollar(String stratergydollarnewname, String dollarnewcreatepfname,
                                 String stocksnew, String weightsnew, String dollarnewval,
                                 String dollarnewdays, String dollarnewstartdate,
-                                String dollarnewenddate, String dollarnewcommission) throws ParseException {
-    if (checkAllFieldsDollarNew(stratergydollarnewname, dollarnewcreatepfname, stocksnew, weightsnew, dollarnewval,
-            dollarnewdays, dollarnewstartdate)) {
+                                String dollarnewenddate, String dollarnewcommission)
+          throws ParseException {
+    if (checkAllFieldsDollarNew(stratergydollarnewname, dollarnewcreatepfname, stocksnew,
+            weightsnew, dollarnewval, dollarnewdays, dollarnewstartdate)) {
       guiView.setdollarnewpanestatus("All the fields are not given !!");
     } else {
       float commission = 0.0f;
@@ -977,8 +985,8 @@ public class ControllerImplGUI implements ControllerGUI {
   }
 
   /**
-   * Displays the pane that lets the user set the root path for storing the portfolios that are to be created,
-   * modified or perform dollar averaging strategy.
+   * Displays the pane that lets the user set the root path for storing the portfolios that,
+   * are to be created, modified or perform dollar averaging strategy.
    */
   public void displaysetrootpane() {
     this.rootDirUser = guiView.givenPath();
@@ -986,9 +994,10 @@ public class ControllerImplGUI implements ControllerGUI {
   }
 
   /**
-   * Displays the dialog pane for the creation of portfolio, modification of the portfolio ,cost basis till a date,
-   * getting value of the portfolio on a specific date, retrieving the composition of the portfolio,
-   * dollar cost averaging on the existing portfolio, doing dollar cost averaging from start-to-finish and,
+   * Displays the dialog pane for the creation of portfolio, modification of the portfolio ,
+   * cost basis till a date,getting value of the portfolio on a specific date,
+   * retrieving the composition of the portfolio,dollar cost averaging on the existing portfolio,
+   * doing dollar cost averaging from start-to-finish and,
    * Quit the program. Every functionality is identified by label given to it.
    *
    * @param label can be the label associated with the functionality that needs to be performed
@@ -1073,8 +1082,8 @@ public class ControllerImplGUI implements ControllerGUI {
   }
 
   /**
-   * Runs the go stocks program by setting GUI view visible and passing class to add features method in gui,
-   * for letting buttons with action listeners to implement functionalities.
+   * Runs the go stocks program by setting GUI view visible and passing class to,
+   * add features method in gui for letting buttons with action listeners to run functionalities.
    *
    * @throws ParseException
    * @throws IOException

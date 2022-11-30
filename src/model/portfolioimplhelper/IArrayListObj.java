@@ -2,6 +2,9 @@ package model.portfolioimplhelper;
 
 import java.util.ArrayList;
 
+/**
+ * Interface array list type object that get array list of tickr symbols and prices list.
+ */
 public interface IArrayListObj {
   /**
    * gets the array list of tickr symbols.

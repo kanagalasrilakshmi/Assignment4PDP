@@ -11,10 +11,11 @@ import java.util.ArrayList;
 public interface PortfolioStratergy extends Portfolio {
 
   /**
-   * This function helps to validate the input list of tickr symbols seperated by comma with tickrData.txt file.
+   * This function helps to validate the input list of tickr symbols ,
+   * seperated by ',' with tickrData.txt file.
    *
    * @param entry list of all the tickr symbols seperated by a comma
-   * @return an array list of tickr symbols if all the given symbols are valid, else return empty array list
+   * @return array list of tickr symbols if all the given symbols are valid, else empty array list
    */
   ArrayList<String> validateTickrEntries(String entry);
 
@@ -40,7 +41,8 @@ public interface PortfolioStratergy extends Portfolio {
   ArrayList<String> getAllDatesUsingStep(String from, String to, int increment);
 
   /**
-   * Give a json object of entries that are to be added to the given portfolio name on a specific date.
+   * Give a json object of entries that are to be added to the given portfolio name,
+   * on a specific date.
    *
    * @param stocksList     list of stocks that are to be added
    * @param weightsList    list of corresponding weights to be added
@@ -48,10 +50,11 @@ public interface PortfolioStratergy extends Portfolio {
    * @param money          value to be invested in the portfolio
    * @param date           specific date on which transaction needs to be done
    * @param portfolio      is the JSON Object for the given existing portfolio
-   * @return return final json object to be added in the given existing portfolio after transaction occurs
+   * @return final json object to be added in the given existing portfolio after transaction occurs
    */
   JSONObject dollarCostExisting(ArrayList<String> stocksList, ArrayList<Float> weightsList,
-                                float commissionfees, float money, String date, JSONObject portfolio);
+                                float commissionfees, float money, String date,
+                                JSONObject portfolio);
 
   /**
    * list all the json files in the given root directory.
@@ -80,28 +83,29 @@ public interface PortfolioStratergy extends Portfolio {
   boolean validateWeightFormat(String entry);
 
   /**
-   * Returns a json object to be added in the lookup stratergy portfolio for persisting all the strategies applied,
-   * to a portfolio.
+   * Returns a json object to be added in the lookup stratergy portfolio for persisting all,
+   * strategies applied to a portfolio.
    *
    * @param stocksList     list of stocks that are to be added
    * @param weightsList    list of corresponding weights to be added
-   * @param commissionFees is commision fees for a transaction
+   * @param commissionFees is commission fees for a transaction
    * @param freq           number of days after which transaction needs to recur
    * @param startDate      is starting date for a transaction to happen
    * @param endDate        is ending date for a transaction to happen
    * @param money          value to be invested in the portfolio
-   * @param strategyName   is the name of the stratergy that has all the records of strategies applied to a portfolio
+   * @param strategyName   is strategy name that has all records of strategies applied to portfolio
    * @param strategyLookUp is the Json object entries saved in the lookup json
    * @param pfName         is the name of the portfolio over which strategy was applied
-   * @return a json object with pfname as key, value with a json object consisting of strtegy name and inputs given
+   * @return a json object with pfname as key, json object of strategy name and inputs given as key
    */
-  JSONObject saveStrategyRecord(ArrayList<String> stocksList, ArrayList<Float> weightsList, float commissionFees,
-                                int freq, String startDate, String endDate, float money, String strategyName,
-                                JSONObject strategyLookUp, String pfName);
+  JSONObject saveStrategyRecord(ArrayList<String> stocksList, ArrayList<Float> weightsList,
+                                float commissionFees, int freq, String startDate, String endDate,
+                                float money, String strategyName, JSONObject strategyLookUp,
+                                String pfName);
 
   /**
-   * Return a json object that needs to be added to the new portfolio that is created while doing start to finish,
-   * dollar cost averaging stratergy on a new portfolio.
+   * Return a json object that needs to be added to the new portfolio that is created,
+   * while doing start to finish, dollar cost averaging stratergy on a new portfolio.
    *
    * @param stocksList     list of stocks that are to be added
    * @param weightsList    list of corresponding weights to be added
@@ -112,8 +116,9 @@ public interface PortfolioStratergy extends Portfolio {
    * @param money          value to be invested in the portfolio
    * @return a json object of entries to be added for the given start date, end date and frequency
    */
-  JSONObject startToFinishDollarCost(ArrayList<String> stocksList, ArrayList<Float> weightsList, float commissionfees,
-                                     int freq, String startDate, String endDate, float money);
+  JSONObject startToFinishDollarCost(ArrayList<String> stocksList, ArrayList<Float> weightsList,
+                                     float commissionfees, int freq, String startDate,
+                                     String endDate, float money);
 
   /**
    * Check if repeated tickr symbols were given.
@@ -132,7 +137,8 @@ public interface PortfolioStratergy extends Portfolio {
   boolean checkforInvalidcharacters(String stocks);
 
   /**
-   * This helps to multiple strategies on the existing portfolio and return a json object after applying the strategy.
+   * This helps to multiple strategies on the existing portfolio and return a json object ,
+   * after applying the strategy.
    *
    * @param stocksList     list of stocks that are to be added
    * @param weightsList    list of corresponding weights to be added
@@ -144,9 +150,10 @@ public interface PortfolioStratergy extends Portfolio {
    * @param portfolio      is the json object of the existing portfolio
    * @return a json object of entries to be added for the given start date, end date and frequency
    */
-  JSONObject startToFinishDollarCostPresent(ArrayList<String> stocksList, ArrayList<Float> weightsList,
-                                            float commissionFees, int freq, String startDate,
-                                            String endDate, float money, JSONObject portfolio);
+  JSONObject startToFinishDollarCostPresent(ArrayList<String> stocksList,
+                                            ArrayList<Float> weightsList, float commissionFees,
+                                            int freq, String startDate, String endDate, float money,
+                                            JSONObject portfolio);
 
   /**
    * get today's date.

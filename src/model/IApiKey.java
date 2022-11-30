@@ -1,7 +1,8 @@
 package model;
 
 /**
- * Interface that helps to implement api key functions getTickrSymbol, fetch price of a stock on a date,
+ * Interface that helps to implement api key functions getTickrSymbol,
+ * fetch price of a stock on a date,
  * Call present price of a stock.
  */
 public interface IApiKey {
