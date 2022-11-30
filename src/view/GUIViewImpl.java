@@ -1,7 +1,6 @@
 package view;
 
 import java.awt.Dimension;
-import java.awt.event.ActionEvent;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -22,21 +21,18 @@ import controller.ControllerGUI;
  * value of the portfolio, applying dollar cost strategies.
  */
 public class GUIViewImpl extends JFrame implements GUIView {
-  private JLabel pathStore;
-  private JLabel createStatus;
+  UserPanel userPanelObj = new UserPanelImpl();
+  CreatePanel createPanelObj = new CreatePanelImpl();
   private final JLabel modifyStatus = new JLabel();
   private final JLabel valueStatus = new JLabel();
-  private JButton inputButton;
   private JButton costBasisButton;
   private JButton createPfButton;
   private JPanel mainJPanel;
-  private JPanel userPanel;
   private JPanel createPanel;
   private JPanel modifyPanel;
   private JPanel valueDatePanel;
   private JPanel dollarPanelExisting;
   private JPanel dollarPanelNew;
-  private JPanel quitPanel;
   private JPanel costBasisPanel;
   private JLabel retrievePanelStatus;
   private JLabel dollarExistingStatus;
@@ -137,7 +133,7 @@ public class GUIViewImpl extends JFrame implements GUIView {
    * @param setMessage is the message that needs to be set
    */
   public void setpathStore(String setMessage) {
-    pathStore.setText(setMessage);
+    userPanelObj.returnPathStore().setText(setMessage);
   }
 
   /**
@@ -735,7 +731,7 @@ public class GUIViewImpl extends JFrame implements GUIView {
     JPanel dollarnewPfDialog = new JPanel();
     JLabel stratergyname = new JLabel("Enter the name of the strategy");
     stratergydollarnewname = new JTextField(25);
-    JLabel createpf = new JLabel("Enter the name of the portfolio name to be created");
+    JLabel createpf = new JLabel("Enter the name of the portfolio to be created");
     dollarnewcreatepfname = new JTextField(25);
 
     JLabel stocksweightsdesc = new JLabel("Enter the stocks tickr symbols, if multiple " +
@@ -746,7 +742,8 @@ public class GUIViewImpl extends JFrame implements GUIView {
     JLabel stocksthree = new JLabel("GOOG,UBER, (or) GOOG, is a wrong format");
     stocksnew = new JTextField(100);
     JLabel weightsone = new JLabel("Enter the corresponding weights for the given stocks " +
-            "seperated by delimeter ','.DO NOT end with ',' after adding all the entries");
+            "seperated by delimeter ','.DO NOT end with ',' after adding all the entries. " +
+            "Ex- 10,90. Values entered are considered to be percentages.");
     weightsnew = new JTextField(100);
 
     JLabel money = new JLabel("Enter the money to be invested in the portfolio");
@@ -754,12 +751,14 @@ public class GUIViewImpl extends JFrame implements GUIView {
     JLabel startdate = new JLabel("Enter the start date of investment");
     dollarnewstartdate = new JTextField(25);
     dollarnewenddate = new JTextField(25);
-    JLabel enddate = new JLabel("Enter the end date of investment");
+    JLabel enddate = new JLabel("Enter the end date of investment (Optional Parameter, " +
+            "If not given then end date is assumed to be one year after date of the " +
+            "given start date)");
     dollarnewdays = new JTextField(25);
     JLabel days = new JLabel("Enter the number of days after which this investment " +
             "should recur");
     dollarnewcommission = new JTextField(25);
-    JLabel commission = new JLabel("Enter the commission fees");
+    JLabel commission = new JLabel("Enter the commission fees (Optional parameter)");
     dollarnewPfDialog.setLayout(new BoxLayout(dollarnewPfDialog, BoxLayout.Y_AXIS));
     dollarnewPfDialog.add(stratergyname);
     dollarnewPfDialog.add(stratergydollarnewname);
@@ -806,11 +805,12 @@ public class GUIViewImpl extends JFrame implements GUIView {
     JLabel weightsone = new JLabel("Enter the corresponding weights for the given stocks " +
             "seperated by delimeter ',' Ending delimeter ',' is ignored - ex-10,90,,,,.");
     weightsexist = new JTextField(100);
-    JLabel money = new JLabel("Enter the money to be invested in the portfolio");
+    JLabel money = new JLabel("Enter the money to be invested in the portfolio " +
+            "(Taken in dollars)");
     dollarexistval = new JTextField(25);
     JLabel date = new JLabel("Enter the date of investment");
     dollarexistdate = new JTextField(25);
-    JLabel commission = new JLabel("Enter the commission fees");
+    JLabel commission = new JLabel("Enter the commission fees (Optional Parameter)");
     dollarexistcommision = new JTextField(25);
     dollarexistingPfDialog.setLayout(new BoxLayout(dollarexistingPfDialog, BoxLayout.Y_AXIS));
     dollarexistingPfDialog.setPreferredSize(new Dimension(1000, 700));
@@ -994,26 +994,6 @@ public class GUIViewImpl extends JFrame implements GUIView {
     mainJPanel.setLayout(new BoxLayout(mainJPanel, BoxLayout.Y_AXIS));
   }
 
-  private void getUserPanel() {
-    userPanel = new JPanel();
-    userPanel.setBorder(BorderFactory.createTitledBorder("Give a valid input path where you want " +
-            "to store your portfolios. For example: /Users/PDP/PortfolioBucket/"));
-    inputButton = new JButton("Create User Path");
-    userPanel.add(inputButton);
-    pathStore = new JLabel();
-    userPanel.add(pathStore);
-  }
-
-  private void getCreatePanel() {
-    createPanel = new JPanel();
-    createPanel.setBorder(BorderFactory.createTitledBorder("Give a valid name for the portfolio " +
-            "you want to create. Name should not have spaces, special characters and " +
-            "length less than 25 characters."));
-    createPfButton = new JButton("Create a New Portfolio");
-    createStatus = new JLabel();
-    createPanel.add(createPfButton);
-    createPanel.add(createStatus);
-  }
 
   /**
    * Set the status of the creation label when get create portfolio button is clicked.
@@ -1023,7 +1003,7 @@ public class GUIViewImpl extends JFrame implements GUIView {
    * @param message that needs to be set for getting creation label based on users input
    */
   public void setCreateLabelStatus(String message) {
-    this.createStatus.setText(message);
+    createPanelObj.getCreateStatus().setText(message);
   }
 
   /**
@@ -1109,14 +1089,6 @@ public class GUIViewImpl extends JFrame implements GUIView {
     retrievePanel.add(retrievePanelStatus);
   }
 
-  private void getQuitPanel() {
-    quitPanel = new JPanel();
-    quitPanel.setBorder(BorderFactory.createTitledBorder("Quit the stocks program"));
-    JButton quitButton = new JButton("Quit the Program");
-    quitButton.addActionListener((ActionEvent e) -> System.exit(0));
-    quitPanel.add(quitButton);
-  }
-
   private void getDollarCostExisting() {
     dollarPanelExisting = new JPanel();
     dollarCostExisting = new JButton("Calculate dollar cost averaging for existing portfolio");
@@ -1141,24 +1113,26 @@ public class GUIViewImpl extends JFrame implements GUIView {
   private void finalPanel() {
     setTitle("Stocks Program");
     getMainPanel();
-    getUserPanel();
-    getCreatePanel();
+    userPanelObj.getUserPanel();
+    createPanelObj.createPanel();
+    createPanelObj.createPanel();
     getModifyPanel();
     getValueDatePanel();
     getCostBasisPanel();
     getRetrievePfPanel();
     getDollarCostExisting();
     getDollarCostNew();
-    getQuitPanel();
-    mainJPanel.add(userPanel);
-    mainJPanel.add(createPanel);
+    QuitPanel quitPanelObj = new QuitPanelImpl();
+    quitPanelObj.getQuitPanel();
+    mainJPanel.add(userPanelObj.returnUserPanel());
+    mainJPanel.add(createPanelObj.getcreatePanel());
     mainJPanel.add(modifyPanel);
     mainJPanel.add(costBasisPanel);
     mainJPanel.add(valueDatePanel);
     mainJPanel.add(retrievePanel);
     mainJPanel.add(dollarPanelExisting);
     mainJPanel.add(dollarPanelNew);
-    mainJPanel.add(quitPanel);
+    mainJPanel.add(quitPanelObj.quitPanelfinal());
     add(mainJPanel);
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     setSize(1000, 1000);
@@ -1174,8 +1148,9 @@ public class GUIViewImpl extends JFrame implements GUIView {
    * @param features is the controller type object that consists of the functionalities to be done
    */
   public void addFeatures(ControllerGUI features) {
-    inputButton.addActionListener(evt -> features.displaysetrootpane());
-    createPfButton.addActionListener(evt -> features.displayDialogPane("create"));
+    userPanelObj.returninputButton().addActionListener(evt -> features.displaysetrootpane());
+    createPanelObj.getCreatePfButton().addActionListener(evt ->
+            features.displayDialogPane("create"));
     add.addActionListener(evt -> {
       try {
         features.addOperation(this.pfnamecreate.getText(), this.tickrcreate.getText().toUpperCase(),
