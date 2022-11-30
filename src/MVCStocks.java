@@ -9,10 +9,7 @@ import controller.ControllerImpl;
 import controller.ControllerImplFlexible;
 import controller.ControllerImplGUI;
 import controller.ControllerMain;
-import model.FlexiblePortfolioImpl;
-import model.Portfolio;
-import model.PortfolioNewStratergy;
-import model.PortfolioStratergy;
+import model.*;
 import view.GUIView;
 import view.GUIViewImpl;
 import view.View;
@@ -25,21 +22,28 @@ import view.ViewImpl;
 public class MVCStocks {
 
   /**
-   * Main method to run the whole stock program.
+   * Main method to run the whole stocks program.
+   * If 'gui' is given as input argument then graphical interface stocks program is ran.
+   * If 'text' is given as input argument then text based interface stocks program is ran.
    *
    * @param args Takes in model object, view Object and input given by user
    * @throws ParseException if given input parsing fails. Happens if not specified in right format
    * @throws IOException    if given input is not valid
    */
   public static void main(String[] args) throws ParseException, IOException {
-    System.out.println(args[0]);
-    PortfolioStratergy modelFlex = new PortfolioNewStratergy();
-    //View guiView = new ViewImpl(System.out);
-    GUIView guiView = new GUIViewImpl();
-    //Controller controller = new ControllerImplFlexible(modelFlex,guiView,System.in);
-    //controller.goStocks();
-    ControllerGUI controllerGui = new ControllerImplGUI(modelFlex, guiView);
-    controllerGui.goStocks();
 
+    if(args[0].equals("gui")){
+      PortfolioStratergy modelFlex = new PortfolioNewStratergy();
+      GUIView guiView = new GUIViewImpl();
+      ControllerGUI controllerGui = new ControllerImplGUI(modelFlex, guiView);
+      controllerGui.goStocks();
+    }
+    else if(args[0].equals("text")){
+      Portfolio modelRigid = new PortfolioImpl();
+      View view = new ViewImpl(System.out);
+      Portfolio modelFlex = new FlexiblePortfolioImpl();
+      Controller controller = new ControllerMain(modelRigid, view, modelFlex, System.in);
+      controller.goStocks();
+    }
   }
 }
