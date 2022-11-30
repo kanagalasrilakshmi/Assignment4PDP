@@ -324,7 +324,7 @@ public class GUIViewImpl extends JFrame implements GUIView {
             " Ex: for company google tickr symbol - GOOG :");
     tickrcreate = new JTextField(25);
     JLabel commissionLabel = new JLabel("Enter commission fees. Negative values are not " +
-            "allowed :");
+            "allowed (It is an optional parameter):");
     commissionfeescreate = new JTextField(25);
     createPanelDialog.setPreferredSize(new Dimension(1400, 300));
     createPanelDialog.setLayout(new BoxLayout(createPanelDialog, BoxLayout.Y_AXIS));
@@ -643,16 +643,20 @@ public class GUIViewImpl extends JFrame implements GUIView {
     JLabel listPortfolios = new JLabel("List of all the portfolios in the given path:");
     portfoliosListModify.setEditable(false);
     pfnamemodify = new JTextField(25);
-    JLabel pfNameLabel = new JLabel("Enter Portfolio name to be modified");
+    JLabel pfNameLabel = new JLabel("Enter portfolio name to be modified. Enter only names " +
+            "from the given list of portfolios. If no portfolios exist then close this dialog " +
+            "pane by clicking 'X' on top left");
     dateofmodify = new JTextField(25);
     JLabel dateLabel = new JLabel("Enter the date of purchase/sell " +
-            "in YYYY-DD-MM format only!!");
+            "in YYYY-DD-MM format only. Ex-2021-02-02");
     tickrmodify = new JTextField(25);
     JLabel tickrlabel = new JLabel("Enter tickr symbol");
     numstocksmodify = new JTextField(25);
-    JLabel numstockslabel = new JLabel("Enter the number of stocks to be purchased/sold");
+    JLabel numstockslabel = new JLabel("Enter the number of stocks to be purchased/sold." +
+            "Negative and fractional shares are not allowed");
     commissionfessmodify = new JTextField(25);
-    JLabel commissionLabel = new JLabel("Enter commission fees");
+    JLabel commissionLabel = new JLabel("Enter commission fees. Negative values are not " +
+            "allowed. (Optional parameter)");
     modifyDialog.setLayout(new BoxLayout(modifyDialog, BoxLayout.Y_AXIS));
     modifyDialog.setPreferredSize(new Dimension(1000, 700));
     modifyDialog.setMaximumSize(new Dimension(700, 500));
@@ -1063,7 +1067,8 @@ public class GUIViewImpl extends JFrame implements GUIView {
   private void getModifyPanel() {
     modifyPanel = new JPanel();
     getModifyButton = new JButton("Modify a Portfolio");
-    modifyPanel.setBorder(BorderFactory.createTitledBorder("Modify a specific Portfolio"));
+    modifyPanel.setBorder(BorderFactory.createTitledBorder("Modify an existing portfolio by " +
+            "purchasing and selling stocks"));
     modifyPanel.add(getModifyButton);
     modifyPanel.add(modifyStatus);
   }
@@ -1071,8 +1076,8 @@ public class GUIViewImpl extends JFrame implements GUIView {
   private void getValueDatePanel() {
     valueDatePanel = new JPanel();
     getValueButton = new JButton("Get Value of Portfolio on a Specific Date");
-    valueDatePanel.setBorder(BorderFactory.createTitledBorder("Get Value of portfolio on a " +
-            "specific date"));
+    valueDatePanel.setBorder(BorderFactory.createTitledBorder("Get Value of a flexible " +
+            "portfolio on a specific date"));
     valueDatePanel.add(getValueButton);
     valueDatePanel.add(valueStatus);
   }
@@ -1092,7 +1097,7 @@ public class GUIViewImpl extends JFrame implements GUIView {
     retrievePanel = new JPanel();
     retrievePf = new JButton("Retrieve Portfolio");
     retrievePanel.setBorder(BorderFactory.createTitledBorder("Retrieve Composition of a " +
-            "Portfolio"));
+            "flexible portfolio"));
     retrievePanel.add(retrievePf);
     retrievePanelStatus = new JLabel();
     retrievePanel.add(retrievePanelStatus);
