@@ -24,11 +24,10 @@ import view.panels.*;
 public class GUIViewImpl extends JFrame implements GUIView {
   UserPanel userPanelObj = new UserPanelImpl();
   CreatePanel createPanelObj = new CreatePanelImpl();
-  private final JLabel modifyStatus = new JLabel();
+  ModifyPanel modifyPanelObj = new ModifyPanelImpl();
   private final JLabel valueStatus = new JLabel();
   private JButton costBasisButton;
   private JPanel mainJPanel;
-  private JPanel modifyPanel;
   private JPanel valueDatePanel;
   private JPanel dollarPanelExisting;
   private JPanel dollarPanelNew;
@@ -40,7 +39,6 @@ public class GUIViewImpl extends JFrame implements GUIView {
   private JButton retrievePf = new JButton("Retrieve Portfolio");
   private JButton getCostBasis;
   private JButton getValueButton;
-  private JButton getModifyButton;
   private JButton dollarCostExisting;
   private JButton dollarCostNew;
   private JLabel costBasisStatus = new JLabel();
@@ -1013,7 +1011,7 @@ public class GUIViewImpl extends JFrame implements GUIView {
    * @param message that needs to be set for getting modify label based on users input
    */
   public void setModifyLabelStatus(String message) {
-    this.modifyStatus.setText(message);
+    modifyPanelObj.getModifyStatus().setText(message);
   }
 
   /**
@@ -1047,15 +1045,6 @@ public class GUIViewImpl extends JFrame implements GUIView {
    */
   public void setdollarNewStatus(String message) {
     this.dollarNewStatus.setText(message);
-  }
-
-  private void getModifyPanel() {
-    modifyPanel = new JPanel();
-    getModifyButton = new JButton("Modify a Portfolio");
-    modifyPanel.setBorder(BorderFactory.createTitledBorder("Modify an existing portfolio by " +
-            "purchasing and selling stocks"));
-    modifyPanel.add(getModifyButton);
-    modifyPanel.add(modifyStatus);
   }
 
   private void getValueDatePanel() {
@@ -1115,7 +1104,7 @@ public class GUIViewImpl extends JFrame implements GUIView {
     userPanelObj.getUserPanel();
     createPanelObj.createPanel();
     createPanelObj.createPanel();
-    getModifyPanel();
+    modifyPanelObj.modifyPanel();
     getValueDatePanel();
     getCostBasisPanel();
     getRetrievePfPanel();
@@ -1125,7 +1114,7 @@ public class GUIViewImpl extends JFrame implements GUIView {
     quitPanelObj.getQuitPanel();
     mainJPanel.add(userPanelObj.returnUserPanel());
     mainJPanel.add(createPanelObj.getcreatePanel());
-    mainJPanel.add(modifyPanel);
+    mainJPanel.add(modifyPanelObj.getModifyPanel());
     mainJPanel.add(costBasisPanel);
     mainJPanel.add(valueDatePanel);
     mainJPanel.add(retrievePanel);
@@ -1160,7 +1149,8 @@ public class GUIViewImpl extends JFrame implements GUIView {
       }
     });
     save.addActionListener(evt -> features.saveOperation(this.pfnamecreate.getText()));
-    getModifyButton.addActionListener(evt -> features.displayDialogPane("modify"));
+    modifyPanelObj.returngetModifyButton().addActionListener(evt ->
+            features.displayDialogPane("modify"));
     purchase.addActionListener(evt -> {
       try {
         features.modifyValidate(this.pfnamemodify.getText(),
