@@ -34,7 +34,6 @@ public class GUIViewImpl extends JFrame implements GUIView {
 
   private JLabel dollarExistingStatus;
   private JLabel dollarNewStatus;
-
   private final JButton getCostBasis = new JButton("Compute Cost Basis");
   private JButton dollarCostExisting;
   private JButton dollarCostNew;
