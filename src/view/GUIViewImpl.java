@@ -14,6 +14,7 @@ import java.text.ParseException;
 import javax.swing.JDialog;
 import javax.swing.JTextField;
 import controller.ControllerGUI;
+import jdk.jfr.internal.tool.Main;
 import view.panels.*;
 
 /**
@@ -22,6 +23,7 @@ import view.panels.*;
  * value of the portfolio, applying dollar cost strategies.
  */
 public class GUIViewImpl extends JFrame implements GUIView {
+  MainPanel mainPanelObj = new MainPanelImpl();
   UserPanel userPanelObj = new UserPanelImpl();
   CreatePanel createPanelObj = new CreatePanelImpl();
   ModifyPanel modifyPanelObj = new ModifyPanelImpl();
@@ -30,7 +32,6 @@ public class GUIViewImpl extends JFrame implements GUIView {
   retrievePanel retrievePanelObj = new retrievePanelImpl();
   Dollarstrategyexist dollarPanelExistingObj = new DollarstrategyexistImpl();
   Dollarstrategynew dollarPanelNewObj = new DollarstrategynewImpl();
-  private JPanel mainJPanel;
   private final JButton getCostBasis = new JButton("Compute Cost Basis");
   private JTextField pfName;
   private JTextField date;
@@ -976,12 +977,6 @@ public class GUIViewImpl extends JFrame implements GUIView {
     dialog.setVisible(true);
   }
 
-  private void getMainPanel() {
-    mainJPanel = new JPanel();
-    mainJPanel.setLayout(new BoxLayout(mainJPanel, BoxLayout.Y_AXIS));
-  }
-
-
   /**
    * Set the status of the creation label when get create portfolio button is clicked.
    * If button is clicked before setting user path, the label prompts to get user directory path.
@@ -1039,7 +1034,7 @@ public class GUIViewImpl extends JFrame implements GUIView {
 
   private void finalPanel() {
     setTitle("Stocks Program");
-    getMainPanel();
+    mainPanelObj.mainPanel();
     userPanelObj.getUserPanel();
     createPanelObj.createPanel();
     createPanelObj.createPanel();
@@ -1051,16 +1046,16 @@ public class GUIViewImpl extends JFrame implements GUIView {
     dollarPanelNewObj.dollarCostNew();
     QuitPanel quitPanelObj = new QuitPanelImpl();
     quitPanelObj.getQuitPanel();
-    mainJPanel.add(userPanelObj.returnUserPanel());
-    mainJPanel.add(createPanelObj.getcreatePanel());
-    mainJPanel.add(modifyPanelObj.getModifyPanel());
-    mainJPanel.add(costBasisPanelObj.getcostBasisPanel());
-    mainJPanel.add(valueDatePanelObj.getValueDatePanel());
-    mainJPanel.add(retrievePanelObj.getRetrievePanel());
-    mainJPanel.add(dollarPanelExistingObj.getDollarCostExisting());
-    mainJPanel.add(dollarPanelNewObj.getdollarCostNew());
-    mainJPanel.add(quitPanelObj.quitPanelfinal());
-    add(mainJPanel);
+    mainPanelObj.getMainJPanel().add(userPanelObj.returnUserPanel());
+    mainPanelObj.getMainJPanel().add(createPanelObj.getcreatePanel());
+    mainPanelObj.getMainJPanel().add(modifyPanelObj.getModifyPanel());
+    mainPanelObj.getMainJPanel().add(costBasisPanelObj.getcostBasisPanel());
+    mainPanelObj.getMainJPanel().add(valueDatePanelObj.getValueDatePanel());
+    mainPanelObj.getMainJPanel().add(retrievePanelObj.getRetrievePanel());
+    mainPanelObj.getMainJPanel().add(dollarPanelExistingObj.getDollarCostExisting());
+    mainPanelObj.getMainJPanel().add(dollarPanelNewObj.getdollarCostNew());
+    mainPanelObj.getMainJPanel().add(quitPanelObj.quitPanelfinal());
+    add(mainPanelObj.getMainJPanel());
     setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     setSize(1000, 1000);
     setLocationRelativeTo(null);
