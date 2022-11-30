@@ -1,15 +1,15 @@
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.text.ParseException;
 
 import controller.Controller;
 import controller.ControllerGUI;
-import controller.ControllerImpl;
-import controller.ControllerImplFlexible;
 import controller.ControllerImplGUI;
 import controller.ControllerMain;
-import model.*;
+import model.Portfolio;
+import model.PortfolioImpl;
+import model.PortfolioStratergy;
+import model.FlexiblePortfolioImpl;
+import model.PortfolioNewStratergy;
 import view.GUIView;
 import view.GUIViewImpl;
 import view.View;
@@ -32,13 +32,12 @@ public class MVCStocks {
    */
   public static void main(String[] args) throws ParseException, IOException {
 
-    if(args[0].equals("gui")){
+    if (args[0].equals("gui")) {
       PortfolioStratergy modelFlex = new PortfolioNewStratergy();
       GUIView guiView = new GUIViewImpl();
       ControllerGUI controllerGui = new ControllerImplGUI(modelFlex, guiView);
       controllerGui.goStocks();
-    }
-    else if(args[0].equals("text")){
+    } else if (args[0].equals("text")) {
       Portfolio modelRigid = new PortfolioImpl();
       View view = new ViewImpl(System.out);
       Portfolio modelFlex = new FlexiblePortfolioImpl();

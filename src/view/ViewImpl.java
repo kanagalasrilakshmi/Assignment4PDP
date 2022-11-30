@@ -16,7 +16,7 @@ public class ViewImpl implements View {
   final PrintStream out;
 
   /**
-   * Constructo for view.
+   * Constructor for view.
    *
    * @param out takes in prinstream type object
    */
