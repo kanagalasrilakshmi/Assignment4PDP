@@ -26,21 +26,18 @@ public class GUIViewImpl extends JFrame implements GUIView {
   CreatePanel createPanelObj = new CreatePanelImpl();
   ModifyPanel modifyPanelObj = new ModifyPanelImpl();
   ValuePanel valueDatePanelObj = new ValuePanelImpl();
-
-  private JButton costBasisButton;
+  CostBasisPanel costBasisPanelObj = new CostBasisPanelImpl();
+  retrievePanel retrievePanelObj = new retrievePanelImpl();
   private JPanel mainJPanel;
   private JPanel dollarPanelExisting;
   private JPanel dollarPanelNew;
-  private JPanel costBasisPanel;
-  private JLabel retrievePanelStatus;
+
   private JLabel dollarExistingStatus;
   private JLabel dollarNewStatus;
-  private JPanel retrievePanel;
-  private JButton retrievePf = new JButton("Retrieve Portfolio");
-  private JButton getCostBasis = new JButton("Compute Cost Basis");
+
+  private final JButton getCostBasis = new JButton("Compute Cost Basis");
   private JButton dollarCostExisting;
   private JButton dollarCostNew;
-  private JLabel costBasisStatus = new JLabel();
   private JTextField pfName;
   private JTextField date;
 
@@ -886,7 +883,7 @@ public class GUIViewImpl extends JFrame implements GUIView {
    * @param message that needs to be set for cost basis label based on users input
    */
   public void setLabelCostBasisStatus(String message) {
-    costBasisStatus.setText(message);
+    costBasisPanelObj.returncostBasisStatus().setText(message);
   }
 
   /**
@@ -897,7 +894,7 @@ public class GUIViewImpl extends JFrame implements GUIView {
    * @param message that needs to be set for getting composition label based on users input
    */
   public void setRetrievePanelStatus(String message) {
-    retrievePanelStatus.setText(message);
+    retrievePanelObj.returnretrievePanelStatus().setText(message);
   }
 
   /**
@@ -1075,8 +1072,8 @@ public class GUIViewImpl extends JFrame implements GUIView {
     createPanelObj.createPanel();
     modifyPanelObj.modifyPanel();
     valueDatePanelObj.valDatePanel();
-    getCostBasisPanel();
-    getRetrievePfPanel();
+    costBasisPanelObj.costBasisPanel();
+    retrievePanelObj.retrievePfPanel();
     getDollarCostExisting();
     getDollarCostNew();
     QuitPanel quitPanelObj = new QuitPanelImpl();
@@ -1084,9 +1081,9 @@ public class GUIViewImpl extends JFrame implements GUIView {
     mainJPanel.add(userPanelObj.returnUserPanel());
     mainJPanel.add(createPanelObj.getcreatePanel());
     mainJPanel.add(modifyPanelObj.getModifyPanel());
-    mainJPanel.add(costBasisPanel);
+    mainJPanel.add(costBasisPanelObj.getcostBasisPanel());
     mainJPanel.add(valueDatePanelObj.getValueDatePanel());
-    mainJPanel.add(retrievePanel);
+    mainJPanel.add(retrievePanelObj.getRetrievePanel());
     mainJPanel.add(dollarPanelExisting);
     mainJPanel.add(dollarPanelNew);
     mainJPanel.add(quitPanelObj.quitPanelfinal());
@@ -1149,7 +1146,8 @@ public class GUIViewImpl extends JFrame implements GUIView {
         throw new RuntimeException(e);
       }
     });
-    costBasisButton.addActionListener(evt -> features.displayDialogPane("costBasis"));
+    costBasisPanelObj.returncostBasisButton().addActionListener(evt ->
+            features.displayDialogPane("costBasis"));
     getCostBasis.addActionListener(evt -> {
       try {
         features.validateCostBasis(this.pfName.getText(), this.date.getText());
@@ -1157,7 +1155,8 @@ public class GUIViewImpl extends JFrame implements GUIView {
         throw new RuntimeException(e);
       }
     });
-    retrievePf.addActionListener(evt -> features.displayDialogPane("composition"));
+    retrievePanelObj.returnretrievePf().addActionListener(evt ->
+            features.displayDialogPane("composition"));
     computecomposition.addActionListener(evt ->
             features.getCompositionpf(this.pfnameretrieve.getText()));
     dollarCostExisting.addActionListener(evt -> features.displayDialogPane("dollarexist"));

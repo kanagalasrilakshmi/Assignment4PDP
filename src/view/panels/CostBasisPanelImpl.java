@@ -24,24 +24,24 @@ public class CostBasisPanelImpl implements CostBasisPanel{
   }
 
   /**
-   *
-   * @return
+   * Return cost basis panel.
+   * @return Jpanel type object for cost basis panel
    */
   public JPanel getcostBasisPanel(){
     return this.costBasisPanel;
   }
 
   /**
-   *
-   * @return
+   * Return button for opening cost basis dialog panel.
+   * @return Jbutton object for accessing cost basis panel
    */
   public JButton returncostBasisButton(){
     return this.costBasisButton;
   }
 
   /**
-   *
-   * @return
+   * Status after clicking the cost basis panel.
+   * @return Jlabel type object for getting the status after accessing cost basis panel
    */
   public JLabel returncostBasisStatus(){
     return this.costBasisStatus;
