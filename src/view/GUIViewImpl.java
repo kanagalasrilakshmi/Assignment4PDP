@@ -25,10 +25,10 @@ public class GUIViewImpl extends JFrame implements GUIView {
   UserPanel userPanelObj = new UserPanelImpl();
   CreatePanel createPanelObj = new CreatePanelImpl();
   ModifyPanel modifyPanelObj = new ModifyPanelImpl();
-  private final JLabel valueStatus = new JLabel();
+  ValuePanel valueDatePanelObj = new ValuePanelImpl();
+
   private JButton costBasisButton;
   private JPanel mainJPanel;
-  private JPanel valueDatePanel;
   private JPanel dollarPanelExisting;
   private JPanel dollarPanelNew;
   private JPanel costBasisPanel;
@@ -38,7 +38,6 @@ public class GUIViewImpl extends JFrame implements GUIView {
   private JPanel retrievePanel;
   private JButton retrievePf = new JButton("Retrieve Portfolio");
   private JButton getCostBasis;
-  private JButton getValueButton;
   private JButton dollarCostExisting;
   private JButton dollarCostNew;
   private JLabel costBasisStatus = new JLabel();
@@ -1022,7 +1021,7 @@ public class GUIViewImpl extends JFrame implements GUIView {
    * @param message that needs to be set for getting value label based on users input
    */
   public void setValueLabelStatus(String message) {
-    this.valueStatus.setText(message);
+    valueDatePanelObj.returnValueStatus().setText(message);
   }
 
   /**
@@ -1045,15 +1044,6 @@ public class GUIViewImpl extends JFrame implements GUIView {
    */
   public void setdollarNewStatus(String message) {
     this.dollarNewStatus.setText(message);
-  }
-
-  private void getValueDatePanel() {
-    valueDatePanel = new JPanel();
-    getValueButton = new JButton("Get Value of Portfolio on a Specific Date");
-    valueDatePanel.setBorder(BorderFactory.createTitledBorder("Get Value of a flexible " +
-            "portfolio on a specific date"));
-    valueDatePanel.add(getValueButton);
-    valueDatePanel.add(valueStatus);
   }
 
   private void getCostBasisPanel() {
@@ -1105,7 +1095,7 @@ public class GUIViewImpl extends JFrame implements GUIView {
     createPanelObj.createPanel();
     createPanelObj.createPanel();
     modifyPanelObj.modifyPanel();
-    getValueDatePanel();
+    valueDatePanelObj.valDatePanel();
     getCostBasisPanel();
     getRetrievePfPanel();
     getDollarCostExisting();
@@ -1116,7 +1106,7 @@ public class GUIViewImpl extends JFrame implements GUIView {
     mainJPanel.add(createPanelObj.getcreatePanel());
     mainJPanel.add(modifyPanelObj.getModifyPanel());
     mainJPanel.add(costBasisPanel);
-    mainJPanel.add(valueDatePanel);
+    mainJPanel.add(valueDatePanelObj.getValueDatePanel());
     mainJPanel.add(retrievePanel);
     mainJPanel.add(dollarPanelExisting);
     mainJPanel.add(dollarPanelNew);
@@ -1171,7 +1161,7 @@ public class GUIViewImpl extends JFrame implements GUIView {
         throw new RuntimeException(e);
       }
     });
-    getValueButton.addActionListener(evt -> features.displayDialogPane("getDateVal"));
+    valueDatePanelObj.returnValueButton().addActionListener(evt -> features.displayDialogPane("getDateVal"));
     computeval.addActionListener(evt -> {
       try {
         features.validateDateVal(this.pfnamevalue.getText(), this.datevalue.getText());
