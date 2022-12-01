@@ -68,7 +68,7 @@ public class ControllerImplGUI implements ControllerGUI {
       }
     }
     if (fileCheck && !(pfName.equals("stratergyLookup"))) {
-      String alreadyExists = "Portfolio with this name " + pfName + " already exists! " ;
+      String alreadyExists = "Portfolio with this name " + pfName + " already exists! ";
       if (label.equals("add") || label.equals("save")) {
         guiView.setcreateDialogStatus(alreadyExists + "Type a new  name in the enter portfolio " +
                 "name field.");
@@ -143,7 +143,7 @@ public class ControllerImplGUI implements ControllerGUI {
           guiView.setstartdatenew(null);
           break;
         case "dollarnewenddate":
-          if(date == null ||date.equals("")){
+          if (date == null || date.equals("")) {
             return true;
           }
           guiView.setdollarnewpanestatus(invalidDateMsg);
@@ -525,7 +525,7 @@ public class ControllerImplGUI implements ControllerGUI {
               checkDateField(dateModify, "modify")) {
         if (checkStocksField(numStocksModify, "modify") &&
                 checkCommissionField(commissionModify,
-                "modify")) {
+                        "modify")) {
           if (commissionModify != null && commissionModify.length() > 0) {
             commission = Float.valueOf(commissionModify);
           }
@@ -849,10 +849,9 @@ public class ControllerImplGUI implements ControllerGUI {
                                     String dollarnewenddate, String label)
           throws ParseException {
     if (label.equals("dollarnew")) {
-      if(dollarnewenddate == null ||dollarnewenddate.equals("")){
+      if (dollarnewenddate == null || dollarnewenddate.equals("")) {
         return true;
-      }
-      else if (!portfolio.checkValidDates(dollarnewstartdate, dollarnewenddate)) {
+      } else if (!portfolio.checkValidDates(dollarnewstartdate, dollarnewenddate)) {
         guiView.setdollarnewpanestatus("Value given for start date is ahead of the given end " +
                 "date, Please enter valid dates");
         guiView.setstartdatenew(null);
@@ -904,11 +903,10 @@ public class ControllerImplGUI implements ControllerGUI {
         if (dollarexistcommision != null && dollarexistcommision.length() > 0) {
           commission = Float.parseFloat(dollarexistcommision);
         }
-        if(commission > Float.parseFloat(dollarexistval)){
+        if (commission > Float.parseFloat(dollarexistval)) {
           guiView.setdollarexistpanestatus("Commission fees cannot be greater than money" +
                   " to be invested in the portfolio");
-        }
-        else{
+        } else {
           if (!portfolio.checkFutureDate(dollarexistdate) &&
                   !portfolio.checkTodayDateAndTime(
                           dollarexistdate)) {
@@ -959,7 +957,7 @@ public class ControllerImplGUI implements ControllerGUI {
       float commission = 0.0f;
       if (checkPortfolioField(dollarnewcreatepfname, "dollarnew") &&
               checkBatchTickrField(stocksnew,
-              "dollarnew") && checkBatchWeightFields(weightsnew, "dollarnew") &&
+                      "dollarnew") && checkBatchWeightFields(weightsnew, "dollarnew") &&
               checkBatchTickrBatchWeightsSize(stocksnew, weightsnew, "dollarnew") &&
               checkValidMoney(dollarnewval, "dollarnew") && checkDateField(dollarnewstartdate,
               "dollarnewstartdate") &&
@@ -970,15 +968,13 @@ public class ControllerImplGUI implements ControllerGUI {
           if (dollarnewcommission != null && dollarnewcommission.length() > 0) {
             commission = Float.parseFloat(dollarnewcommission);
           }
-          if(commission > Float.valueOf(dollarnewval)){
+          if (commission > Float.valueOf(dollarnewval)) {
             guiView.setdollarnewpanestatus("Commission fees cannot be greater than " +
                     "money to be invested in the portfolio.");
-          }
-          else if(Integer.valueOf(dollarnewdays) <=0){
+          } else if (Integer.valueOf(dollarnewdays) <= 0) {
             guiView.setdollarnewpanestatus("Frequency cannot be less than or equal to " +
                     "zero.");
-          }
-          else{
+          } else {
             if (!portfolio.checkFutureDate(dollarnewstartdate) &&
                     !portfolio.checkTodayDateAndTime(dollarnewstartdate)) {
               String enddate = dollarnewenddate;
@@ -988,8 +984,8 @@ public class ControllerImplGUI implements ControllerGUI {
               saveExistingpf(dollarnewcreatepfname, stocksnew, weightsnew, commission, dollarnewval,
                       dollarnewstartdate, enddate, dollarnewdays, "dollarnew");
             } else {
-              if(!new File(this.rootDir + dollarnewcreatepfname
-                      + ".json").exists()){
+              if (!new File(this.rootDir + dollarnewcreatepfname
+                      + ".json").exists()) {
                 // save an empty portfolio.
                 this.fileOperation.savePortfolio(this.rootDir + dollarnewcreatepfname
                         + ".json", new JSONObject());

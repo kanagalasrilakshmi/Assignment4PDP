@@ -1,4 +1,8 @@
-import model.*;
+import model.FileOperation;
+import model.FileOperationImplementation;
+import model.PortfolioStratergy;
+import model.PortfolioNewStratergy;
+import model.Portfolio;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.junit.Before;
