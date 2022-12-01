@@ -1,7 +1,14 @@
 package view.panels.create;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import java.awt.Dimension;
+import javax.swing.JDialog;
+import javax.swing.JTextField;
+import javax.swing.BorderFactory;
 
 /**
  * CLass that implements CreatePanel interface adds create panel, gets create pf button,
@@ -24,41 +31,46 @@ public class CreatePanelImpl implements CreatePanel {
 
   /**
    * input tickr symbol.
+   *
    * @return tickr symbol entered
    */
-  public JTextField getTickrcreate(){
+  public JTextField getTickrcreate() {
     return this.tickrcreate;
   }
 
   /**
    * return date of creation while adding entries to portfolio.
+   *
    * @return date of creation
    */
-  public JTextField getDateofcreation(){
+  public JTextField getDateofcreation() {
     return this.dateofcreation;
   }
 
   /**
    * return portfolio name field.
+   *
    * @return portfolio name text field
    */
-  public JTextField getPfnamecreate(){
+  public JTextField getPfnamecreate() {
     return this.pfnamecreate;
   }
 
   /**
    * num of stocks given to this field.
+   *
    * @return num of stocks field
    */
-  public JTextField getNumstockscreate(){
+  public JTextField getNumstockscreate() {
     return this.numstockscreate;
   }
 
   /**
    * commission field given to this field.
+   *
    * @return commission field
    */
-  public JTextField getCommissionfeescreate(){
+  public JTextField getCommissionfeescreate() {
     return this.commissionfeescreate;
   }
 
@@ -67,15 +79,16 @@ public class CreatePanelImpl implements CreatePanel {
    *
    * @return status of the create dialog
    */
-  public JLabel getCreateDialogStatus(){
+  public JLabel getCreateDialogStatus() {
     return this.createDialogStatus;
   }
 
   /**
    * Button to save entries to the portfolio.
+   *
    * @return save button
    */
-  public JButton getSaveCreate(){
+  public JButton getSaveCreate() {
     return this.save;
   }
 
@@ -84,7 +97,7 @@ public class CreatePanelImpl implements CreatePanel {
    *
    * @return add button
    */
-  public JButton getAddCreate(){
+  public JButton getAddCreate() {
     return this.add;
   }
 
@@ -101,25 +114,31 @@ public class CreatePanelImpl implements CreatePanel {
     createPanel.add(createPfButton);
     createPanel.add(createStatus);
   }
+
   /**
    * Returns created create panel.
+   *
    * @return Jpanel for create
    */
-  public JPanel getcreatePanel(){
+  public JPanel getcreatePanel() {
     return this.createPanel;
   }
+
   /**
    * Returns create portfolio button.
+   *
    * @return Jbutton for create
    */
-  public JButton getCreatePfButton(){
+  public JButton getCreatePfButton() {
     return this.createPfButton;
   }
+
   /**
    * Returns status of the create panel portfolio.
+   *
    * @return status of the create panel
    */
-  public JLabel getCreateStatus(){
+  public JLabel getCreateStatus() {
     return this.createStatus;
   }
 

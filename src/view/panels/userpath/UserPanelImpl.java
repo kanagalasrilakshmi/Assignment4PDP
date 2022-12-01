@@ -1,6 +1,9 @@
 package view.panels.userpath;
 
-import javax.swing.*;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.BorderFactory;
 
 /**
  * Class for creating user panel.

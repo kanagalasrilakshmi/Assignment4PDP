@@ -1,6 +1,8 @@
 package view.panels.quit;
 
-import javax.swing.*;
+import javax.swing.JButton;
+import javax.swing.JPanel;
+import javax.swing.BorderFactory;
 import java.awt.event.ActionEvent;
 
 /**

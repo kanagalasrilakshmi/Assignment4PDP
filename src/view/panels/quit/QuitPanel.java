@@ -1,6 +1,6 @@
 package view.panels.quit;
 
-import javax.swing.*;
+import javax.swing.JPanel;
 
 /**
  * Interface for adding the Quit panel components and returning final quit panel.

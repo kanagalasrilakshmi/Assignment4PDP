@@ -1,6 +1,9 @@
 package view.panels.create;
 
-import javax.swing.*;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 /**
  * Interface that adds create panel, gets create pf button, gets status of the create pane.
@@ -26,7 +29,7 @@ public interface CreatePanel {
   JButton getCreatePfButton();
 
   /**
-   * Returns status of the create panel
+   * Returns status of the create panel.
    *
    * @return status of the create panel
    */

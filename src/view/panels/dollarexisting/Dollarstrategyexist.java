@@ -1,6 +1,10 @@
 package view.panels.dollarexisting;
 
-import javax.swing.*;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.JTextArea;
 
 /**
  * Interface for accessing dollar cost averaging on existing  portfolio panel.

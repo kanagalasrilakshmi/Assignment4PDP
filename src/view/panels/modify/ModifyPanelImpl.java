@@ -1,7 +1,15 @@
 package view.panels.modify;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import java.awt.Dimension;
+import javax.swing.JDialog;
+import javax.swing.JTextField;
+import javax.swing.BorderFactory;
+import javax.swing.JTextArea;
 
 /**
  * Modify panel that implements functionalities for getting modify panel.

@@ -1,6 +1,10 @@
 package view.panels.retrievepf;
 
-import javax.swing.*;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.JTextArea;
 
 /**
  * Interface for accessing retrieve portfolio panel.

@@ -1,6 +1,10 @@
 package view.panels.modify;
 
-import javax.swing.*;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.JTextArea;
 
 /**
  * Interface that helps to access modify panel.

@@ -1,13 +1,13 @@
 package view.panels.mainpanel;
 
-import javax.swing.*;
+import javax.swing.JPanel;
 
 /**
  * Interface that helps to access main panel.
  */
 public interface MainPanel {
   /**
-   * Main panel that contains create panel, modify panel, cost basis panel, retrieve panel,
+   * Main panel that contains create panel, modify panel, cost basis panel, retrieve panel.
    * dollar cost averaging on existing portfolio, start-to-finish dollar cost averaging ,quit panel
    */
   void mainPanel();

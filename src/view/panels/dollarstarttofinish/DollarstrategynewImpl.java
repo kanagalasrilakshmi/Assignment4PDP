@@ -1,6 +1,14 @@
 package view.panels.dollarstarttofinish;
 
-import javax.swing.*;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JDialog;
+import javax.swing.JTextField;
+import javax.swing.BorderFactory;
+
 
 /**
  * Create panel for implementing functionalities for applying dollar averaging strategy,
