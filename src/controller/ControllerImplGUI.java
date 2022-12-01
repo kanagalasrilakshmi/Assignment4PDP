@@ -403,7 +403,8 @@ public class ControllerImplGUI implements ControllerGUI {
       createStrategyLookup();
     } else {
       createStrategyLookup();
-      guiView.setpathStore("Invalid path given so portfolios will be stored in " + this.rootDir + " by default.");
+      guiView.setpathStore("Invalid path given so portfolios will be stored in " + this.rootDir +
+              " by default.");
       guiView.setCreateLabelStatus(null);
       guiView.setModifyLabelStatus(null);
       guiView.setValueLabelStatus(null);
