@@ -22,36 +22,93 @@ public class DollarstrategynewImpl implements Dollarstrategynew{
   private final JButton dollarnewcreate = new JButton("Create");
   private final JLabel dollarnewpanestatus = new JLabel();
 
+  /**
+   * Return button for applying the dollar cost averaging start-to-finish.
+   *
+   * @return Jbutton object for accessing dollar cost averaging start-to-finish
+   */
   public JButton getDollarnewcreate(){
     return this.dollarnewcreate;
   }
+
+  /**
+   * Status after applying dollar averaging start-to-finish.
+   *
+   * @return label shown after applying strategy
+   */
   public JLabel getDollarnewpanestatus(){
     return this.dollarnewpanestatus;
   }
+  /**
+   * Jtextfield that takes in portfolio name.
+   *
+   * @return Jtextfield that takes in pf name
+   */
   public JTextField getDollarnewcreatepfname(){
     return this.dollarnewcreatepfname;
   }
+  /**
+   * Jtextfield that takes in weights in stocks.
+   *
+   * @return Jtextfield that takes in stocks
+   */
   public JTextField getStocksnew(){
     return this.stocksnew;
   }
+  /**
+   * Jtextfield that takes in weights in percentages.
+   *
+   * @return Jtextfield that takes in weights
+   */
   public JTextField getWeightsnew(){
     return this.weightsnew;
   }
+  /**
+   * Jtext field that takes money needs to be put in portfolio.
+   *
+   * @return Jtextfield of money that needs to be invested
+   */
   public JTextField getDollarnewval(){
     return this.dollarnewval;
   }
+  /**
+   * Jtext field that takes in number of days after number of days after which transaction,
+   * needs to recur.
+   *
+   * @return Jtextfield of money that needs to be invested
+   */
   public JTextField getDollarnewdays(){
     return this.dollarnewdays;
   }
+  /**
+   * Jtext field that takes in start date when strategy needs to be applied.
+   *
+   * @return Jtextfield of date when strategy needs to be applied
+   */
   public JTextField getDollarnewenddate(){
     return this.dollarnewenddate;
   }
+  /**
+   * Jtext field that takes in end date when strategy needs to be applied.
+   *
+   * @return Jtextfield of date when strategy needs to be applied
+   */
   public JTextField getDollarnewstartdate(){
     return this.dollarnewstartdate;
   }
+  /**
+   * Jtext field that takes in commission fees.
+   *
+   * @return Jtextfield of commission fees
+   */
   public JTextField getdollarnewcommission(){
     return this.dollarnewcommission;
   }
+  /**
+   * Jtextfield that takes in strategy to be applied to the given portfolio.
+   *
+   * @return Jtextfield that takes in name of the strategy to be applied
+   */
   public JTextField getStratergydollarnewname(){
     return this.stratergydollarnewname;
   }
