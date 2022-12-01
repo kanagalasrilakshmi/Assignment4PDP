@@ -32,16 +32,11 @@ public class GUIViewImpl extends JFrame implements GUIView {
   retrievePanel retrievePanelObj = new retrievePanelImpl();
   Dollarstrategyexist dollarPanelExistingObj = new DollarstrategyexistImpl();
   Dollarstrategynew dollarPanelNewObj = new DollarstrategynewImpl();
-  private final JButton getCostBasis = new JButton("Compute Cost Basis");
-  private JTextField pfName;
-  private JTextField date;
 
-  private final JTextArea portfoliosListBasis = new JTextArea();
   private final JTextArea portfoliosListRetrieve = new JTextArea();
   private final JTextArea portfolioComposition = new JTextArea();
   private JTextField pfnameretrieve;
   private final JButton computecomposition = new JButton("Get Portfolio Composition");
-  private final JLabel costBasisDialogStatus = new JLabel();
   private final JLabel retrieveDialogStatus = new JLabel();
   private JTextField stratergydollarnewname;
   private JTextField dollarnewcreatepfname;
@@ -428,30 +423,7 @@ public class GUIViewImpl extends JFrame implements GUIView {
    * @param message gives the cost basis of the given portfolio
    */
   public void setCostBasisDialogStatus(String message) {
-    costBasisDialogStatus.setText(message);
-  }
-
-  private JPanel getCostBasisPanelDialog() {
-    JLabel listPortfolios = new JLabel("List of all the portfolios in the given path:");
-    portfoliosListBasis.setEditable(false);
-    JPanel costBasisDialog = new JPanel();
-    pfName = new JTextField(25);
-    JLabel pfNameLabel = new JLabel("Enter Portfolio Name:");
-    date = new JTextField(25);
-    JLabel dateLabel = new JLabel("Enter date to compute cost basis:");
-    costBasisDialog.setLayout(new BoxLayout(costBasisDialog, BoxLayout.Y_AXIS));
-    costBasisDialog.setPreferredSize(new Dimension(700, 700));
-    costBasisDialog.setMaximumSize(new Dimension(900, 500));
-    costBasisDialog.setMinimumSize(new Dimension(400, 400));
-    costBasisDialog.add(listPortfolios);
-    costBasisDialog.add(portfoliosListBasis);
-    costBasisDialog.add(pfNameLabel);
-    costBasisDialog.add(pfName);
-    costBasisDialog.add(dateLabel);
-    costBasisDialog.add(date);
-    costBasisDialog.add(getCostBasis);
-    costBasisDialog.add(costBasisDialogStatus);
-    return costBasisDialog;
+    costBasisPanelObj.getCostBasisDialogStatus().setText(message);
   }
 
   /**
@@ -484,7 +456,7 @@ public class GUIViewImpl extends JFrame implements GUIView {
    * @param message is the list of existing portfolios in the given user path
    */
   public void setPortfoliosListBasis(String message) {
-    this.portfoliosListBasis.setText(message);
+    costBasisPanelObj.getPortfoliosListBasis().setText(message);
   }
 
   /**
@@ -724,7 +696,7 @@ public class GUIViewImpl extends JFrame implements GUIView {
    * @param message value that needs to be set for pf name field
    */
   public void setpfNameCostBasis(String message) {
-    pfName.setText(message);
+    costBasisPanelObj.getPfNameCostBasis().setText(message);
   }
 
   /**
@@ -734,7 +706,7 @@ public class GUIViewImpl extends JFrame implements GUIView {
    * @param message value that needs to be set for date field
    */
   public void setDate(String message) {
-    date.setText(message);
+    costBasisPanelObj.getDateCostBasis().setText(message);
   }
 
   /**
@@ -766,12 +738,7 @@ public class GUIViewImpl extends JFrame implements GUIView {
    * to enter required entries to compute cost basis of a portfolio.
    */
   public void displayCostBasis() {
-    JDialog dialog;
-    JOptionPane optionPane = new JOptionPane(getCostBasisPanelDialog(),
-            JOptionPane.PLAIN_MESSAGE, JOptionPane.DEFAULT_OPTION, null,
-            new Object[]{}, null);
-    dialog = optionPane.createDialog("Get Cost Basis");
-    dialog.setVisible(true);
+    costBasisPanelObj.displayCostBasis();
   }
 
   /**
@@ -979,9 +946,10 @@ public class GUIViewImpl extends JFrame implements GUIView {
     });
     costBasisPanelObj.returncostBasisButton().addActionListener(evt ->
             features.displayDialogPane("costBasis"));
-    getCostBasis.addActionListener(evt -> {
+    costBasisPanelObj.getCostBasisButton().addActionListener(evt -> {
       try {
-        features.validateCostBasis(this.pfName.getText(), this.date.getText());
+        features.validateCostBasis(costBasisPanelObj.getPfNameCostBasis().getText(),
+                costBasisPanelObj.getDateCostBasis().getText());
       } catch (ParseException e) {
         throw new RuntimeException(e);
       }

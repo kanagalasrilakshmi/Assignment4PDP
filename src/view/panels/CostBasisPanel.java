@@ -25,4 +25,14 @@ public interface CostBasisPanel {
    * @return Jlabel type object for getting the status after accessing cost basis panel
    */
   JLabel returncostBasisStatus();
+  void displayCostBasis();
+  JTextField getPfNameCostBasis();
+
+  JTextField getDateCostBasis();
+
+  JTextArea getPortfoliosListBasis();
+
+  JButton getCostBasisButton();
+
+  JLabel getCostBasisDialogStatus();
 }
