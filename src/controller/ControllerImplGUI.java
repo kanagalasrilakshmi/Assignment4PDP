@@ -331,12 +331,13 @@ public class ControllerImplGUI implements ControllerGUI {
           guiView.settickrmodifyValue(null);
         } else if (!portfolio.checkValidSell(this.rootDir + pfNameModify + ".json",
                 Integer.parseInt(numStocksModify), tickrModify, dateModify)) {
-          guiView.setmodifyDialogStatus("The number entered for selling stocks is more than stocks " +
-                  "purchased. Please enter a valid value.");
+          guiView.setmodifyDialogStatus("The number entered for selling stocks is more than " +
+                  "stocks purchased. Please enter a valid value.");
           checkLabel = false;
           guiView.setnumstocksmodifyValue(null);
         } else {
-          JSONObject pf = this.fileOperation.readPortfolio(this.rootDir + pfNameModify + ".json");
+          JSONObject pf = this.fileOperation.readPortfolio(this.rootDir + pfNameModify
+                  + ".json");
           pf = portfolio.modifyJson(commission, Integer.parseInt(numStocksModify) * (-1),
                   dateModify, tickrModify, pf);
           this.fileOperation.savePortfolio(this.rootDir + pfNameModify + ".json", pf);
