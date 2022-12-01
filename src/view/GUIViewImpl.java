@@ -35,18 +35,12 @@ public class GUIViewImpl extends JFrame implements GUIView {
   private final JButton getCostBasis = new JButton("Compute Cost Basis");
   private JTextField pfName;
   private JTextField date;
-  private final JTextArea portfoliosListVal = new JTextArea();
+
   private final JTextArea portfoliosListBasis = new JTextArea();
   private final JTextArea portfoliosListRetrieve = new JTextArea();
   private final JTextArea portfolioComposition = new JTextArea();
-
-  // fields for value.
-  private JTextField pfnamevalue;
-  private JTextField datevalue;
   private JTextField pfnameretrieve;
-  private final JButton computeval = new JButton("Compute Value of Portfolio");
   private final JButton computecomposition = new JButton("Get Portfolio Composition");
-  private final JLabel valDialogStatus = new JLabel();
   private final JLabel costBasisDialogStatus = new JLabel();
   private final JLabel retrieveDialogStatus = new JLabel();
   private JTextField stratergydollarnewname;
@@ -412,7 +406,7 @@ public class GUIViewImpl extends JFrame implements GUIView {
    * @param message status while querying value of a portfolio
    */
   public void setvalueDialogStatus(String message) {
-    valDialogStatus.setText(message);
+    valueDatePanelObj.getValDialogStatus().setText(message);
   }
 
   /**
@@ -479,7 +473,7 @@ public class GUIViewImpl extends JFrame implements GUIView {
    * @param message is the list of existing portfolios in the given user path
    */
   public void setPortfoliosListVal(String message) {
-    this.portfoliosListVal.setText(message);
+    valueDatePanelObj.getPortfoliosListVal().setText(message);
   }
 
   /**
@@ -562,32 +556,6 @@ public class GUIViewImpl extends JFrame implements GUIView {
    */
   public void setPortfoliosListComposition(String message) {
     this.portfolioComposition.setText(message);
-  }
-
-  private JPanel getValuePanelDialog() {
-    JPanel valDialog = new JPanel();
-    JLabel listPortfolios = new JLabel("List of all the portfolios in the given path:");
-    portfoliosListVal.setEditable(false);
-    pfnamevalue = new JTextField(25);
-    JLabel pfNameLabel = new JLabel("Enter Portfolio Name for which value needs to be " +
-            "fetched. Enter only names from the given list of portfolios. If no portfolios exist " +
-            "then close this dialog pane by clicking 'X' on top left");
-    datevalue = new JTextField(25);
-    JLabel dateLabel = new JLabel("Enter date to compute value of the portfolio in " +
-            "YYYY-DD-MM format only. Ex-2021-02-02");
-    valDialog.setLayout(new BoxLayout(valDialog, BoxLayout.Y_AXIS));
-    valDialog.setPreferredSize(new Dimension(700, 700));
-    valDialog.setMaximumSize(new Dimension(900, 500));
-    valDialog.setMinimumSize(new Dimension(400, 400));
-    valDialog.add(listPortfolios);
-    valDialog.add(portfoliosListVal);
-    valDialog.add(pfNameLabel);
-    valDialog.add(pfnamevalue);
-    valDialog.add(dateLabel);
-    valDialog.add(datevalue);
-    valDialog.add(computeval);
-    valDialog.add(valDialogStatus);
-    return valDialog;
   }
 
   private JPanel getRetrievePanelDialog() {
@@ -735,7 +703,7 @@ public class GUIViewImpl extends JFrame implements GUIView {
    * @param message value that needs to be set for pf name field
    */
   public void setpfnameVal(String message) {
-    pfnamevalue.setText(message);
+    valueDatePanelObj.getPfnamevalue().setText(message);
   }
 
   /**
@@ -745,7 +713,7 @@ public class GUIViewImpl extends JFrame implements GUIView {
    * @param message value that needs to be set for date field
    */
   public void setdateVal(String message) {
-    this.datevalue.setText(message);
+    valueDatePanelObj.getDatevalue().setText(message);
   }
 
   /**
@@ -828,11 +796,7 @@ public class GUIViewImpl extends JFrame implements GUIView {
    * lets users get the value of a flexible portfolio on a specific date.
    */
   public void displayValuepf() {
-    JDialog dialog;
-    JOptionPane optionPane = new JOptionPane(getValuePanelDialog(), JOptionPane.PLAIN_MESSAGE,
-            JOptionPane.DEFAULT_OPTION, null, new Object[]{}, null);
-    dialog = optionPane.createDialog("Value of the Portfolio");
-    dialog.setVisible(true);
+    valueDatePanelObj.displayValuepf();
   }
 
   /**
@@ -1005,9 +969,10 @@ public class GUIViewImpl extends JFrame implements GUIView {
     });
     valueDatePanelObj.returnValueButton().addActionListener(evt ->
             features.displayDialogPane("getDateVal"));
-    computeval.addActionListener(evt -> {
+    valueDatePanelObj.getComputeval().addActionListener(evt -> {
       try {
-        features.validateDateVal(this.pfnamevalue.getText(), this.datevalue.getText());
+        features.validateDateVal(valueDatePanelObj.getPfnamevalue().getText(),
+                valueDatePanelObj.getDatevalue().getText());
       } catch (FileNotFoundException | ParseException e) {
         throw new RuntimeException(e);
       }

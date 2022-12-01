@@ -31,4 +31,15 @@ public interface ValuePanel {
    * @return Jlabel type object for getting the status after accessing value panel
    */
   JLabel returnValueStatus();
+
+  /**
+   * Display the value portfolio dialog pane,
+   * lets users get the value of a flexible portfolio on a specific date.
+   */
+  void displayValuepf();
+  JTextArea getPortfoliosListVal();
+  JButton getComputeval();
+  JLabel getValDialogStatus();
+  JTextField getDatevalue();
+  JTextField getPfnamevalue();
 }
