@@ -18,19 +18,42 @@ public class ValuePanelImpl implements ValuePanel {
   private JTextField pfnamevalue;
   private JTextField datevalue;
 
+  /**
+   *
+   * @return
+   */
   public JTextArea getPortfoliosListVal(){
     return this.portfoliosListVal;
   }
+
+  /**
+   *
+   * @return
+   */
   public JButton getComputeval(){
     return this.computeval;
   }
+
+  /**
+   *
+   * @return
+   */
   public JLabel getValDialogStatus(){
     return this.valDialogStatus;
   }
+
+  /**
+   *
+   * @return
+   */
   public JTextField getDatevalue(){
     return this.datevalue;
   }
 
+  /**
+   *
+   * @return JTextField portfolio name
+   */
   public JTextField getPfnamevalue(){
     return this.pfnamevalue;
   }

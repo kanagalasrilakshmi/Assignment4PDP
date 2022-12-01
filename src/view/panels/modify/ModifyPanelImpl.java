@@ -6,7 +6,7 @@ import java.awt.*;
 /**
  * Modify panel that implements functionalities for getting modify panel.
  */
-public class ModifyPanelImpl implements ModifyPanel{
+public class ModifyPanelImpl implements ModifyPanel {
   private JPanel modifyPanel;
   private JButton getModifyButton;
   private JLabel modifyStatus = new JLabel();
@@ -22,31 +22,85 @@ public class ModifyPanelImpl implements ModifyPanel{
   private final JTextArea portfoliosListModify = new JTextArea();
   private final JLabel modifyDialogStatus = new JLabel();
 
-  public JTextField getCommissionfessmodify(){
+  /**
+   * commission field given to this field.
+   *
+   * @return commission field
+   */
+  public JTextField getCommissionfessmodify() {
     return this.commissionfessmodify;
   }
-  public JTextField getNumstocksmodify(){
+
+
+  /**
+   * num of stocks given to this field for purchase or sell.
+   *
+   * @return num of stocks field
+   */
+  public JTextField getNumstocksmodify() {
     return this.numstocksmodify;
   }
-  public JTextField getTickrmodify(){
+
+  /**
+   * input tickr symbol.
+   *
+   * @return tickr symbol entered
+   */
+  public JTextField getTickrmodify() {
     return this.tickrmodify;
   }
-  public JTextField getDateofmodify(){
+
+  /**
+   * return date of purchase or sell to portfolio.
+   *
+   * @return date of creation
+   */
+  public JTextField getDateofmodify() {
     return this.dateofmodify;
   }
-  public JTextField getPfnamemodify(){
+
+  /**
+   * return portfolio name field to be modified.
+   *
+   * @return portfolio name text field
+   */
+  public JTextField getPfnamemodify() {
     return this.pfnamemodify;
   }
-  public JButton getPurchasemodify(){
+
+  /**
+   * Used for purchasing the stocks.
+   *
+   * @return Jbutton for making purchase of stocks
+   */
+  public JButton getPurchasemodify() {
     return this.purchase;
   }
-  public JButton getSellmodify(){
+
+  /**
+   * Used for selling the stocks.
+   *
+   * @return Jbutton for making selling of stocks
+   */
+  public JButton getSellmodify() {
     return this.sell;
   }
-  public JTextArea getPortfoliosListModify(){
+
+  /**
+   * List of portfolios to be modified.
+   *
+   * @return Jtextarea object of portfolios list
+   */
+  public JTextArea getPortfoliosListModify() {
     return this.portfoliosListModify;
   }
-  public JLabel getModifyDialogStatus(){
+
+  /**
+   * Status after purchasing or selling entries in portfolio.
+   *
+   * @return status of the modify dialog
+   */
+  public JLabel getModifyDialogStatus() {
     return this.modifyDialogStatus;
   }
 
@@ -64,25 +118,28 @@ public class ModifyPanelImpl implements ModifyPanel{
 
   /**
    * Return modify panel.
+   *
    * @return Jpanel for modifying
    */
-  public JPanel getModifyPanel(){
+  public JPanel getModifyPanel() {
     return this.modifyPanel;
   }
 
   /**
    * Modification of portfolios on this button click.
+   *
    * @return Return button for modification of portfolios on this button click.
    */
-  public JButton returngetModifyButton(){
+  public JButton returngetModifyButton() {
     return this.getModifyButton;
   }
 
   /**
    * Status after getting modifying pane.
+   *
    * @return status message after getting modifying pane
    */
-  public JLabel getModifyStatus(){
+  public JLabel getModifyStatus() {
     return this.modifyStatus;
   }
 
