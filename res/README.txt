@@ -1,8 +1,10 @@
 # Assignment4PDP
 
 # WHAT WORKS!
-# 1. Allows the user to create both Flexible portfolios and Rigid Portfolios.
-# 2. Previous implementation of Rigid Portfolio is supported along with Flexible portfolio and the code is used unchanged from the previous version.
+# 1. Dollar cost, strategy implementation, cost basis and value for both.
+# 2. New GUI, all corresponding panels theirs classes and interface and necessary validations.
+# 3. Continues to allow the user to create both Flexible portfolios and Rigid Portfolios.
+# 4. Previous implementation of Rigid Portfolio is supported along with Flexible portfolio and the code is used unchanged from the previous version.
 # 3. Create, Modify a flexible portfolio.
 # 4. Get cost basis, value of the flexible portfolio on a specific date.
 # 5. Print the composition of the flexible portfolio.
@@ -16,3 +18,5 @@
 
 # WHAT !WORKS
 # 1. Testing for stock value before 9:30 am could not be done since local time changes at every run.
+
+# NOTE: For future dates only the strategies are stored in the strategy lookup. Future strategy records are not persisted in the pf.

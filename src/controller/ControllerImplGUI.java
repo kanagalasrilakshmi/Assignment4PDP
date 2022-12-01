@@ -915,6 +915,7 @@ public class ControllerImplGUI implements ControllerGUI {
             saveExistingpf(dollarexistpfname, stocksexist, weightsexist, commission, dollarexistval,
                     dollarexistdate, null, "0", "dollarexist");
           }
+          ArrayList<Float> newWeights = portfolio.getWeightListEqualProp(portfolio.validateTickrEntries(stocksexist).size());
           saveStrategyrecord(stratergydollarexistname, dollarexistpfname, stocksexist,
                   weightsexist, commission, dollarexistval, dollarexistdate,
                   null, 0);

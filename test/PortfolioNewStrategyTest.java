@@ -9,9 +9,11 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -102,7 +104,7 @@ public class PortfolioNewStrategyTest {
   }
 
   @Test
-  public void dollarCostExisting() {
+  public void dollarCostOnSpecificDate() throws ParseException {
     Portfolio portfolioObj = new PortfolioNewStratergy();
     PortfolioStratergy strategyPortfolioObj = new PortfolioNewStratergy();
     String path = System.getProperty("user.home") + "/Desktop/PortfolioBucket/" + "pf.json";
@@ -122,7 +124,41 @@ public class PortfolioNewStrategyTest {
     JSONObject pf = strategyPortfolioObj.dollarCostExisting(tickrs, weights,
             2, 1000, "2022-11-11", addTickr);
     fileObj.savePortfolio(path, pf);
+    // Check if contents match
     assertEquals(pf.toString(), fileObj.readPortfolio(path).toString());
+    // Check cost basis
+    assertEquals("24157.72", String.valueOf(portfolioObj.getCostBasis(path, "2022-11-11")));
+    assertEquals("24157.72", String.valueOf(portfolioObj.getCostBasis(path, "2022-12-11")));
+  }
+
+  @Test
+  public void dollarCostOnSpecificDateValue() throws ParseException, FileNotFoundException {
+    Portfolio portfolioObj = new PortfolioNewStratergy();
+    PortfolioStratergy strategyPortfolioObj = new PortfolioNewStratergy();
+    String path = System.getProperty("user.home") + "/Desktop/PortfolioBucket/" + "pf.json";
+    JSONObject addTickr = new JSONObject();
+    JSONObject addEntry = portfolioObj.makeTransactionRecord("2022-01-01",
+            7, 8, "GOOG");
+    JSONArray listEntry = new JSONArray();
+    listEntry.add(addEntry);
+    addTickr.put("GOOG", listEntry);
+    fileObj.savePortfolio(path, addTickr);
+    ArrayList<String> tickrs = new ArrayList<>();
+    tickrs.add("GOOG");
+    tickrs.add("MSFT");
+    ArrayList<Float> weights = new ArrayList<>();
+    weights.add(50F);
+    weights.add(50F);
+    JSONObject pf = strategyPortfolioObj.dollarCostExisting(tickrs, weights,
+            2, 1000, "2022-11-11", addTickr);
+    fileObj.savePortfolio(path, pf);
+    // Check if contents match
+    assertEquals(pf.toString(), fileObj.readPortfolio(path).toString());
+    // Check cost basis
+    assertEquals("1751.71", String.valueOf(portfolioObj.portfolioValueDate(
+            System.getProperty("user.home") + "/Desktop/PortfolioBucket/" , "pf","2022-11-11")));
+    assertEquals("0.0", String.valueOf(portfolioObj.portfolioValueDate(
+            System.getProperty("user.home") + "/Desktop/PortfolioBucket/" , "pf","2022-12-12")));
   }
 
   @Test
@@ -143,22 +179,77 @@ public class PortfolioNewStrategyTest {
   }
 
   @Test
-  public void saveStrategyNewPf() {
+  public void startToFinishNewPfValueByDate() throws ParseException, FileNotFoundException {
     Portfolio portfolioObj = new PortfolioNewStratergy();
     PortfolioStratergy strategyPortfolioObj = new PortfolioNewStratergy();
     String path = System.getProperty("user.home") + "/Desktop/PortfolioBucket/"
             + "pfStrategyLookUp.json";
+    String pfPath = System.getProperty("user.home") + "/Desktop/PortfolioBucket/" + "pf.json";
     ArrayList<String> tickrs = new ArrayList<>();
     tickrs.add("GOOG");
     tickrs.add("MSFT");
     ArrayList<Float> weights = new ArrayList<>();
     weights.add(50F);
     weights.add(50F);
-    JSONObject pf = strategyPortfolioObj.saveStrategyRecord(tickrs, weights,
+    JSONObject pfStrat = strategyPortfolioObj.saveStrategyRecord(tickrs, weights,
             2, 4, "2022-01-01", "2022-02-02", 1000,
-            "strategy_1", new JSONObject(), "Portfolio_1");
-    fileObj.savePortfolio(path, pf);
-    assertEquals(pf.toString(), fileObj.readPortfolio(path).toString());
+            "strategy_1", new JSONObject(), "pf");
+    fileObj.savePortfolio(path, pfStrat);
+    JSONObject updated = strategyPortfolioObj.startToFinishDollarCostPresent(tickrs, weights,
+            2, 4, "2022-01-01", "2022-02-02", 1000, new JSONObject());
+    fileObj.savePortfolio(pfPath, updated);
+    // Check if strategy record persists.
+    assertEquals(pfStrat.toString(), fileObj.readPortfolio(path).toString());
+    String root = System.getProperty("user.home") + "/Desktop/PortfolioBucket/";
+    // Check value out of range (future date)
+    assertEquals("1482.66", String.valueOf(portfolioObj.portfolioValueDate(
+            root , "pf", "2022-11-11")));
+    assertEquals("0.0", String.valueOf(portfolioObj.portfolioValueDate(
+            root , "pf", "2024-11-11")));
+    // Check value within range
+    // Jan 1,2022 is a saturday so first transaction is done on Jan 3,2022
+    assertEquals("0.0", String.valueOf(portfolioObj.portfolioValueDate(
+            root , "pf","2022-01-01")));
+    assertEquals("907.94995", String.valueOf(portfolioObj.portfolioValueDate(
+            root , "pf", "2022-01-18")));
+    assertEquals("1185.48", String.valueOf(portfolioObj.portfolioValueDate(
+            root, "pf","2022-01-24")));
+    assertEquals("1880.76", String.valueOf(portfolioObj.portfolioValueDate(
+            root , "pf", "2022-02-02")));
+  }
+
+  @Test
+  public void startToFinishNewPfNew() throws ParseException {
+    Portfolio portfolioObj = new PortfolioNewStratergy();
+    PortfolioStratergy strategyPortfolioObj = new PortfolioNewStratergy();
+    String path = System.getProperty("user.home") + "/Desktop/PortfolioBucket/"
+            + "pfStrategyLookUp.json";
+    String pfPath = System.getProperty("user.home") + "/Desktop/PortfolioBucket/" + "pf.json";
+    ArrayList<String> tickrs = new ArrayList<>();
+    tickrs.add("GOOG");
+    tickrs.add("MSFT");
+    ArrayList<Float> weights = new ArrayList<>();
+    weights.add(50F);
+    weights.add(50F);
+    JSONObject pfStrat = strategyPortfolioObj.saveStrategyRecord(tickrs, weights,
+            2, 4, "2022-01-01", "2022-02-02", 1000,
+            "strategy_1", new JSONObject(), "pf");
+    fileObj.savePortfolio(path, pfStrat);
+    JSONObject updated = strategyPortfolioObj.startToFinishDollarCostPresent(tickrs, weights,
+            2, 4, "2022-01-01", "2022-02-02", 1000, new JSONObject());
+    fileObj.savePortfolio(pfPath, updated);
+    // Check if strategy record persists.
+    assertEquals(pfStrat.toString(), fileObj.readPortfolio(path).toString());
+    // Check cost basis out of range (future date)
+    assertEquals("6016.0", String.valueOf(portfolioObj.getCostBasis(pfPath, "2022-11-11")));
+    assertEquals("6016.0", String.valueOf(portfolioObj.getCostBasis(pfPath, "2024-11-11")));
+    // Check cost basis within range
+    // Jan 1,2022 is a saturday so first transaction is done on Jan 3,2022
+    assertEquals("0.0", String.valueOf(portfolioObj.getCostBasis(pfPath, "2022-01-02")));
+    assertEquals("3010.0", String.valueOf(portfolioObj.getCostBasis(pfPath, "2022-01-18")));
+    assertEquals("4012.0", String.valueOf(portfolioObj.getCostBasis(pfPath, "2022-01-24")));
+    assertEquals("6016.0", String.valueOf(portfolioObj.getCostBasis(pfPath, "2022-02-02")));
+    assertEquals("6016.0", String.valueOf(portfolioObj.getCostBasis(pfPath, "2022-02-30")));
   }
 
   @Test

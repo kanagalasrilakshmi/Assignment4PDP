@@ -130,6 +130,14 @@ public interface PortfolioStratergy extends Portfolio {
   boolean checkDuplicates(ArrayList<String> stocks);
 
   /**
+   * Get weight list for equal  proportion of investment.
+   *
+   * @param tickrListSize of the entered tickr symbols.
+   * @return weightList
+   */
+  ArrayList<Float> getWeightListEqualProp(int tickrListSize);
+
+  /**
    * Check for invalid characters in the given list of stocks string.
    *
    * @param stocks string entry og the given batch of stocks

@@ -16,13 +16,26 @@
 # The view for the assignment is GUI based and is written in the GUIViewImpl that implements the common view interface. Every panel has its own class and interface which is present in the panels' directory.
 # Different panels for cost basis, creation, dollar strategies, portfolio modification, retrieve and quit are created.
 # The API is put in a separate class that implements the API interface.
+# The file operations are put in a separate class that implements the FileOperation interface
 # MVCStocks: Contains the main runner for the program.
 # Step By Step rundown of how it works and its operations.
 
 # MAIN MENU (GUI):
-
 # 1. Set root directory: uses valid route from user | checks if the invalid directory and suggest default route and creates one, or lets the user try again
 # Valid USER PATH is one with no spaces, no null, and no invalid characters or digits as input and should not exceed 25 in length. If an invalid directory route is given the user is asked to try again or to continue with the default route "/Users/Desktop/PortfolioBucket" which is created if not already existing.
+# 2. Create a new portfolio
+# 3. Get Cost basis
+# 4. Get Value of the portfolio
+# 5. Retrieve portfolio
+# 6. Calculate dollar cost averaging
+# 7. Create dollar cost averaging
+# 8. Quit the program
+
+# STRATEGIES:
+# All strategies are stored in a strategy lookup json file that is common for all the portfolios in the portfolio bucket root.
+# Each strategy can be fetched anytime using the pf name and strategy name which are keys in the json file.
+# Multiple strategies for the same pf are also allowed and input strategy is recorded against that strategy name.
+# If end date is ONGOING records will persisted for the next 365 days in the portfolio if in the past.
 
 FEATURE 1:
 # 1. Dollar-cost averaging:
@@ -45,14 +58,13 @@ FEATURE 1:
 
 # FEATURE 2:
 # New User Interface
-# The 'X" button at the top left has to be used to close any panel.
+# The 'X' button at the top left has to be used to close any panel.
 # All the input fields are validated sequentially and invalid input prompts are displayed whenever necessary while trying to update or persist something.
 
 # VALIDATIONS:
 # All the portfolios in the given valid user path(set by the user) or in the default path saved in .json format (since all our portfolios saved in .json format) are listed down.
 # User is given the choice to enter the name of the files from the listed files only.
 # From start to finish if stocks are scheduled to be bought on Saturday or Sunday it will be done on Monday ie the next valid date
-#
 # Set root directory: uses valid route from user | checks if the invalid directory and suggest default route and creates one, or lets user try again
 # Valid USER PATH is one with no spaces, no null, and no invalid characters or digits as input and should not exceed 25 lengths. If an invalid directory route is given the user is asked to try again or to continue with the default route "/Users/Desktop/PortfolioBucket" which is created if not already existing.
 # Checks if tickr is valid and prompts the user to input again if not.
@@ -79,10 +91,6 @@ FEATURE 1:
 # For sale - commission fees paid while selling stocks are included.
 # This feature works perfectly fine.
 # If the user gives a negative commission fee then prompted to give either float or integer values only.
-
-
-# EXTRA CREDIT
-# Performance of the Portfolio (Graph in GUI)
 
 # Performance of the Portfolio (from the previous assignment):
 # User is prompted to give a range of two dates between which you want to get the performance of the portfolio.

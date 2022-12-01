@@ -82,6 +82,21 @@ public class PortfolioNewStratergy extends FlexiblePortfolioImpl implements Port
   }
 
   /**
+   * Get weight list for equal  proportion of investment.
+   *
+   * @param tickrListSize of the entered tickr symbols.
+   * @return weightList
+   */
+  public ArrayList<Float> getWeightListEqualProp(int tickrListSize) {
+    ArrayList<Float> weightList = new ArrayList<>();
+    for(int i=0; i<tickrListSize; i++) {
+      weightList.add(Float.valueOf(100/tickrListSize));
+    }
+    return weightList;
+  }
+
+
+  /**
    * This function checks if the sum of the weights is equal to 100, and size of tickr symbols,
    * is equal to number of weights given .
    *
