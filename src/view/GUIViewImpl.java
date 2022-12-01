@@ -1,15 +1,10 @@
 package view;
 
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import java.io.FileNotFoundException;
 import java.text.ParseException;
-import javax.swing.JDialog;
-import javax.swing.JTextField;
+
 import controller.ControllerGUI;
 import view.panels.costbasis.CostBasisPanel;
 import view.panels.costbasis.CostBasisPanelImpl;
@@ -25,8 +20,8 @@ import view.panels.modify.ModifyPanel;
 import view.panels.modify.ModifyPanelImpl;
 import view.panels.quit.QuitPanel;
 import view.panels.quit.QuitPanelImpl;
-import view.panels.retrievepf.retrievePanel;
-import view.panels.retrievepf.retrievePanelImpl;
+import view.panels.retrievepf.RetrievePanel;
+import view.panels.retrievepf.RetrievePanelImpl;
 import view.panels.userpath.UserPanel;
 import view.panels.userpath.UserPanelImpl;
 import view.panels.valuedate.ValuePanel;
@@ -44,7 +39,7 @@ public class GUIViewImpl extends JFrame implements GUIView {
   ModifyPanel modifyPanelObj = new ModifyPanelImpl();
   ValuePanel valueDatePanelObj = new ValuePanelImpl();
   CostBasisPanel costBasisPanelObj = new CostBasisPanelImpl();
-  retrievePanel retrievePanelObj = new retrievePanelImpl();
+  RetrievePanel retrievePanelObj = new RetrievePanelImpl();
   Dollarstrategyexist dollarPanelExistingObj = new DollarstrategyexistImpl();
   Dollarstrategynew dollarPanelNewObj = new DollarstrategynewImpl();
 
@@ -367,6 +362,7 @@ public class GUIViewImpl extends JFrame implements GUIView {
   public void setcreateDialogStatus(String message) {
     createPanelObj.getCreateDialogStatus().setText(message);
   }
+
   /**
    * Set the status of the modify dialog pane based on the given inputs.
    * If no fields are set then set it to fields are empty, if inputs given are invalid,
@@ -753,7 +749,7 @@ public class GUIViewImpl extends JFrame implements GUIView {
       try {
         features.modifyValidate(modifyPanelObj.getPfnamemodify().getText(),
                 modifyPanelObj.getTickrmodify().getText().toUpperCase(),
-               modifyPanelObj.getNumstocksmodify().getText(),
+                modifyPanelObj.getNumstocksmodify().getText(),
                 modifyPanelObj.getDateofmodify().getText(),
                 modifyPanelObj.getCommissionfessmodify().getText(),
                 "purchase");
@@ -804,10 +800,10 @@ public class GUIViewImpl extends JFrame implements GUIView {
             features.validateExistingDollar(
                     dollarPanelExistingObj.getStratergydollarexistname().getText(),
                     dollarPanelExistingObj.getDollarexistpfname().getText(),
-            dollarPanelExistingObj.getStocksexist().getText().toUpperCase(),
+                    dollarPanelExistingObj.getStocksexist().getText().toUpperCase(),
                     dollarPanelExistingObj.getWeightsexist().getText(),
                     dollarPanelExistingObj.getDollarexistval().getText(),
-            dollarPanelExistingObj.getDollarexistdate().getText(),
+                    dollarPanelExistingObj.getDollarexistdate().getText(),
                     dollarPanelExistingObj.getDollarexistcommision().getText()));
     dollarPanelNewObj.getDollarnewcreate().addActionListener(evt -> {
       try {

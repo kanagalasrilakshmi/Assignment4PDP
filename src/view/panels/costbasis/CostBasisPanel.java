@@ -16,7 +16,7 @@ public interface CostBasisPanel {
   void costBasisPanel();
 
   /**
-   * Return cost basis panel
+   * Return cost basis panel.
    *
    * @return Jpanel type object for cost basis panel
    */
@@ -30,7 +30,7 @@ public interface CostBasisPanel {
   JButton returncostBasisButton();
 
   /**
-   * Status after clicking the cost basis panel
+   * Status after clicking the cost basis panel.
    *
    * @return Jlabel type object for getting the status after accessing cost basis panel
    */

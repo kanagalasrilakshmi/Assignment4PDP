@@ -11,6 +11,9 @@ import java.awt.event.ActionEvent;
 public class QuitPanelImpl implements QuitPanel {
   private JPanel quitPanel;
 
+  /**
+   * Create quit panel.
+   */
   public void getQuitPanel() {
     quitPanel = new JPanel();
     quitPanel.setBorder(BorderFactory.createTitledBorder("Quit the stocks program"));
@@ -19,6 +22,11 @@ public class QuitPanelImpl implements QuitPanel {
     quitPanel.add(quitButton);
   }
 
+  /**
+   * Quit panel object.
+   *
+   * @return Jpanel object of quit panel
+   */
   public JPanel quitPanelfinal() {
     return this.quitPanel;
   }

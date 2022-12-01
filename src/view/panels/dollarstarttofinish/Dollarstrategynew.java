@@ -5,6 +5,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+/**
+ * Interface for accessing dollar cost averaging start-to-finish panel.
+ */
 public interface Dollarstrategynew {
   /**
    * Creating panel for applying dollar cost averaging start-to-finish.

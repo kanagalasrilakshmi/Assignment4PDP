@@ -14,7 +14,7 @@ import javax.swing.JTextArea;
 /**
  * Create retrieve portfolio panel for implementing functionalities for retrieving a portfolio.
  */
-public class retrievePanelImpl implements view.panels.retrievepf.retrievePanel {
+public class RetrievePanelImpl implements RetrievePanel {
   private JPanel retrievePanel;
   private JLabel retrievePanelStatus;
   private JButton retrievePf = new JButton("Retrieve Portfolio");

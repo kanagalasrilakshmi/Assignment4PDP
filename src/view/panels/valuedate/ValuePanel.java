@@ -30,7 +30,7 @@ public interface ValuePanel {
   JButton returnValueButton();
 
   /**
-   * Status after clicking the value panel
+   * Status after clicking the value panel.
    *
    * @return Jlabel type object for getting the status after accessing value panel
    */

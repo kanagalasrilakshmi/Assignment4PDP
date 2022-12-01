@@ -9,7 +9,7 @@ import javax.swing.JTextArea;
 /**
  * Interface for accessing retrieve portfolio panel.
  */
-public interface retrievePanel {
+public interface RetrievePanel {
   /**
    * Creating a Retrieving a portfolio panel.
    */
