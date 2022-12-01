@@ -17,22 +17,43 @@ public class CostBasisPanelImpl implements CostBasisPanel{
   private final JButton getCostBasis = new JButton("Compute Cost Basis");
   private final JLabel costBasisDialogStatus = new JLabel();
 
+  /**
+   * Return JTextfield portfolio name.
+   * @return Jtext field type pf name
+   */
   public JTextField getPfNameCostBasis(){
     return this.pfName;
   }
 
+  /**
+   * Return date Jtext field.
+   * @return JText field date field
+   */
   public JTextField getDateCostBasis(){
     return this.date;
   }
 
+  /**
+   * List of all the portfolios in the given path.
+   * @return  JTextArea type portfolios
+   */
   public JTextArea getPortfoliosListBasis(){
     return this.portfoliosListBasis;
   }
 
+  /**
+   * gives cost basis when clicked.
+   * @return Jbutton to compute cost basis
+   */
   public JButton getCostBasisButton(){
     return this.getCostBasis;
   }
 
+  /**
+   * gives the cost basis comuted upon a button click.
+   *
+   * @return label that records the cost basis value
+   */
   public JLabel getCostBasisDialogStatus(){
     return this.costBasisDialogStatus;
   }
