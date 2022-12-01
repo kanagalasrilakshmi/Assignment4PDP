@@ -2,12 +2,6 @@ package model;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
-
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.text.DateFormatSymbols;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -28,6 +22,7 @@ import java.util.Locale;
  * get whole composition of the portfolio.
  */
 public class FlexiblePortfolioImpl extends PortfolioImpl {
+  FileOperation fileObj = new FileOperationImplementation();
 
   /**
    * Make a transaction of purchase or sell using the input values date,commission, no of stock,
@@ -49,39 +44,6 @@ public class FlexiblePortfolioImpl extends PortfolioImpl {
     return record;
   }
 
-  /**
-   * Read the Portfolio for the given path for the portfolio.
-   *
-   * @param path portfolio absolute path
-   * @return a json object that consists of all the entries in the input portfolio path
-   */
-  public JSONObject readPortfolio(String path) {
-    JSONParser parser = new JSONParser();
-    try (FileReader reader = new FileReader(path)) {
-      Object parseObj = parser.parse(reader);
-      return (JSONObject) parseObj;
-    } catch (IOException | ParseException e) {
-      e.printStackTrace();
-    }
-    return null;
-  }
-
-  /**
-   * Save a portfolio.
-   *
-   * @param path portfolio path where json needs to be saved
-   * @param data portfolio json object
-   */
-  public void savePortfolio(String path, JSONObject data) {
-    try {
-      FileWriter file = new FileWriter(path);
-      file.write(data.toJSONString());
-      file.close();
-    } catch (IOException e) {
-      // TODO Auto-generated catch block
-      e.printStackTrace();
-    }
-  }
 
   /**
    * modify the json.
@@ -92,7 +54,8 @@ public class FlexiblePortfolioImpl extends PortfolioImpl {
    * @param portfolio the json object of the portfolio
    */
   @Override
-  public JSONObject modifyJson(float fees, float numOfStocks, String date, String tickr, JSONObject portfolio) {
+  public JSONObject modifyJson(float fees, float numOfStocks, String date, String tickr,
+                               JSONObject portfolio) {
     Float commissionFee = fees;
     // if ticker already exists in portfolio append to it else add new entry if it does not exist.
     if (portfolio.containsKey(tickr)) {
@@ -121,7 +84,7 @@ public class FlexiblePortfolioImpl extends PortfolioImpl {
   @Override
   public float getCostBasis(String pfPath, String date) throws java.text.ParseException {
     float finalCostBasis = 0;
-    JSONObject portfolio = readPortfolio(pfPath);
+    JSONObject portfolio = fileObj.readPortfolio(pfPath);
     for (Object tickrsym : portfolio.keySet()) {
       JSONArray arrayObj = (JSONArray) portfolio.get(tickrsym);
       for (int i = 0; i < arrayObj.size(); i++) {
@@ -150,7 +113,7 @@ public class FlexiblePortfolioImpl extends PortfolioImpl {
    * @return true if tickr exists else false
    */
   public boolean ifTickrInPf(String pfPath, String tickr) {
-    JSONObject portfolio = readPortfolio(pfPath);
+    JSONObject portfolio = fileObj.readPortfolio(pfPath);
     return portfolio.containsKey(tickr);
   }
 
@@ -162,9 +125,9 @@ public class FlexiblePortfolioImpl extends PortfolioImpl {
                                   String date) throws java.text.ParseException {
     float finalVal = 0;
     int totStocks = 0;
-    JSONObject portfolio = readPortfolio(rootDir + fileName + ".json");
+    JSONObject portfolio = fileObj.readPortfolio(rootDir + fileName + ".json");
     for (Object tickrsym : portfolio.keySet()) {
-      ApiKey apiObj = new ApiKey((String) tickrsym);
+      IApiKey apiObj = new ApiKey((String) tickrsym);
       JSONArray arrayObj = (JSONArray) portfolio.get(tickrsym);
       totStocks = getTotalStocks(arrayObj, date);
       finalVal += totStocks * apiObj.callPriceDate(date);
@@ -204,7 +167,7 @@ public class FlexiblePortfolioImpl extends PortfolioImpl {
   public boolean checkValidSell(String pfPath, int numStocks, String tickr, String date)
           throws java.text.ParseException {
     int totStocks = 0;
-    JSONObject portfolio = readPortfolio(pfPath);
+    JSONObject portfolio = fileObj.readPortfolio(pfPath);
     if (portfolio.containsKey(tickr)) {
       JSONArray tickr_record = (JSONArray) portfolio.get(tickr);
       boolean flag = false;
@@ -222,9 +185,7 @@ public class FlexiblePortfolioImpl extends PortfolioImpl {
       if (totStocks == 0) {
         return false;
       }
-      if (totStocks >= numStocks) {
-        return true;
-      }
+      return totStocks >= numStocks;
     }
     return false;
   }
@@ -249,14 +210,12 @@ public class FlexiblePortfolioImpl extends PortfolioImpl {
   @Override
   public boolean checkPriorDate(String date, String tickr, String pfPath)
           throws java.text.ParseException {
-    JSONObject portfolio = readPortfolio(pfPath);
+    JSONObject portfolio = fileObj.readPortfolio(pfPath);
     if (portfolio.containsKey(tickr)) {
       JSONArray tickrrecord = (JSONArray) portfolio.get(tickr);
       JSONObject obj = (JSONObject) tickrrecord.get(tickrrecord.size() - 1);
       String recentDate = (String) obj.get("date");
-      if (recentDate.equals(date) || checkIfBeforeDate(date, recentDate)) {
-        return true;
-      }
+      return recentDate.equals(date) || checkIfBeforeDate(date, recentDate);
     }
     return false;
   }
@@ -308,7 +267,7 @@ public class FlexiblePortfolioImpl extends PortfolioImpl {
    * @return float value of the price
    */
   public float getCallPriceDate(String date, String tickrSymbol) {
-    ApiKey apiObj = new ApiKey(tickrSymbol);
+    IApiKey apiObj = new ApiKey(tickrSymbol);
     return apiObj.callPriceDate(date);
   }
 

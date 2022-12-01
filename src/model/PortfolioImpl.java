@@ -1,6 +1,11 @@
 package model;
 
 
+import model.portfolioimplhelper.ArrayListObj;
+import model.portfolioimplhelper.IArrayListObj;
+import model.portfolioimplhelper.StocksObj;
+import model.portfolioimplhelper.PortfolioObj;
+
 import org.json.simple.JSONObject;
 
 import java.io.BufferedReader;
@@ -17,10 +22,6 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
-
-import model.portfolioimplhelper.ArrayListObj;
-import model.portfolioimplhelper.PortfolioObj;
-import model.portfolioimplhelper.StocksObj;
 
 /**
  * Implementing the Portfolio Interface and coded the implementation.
@@ -112,7 +113,8 @@ public class PortfolioImpl implements Portfolio {
   /**
    * this function helps to set the tickr symbols present in the portfolio,
    * set the prices.
-   * @param rootDir is the root directory where all the rigid portfolios exist
+   *
+   * @param rootDir  is the root directory where all the rigid portfolios exist
    * @param filename is the name of the portfolio that needs to be viewed
    * @throws IOException is an exception occurs while parsing the input parameters
    */
@@ -124,7 +126,7 @@ public class PortfolioImpl implements Portfolio {
       tickrSymbols.add(object.getTickr());
       numStocks.add(String.valueOf(object.getNumStocks()));
     }
-    ArrayListObj objreturn = new ArrayListObj(tickrSymbols, numStocks);
+    IArrayListObj objreturn = new ArrayListObj(tickrSymbols, numStocks);
     this.objString = objreturn.getTickrSymbols();
     this.objNumStocks = objreturn.getPrices();
   }
@@ -145,7 +147,7 @@ public class PortfolioImpl implements Portfolio {
         if (!(inputLine.split(",")[0].equals("Company Tickr Symbol") &&
                 inputLine.split(",")[1].equals("Num Of Stocks"))) {
           String tickrSymbol = inputLine.split(",")[0];
-          ApiKey apiObj = new ApiKey(tickrSymbol);
+          IApiKey apiObj = new ApiKey(tickrSymbol);
           Float numStocks = Float.valueOf(inputLine.split(",")[1]);
           ArrayListObj tickerSymbolsPrice = this.convertTXT();
           // initialize it as zero
@@ -323,10 +325,10 @@ public class PortfolioImpl implements Portfolio {
   }
 
   /**
-   * Check if there are any spaces or null or empty or length > 25 for the given portfolio name.
+   * Check if there are spaces, null or empty or length more than 25 for the given portfolio name.
    *
    * @param pfName portfolio name of type string
-   * @return true if there are any spaces or null or empty or length > 25 else false
+   * @return true if there are any spaces or null or empty or length more than 25 else false
    */
   public boolean checkValidpfName(String pfName) {
     if (pfName == null || pfName.length() > 25 || pfName.isEmpty() || pfName.contains(" ")) {
@@ -341,7 +343,7 @@ public class PortfolioImpl implements Portfolio {
   }
 
   /**
-   * Check if the last ending character is : /.
+   * Check if the last ending character is :'/'.
    *
    * @param rootDirUser is the path given by user in string format
    * @return true if it ends with / else false
@@ -421,14 +423,15 @@ public class PortfolioImpl implements Portfolio {
   /**
    * modify the json.
    *
-   * @param fees   is the commision fees
-   * @param num    num stocks willing to sell
-   * @param date   date on which sale is to be made
-   * @param tickr  company tickr symbol
+   * @param fees      is the commision fees
+   * @param num       num stocks willing to sell
+   * @param date      date on which sale is to be made
+   * @param tickr     company tickr symbol
    * @param portfolio jsonobject
    */
 
-  public JSONObject modifyJson(float fees, float num, String date, String tickr, JSONObject portfolio) {
+  public JSONObject modifyJson(float fees, float num, String date, String tickr,
+                               JSONObject portfolio) {
     return new JSONObject();
   }
 
@@ -444,15 +447,6 @@ public class PortfolioImpl implements Portfolio {
     return 0;
   }
 
-  /**
-   * create a json portfolio.
-   *
-   * @param pfPath   portfolio path where json needs to be saved
-   * @param addEntry add json entry
-   */
-  public void savePortfolio(String pfPath, JSONObject addEntry) {
-    // do nothing.
-  }
 
   /**
    * check if the tickr symbol exists in a json array.
@@ -556,10 +550,6 @@ public class PortfolioImpl implements Portfolio {
 
   public JSONObject makeTransactionRecord(String date, float commission, float noofstocks,
                                           String tickr) {
-    return new JSONObject();
-  }
-
-  public JSONObject readPortfolio(String path) {
     return new JSONObject();
   }
 }

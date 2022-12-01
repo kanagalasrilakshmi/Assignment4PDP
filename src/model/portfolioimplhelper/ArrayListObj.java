@@ -5,9 +5,9 @@ import java.util.ArrayList;
 /**
  * Class for creating an object for creating arraylist objects.
  */
-public class ArrayListObj {
-  private ArrayList<String> tickrSymbols;
-  private ArrayList<String> prices;
+public class ArrayListObj implements IArrayListObj {
+  private final ArrayList<String> tickrSymbols;
+  private final ArrayList<String> prices;
 
   /**
    * Constructor for ArrayLiostObj.

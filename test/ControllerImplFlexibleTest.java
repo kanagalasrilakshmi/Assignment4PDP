@@ -19,6 +19,7 @@ import view.ViewImpl;
 
 import static org.junit.Assert.assertEquals;
 
+
 /**
  * Test class for testing  the flexible portfolio's controller functions.
  */

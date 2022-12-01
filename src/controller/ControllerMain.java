@@ -25,6 +25,7 @@ public class ControllerMain implements Controller {
    * Main controller that takes in flexible portfolio objects, rigid portfolio objects.
    *
    * @param thePortfolioRigid is the model object for creating rigid portfolio
+   * @param view              is the view type object for creating text based view
    * @param thePortfolioFlex  is the model object for creating flexible portfolio
    * @param in                of type InputStream
    */

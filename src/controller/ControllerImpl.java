@@ -23,9 +23,9 @@ import view.View;
  */
 public class ControllerImpl implements Controller {
 
-  private View theView;
-  private Portfolio thePortfolio;
-  private Scanner in;
+  private final View theView;
+  private final Portfolio thePortfolio;
+  private final Scanner in;
   private String rootDir;
 
   /**
@@ -242,6 +242,11 @@ public class ControllerImpl implements Controller {
     while (!thePortfolio.checkValidInteger(numberStocks)) {
       theView.showString("Only Integer Stock values " +
               "are allowed. Please enter a valid Integer number.");
+      numberStocks = in.next();
+    }
+    while (Integer.parseInt(numberStocks) < 0) {
+      theView.showString("Negative values for stocks is not allowed." +
+              "Please enter a valid positive integer number.");
       numberStocks = in.next();
     }
     return numberStocks;

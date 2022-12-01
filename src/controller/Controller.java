@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.text.ParseException;
 
 /**
- * Interface for the controller.
+ * Interface for the controller that implements flexible and rigid portfolio stocks program.
  */
 public interface Controller {
   /**
