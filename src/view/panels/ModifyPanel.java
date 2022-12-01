@@ -25,4 +25,20 @@ public interface ModifyPanel {
    * @return status message after getting modifying pane
    */
   JLabel getModifyStatus();
+
+  /**
+   * Displays modify portfolio dialog pane,
+   * lets users modify a flexible portfolio by purchasing and selling,
+   * when modify portfolio button is clicked.
+   */
+  void displayModifyPf();
+  JTextField getCommissionfessmodify();
+  JTextField getNumstocksmodify();
+  JTextField getTickrmodify();
+  JTextField getDateofmodify();
+  JTextField getPfnamemodify();
+  JButton getPurchasemodify();
+  JButton getSellmodify();
+  JTextArea getPortfoliosListModify();
+  JLabel getModifyDialogStatus();
 }

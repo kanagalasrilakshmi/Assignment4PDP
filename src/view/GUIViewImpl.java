@@ -35,23 +35,10 @@ public class GUIViewImpl extends JFrame implements GUIView {
   private final JButton getCostBasis = new JButton("Compute Cost Basis");
   private JTextField pfName;
   private JTextField date;
-
-
-  private final JTextArea portfoliosListModify = new JTextArea();
   private final JTextArea portfoliosListVal = new JTextArea();
   private final JTextArea portfoliosListBasis = new JTextArea();
   private final JTextArea portfoliosListRetrieve = new JTextArea();
   private final JTextArea portfolioComposition = new JTextArea();
-
-
-  // fields for modify.
-  private JTextField pfnamemodify;
-  private JTextField dateofmodify;
-  private JTextField tickrmodify;
-  private JTextField numstocksmodify;
-  private JTextField commissionfessmodify;
-  private final JButton purchase = new JButton("Purchase");
-  private final JButton sell = new JButton("Sell");
 
   // fields for value.
   private JTextField pfnamevalue;
@@ -59,12 +46,9 @@ public class GUIViewImpl extends JFrame implements GUIView {
   private JTextField pfnameretrieve;
   private final JButton computeval = new JButton("Compute Value of Portfolio");
   private final JButton computecomposition = new JButton("Get Portfolio Composition");
-
-  private final JLabel modifyDialogStatus = new JLabel();
   private final JLabel valDialogStatus = new JLabel();
   private final JLabel costBasisDialogStatus = new JLabel();
   private final JLabel retrieveDialogStatus = new JLabel();
-
   private JTextField stratergydollarnewname;
   private JTextField dollarnewcreatepfname;
   private JTextField stocksnew;
@@ -76,7 +60,6 @@ public class GUIViewImpl extends JFrame implements GUIView {
   private JTextField dollarnewcommission;
   private final JButton dollarnewcreate = new JButton("Create");
   private final JLabel dollarnewpanestatus = new JLabel();
-
   private JTextField stratergydollarexistname;
   private final JTextArea portfolioslistdollarexist = new JTextArea();
   private JTextField dollarexistpfname;
@@ -349,7 +332,7 @@ public class GUIViewImpl extends JFrame implements GUIView {
    * @param message is value that needs to be set for the pf name field
    */
   public void setModifyPfValue(String message) {
-    this.pfnamemodify.setText(message);
+    modifyPanelObj.getPfnamemodify().setText(message);
   }
 
   /**
@@ -360,7 +343,7 @@ public class GUIViewImpl extends JFrame implements GUIView {
    * @param message is value that needs to be set for the date field
    */
   public void setdateofmodifynValue(String message) {
-    this.dateofmodify.setText(message);
+    modifyPanelObj.getDateofmodify().setText(message);
   }
 
   /**
@@ -371,7 +354,7 @@ public class GUIViewImpl extends JFrame implements GUIView {
    * @param message is value that needs to be set for the num of stocks field
    */
   public void setnumstocksmodifyValue(String message) {
-    this.numstocksmodify.setText(message);
+    modifyPanelObj.getNumstocksmodify().setText(message);
   }
 
   /**
@@ -382,7 +365,7 @@ public class GUIViewImpl extends JFrame implements GUIView {
    * @param message is value that needs to be set for the tickr symbol field
    */
   public void settickrmodifyValue(String message) {
-    this.tickrmodify.setText(message);
+    modifyPanelObj.getTickrmodify().setText(message);
   }
 
   /**
@@ -393,7 +376,7 @@ public class GUIViewImpl extends JFrame implements GUIView {
    * @param message is value that needs to be set for the commission field
    */
   public void setcommissionfeesmodifyValue(String message) {
-    this.commissionfessmodify.setText(message);
+    modifyPanelObj.getCommissionfessmodify().setText(message);
   }
 
   /**
@@ -416,7 +399,7 @@ public class GUIViewImpl extends JFrame implements GUIView {
    * @param message status of while modifying portfolio
    */
   public void setmodifyDialogStatus(String message) {
-    modifyDialogStatus.setText(message);
+    modifyPanelObj.getModifyDialogStatus().setText(message);
   }
 
   /**
@@ -485,7 +468,7 @@ public class GUIViewImpl extends JFrame implements GUIView {
    * @param message is the list of existing portfolios in the given user path
    */
   public void setportfoliosListModify(String message) {
-    this.portfoliosListModify.setText(message);
+    modifyPanelObj.getPortfoliosListModify().setText(message);
   }
 
   /**
@@ -579,48 +562,6 @@ public class GUIViewImpl extends JFrame implements GUIView {
    */
   public void setPortfoliosListComposition(String message) {
     this.portfolioComposition.setText(message);
-  }
-
-  private JPanel getModifyPanelDialog() {
-    JPanel modifyDialog = new JPanel();
-    JLabel listPortfolios = new JLabel("List of all the portfolios in the given path:");
-    portfoliosListModify.setEditable(false);
-    pfnamemodify = new JTextField(25);
-    JLabel pfNameLabel = new JLabel("Enter portfolio name to be modified. Enter only names " +
-            "from the given list of portfolios. If no portfolios exist then close this dialog " +
-            "pane by clicking 'X' on top left");
-    dateofmodify = new JTextField(25);
-    JLabel dateLabel = new JLabel("Enter the date of purchase/sell " +
-            "in YYYY-DD-MM format only. Ex-2021-02-02");
-    tickrmodify = new JTextField(25);
-    JLabel tickrlabel = new JLabel("Enter Tickr symbol of a company you want to purchase " +
-            "or sell. Ex: for company google tickr symbol - GOOG.");
-    numstocksmodify = new JTextField(25);
-    JLabel numstockslabel = new JLabel("Enter the number of stocks to be purchased/sold." +
-            "Negative and Fractional shares are not allowed");
-    commissionfessmodify = new JTextField(25);
-    JLabel commissionLabel = new JLabel("Enter commission fees. Negative values are not " +
-            "allowed. (Optional parameter)");
-    modifyDialog.setLayout(new BoxLayout(modifyDialog, BoxLayout.Y_AXIS));
-    modifyDialog.setPreferredSize(new Dimension(1000, 700));
-    modifyDialog.setMaximumSize(new Dimension(700, 500));
-    modifyDialog.setMinimumSize(new Dimension(500, 500));
-    modifyDialog.add(listPortfolios);
-    modifyDialog.add(portfoliosListModify);
-    modifyDialog.add(pfNameLabel);
-    modifyDialog.add(pfnamemodify);
-    modifyDialog.add(dateLabel);
-    modifyDialog.add(dateofmodify);
-    modifyDialog.add(numstockslabel);
-    modifyDialog.add(numstocksmodify);
-    modifyDialog.add(tickrlabel);
-    modifyDialog.add(tickrmodify);
-    modifyDialog.add(commissionLabel);
-    modifyDialog.add(commissionfessmodify);
-    modifyDialog.add(purchase);
-    modifyDialog.add(sell);
-    modifyDialog.add(modifyDialogStatus);
-    return modifyDialog;
   }
 
   private JPanel getValuePanelDialog() {
@@ -879,11 +820,7 @@ public class GUIViewImpl extends JFrame implements GUIView {
    * when modify portfolio button is clicked.
    */
   public void displayModifyPf() {
-    JDialog dialog;
-    JOptionPane optionPane = new JOptionPane(getModifyPanelDialog(), JOptionPane.PLAIN_MESSAGE,
-            JOptionPane.DEFAULT_OPTION, null, new Object[]{}, null);
-    dialog = optionPane.createDialog("Modify Portfolio");
-    dialog.setVisible(true);
+    modifyPanelObj.displayModifyPf();
   }
 
   /**
@@ -1043,22 +980,25 @@ public class GUIViewImpl extends JFrame implements GUIView {
             createPanelObj.getPfnamecreate().getText()));
     modifyPanelObj.returngetModifyButton().addActionListener(evt ->
             features.displayDialogPane("modify"));
-    purchase.addActionListener(evt -> {
+    modifyPanelObj.getPurchasemodify().addActionListener(evt -> {
       try {
-        features.modifyValidate(this.pfnamemodify.getText(),
-                this.tickrmodify.getText().toUpperCase(), this.numstocksmodify.getText(),
-                this.dateofmodify.getText(), this.commissionfessmodify.getText(),
+        features.modifyValidate(modifyPanelObj.getPfnamemodify().getText(),
+                modifyPanelObj.getTickrmodify().getText().toUpperCase(),
+               modifyPanelObj.getNumstocksmodify().getText(),
+                modifyPanelObj.getDateofmodify().getText(),
+                modifyPanelObj.getCommissionfessmodify().getText(),
                 "purchase");
       } catch (FileNotFoundException | ParseException e) {
         throw new RuntimeException(e);
       }
     });
-    sell.addActionListener(evt -> {
+    modifyPanelObj.getSellmodify().addActionListener(evt -> {
       try {
-        features.modifyValidate(this.pfnamemodify.getText(),
-                this.tickrmodify.getText().toUpperCase(),
-                this.numstocksmodify.getText(), this.dateofmodify.getText(),
-                this.commissionfessmodify.getText(), "sell");
+        features.modifyValidate(modifyPanelObj.getPfnamemodify().getText(),
+                modifyPanelObj.getTickrmodify().getText().toUpperCase(),
+                modifyPanelObj.getNumstocksmodify().getText(),
+                modifyPanelObj.getDateofmodify().getText(),
+                modifyPanelObj.getCommissionfessmodify().getText(), "sell");
       } catch (FileNotFoundException | ParseException e) {
         throw new RuntimeException(e);
       }
