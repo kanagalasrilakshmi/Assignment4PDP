@@ -69,7 +69,7 @@ public class PortfolioNewStratergy extends FlexiblePortfolioImpl implements Port
     ArrayList<Float> convertedList = new ArrayList<>();
     Float sum = (float) 0;
     for (String weight : items) {
-      if ((!checkValidInteger(weight) && !checkValidFloat(weight)) || Float.valueOf(weight) < 0 ) {
+      if ((!checkValidInteger(weight) && !checkValidFloat(weight)) || Float.valueOf(weight) < 0) {
         return new ArrayList<>();
       }
       sum += Float.parseFloat(weight);
@@ -89,8 +89,8 @@ public class PortfolioNewStratergy extends FlexiblePortfolioImpl implements Port
    */
   public ArrayList<Float> getWeightListEqualProp(int tickrListSize) {
     ArrayList<Float> weightList = new ArrayList<>();
-    for(int i=0; i<tickrListSize; i++) {
-      weightList.add(Float.valueOf(100/tickrListSize));
+    for (int i = 0; i < tickrListSize; i++) {
+      weightList.add(Float.valueOf(100 / tickrListSize));
     }
     return weightList;
   }

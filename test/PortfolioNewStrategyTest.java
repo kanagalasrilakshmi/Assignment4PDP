@@ -60,7 +60,7 @@ public class PortfolioNewStrategyTest {
             portfolioObj.validateTickrEntries("GOOG,  TSLA,  MSFT")));
     assertEquals("[]",
             String.valueOf(portfolioObj.validateTickrEntries(",,,GOOG,*@,234,TSLA," +
-            "MSFT")));
+                    "MSFT")));
   }
 
   @Test
@@ -127,8 +127,10 @@ public class PortfolioNewStrategyTest {
     // Check if contents match
     assertEquals(pf.toString(), fileObj.readPortfolio(path).toString());
     // Check cost basis
-    assertEquals("24157.72", String.valueOf(portfolioObj.getCostBasis(path, "2022-11-11")));
-    assertEquals("24157.72", String.valueOf(portfolioObj.getCostBasis(path, "2022-12-11")));
+    assertEquals("24157.72", String.valueOf(portfolioObj.getCostBasis(path,
+            "2022-11-11")));
+    assertEquals("24157.72", String.valueOf(portfolioObj.getCostBasis(path,
+            "2022-12-11")));
   }
 
   @Test
@@ -156,9 +158,11 @@ public class PortfolioNewStrategyTest {
     assertEquals(pf.toString(), fileObj.readPortfolio(path).toString());
     // Check cost basis
     assertEquals("1751.71", String.valueOf(portfolioObj.portfolioValueDate(
-            System.getProperty("user.home") + "/Desktop/PortfolioBucket/" , "pf","2022-11-11")));
+            System.getProperty("user.home") + "/Desktop/PortfolioBucket/",
+            "pf", "2022-11-11")));
     assertEquals("0.0", String.valueOf(portfolioObj.portfolioValueDate(
-            System.getProperty("user.home") + "/Desktop/PortfolioBucket/" , "pf","2022-12-12")));
+            System.getProperty("user.home") + "/Desktop/PortfolioBucket/",
+            "pf", "2022-12-12")));
   }
 
   @Test
@@ -196,26 +200,27 @@ public class PortfolioNewStrategyTest {
             "strategy_1", new JSONObject(), "pf");
     fileObj.savePortfolio(path, pfStrat);
     JSONObject updated = strategyPortfolioObj.startToFinishDollarCostPresent(tickrs, weights,
-            2, 4, "2022-01-01", "2022-02-02", 1000, new JSONObject());
+            2, 4, "2022-01-01", "2022-02-02", 1000,
+            new JSONObject());
     fileObj.savePortfolio(pfPath, updated);
     // Check if strategy record persists.
     assertEquals(pfStrat.toString(), fileObj.readPortfolio(path).toString());
     String root = System.getProperty("user.home") + "/Desktop/PortfolioBucket/";
     // Check value out of range (future date)
     assertEquals("1482.66", String.valueOf(portfolioObj.portfolioValueDate(
-            root , "pf", "2022-11-11")));
+            root, "pf", "2022-11-11")));
     assertEquals("0.0", String.valueOf(portfolioObj.portfolioValueDate(
-            root , "pf", "2024-11-11")));
+            root, "pf", "2024-11-11")));
     // Check value within range
     // Jan 1,2022 is a saturday so first transaction is done on Jan 3,2022
     assertEquals("0.0", String.valueOf(portfolioObj.portfolioValueDate(
-            root , "pf","2022-01-01")));
+            root, "pf", "2022-01-01")));
     assertEquals("907.94995", String.valueOf(portfolioObj.portfolioValueDate(
-            root , "pf", "2022-01-18")));
+            root, "pf", "2022-01-18")));
     assertEquals("1185.48", String.valueOf(portfolioObj.portfolioValueDate(
-            root, "pf","2022-01-24")));
+            root, "pf", "2022-01-24")));
     assertEquals("1880.76", String.valueOf(portfolioObj.portfolioValueDate(
-            root , "pf", "2022-02-02")));
+            root, "pf", "2022-02-02")));
   }
 
   @Test
@@ -236,20 +241,28 @@ public class PortfolioNewStrategyTest {
             "strategy_1", new JSONObject(), "pf");
     fileObj.savePortfolio(path, pfStrat);
     JSONObject updated = strategyPortfolioObj.startToFinishDollarCostPresent(tickrs, weights,
-            2, 4, "2022-01-01", "2022-02-02", 1000, new JSONObject());
+            2, 4, "2022-01-01", "2022-02-02", 1000,
+            new JSONObject());
     fileObj.savePortfolio(pfPath, updated);
     // Check if strategy record persists.
     assertEquals(pfStrat.toString(), fileObj.readPortfolio(path).toString());
     // Check cost basis out of range (future date)
-    assertEquals("6016.0", String.valueOf(portfolioObj.getCostBasis(pfPath, "2022-11-11")));
-    assertEquals("6016.0", String.valueOf(portfolioObj.getCostBasis(pfPath, "2024-11-11")));
+    assertEquals("6016.0", String.valueOf(portfolioObj.getCostBasis(pfPath,
+            "2022-11-11")));
+    assertEquals("6016.0", String.valueOf(portfolioObj.getCostBasis(pfPath,
+            "2024-11-11")));
     // Check cost basis within range
     // Jan 1,2022 is a saturday so first transaction is done on Jan 3,2022
-    assertEquals("0.0", String.valueOf(portfolioObj.getCostBasis(pfPath, "2022-01-02")));
-    assertEquals("3010.0", String.valueOf(portfolioObj.getCostBasis(pfPath, "2022-01-18")));
-    assertEquals("4012.0", String.valueOf(portfolioObj.getCostBasis(pfPath, "2022-01-24")));
-    assertEquals("6016.0", String.valueOf(portfolioObj.getCostBasis(pfPath, "2022-02-02")));
-    assertEquals("6016.0", String.valueOf(portfolioObj.getCostBasis(pfPath, "2022-02-30")));
+    assertEquals("0.0", String.valueOf(portfolioObj.getCostBasis(pfPath,
+            "2022-01-02")));
+    assertEquals("3010.0", String.valueOf(portfolioObj.getCostBasis(pfPath,
+            "2022-01-18")));
+    assertEquals("4012.0", String.valueOf(portfolioObj.getCostBasis(pfPath,
+            "2022-01-24")));
+    assertEquals("6016.0", String.valueOf(portfolioObj.getCostBasis(pfPath,
+            "2022-02-02")));
+    assertEquals("6016.0", String.valueOf(portfolioObj.getCostBasis(pfPath,
+            "2022-02-30")));
   }
 
   @Test

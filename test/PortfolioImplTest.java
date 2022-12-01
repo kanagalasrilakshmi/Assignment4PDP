@@ -265,7 +265,7 @@ public class PortfolioImplTest {
 
     Portfolio newModel = new PortfolioImpl();
     newModel.portfolioValueDate(rootDir, "newpf", "2017-02-10");
-    assertEquals(81367.0, newModel.portfolioValueDate(rootDir, "newpf", "2017-02-10"),
-            0.01);
+    assertEquals(81367.0, newModel.portfolioValueDate(rootDir, "newpf",
+            "2017-02-10"), 0.01);
   }
 }
