@@ -3,7 +3,8 @@ package model;
 import org.json.simple.JSONObject;
 
 /**
-The interface for file operations that takes care of all the save and retrieve operations throughout the program.
+The interface for file operations that takes care of all the save and retrieve operations
+ throughout the program.
  */
 public interface FileOperation {
     /**

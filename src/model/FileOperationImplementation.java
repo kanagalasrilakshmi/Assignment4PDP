@@ -9,7 +9,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 /**
- The implementation for file operations that takes care of all the save and retrieve operations throughout the program.
+ The implementation for file operations that takes care of all the save and retrieve operations
+ throughout the program.
  */
 public class FileOperationImplementation implements FileOperation {
 
