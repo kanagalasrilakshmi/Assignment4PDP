@@ -1,4 +1,5 @@
 package view.panels.quit;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 
@@ -7,6 +8,7 @@ import java.awt.event.ActionEvent;
  */
 public class QuitPanelImpl implements QuitPanel {
   private JPanel quitPanel;
+
   public void getQuitPanel() {
     quitPanel = new JPanel();
     quitPanel.setBorder(BorderFactory.createTitledBorder("Quit the stocks program"));
@@ -14,7 +16,8 @@ public class QuitPanelImpl implements QuitPanel {
     quitButton.addActionListener((ActionEvent e) -> System.exit(0));
     quitPanel.add(quitButton);
   }
-  public JPanel quitPanelfinal(){
+
+  public JPanel quitPanelfinal() {
     return this.quitPanel;
   }
 }

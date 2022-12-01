@@ -6,7 +6,7 @@ import javax.swing.*;
  * Create panel for implementing functionalities for applying dollar averaging strategy,
  * start-to-finish.
  */
-public class DollarstrategynewImpl implements Dollarstrategynew{
+public class DollarstrategynewImpl implements Dollarstrategynew {
   private JPanel dollarPanelNew;
   private JLabel dollarNewStatus;
   private JButton dollarCostNew;
@@ -27,7 +27,7 @@ public class DollarstrategynewImpl implements Dollarstrategynew{
    *
    * @return Jbutton object for accessing dollar cost averaging start-to-finish
    */
-  public JButton getDollarnewcreate(){
+  public JButton getDollarnewcreate() {
     return this.dollarnewcreate;
   }
 
@@ -36,80 +36,89 @@ public class DollarstrategynewImpl implements Dollarstrategynew{
    *
    * @return label shown after applying strategy
    */
-  public JLabel getDollarnewpanestatus(){
+  public JLabel getDollarnewpanestatus() {
     return this.dollarnewpanestatus;
   }
+
   /**
    * Jtextfield that takes in portfolio name.
    *
    * @return Jtextfield that takes in pf name
    */
-  public JTextField getDollarnewcreatepfname(){
+  public JTextField getDollarnewcreatepfname() {
     return this.dollarnewcreatepfname;
   }
+
   /**
    * Jtextfield that takes in weights in stocks.
    *
    * @return Jtextfield that takes in stocks
    */
-  public JTextField getStocksnew(){
+  public JTextField getStocksnew() {
     return this.stocksnew;
   }
+
   /**
    * Jtextfield that takes in weights in percentages.
    *
    * @return Jtextfield that takes in weights
    */
-  public JTextField getWeightsnew(){
+  public JTextField getWeightsnew() {
     return this.weightsnew;
   }
+
   /**
    * Jtext field that takes money needs to be put in portfolio.
    *
    * @return Jtextfield of money that needs to be invested
    */
-  public JTextField getDollarnewval(){
+  public JTextField getDollarnewval() {
     return this.dollarnewval;
   }
+
   /**
    * Jtext field that takes in number of days after number of days after which transaction,
    * needs to recur.
    *
    * @return Jtextfield of money that needs to be invested
    */
-  public JTextField getDollarnewdays(){
+  public JTextField getDollarnewdays() {
     return this.dollarnewdays;
   }
+
   /**
    * Jtext field that takes in start date when strategy needs to be applied.
    *
    * @return Jtextfield of date when strategy needs to be applied
    */
-  public JTextField getDollarnewenddate(){
+  public JTextField getDollarnewenddate() {
     return this.dollarnewenddate;
   }
+
   /**
    * Jtext field that takes in end date when strategy needs to be applied.
    *
    * @return Jtextfield of date when strategy needs to be applied
    */
-  public JTextField getDollarnewstartdate(){
+  public JTextField getDollarnewstartdate() {
     return this.dollarnewstartdate;
   }
+
   /**
    * Jtext field that takes in commission fees.
    *
    * @return Jtextfield of commission fees
    */
-  public JTextField getdollarnewcommission(){
+  public JTextField getdollarnewcommission() {
     return this.dollarnewcommission;
   }
+
   /**
    * Jtextfield that takes in strategy to be applied to the given portfolio.
    *
    * @return Jtextfield that takes in name of the strategy to be applied
    */
-  public JTextField getStratergydollarnewname(){
+  public JTextField getStratergydollarnewname() {
     return this.stratergydollarnewname;
   }
 
@@ -129,17 +138,19 @@ public class DollarstrategynewImpl implements Dollarstrategynew{
 
   /**
    * Return dollar cost averaging panel for start-to-finish panel.
+   *
    * @return Jpanel type object for dollar cost averaging panel start-to-finish
    */
-  public JPanel getdollarCostNew(){
+  public JPanel getdollarCostNew() {
     return this.dollarPanelNew;
   }
 
   /**
    * Status after clicking the dollar cost averaging start-to-finish panel.
+   *
    * @return Jlabel object for getting status after accessing dollar cost start-to-finish panel
    */
-  public JLabel getDollarNewStatus(){
+  public JLabel getDollarNewStatus() {
     return this.dollarNewStatus;
   }
 
@@ -148,7 +159,7 @@ public class DollarstrategynewImpl implements Dollarstrategynew{
    *
    * @return Jbutton object for accessing dollar cost averaging start-to-finish panel
    */
-  public JButton returndollarCostNew(){
+  public JButton returndollarCostNew() {
     return this.dollarCostNew;
   }
 
@@ -210,6 +221,7 @@ public class DollarstrategynewImpl implements Dollarstrategynew{
     dollarnewPfDialog.add(dollarnewpanestatus);
     return dollarnewPfDialog;
   }
+
   /**
    * Display the pane that lets users apply start-to-finish dollar averaging strategy.
    */

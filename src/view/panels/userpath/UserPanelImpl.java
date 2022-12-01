@@ -25,25 +25,28 @@ public class UserPanelImpl implements UserPanel {
 
   /**
    * Return the user panel.
+   *
    * @return user panel of type Jpanel
    */
-  public JPanel returnUserPanel(){
+  public JPanel returnUserPanel() {
     return this.userPanel;
   }
 
   /**
    * input button for clicking the user panel.
+   *
    * @return Jbutton type that takes in input
    */
-  public JButton returninputButton(){
+  public JButton returninputButton() {
     return this.inputButton;
   }
 
   /**
    * path for storing the portfolios.
+   *
    * @return Jlabel that return the path where portfolios are to be stored
    */
-  public JLabel returnPathStore(){
+  public JLabel returnPathStore() {
     return this.pathStore;
   }
 }

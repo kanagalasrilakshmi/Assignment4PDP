@@ -13,6 +13,7 @@ public interface QuitPanel {
 
   /**
    * Return the quit panel.
+   *
    * @return JPanel type quit panel object.
    */
   JPanel quitPanelfinal();

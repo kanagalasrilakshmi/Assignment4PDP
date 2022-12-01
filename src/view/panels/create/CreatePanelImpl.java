@@ -64,6 +64,7 @@ public class CreatePanelImpl implements CreatePanel {
 
   /**
    * Status after saving or adding entries in portfolio.
+   *
    * @return status of the create dialog
    */
   public JLabel getCreateDialogStatus(){

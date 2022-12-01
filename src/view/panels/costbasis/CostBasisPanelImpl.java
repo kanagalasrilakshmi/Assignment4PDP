@@ -6,7 +6,7 @@ import java.awt.*;
 /**
  * Create cost basis panel for implementing functionalities for cost basis panel.
  */
-public class CostBasisPanelImpl implements CostBasisPanel{
+public class CostBasisPanelImpl implements CostBasisPanel {
   private JPanel costBasisPanel;
   private JButton costBasisButton;
   private JLabel costBasisStatus;
@@ -19,33 +19,37 @@ public class CostBasisPanelImpl implements CostBasisPanel{
 
   /**
    * Return JTextfield portfolio name.
+   *
    * @return Jtext field type pf name
    */
-  public JTextField getPfNameCostBasis(){
+  public JTextField getPfNameCostBasis() {
     return this.pfName;
   }
 
   /**
    * Return date Jtext field.
+   *
    * @return JText field date field
    */
-  public JTextField getDateCostBasis(){
+  public JTextField getDateCostBasis() {
     return this.date;
   }
 
   /**
    * List of all the portfolios in the given path.
-   * @return  JTextArea type portfolios
+   *
+   * @return JTextArea type portfolios
    */
-  public JTextArea getPortfoliosListBasis(){
+  public JTextArea getPortfoliosListBasis() {
     return this.portfoliosListBasis;
   }
 
   /**
    * gives cost basis when clicked.
+   *
    * @return Jbutton to compute cost basis
    */
-  public JButton getCostBasisButton(){
+  public JButton getCostBasisButton() {
     return this.getCostBasis;
   }
 
@@ -54,14 +58,14 @@ public class CostBasisPanelImpl implements CostBasisPanel{
    *
    * @return label that records the cost basis value
    */
-  public JLabel getCostBasisDialogStatus(){
+  public JLabel getCostBasisDialogStatus() {
     return this.costBasisDialogStatus;
   }
 
   /**
    * creating cost basis panel.
    */
-  public void costBasisPanel(){
+  public void costBasisPanel() {
     costBasisPanel = new JPanel();
     costBasisPanel.setBorder(BorderFactory.createTitledBorder("Get Cost Basis of portfolio till a" +
             " specific date "));
@@ -73,27 +77,31 @@ public class CostBasisPanelImpl implements CostBasisPanel{
 
   /**
    * Return cost basis panel.
+   *
    * @return Jpanel type object for cost basis panel
    */
-  public JPanel getcostBasisPanel(){
+  public JPanel getcostBasisPanel() {
     return this.costBasisPanel;
   }
 
   /**
    * Return button for opening cost basis dialog panel.
+   *
    * @return Jbutton object for accessing cost basis panel
    */
-  public JButton returncostBasisButton(){
+  public JButton returncostBasisButton() {
     return this.costBasisButton;
   }
 
   /**
    * Status after clicking the cost basis panel.
+   *
    * @return Jlabel type object for getting the status after accessing cost basis panel
    */
-  public JLabel returncostBasisStatus(){
+  public JLabel returncostBasisStatus() {
     return this.costBasisStatus;
   }
+
   /**
    * When get cost basis button is clicked in the main panel,
    * this opens the dialog pane that would let user,
