@@ -325,10 +325,10 @@ public class PortfolioImpl implements Portfolio {
   }
 
   /**
-   * Check if there are any spaces or null or empty or length > 25 for the given portfolio name.
+   * Check if there are spaces, null or empty or length more than 25 for the given portfolio name.
    *
    * @param pfName portfolio name of type string
-   * @return true if there are any spaces or null or empty or length > 25 else false
+   * @return true if there are any spaces or null or empty or length more than 25 else false
    */
   public boolean checkValidpfName(String pfName) {
     if (pfName == null || pfName.length() > 25 || pfName.isEmpty() || pfName.contains(" ")) {
@@ -343,7 +343,7 @@ public class PortfolioImpl implements Portfolio {
   }
 
   /**
-   * Check if the last ending character is : /.
+   * Check if the last ending character is :'/'.
    *
    * @param rootDirUser is the path given by user in string format
    * @return true if it ends with / else false
