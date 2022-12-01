@@ -12,7 +12,7 @@
 # 9. Validates format of the input number of stocks.
 # 10. Checks if input date is in the past, future, present, present (but before 9:30 am), or invalid date formats and handles it.
 # 11. Every stage is prompted with messages for allowed valid operations.
-# 12. Lists all the portfolios created by the user and allows the user to choose from them for getting portfolio value of porfolio composition.
+# 12. Lists all the portfolios created by the user and allows the user to choose from them for getting portfolio value of portfolio composition.
 
 # WHAT !WORKS
 # 1. Testing for stock value before 9:30 am could not be done since local time changes at every run.
