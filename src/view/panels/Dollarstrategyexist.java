@@ -31,4 +31,19 @@ public interface Dollarstrategyexist {
    * @return Jbutton object for accessing dollar cost averaging on existing portfolio panel
    */
   JButton returndollarCostExisting();
+
+  /**
+   * Display the pane that lets users apply dollar strategy on existing flexible portfolios.
+   */
+  void displayDollarExistingpf();
+  JLabel getDollarexistpanestatus();
+  JButton getDollarexistcreate();
+  JTextField getDollarexistcommision();
+  JTextField getDollarexistdate();
+  JTextField getDollarexistval();
+  JTextField getWeightsexist();
+  JTextField getStocksexist();
+  JTextField getDollarexistpfname();
+  JTextField getStratergydollarexistname();
+  JTextArea getPortfolioslistdollarexist();
 }
