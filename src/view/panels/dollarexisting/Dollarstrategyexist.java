@@ -36,14 +36,74 @@ public interface Dollarstrategyexist {
    * Display the pane that lets users apply dollar strategy on existing flexible portfolios.
    */
   void displayDollarExistingpf();
+
+  /**
+   * Status after applying dollar averaging on existing pf.
+   *
+   * @return Label shown after applying strategy
+   */
   JLabel getDollarexistpanestatus();
+
+  /**
+   * button for applying dollar averaging strategy on existing pf.
+   *
+   * @return Jbutton object for applying dollar averaging strategy
+   */
   JButton getDollarexistcreate();
+
+  /**
+   * Jtext field that takes in commission fees.
+   *
+   * @return Jtextfield of commission fees
+   */
   JTextField getDollarexistcommision();
+
+  /**
+   * Jtext field that takes in date when strategy needs to be applied.
+   *
+   * @return Jtextfield of date when strategy needs to be applied
+   */
   JTextField getDollarexistdate();
+
+  /**
+   * Jtext field that takes money needs to be put in portfolio.
+   *
+   * @return Jtextfield of money that needs to be invested
+   */
   JTextField getDollarexistval();
+
+  /**
+   * Jtextfield that takes in weights in percentages.
+   *
+   * @return Jtextfield that takes in weights
+   */
   JTextField getWeightsexist();
+
+  /**
+   * Jtextfield that takes in weights in stocks.
+   *
+   * @return Jtextfield that takes in stocks
+   */
   JTextField getStocksexist();
+
+  /**
+   * Jtextfield that takes in portfolio name.
+   *
+   * @return Jtextfield that takes in pf name
+   */
   JTextField getDollarexistpfname();
+
+  /**
+   * Jtextfield that takes in strategy to be applied to the given portfolio.
+   *
+   * @return Jtextfield that takes in name of the strategy to be applied
+   */
   JTextField getStratergydollarexistname();
+
+  /**
+   * List of all the portfolios stored in the given user path.
+   *
+   * @return JTextArea object that has list of portfolios stored in the given user path.
+   */
   JTextArea getPortfolioslistdollarexist();
 }

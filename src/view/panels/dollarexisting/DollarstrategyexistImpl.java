@@ -1,7 +1,4 @@
 package view.panels.dollarexisting;
-
-import view.panels.dollarexisting.Dollarstrategyexist;
-
 import javax.swing.*;
 import java.awt.*;
 
@@ -13,9 +10,6 @@ public class DollarstrategyexistImpl implements Dollarstrategyexist {
   private JPanel dollarPanelExisting;
   private JButton dollarCostExisting;
   private JLabel dollarExistingStatus;
-
-
-
   private final JTextArea portfolioslistdollarexist = new JTextArea();
   private JTextField stratergydollarexistname;
   private JTextField dollarexistpfname;
@@ -27,36 +21,96 @@ public class DollarstrategyexistImpl implements Dollarstrategyexist {
   private final JButton dollarexistcreate = new JButton("Create");
   private final JLabel dollarexistpanestatus = new JLabel();
 
-  public JLabel getDollarexistpanestatus(){
+  /**
+   * Status after applying dollar averaging on existing pf.
+   *
+   * @return Label shown after applying strategy
+   */
+  public JLabel getDollarexistpanestatus() {
     return dollarexistpanestatus;
   }
-  public JButton getDollarexistcreate(){
+
+  /**
+   * button for applying dollar averaging strategy on existing pf.
+   *
+   * @return Jbutton object for applying dollar averaging strategy
+   */
+  public JButton getDollarexistcreate() {
     return dollarexistcreate;
   }
-  public JTextField getDollarexistcommision(){
+
+  /**
+   * Jtext field that takes in commission fees.
+   *
+   * @return Jtextfield of commission fees
+   */
+  public JTextField getDollarexistcommision() {
     return dollarexistcommision;
   }
-  public JTextField getDollarexistdate(){
+
+  /**
+   * Jtext field that takes in date when strategy needs to be applied.
+   *
+   * @return Jtextfield of date when strategy needs to be applied
+   */
+  public JTextField getDollarexistdate() {
     return dollarexistdate;
   }
-  public JTextField getDollarexistval(){
+
+  /**
+   * Jtext field that takes money needs to be put in portfolio.
+   *
+   * @return Jtextfield of money that needs to be invested
+   */
+  public JTextField getDollarexistval() {
     return dollarexistval;
   }
-  public JTextField getWeightsexist(){
+
+  /**
+   * Jtextfield that takes in weights in percentages.
+   *
+   * @return Jtextfield that takes in weights
+   */
+  public JTextField getWeightsexist() {
     return weightsexist;
   }
-  public JTextField getStocksexist(){
+
+  /**
+   * Jtextfield that takes in weights in stocks.
+   *
+   * @return Jtextfield that takes in stocks
+   */
+  public JTextField getStocksexist() {
     return stocksexist;
   }
-  public JTextField getDollarexistpfname(){
+
+  /**
+   * Jtextfield that takes in portfolio name.
+   *
+   * @return Jtextfield that takes in pf name
+   */
+  public JTextField getDollarexistpfname() {
     return this.dollarexistpfname;
   }
-  public JTextField getStratergydollarexistname(){
+
+  /**
+   * Jtextfield that takes in strategy to be applied to the given portfolio.
+   *
+   * @return Jtextfield that takes in name of the strategy to be applied
+   */
+  public JTextField getStratergydollarexistname() {
     return this.stratergydollarexistname;
   }
-  public JTextArea getPortfolioslistdollarexist(){
+
+  /**
+   * List of all the portfolios stored in the given user path.
+   *
+   * @return JTextArea object that has list of portfolios stored in the given user path.
+   */
+  public JTextArea getPortfolioslistdollarexist() {
     return this.portfolioslistdollarexist;
   }
+
   /**
    * Creating panel for applying dollar cost averaging on existing portfolio.
    */
@@ -72,17 +126,19 @@ public class DollarstrategyexistImpl implements Dollarstrategyexist {
 
   /**
    * Return dollar cost averaging panel for existing portfolio panel.
+   *
    * @return Jpanel type object for dollar cost averaging panel for existing portfolio
    */
-  public JPanel getDollarCostExisting(){
+  public JPanel getDollarCostExisting() {
     return this.dollarPanelExisting;
   }
 
   /**
    * Status after clicking the dollar cost averaging on existing portfolio panel.
+   *
    * @return Jlabel object for getting status after accessing dollar cost averaging portfolio panel
    */
-  public JLabel getDollarExistingStatus(){
+  public JLabel getDollarExistingStatus() {
     return this.dollarExistingStatus;
   }
 
@@ -91,7 +147,7 @@ public class DollarstrategyexistImpl implements Dollarstrategyexist {
    *
    * @return Jbutton object for accessing dollar cost averaging on existing portfolio panel
    */
-  public JButton returndollarCostExisting(){
+  public JButton returndollarCostExisting() {
     return this.dollarCostExisting;
   }
 
