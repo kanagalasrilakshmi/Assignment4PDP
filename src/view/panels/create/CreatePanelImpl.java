@@ -80,6 +80,7 @@ public class CreatePanelImpl implements CreatePanel {
 
   /**
    * Button to add entries in portfolio.
+   *
    * @return add button
    */
   public JButton getAddCreate(){
