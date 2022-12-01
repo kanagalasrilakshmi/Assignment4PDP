@@ -1,4 +1,4 @@
-package view.panels;
+package view.panels.retrievepf;
 
 import javax.swing.*;
 

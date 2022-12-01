@@ -1,4 +1,4 @@
-package view.panels;
+package view.panels.retrievepf;
 
 import javax.swing.*;
 import java.awt.*;
@@ -6,7 +6,7 @@ import java.awt.*;
 /**
  * Create retrieve portfolio panel for implementing functionalities for retrieving a portfolio.
  */
-public class retrievePanelImpl implements retrievePanel{
+public class retrievePanelImpl implements view.panels.retrievepf.retrievePanel {
   private JPanel retrievePanel;
   private JLabel retrievePanelStatus;
   private JButton retrievePf = new JButton("Retrieve Portfolio");

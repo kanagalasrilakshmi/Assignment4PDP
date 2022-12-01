@@ -1,6 +1,4 @@
-package view.panels;
-
-import view.panels.CreatePanel;
+package view.panels.create;
 
 import javax.swing.*;
 import java.awt.*;

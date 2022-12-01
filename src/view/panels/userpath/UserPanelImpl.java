@@ -1,6 +1,4 @@
-package view.panels;
-
-import view.panels.UserPanel;
+package view.panels.userpath;
 
 import javax.swing.*;
 

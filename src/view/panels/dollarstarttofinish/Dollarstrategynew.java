@@ -1,4 +1,4 @@
-package view.panels;
+package view.panels.dollarstarttofinish;
 
 import javax.swing.*;
 
@@ -28,4 +28,20 @@ public interface Dollarstrategynew {
    * @return Jbutton object for accessing dollar cost averaging start-to-finish panel
    */
   JButton returndollarCostNew();
+  /**
+   * Display the pane that lets users apply start-to-finish dollar averaging strategy.
+   */
+  void displayDollarNewpf();
+  JTextField getDollarnewcreatepfname();
+  JTextField getStocksnew();
+  JTextField getWeightsnew();
+  JTextField getDollarnewval();
+  JTextField getDollarnewdays();
+  JTextField getDollarnewenddate();
+  JTextField getDollarnewstartdate();
+  JTextField getdollarnewcommission();
+  JTextField getStratergydollarnewname();
+  JButton getDollarnewcreate();
+  JLabel getDollarnewpanestatus();
+
 }

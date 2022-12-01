@@ -1,21 +1,36 @@
 package view;
 
-import java.awt.Dimension;
-import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JTextArea;
 import java.io.FileNotFoundException;
 import java.text.ParseException;
 import javax.swing.JDialog;
 import javax.swing.JTextField;
 import controller.ControllerGUI;
-import jdk.jfr.internal.tool.Main;
-import view.panels.*;
+import view.panels.costbasis.CostBasisPanel;
+import view.panels.costbasis.CostBasisPanelImpl;
+import view.panels.create.CreatePanel;
+import view.panels.create.CreatePanelImpl;
+import view.panels.dollarexisting.Dollarstrategyexist;
+import view.panels.dollarexisting.DollarstrategyexistImpl;
+import view.panels.dollarstarttofinish.Dollarstrategynew;
+import view.panels.dollarstarttofinish.DollarstrategynewImpl;
+import view.panels.mainpanel.MainPanel;
+import view.panels.mainpanel.MainPanelImpl;
+import view.panels.modify.ModifyPanel;
+import view.panels.modify.ModifyPanelImpl;
+import view.panels.quit.QuitPanel;
+import view.panels.quit.QuitPanelImpl;
+import view.panels.retrievepf.retrievePanel;
+import view.panels.retrievepf.retrievePanelImpl;
+import view.panels.userpath.UserPanel;
+import view.panels.userpath.UserPanelImpl;
+import view.panels.valuedate.ValuePanel;
+import view.panels.valuedate.ValuePanelImpl;
 
 /**
  * Class that implements interface methods of the gui view for creating flexible portfolio,
@@ -32,17 +47,6 @@ public class GUIViewImpl extends JFrame implements GUIView {
   retrievePanel retrievePanelObj = new retrievePanelImpl();
   Dollarstrategyexist dollarPanelExistingObj = new DollarstrategyexistImpl();
   Dollarstrategynew dollarPanelNewObj = new DollarstrategynewImpl();
-  private JTextField stratergydollarnewname;
-  private JTextField dollarnewcreatepfname;
-  private JTextField stocksnew;
-  private JTextField weightsnew;
-  private JTextField dollarnewval;
-  private JTextField dollarnewdays;
-  private JTextField dollarnewstartdate;
-  private JTextField dollarnewenddate;
-  private JTextField dollarnewcommission;
-  private final JButton dollarnewcreate = new JButton("Create");
-  private final JLabel dollarnewpanestatus = new JLabel();
 
   /**
    * Class for implementing GUIView interface.
@@ -101,7 +105,7 @@ public class GUIViewImpl extends JFrame implements GUIView {
    * @param message that needs to be set for the strategy field in start to finish dialog pane
    */
   public void setstrategynamenewexist(String message) {
-    this.stratergydollarnewname.setText(message);
+    dollarPanelNewObj.getStratergydollarnewname().setText(message);
   }
 
   /**
@@ -122,7 +126,7 @@ public class GUIViewImpl extends JFrame implements GUIView {
    * @param message is the value that needs to be set for the portfolio field
    */
   public void setpfnamedollarnew(String message) {
-    this.dollarnewcreatepfname.setText(message);
+    dollarPanelNewObj.getDollarnewcreatepfname().setText(message);
   }
 
   /**
@@ -133,7 +137,7 @@ public class GUIViewImpl extends JFrame implements GUIView {
    * @param message is the value that needs to be set for the value field
    */
   public void setdollarnewval(String message) {
-    this.dollarnewval.setText(message);
+    dollarPanelNewObj.getDollarnewval().setText(message);
   }
 
   /**
@@ -143,7 +147,7 @@ public class GUIViewImpl extends JFrame implements GUIView {
    * @param message is the value that needs to be set for the start date field
    */
   public void setstartdatenew(String message) {
-    this.dollarnewstartdate.setText(message);
+    dollarPanelNewObj.getDollarnewstartdate().setText(message);
   }
 
   /**
@@ -153,7 +157,7 @@ public class GUIViewImpl extends JFrame implements GUIView {
    * @param message is the value that needs to be set for the end date field
    */
   public void setenddatenew(String message) {
-    this.dollarnewenddate.setText(message);
+    dollarPanelNewObj.getDollarnewenddate().setText(message);
   }
 
   /**
@@ -163,7 +167,7 @@ public class GUIViewImpl extends JFrame implements GUIView {
    * @param message is the value that needs to be set for the days field
    */
   public void setdollardays(String message) {
-    this.dollarnewdays.setText(message);
+    dollarPanelNewObj.getDollarnewdays().setText(message);
   }
 
   /**
@@ -173,7 +177,7 @@ public class GUIViewImpl extends JFrame implements GUIView {
    * @param message is the value that needs to be set for the commission field
    */
   public void setdollarcommissionnew(String message) {
-    this.dollarnewcommission.setText(message);
+    dollarPanelNewObj.getdollarnewcommission().setText(message);
   }
 
   /**
@@ -184,7 +188,7 @@ public class GUIViewImpl extends JFrame implements GUIView {
    * @param message is the value that needs to be set for the weights input field
    */
   public void setweightsnew(String message) {
-    this.weightsnew.setText(message);
+    dollarPanelNewObj.getWeightsnew().setText(message);
   }
 
   /**
@@ -195,7 +199,7 @@ public class GUIViewImpl extends JFrame implements GUIView {
    * @param message is the value that needs to be set for the stocks input field
    */
   public void setstocksnew(String message) {
-    this.stocksnew.setText(message);
+    dollarPanelNewObj.getStocksnew().setText(message);
   }
 
   /**
@@ -240,7 +244,7 @@ public class GUIViewImpl extends JFrame implements GUIView {
    * @param message set the status of the panel based on the user inputs given
    */
   public void setdollarnewpanestatus(String message) {
-    this.dollarnewpanestatus.setText(message);
+    dollarPanelNewObj.getDollarnewpanestatus().setText(message);
   }
 
   /**
@@ -514,65 +518,6 @@ public class GUIViewImpl extends JFrame implements GUIView {
     retrievePanelObj.getPortfolioComposition().setText(message);
   }
 
-  private JPanel getDollarCostNewDialog() {
-    JPanel dollarnewPfDialog = new JPanel();
-    JLabel stratergyname = new JLabel("Enter the name of the strategy");
-    stratergydollarnewname = new JTextField(25);
-    JLabel createpf = new JLabel("Enter the name of the portfolio to be created");
-    dollarnewcreatepfname = new JTextField(25);
-
-    JLabel stocksweightsdesc = new JLabel("Enter the stocks tickr symbols, if multiple " +
-            "entries separate them by delimeter ','. DO NOT end with ',' after adding" +
-            " all the entries");
-    JLabel stocksone = new JLabel("For single entry - GOOG");
-    JLabel stockstwo = new JLabel("For multiple entries - ex-GOOG,UBER,....");
-    JLabel stocksthree = new JLabel("GOOG,UBER, (or) GOOG, is a wrong format");
-    stocksnew = new JTextField(100);
-    JLabel weightsone = new JLabel("Enter the corresponding weights for the given stocks " +
-            "seperated by delimeter ','.DO NOT end with ',' after adding all the entries. " +
-            "Ex- 10,90. Values entered are considered to be percentages.");
-    weightsnew = new JTextField(100);
-
-    JLabel money = new JLabel("Enter the money to be invested in the portfolio");
-    dollarnewval = new JTextField(25);
-    JLabel startdate = new JLabel("Enter the start date of investment");
-    dollarnewstartdate = new JTextField(25);
-    dollarnewenddate = new JTextField(25);
-    JLabel enddate = new JLabel("Enter the end date of investment (Optional Parameter, " +
-            "If not given then end date is assumed to be one year after date of the " +
-            "given start date)");
-    dollarnewdays = new JTextField(25);
-    JLabel days = new JLabel("Enter the number of days after which this investment " +
-            "should recur");
-    dollarnewcommission = new JTextField(25);
-    JLabel commission = new JLabel("Enter the commission fees (Optional parameter)");
-    dollarnewPfDialog.setLayout(new BoxLayout(dollarnewPfDialog, BoxLayout.Y_AXIS));
-    dollarnewPfDialog.add(stratergyname);
-    dollarnewPfDialog.add(stratergydollarnewname);
-    dollarnewPfDialog.add(createpf);
-    dollarnewPfDialog.add(dollarnewcreatepfname);
-    dollarnewPfDialog.add(stocksweightsdesc);
-    dollarnewPfDialog.add(stocksone);
-    dollarnewPfDialog.add(stockstwo);
-    dollarnewPfDialog.add(stocksthree);
-    dollarnewPfDialog.add(stocksnew);
-    dollarnewPfDialog.add(weightsone);
-    dollarnewPfDialog.add(weightsnew);
-    dollarnewPfDialog.add(money);
-    dollarnewPfDialog.add(dollarnewval);
-    dollarnewPfDialog.add(startdate);
-    dollarnewPfDialog.add(dollarnewstartdate);
-    dollarnewPfDialog.add(enddate);
-    dollarnewPfDialog.add(dollarnewenddate);
-    dollarnewPfDialog.add(days);
-    dollarnewPfDialog.add(dollarnewdays);
-    dollarnewPfDialog.add(commission);
-    dollarnewPfDialog.add(dollarnewcommission);
-    dollarnewPfDialog.add(dollarnewcreate);
-    dollarnewPfDialog.add(dollarnewpanestatus);
-    return dollarnewPfDialog;
-  }
-
   /**
    * Set the name of the portfolio name for which value needs to be calculated on a specific date.
    * If name given is not present in the existing portfolios then it sets to null.
@@ -690,11 +635,7 @@ public class GUIViewImpl extends JFrame implements GUIView {
    * Display the pane that lets users apply start-to-finish dollar averaging strategy.
    */
   public void displayDollarNewpf() {
-    JDialog dialog;
-    JOptionPane optionPane = new JOptionPane(getDollarCostNewDialog(), JOptionPane.PLAIN_MESSAGE,
-            JOptionPane.DEFAULT_OPTION, null, new Object[]{}, null);
-    dialog = optionPane.createDialog("Start-to-Finish dollar cost averaging");
-    dialog.setVisible(true);
+    dollarPanelNewObj.displayDollarNewpf();
   }
 
   /**
@@ -868,13 +809,18 @@ public class GUIViewImpl extends JFrame implements GUIView {
                     dollarPanelExistingObj.getDollarexistval().getText(),
             dollarPanelExistingObj.getDollarexistdate().getText(),
                     dollarPanelExistingObj.getDollarexistcommision().getText()));
-    dollarnewcreate.addActionListener(evt -> {
+    dollarPanelNewObj.getDollarnewcreate().addActionListener(evt -> {
       try {
         features.validateNewDollar(
-                stratergydollarnewname.getText(), dollarnewcreatepfname.getText(),
-                stocksnew.getText().toUpperCase(), weightsnew.getText(), dollarnewval.getText(),
-                dollarnewdays.getText(), dollarnewstartdate.getText(), dollarnewenddate.getText(),
-                dollarnewcommission.getText());
+                dollarPanelNewObj.getStratergydollarnewname().getText(),
+                dollarPanelNewObj.getDollarnewcreatepfname().getText(),
+                dollarPanelNewObj.getStocksnew().getText().toUpperCase(),
+                dollarPanelNewObj.getWeightsnew().getText(),
+                dollarPanelNewObj.getDollarnewval().getText(),
+                dollarPanelNewObj.getDollarnewdays().getText(),
+                dollarPanelNewObj.getDollarnewstartdate().getText(),
+                dollarPanelNewObj.getDollarnewenddate().getText(),
+                dollarPanelNewObj.getdollarnewcommission().getText());
       } catch (ParseException e) {
         throw new RuntimeException(e);
       }

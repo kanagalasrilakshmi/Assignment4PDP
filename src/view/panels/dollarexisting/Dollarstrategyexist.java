@@ -1,4 +1,4 @@
-package view.panels;
+package view.panels.dollarexisting;
 
 import javax.swing.*;
 

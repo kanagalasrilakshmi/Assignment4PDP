@@ -1,4 +1,6 @@
-package view.panels;
+package view.panels.dollarexisting;
+
+import view.panels.dollarexisting.Dollarstrategyexist;
 
 import javax.swing.*;
 import java.awt.*;
@@ -7,7 +9,7 @@ import java.awt.*;
  * Create panel for implementing functionalities for applying dollar averaging strategy,
  * on existing portfolio.
  */
-public class DollarstrategyexistImpl implements Dollarstrategyexist{
+public class DollarstrategyexistImpl implements Dollarstrategyexist {
   private JPanel dollarPanelExisting;
   private JButton dollarCostExisting;
   private JLabel dollarExistingStatus;
