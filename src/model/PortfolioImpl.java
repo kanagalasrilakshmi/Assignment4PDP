@@ -447,15 +447,6 @@ public class PortfolioImpl implements Portfolio {
     return 0;
   }
 
-  /**
-   * create a json portfolio.
-   *
-   * @param pfPath   portfolio path where json needs to be saved
-   * @param addEntry add json entry
-   */
-  public void savePortfolio(String pfPath, JSONObject addEntry) {
-    // do nothing.
-  }
 
   /**
    * check if the tickr symbol exists in a json array.
@@ -559,10 +550,6 @@ public class PortfolioImpl implements Portfolio {
 
   public JSONObject makeTransactionRecord(String date, float commission, float noofstocks,
                                           String tickr) {
-    return new JSONObject();
-  }
-
-  public JSONObject readPortfolio(String path) {
     return new JSONObject();
   }
 }

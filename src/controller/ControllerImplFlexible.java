@@ -1,6 +1,7 @@
 package controller;
 
 
+import model.FileOperation;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
@@ -18,6 +19,7 @@ import java.util.Scanner;
 
 import model.Portfolio;
 import view.View;
+import model.FileOperationImplementation;
 
 /**
  * Implements Controller interface for running the stocks program for.
@@ -32,6 +34,7 @@ public class ControllerImplFlexible extends ControllerImpl implements Controller
   private final Portfolio thePortfolio;
   private final Scanner in;
   private String rootDir;
+  private final FileOperation fileOperation;
 
   /**
    * Constructor for the ControllerImpl.
@@ -44,6 +47,7 @@ public class ControllerImplFlexible extends ControllerImpl implements Controller
     super(thePortfolio, theView, in);
     this.theView = theView;
     this.thePortfolio = thePortfolio;
+    this.fileOperation = new FileOperationImplementation();
     this.in = new Scanner(in);
     this.rootDir = System.getProperty("user.home") + "/Desktop/PortfolioBucket/";
   }
@@ -213,10 +217,10 @@ public class ControllerImplFlexible extends ControllerImpl implements Controller
       }
       numberOfStocks = numberOfStocks * (-1);
     }
-    JSONObject portfolio = thePortfolio.readPortfolio(path);
+    JSONObject portfolio = this.fileOperation.readPortfolio(path);
     portfolio = thePortfolio.modifyJson(fees, Float.valueOf(numberOfStocks),
             transactionDate, tickr, portfolio);
-    thePortfolio.savePortfolio(path, portfolio);
+    this.fileOperation.savePortfolio(path, portfolio);
     return "The portfolio is successfully modified";
   }
 
@@ -376,7 +380,7 @@ public class ControllerImplFlexible extends ControllerImpl implements Controller
                 viewDone = true;
                 break;
               case "P":
-                JSONObject portfolio = thePortfolio.readPortfolio(this.rootDir +
+                JSONObject portfolio = this.fileOperation.readPortfolio(this.rootDir +
                         pfNameChosen + ".json");
                 theView.viewFlexibleComposition(portfolio);
                 viewDone = true;
@@ -396,7 +400,7 @@ public class ControllerImplFlexible extends ControllerImpl implements Controller
             theView.showString("Press S to save the Portfolio.");
             switch (in.next()) {
               case "S":
-                thePortfolio.savePortfolio(this.rootDir + pfName + ".json",
+                this.fileOperation.savePortfolio(this.rootDir + pfName + ".json",
                         addTickr);
                 done = true;
                 theView.showString("Successfully created the portfolio " + pfName);

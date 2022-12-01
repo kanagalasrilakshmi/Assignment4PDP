@@ -182,14 +182,6 @@ public interface Portfolio {
   float getCostBasis(String pfPath, String date) throws ParseException;
 
   /**
-   * Save a portfolio.
-   *
-   * @param pfPath portfolio path where json needs to be saved
-   * @param data   portfolio json object
-   */
-  void savePortfolio(String pfPath, JSONObject data);
-
-  /**
    * check if the tickr symbol exists in a json array.
    *
    * @param tickrList of type JSONObject
@@ -287,14 +279,6 @@ public interface Portfolio {
    */
 
   boolean ifTickrInPf(String pfPath, String tickr);
-
-  /**
-   * Read the Portfolio for the given path for the portfolio.
-   *
-   * @param path portfolio absolute path
-   * @return a json object that consists of all the entries in the input portfolio path
-   */
-  JSONObject readPortfolio(String path);
 
   /**
    * Make a transaction of purchase or sell using the input values date,commision, no of stock,

@@ -1,3 +1,4 @@
+import model.*;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.junit.Before;
@@ -10,10 +11,6 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Objects;
 
-import model.Portfolio;
-import model.PortfolioNewStratergy;
-import model.PortfolioStratergy;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertFalse;
@@ -22,6 +19,7 @@ import static org.junit.Assert.assertFalse;
  * Test class for testing the Flexible portfolios.
  */
 public class PortfolioNewStrategyTest {
+  FileOperation fileObj = new FileOperationImplementation();
 
   @Before
   public void setUp() {
@@ -110,7 +108,7 @@ public class PortfolioNewStrategyTest {
     JSONArray listEntry = new JSONArray();
     listEntry.add(addEntry);
     addTickr.put("GOOG", listEntry);
-    portfolioObj.savePortfolio(path, addTickr);
+    fileObj.savePortfolio(path, addTickr);
     ArrayList<String> tickrs = new ArrayList<>();
     tickrs.add("GOOG");
     tickrs.add("MSFT");
@@ -119,8 +117,8 @@ public class PortfolioNewStrategyTest {
     weights.add(50F);
     JSONObject pf = strategyPortfolioObj.dollarCostExisting(tickrs, weights,
             2, 1000, "2022-11-11", addTickr);
-    portfolioObj.savePortfolio(path, pf);
-    assertEquals(pf.toString(), portfolioObj.readPortfolio(path).toString());
+    fileObj.savePortfolio(path, pf);
+    assertEquals(pf.toString(), fileObj.readPortfolio(path).toString());
   }
 
   @Test
@@ -136,8 +134,8 @@ public class PortfolioNewStrategyTest {
     weights.add(50F);
     JSONObject pf = strategyPortfolioObj.startToFinishDollarCost(tickrs, weights,
             2, 4, "2022-01-01", "2022-02-02", 1000);
-    portfolioObj.savePortfolio(path, pf);
-    assertEquals(pf.toString(), portfolioObj.readPortfolio(path).toString());
+    fileObj.savePortfolio(path, pf);
+    assertEquals(pf.toString(), fileObj.readPortfolio(path).toString());
   }
 
   @Test
@@ -155,8 +153,8 @@ public class PortfolioNewStrategyTest {
     JSONObject pf = strategyPortfolioObj.saveStrategyRecord(tickrs, weights,
             2, 4, "2022-01-01", "2022-02-02", 1000,
             "strategy_1", new JSONObject(), "Portfolio_1");
-    portfolioObj.savePortfolio(path, pf);
-    assertEquals(pf.toString(), portfolioObj.readPortfolio(path).toString());
+    fileObj.savePortfolio(path, pf);
+    assertEquals(pf.toString(), fileObj.readPortfolio(path).toString());
   }
 
   @Test
@@ -174,13 +172,13 @@ public class PortfolioNewStrategyTest {
     JSONObject pfOld = strategyPortfolioObj.saveStrategyRecord(tickrs, weights,
             2, 4, "2022-01-01", "2022-02-02", 1000,
             "strategy_1", new JSONObject(), "Portfolio_1");
-    portfolioObj.savePortfolio(path, pfOld);
-    JSONObject loadedStrategyLookUp = portfolioObj.readPortfolio(path);
+    fileObj.savePortfolio(path, pfOld);
+    JSONObject loadedStrategyLookUp = fileObj.readPortfolio(path);
     JSONObject pf = strategyPortfolioObj.saveStrategyRecord(tickrs, weights,
             2, 4, "2022-01-01", "2022-02-02", 1000,
             "strategy_2", loadedStrategyLookUp, "Portfolio_1");
-    portfolioObj.savePortfolio(path, pf);
-    assertEquals(pf.toString(), portfolioObj.readPortfolio(path).toString());
+    fileObj.savePortfolio(path, pf);
+    assertEquals(pf.toString(), fileObj.readPortfolio(path).toString());
   }
 
   @Test
@@ -198,13 +196,13 @@ public class PortfolioNewStrategyTest {
     JSONObject pfOld = strategyPortfolioObj.saveStrategyRecord(tickrs, weights,
             2, 4, "2022-01-01", "2022-02-02", 1000,
             "strategy_1", new JSONObject(), "Portfolio_1");
-    portfolioObj.savePortfolio(path, pfOld);
-    JSONObject loadedStrategyLookUp = portfolioObj.readPortfolio(path);
+    fileObj.savePortfolio(path, pfOld);
+    JSONObject loadedStrategyLookUp = fileObj.readPortfolio(path);
     JSONObject pf = strategyPortfolioObj.saveStrategyRecord(tickrs, weights,
             2, 4, "2022-01-01", "2022-02-02", 1000,
             "strategy_2", loadedStrategyLookUp, "Portfolio_2");
-    portfolioObj.savePortfolio(path, pf);
-    assertEquals(pf.toString(), portfolioObj.readPortfolio(path).toString());
+    fileObj.savePortfolio(path, pf);
+    assertEquals(pf.toString(), fileObj.readPortfolio(path).toString());
   }
 
   @Test
