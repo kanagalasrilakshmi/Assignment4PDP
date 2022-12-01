@@ -19,42 +19,47 @@ public class ValuePanelImpl implements ValuePanel {
   private JTextField datevalue;
 
   /**
+   * List of portfolios for which value needs to be computed.
    *
-   * @return
+   * @return Jtextarea object of portfolios list
    */
-  public JTextArea getPortfoliosListVal(){
+  public JTextArea getPortfoliosListVal() {
     return this.portfoliosListVal;
   }
 
   /**
+   * gives value of portfolio when clicked.
    *
-   * @return
+   * @return Jbutton to compute value
    */
-  public JButton getComputeval(){
+  public JButton getComputeval() {
     return this.computeval;
   }
 
   /**
+   * gives the value computed upon a button click.
    *
-   * @return
+   * @return label that records the value on a date
    */
-  public JLabel getValDialogStatus(){
+  public JLabel getValDialogStatus() {
     return this.valDialogStatus;
   }
 
   /**
+   * Return date Jtext field on which value needs to be calculated.
    *
-   * @return
+   * @return JText field date field
    */
-  public JTextField getDatevalue(){
+  public JTextField getDatevalue() {
     return this.datevalue;
   }
 
   /**
+   * Return JTextfield portfolio name.
    *
-   * @return JTextField portfolio name
+   * @return Jtext field type pf name
    */
-  public JTextField getPfnamevalue(){
+  public JTextField getPfnamevalue() {
     return this.pfnamevalue;
   }
 
@@ -72,25 +77,28 @@ public class ValuePanelImpl implements ValuePanel {
 
   /**
    * Return value date panel.
+   *
    * @return Jpanel type object for value panel
    */
-  public JPanel getValueDatePanel(){
+  public JPanel getValueDatePanel() {
     return this.valueDatePanel;
   }
 
   /**
    * Return button for opening value dialog panel.
+   *
    * @return Jbutton object for value panel
    */
-  public JButton returnValueButton(){
+  public JButton returnValueButton() {
     return this.getValueButton;
   }
 
   /**
    * Status after clicking the value panel
+   *
    * @return Jlabel type object for getting the status after accessing value panel
    */
-  public JLabel returnValueStatus(){
+  public JLabel returnValueStatus() {
     return this.valueStatus;
   }
 

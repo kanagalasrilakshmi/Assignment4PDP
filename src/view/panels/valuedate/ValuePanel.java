@@ -37,9 +37,39 @@ public interface ValuePanel {
    * lets users get the value of a flexible portfolio on a specific date.
    */
   void displayValuepf();
+
+  /**
+   * List of portfolios for which value needs to be computed.
+   *
+   * @return Jtextarea object of portfolios list
+   */
   JTextArea getPortfoliosListVal();
+
+  /**
+   * gives the value computed upon a button click.
+   *
+   * @return label that records the value on a date
+   */
   JButton getComputeval();
+
+  /**
+   * gives the value computed upon a button click.
+   *
+   * @return label that records the value on a date
+   */
   JLabel getValDialogStatus();
+
+  /**
+   * Return date Jtext field on which value needs to be calculated.
+   *
+   * @return JText field date field
+   */
   JTextField getDatevalue();
+
+  /**
+   * Return JTextfield portfolio name.
+   *
+   * @return Jtext field type pf name
+   */
   JTextField getPfnamevalue();
 }
