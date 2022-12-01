@@ -27,5 +27,15 @@ public interface retrievePanel {
    * @return Jlabel type object for getting the status after accessing retrieving panel
    */
   JLabel returnretrievePanelStatus();
+  void displayRetrievepf();
+  JTextArea getPortfoliosListRetrieve();
+
+  JTextArea getPortfolioComposition();
+
+  JTextField getPfnameretrieve();
+
+  JButton getComputecomposition();
+
+  JLabel getRetrieveDialogStatus();
 
 }

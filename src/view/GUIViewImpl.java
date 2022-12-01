@@ -32,12 +32,6 @@ public class GUIViewImpl extends JFrame implements GUIView {
   retrievePanel retrievePanelObj = new retrievePanelImpl();
   Dollarstrategyexist dollarPanelExistingObj = new DollarstrategyexistImpl();
   Dollarstrategynew dollarPanelNewObj = new DollarstrategynewImpl();
-
-  private final JTextArea portfoliosListRetrieve = new JTextArea();
-  private final JTextArea portfolioComposition = new JTextArea();
-  private JTextField pfnameretrieve;
-  private final JButton computecomposition = new JButton("Get Portfolio Composition");
-  private final JLabel retrieveDialogStatus = new JLabel();
   private JTextField stratergydollarnewname;
   private JTextField dollarnewcreatepfname;
   private JTextField stocksnew;
@@ -467,7 +461,7 @@ public class GUIViewImpl extends JFrame implements GUIView {
    * @param message is the list of existing portfolios in the given user path
    */
   public void setPortfoliosListRetrieve(String message) {
-    this.portfoliosListRetrieve.setText(message);
+    retrievePanelObj.getPortfoliosListRetrieve().setText(message);
   }
 
   /**
@@ -518,7 +512,7 @@ public class GUIViewImpl extends JFrame implements GUIView {
    * @param message is the value that needs to be set for the pf name field in retrieve dialog pane
    */
   public void setpfnameretrieve(String message) {
-    this.pfnameretrieve.setText(message);
+    retrievePanelObj.getPfnameretrieve().setText(message);
   }
 
   /**
@@ -527,32 +521,7 @@ public class GUIViewImpl extends JFrame implements GUIView {
    * @param message is the composition of a particular portfolio
    */
   public void setPortfoliosListComposition(String message) {
-    this.portfolioComposition.setText(message);
-  }
-
-  private JPanel getRetrievePanelDialog() {
-    JPanel retrievePfDialog = new JPanel();
-    JLabel listPortfolios = new JLabel("List of all the portfolios in the given path:");
-    JLabel listcomposition = new JLabel("Portfolio composition");
-    portfoliosListRetrieve.setEditable(false);
-    portfolioComposition.setEditable(false);
-    JLabel pfNameLabel = new JLabel("Enter Portfolio Name for which composition needs to be " +
-            "fetched. Enter only names from the given list of portfolios. If no portfolios exist " +
-            "then close this dialog pane by clicking 'X' on top left");
-    pfnameretrieve = new JTextField(25);
-    retrievePfDialog.setLayout(new BoxLayout(retrievePfDialog, BoxLayout.Y_AXIS));
-    retrievePfDialog.setPreferredSize(new Dimension(700, 700));
-    retrievePfDialog.setMaximumSize(new Dimension(1000, 1000));
-    retrievePfDialog.setMinimumSize(new Dimension(400, 400));
-    retrievePfDialog.add(listPortfolios);
-    retrievePfDialog.add(portfoliosListRetrieve);
-    retrievePfDialog.add(pfNameLabel);
-    retrievePfDialog.add(pfnameretrieve);
-    retrievePfDialog.add(computecomposition);
-    retrievePfDialog.add(retrieveDialogStatus);
-    retrievePfDialog.add(listcomposition);
-    retrievePfDialog.add(portfolioComposition);
-    return retrievePfDialog;
+    retrievePanelObj.getPortfolioComposition().setText(message);
   }
 
   private JPanel getDollarCostNewDialog() {
@@ -771,11 +740,7 @@ public class GUIViewImpl extends JFrame implements GUIView {
    * gives the portfolio composition on a given date for a portfolio.
    */
   public void displayRetrievepf() {
-    JDialog dialog;
-    JOptionPane optionPane = new JOptionPane(getRetrievePanelDialog(), JOptionPane.PLAIN_MESSAGE,
-            JOptionPane.DEFAULT_OPTION, null, new Object[]{}, null);
-    dialog = optionPane.createDialog("Composition of the Portfolio");
-    dialog.setVisible(true);
+    retrievePanelObj.displayRetrievepf();
   }
 
   /**
@@ -956,8 +921,8 @@ public class GUIViewImpl extends JFrame implements GUIView {
     });
     retrievePanelObj.returnretrievePf().addActionListener(evt ->
             features.displayDialogPane("composition"));
-    computecomposition.addActionListener(evt ->
-            features.getCompositionpf(this.pfnameretrieve.getText()));
+    retrievePanelObj.getComputecomposition().addActionListener(evt ->
+            features.getCompositionpf(retrievePanelObj.getPfnameretrieve().getText()));
     dollarPanelExistingObj.returndollarCostExisting().addActionListener(evt ->
             features.displayDialogPane("dollarexist"));
     dollarPanelNewObj.returndollarCostNew().addActionListener(evt ->
