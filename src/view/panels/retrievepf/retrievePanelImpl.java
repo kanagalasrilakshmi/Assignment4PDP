@@ -16,23 +16,48 @@ public class retrievePanelImpl implements view.panels.retrievepf.retrievePanel {
   private final JButton computecomposition = new JButton("Get Portfolio Composition");
   private final JLabel retrieveDialogStatus = new JLabel();
 
-  public JTextArea getPortfoliosListRetrieve(){
+  /**
+   * List of portfolios to be retrieved.
+   *
+   * @return Jtextarea object of portfolios list
+   */
+  public JTextArea getPortfoliosListRetrieve() {
     return this.portfoliosListRetrieve;
   }
 
-  public JTextArea getPortfolioComposition(){
+  /**
+   * List of all entries, stock price, date of purchase in the portfolio.
+   *
+   * @return JText area object consisting of portfolio composition
+   */
+  public JTextArea getPortfolioComposition() {
     return this.portfolioComposition;
   }
 
-  public JTextField getPfnameretrieve(){
+  /**
+   * return portfolio name field to get composition for.
+   *
+   * @return portfolio name text field
+   */
+  public JTextField getPfnameretrieve() {
     return this.pfnameretrieve;
   }
 
-  public JButton getComputecomposition(){
+  /**
+   * Helps to compute composition of the portfolio.
+   *
+   * @return Jbutton object that helps to compute composition
+   */
+  public JButton getComputecomposition() {
     return this.computecomposition;
   }
 
-  public JLabel getRetrieveDialogStatus(){
+  /**
+   * Status after retrieving the portfolio.
+   *
+   * @return status of the modify dialog
+   */
+  public JLabel getRetrieveDialogStatus() {
     return this.retrieveDialogStatus;
   }
 
@@ -51,25 +76,28 @@ public class retrievePanelImpl implements view.panels.retrievepf.retrievePanel {
 
   /**
    * Return retrieving a portfolio panel.
+   *
    * @return Jpanel type object for retrieving a portfolio
    */
-  public JPanel getRetrievePanel(){
+  public JPanel getRetrievePanel() {
     return this.retrievePanel;
   }
 
   /**
    * Return button for returning portfolio composition.
+   *
    * @return Jbutton object for accessing retrieving portfolio panel
    */
-  public JButton returnretrievePf(){
+  public JButton returnretrievePf() {
     return this.retrievePf;
   }
 
   /**
    * Status after clicking the retrieving portfolio panel.
+   *
    * @return Jlabel type object for getting the status after accessing retrieving panel
    */
-  public JLabel returnretrievePanelStatus(){
+  public JLabel returnretrievePanelStatus() {
     return this.retrievePanelStatus;
   }
 
