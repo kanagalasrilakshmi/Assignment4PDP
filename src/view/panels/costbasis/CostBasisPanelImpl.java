@@ -131,7 +131,8 @@ public class CostBasisPanelImpl implements CostBasisPanel {
     pfName = new JTextField(25);
     JLabel pfNameLabel = new JLabel("Enter Portfolio Name:");
     date = new JTextField(25);
-    JLabel dateLabel = new JLabel("Enter date to compute cost basis:");
+    JLabel dateLabel = new JLabel("Enter date to compute cost basis in YYYY-MM-DD format. " +
+            "Ex- 2021-01-01:");
     costBasisDialog.setLayout(new BoxLayout(costBasisDialog, BoxLayout.Y_AXIS));
     costBasisDialog.setPreferredSize(new Dimension(700, 700));
     costBasisDialog.setMaximumSize(new Dimension(900, 500));

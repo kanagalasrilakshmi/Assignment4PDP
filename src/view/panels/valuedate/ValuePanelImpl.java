@@ -128,8 +128,7 @@ public class ValuePanelImpl implements ValuePanel {
     portfoliosListVal.setEditable(false);
     pfnamevalue = new JTextField(25);
     JLabel pfNameLabel = new JLabel("Enter Portfolio Name for which value needs to be " +
-            "fetched. Enter only names from the given list of portfolios. If no portfolios exist " +
-            "then close this dialog pane by clicking 'X' on top left");
+            "fetched. Enter only names from the list of portfolios.");
     datevalue = new JTextField(25);
     JLabel dateLabel = new JLabel("Enter date to compute value of the portfolio in " +
             "YYYY-DD-MM format only. Ex-2021-02-02");

@@ -1064,7 +1064,8 @@ public class ControllerImplGUI implements ControllerGUI {
     } else {
       String message = portfolio.listJSONfiles(this.rootDir);
       if (message == null || message.length() == 0) {
-        message = "No portfolio exists in the given path. Create a new portfolio.";
+        message = "No portfolio exists in the given path. Create a new portfolio. " +
+                "Click on 'X' to close the dialog box";
       }
       switch (label) {
         case "create":
