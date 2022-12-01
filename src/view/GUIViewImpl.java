@@ -406,7 +406,7 @@ public class GUIViewImpl extends JFrame implements GUIView {
    * @param message status while retrieving the composition of portfolio
    */
   public void setretrieveDialogStatus(String message) {
-    retrieveDialogStatus.setText(message);
+    retrievePanelObj.getRetrieveDialogStatus().setText(message);
   }
 
   /**
