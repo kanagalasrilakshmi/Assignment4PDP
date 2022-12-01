@@ -36,19 +36,13 @@ public class GUIViewImpl extends JFrame implements GUIView {
   private JTextField pfName;
   private JTextField date;
 
-  // fields for create.
-  private JTextField pfnamecreate;
-  private JTextField dateofcreation;
-  private JTextField tickrcreate;
-  private JTextField numstockscreate;
-  private JTextField commissionfeescreate;
+
   private final JTextArea portfoliosListModify = new JTextArea();
   private final JTextArea portfoliosListVal = new JTextArea();
   private final JTextArea portfoliosListBasis = new JTextArea();
   private final JTextArea portfoliosListRetrieve = new JTextArea();
   private final JTextArea portfolioComposition = new JTextArea();
-  private final JButton add = new JButton("Add");
-  private final JButton save = new JButton("Save");
+
 
   // fields for modify.
   private JTextField pfnamemodify;
@@ -66,7 +60,6 @@ public class GUIViewImpl extends JFrame implements GUIView {
   private final JButton computeval = new JButton("Compute Value of Portfolio");
   private final JButton computecomposition = new JButton("Get Portfolio Composition");
 
-  private final JLabel createDialogStatus = new JLabel();
   private final JLabel modifyDialogStatus = new JLabel();
   private final JLabel valDialogStatus = new JLabel();
   private final JLabel costBasisDialogStatus = new JLabel();
@@ -294,40 +287,6 @@ public class GUIViewImpl extends JFrame implements GUIView {
     this.dollarnewpanestatus.setText(message);
   }
 
-  private JPanel getCreatePfDialog() {
-    JPanel createPanelDialog = new JPanel();
-    this.pfnamecreate = new JTextField(25);
-    JLabel pfNameLabel = new JLabel("Enter Portfolio Name to be created: ");
-    dateofcreation = new JTextField(25);
-    JLabel dateLabel = new JLabel("Enter the date of purchase in YYYY-MM-DD format. " +
-            "Ex: 2022-02-01 :");
-    JLabel numstocksLabel = new JLabel("Enter number of stocks to purchase. Negative " +
-            "and Fractional stock values are not allowed :");
-    numstockscreate = new JTextField(25);
-    JLabel tickrLabel = new JLabel("Enter Tickr symbol of a company you want to purchase." +
-            " Ex: for company google tickr symbol - GOOG :");
-    tickrcreate = new JTextField(25);
-    JLabel commissionLabel = new JLabel("Enter commission fees. Negative values are not " +
-            "allowed (It is an optional parameter):");
-    commissionfeescreate = new JTextField(25);
-    createPanelDialog.setPreferredSize(new Dimension(1400, 300));
-    createPanelDialog.setLayout(new BoxLayout(createPanelDialog, BoxLayout.Y_AXIS));
-    createPanelDialog.add(pfNameLabel);
-    createPanelDialog.add(pfnamecreate);
-    createPanelDialog.add(dateLabel);
-    createPanelDialog.add(dateofcreation);
-    createPanelDialog.add(numstocksLabel);
-    createPanelDialog.add(numstockscreate);
-    createPanelDialog.add(tickrLabel);
-    createPanelDialog.add(tickrcreate);
-    createPanelDialog.add(commissionLabel);
-    createPanelDialog.add(commissionfeescreate);
-    createPanelDialog.add(add);
-    createPanelDialog.add(save);
-    createPanelDialog.add(createDialogStatus);
-    return createPanelDialog;
-  }
-
   /**
    * Set the status of the portfolio path while creating new flexible portfolio.
    * If invalid path or existing path or dialog pane is given then this field is set to null.
@@ -335,7 +294,7 @@ public class GUIViewImpl extends JFrame implements GUIView {
    * @param message is value that needs to be set for the pfname field
    */
   public void setCreatePfValue(String message) {
-    this.pfnamecreate.setText(message);
+    createPanelObj.getPfnamecreate().setText(message);
   }
 
   /**
@@ -346,7 +305,7 @@ public class GUIViewImpl extends JFrame implements GUIView {
    * @param message is value that needs to be set for the date field
    */
   public void setdateofcreationValue(String message) {
-    this.dateofcreation.setText(message);
+    createPanelObj.getDateofcreation().setText(message);
   }
 
   /**
@@ -357,7 +316,7 @@ public class GUIViewImpl extends JFrame implements GUIView {
    * @param message is value that needs to be set for the num of stocks field
    */
   public void setnumstockscreateValue(String message) {
-    this.numstockscreate.setText(message);
+    createPanelObj.getNumstockscreate().setText(message);
   }
 
   /**
@@ -368,7 +327,7 @@ public class GUIViewImpl extends JFrame implements GUIView {
    * @param message is value that needs to be set for the tickr symbol field
    */
   public void settickrcreateValue(String message) {
-    this.tickrcreate.setText(message);
+    createPanelObj.getTickrcreate().setText(message);
   }
 
   /**
@@ -379,7 +338,7 @@ public class GUIViewImpl extends JFrame implements GUIView {
    * @param message is value that needs to be set for the commission field
    */
   public void setcommissionfeescreateValue(String message) {
-    this.commissionfeescreate.setText(message);
+    createPanelObj.getCommissionfeescreate().setText(message);
   }
 
   /**
@@ -446,7 +405,7 @@ public class GUIViewImpl extends JFrame implements GUIView {
    * @param message status of while creating portfolio
    */
   public void setcreateDialogStatus(String message) {
-    createDialogStatus.setText(message);
+    createPanelObj.getCreateDialogStatus().setText(message);
   }
   /**
    * Set the status of the modify dialog pane based on the given inputs.
@@ -911,11 +870,7 @@ public class GUIViewImpl extends JFrame implements GUIView {
    * when create portfolio button is clicked.
    */
   public void displayCreatePf() {
-    JDialog dialog;
-    JOptionPane optionPane = new JOptionPane(getCreatePfDialog(), JOptionPane.PLAIN_MESSAGE,
-            JOptionPane.DEFAULT_OPTION, null, new Object[]{}, null);
-    dialog = optionPane.createDialog("Create Portfolio");
-    dialog.setVisible(true);
+    createPanelObj.displayCreatePf();
   }
 
   /**
@@ -1073,16 +1028,19 @@ public class GUIViewImpl extends JFrame implements GUIView {
     userPanelObj.returninputButton().addActionListener(evt -> features.displaysetrootpane());
     createPanelObj.getCreatePfButton().addActionListener(evt ->
             features.displayDialogPane("create"));
-    add.addActionListener(evt -> {
+    createPanelObj.getAddCreate().addActionListener(evt -> {
       try {
-        features.addOperation(this.pfnamecreate.getText(), this.tickrcreate.getText().toUpperCase(),
-                this.numstockscreate.getText(), this.dateofcreation.getText(),
-                this.commissionfeescreate.getText());
+        features.addOperation(createPanelObj.getPfnamecreate().getText(),
+                createPanelObj.getTickrcreate().getText().toUpperCase(),
+                createPanelObj.getNumstockscreate().getText(),
+                createPanelObj.getDateofcreation().getText(),
+                createPanelObj.getCommissionfeescreate().getText());
       } catch (FileNotFoundException e) {
         throw new RuntimeException(e);
       }
     });
-    save.addActionListener(evt -> features.saveOperation(this.pfnamecreate.getText()));
+    createPanelObj.getSaveCreate().addActionListener(evt -> features.saveOperation(
+            createPanelObj.getPfnamecreate().getText()));
     modifyPanelObj.returngetModifyButton().addActionListener(evt ->
             features.displayDialogPane("modify"));
     purchase.addActionListener(evt -> {

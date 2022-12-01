@@ -28,4 +28,18 @@ public interface CreatePanel {
    * @return status of the create panel
    */
   JLabel getCreateStatus();
+
+  /**
+   * Displays the create portfolio dialog pane that lets users create a flexible portfolio,
+   * when create portfolio button is clicked.
+   */
+  void displayCreatePf();
+  JTextField getTickrcreate();
+  JTextField getDateofcreation();
+  JTextField getPfnamecreate();
+  JTextField getNumstockscreate();
+  JTextField getCommissionfeescreate();
+  JLabel getCreateDialogStatus();
+  JButton getSaveCreate();
+  JButton getAddCreate();
 }
