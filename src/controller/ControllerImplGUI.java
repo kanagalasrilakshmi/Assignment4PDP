@@ -142,9 +142,12 @@ public class ControllerImplGUI implements ControllerGUI {
                     guiView.setstartdatenew(null);
                     break;
                 case "dollarnewenddate":
-                    guiView.setdollarnewpanestatus(invalidDateMsg);
-                    guiView.setenddatenew(null);
-                    break;
+                  if(date == null ||date.equals("")){
+                    return true;
+                  }
+                  guiView.setdollarnewpanestatus(invalidDateMsg);
+                  guiView.setenddatenew(null);
+                  break;
                 default:
                     // do nothing.
             }
@@ -816,7 +819,10 @@ public class ControllerImplGUI implements ControllerGUI {
                                       String dollarnewenddate, String label)
             throws ParseException {
         if (label.equals("dollarnew")) {
-            if (!portfolio.checkValidDates(dollarnewstartdate, dollarnewenddate)) {
+          if(dollarnewenddate == null ||dollarnewenddate.equals("")){
+            return true;
+          }
+            else if (!portfolio.checkValidDates(dollarnewstartdate, dollarnewenddate)) {
                 guiView.setdollarnewpanestatus("Value given for start date is ahead of the given end " +
                         "date, Please enter valid dates");
                 guiView.setstartdatenew(null);
@@ -931,6 +937,10 @@ public class ControllerImplGUI implements ControllerGUI {
                       guiView.setdollarnewpanestatus("Commission fees cannot be greater than " +
                               "money to be invested in the portfolio.");
                     }
+                    else if(Integer.valueOf(dollarnewdays) <=0){
+                      guiView.setdollarnewpanestatus("Frequency cannot be less than or equal to " +
+                              "zero.");
+                    }
                     else{
                       if (!portfolio.checkFutureDate(dollarnewstartdate) &&
                               !portfolio.checkTodayDateAndTime(dollarnewstartdate)) {
@@ -941,9 +951,12 @@ public class ControllerImplGUI implements ControllerGUI {
                         saveExistingpf(dollarnewcreatepfname, stocksnew, weightsnew, commission, dollarnewval,
                                 dollarnewstartdate, enddate, dollarnewdays, "dollarnew");
                       } else {
-                        // save an empty portfolio.
-                        this.fileOperation.savePortfolio(this.rootDir + dollarnewcreatepfname
-                                + ".json", new JSONObject());
+                        if(!new File(this.rootDir + dollarnewcreatepfname
+                                + ".json").exists()){
+                          // save an empty portfolio.
+                          this.fileOperation.savePortfolio(this.rootDir + dollarnewcreatepfname
+                                  + ".json", new JSONObject());
+                        }
                       }
                       saveStrategyrecord(stratergydollarnewname, dollarnewcreatepfname, stocksnew, weightsnew, commission,
                               dollarnewval, dollarnewstartdate, dollarnewenddate, Integer.parseInt(dollarnewdays));
