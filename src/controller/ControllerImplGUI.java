@@ -358,8 +358,7 @@ public class ControllerImplGUI implements ControllerGUI {
       if (checkLabel) {
         guiView.setmodifyDialogStatus("The portfolio " + pfNameModify + " is successfully " +
                 "modified. Make a new purchase/sell on the given portfolio name or give new " +
-                "portfolio name in portfolio name field. Click 'X' on top left if done " +
-                "modifying portfolio.");
+                "portfolio name in portfolio name field.");
         guiView.setdateofmodifynValue(null);
         guiView.settickrmodifyValue(null);
         guiView.setnumstocksmodifyValue(null);
